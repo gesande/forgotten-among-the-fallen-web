@@ -1,4 +1,28 @@
-.idea
-saves
-__py_cache__
-.venv
+# Python
+**/__pycache__
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Flask / runtime
+saves/
+*.json
+instance/
+.env
+.flaskenv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo

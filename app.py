@@ -107,6 +107,11 @@ def get_scene():
     if output.get("combat"):
         enemy_key    = output["combat"]["enemy_key"]
         combat_state = start_combat(enemy_key, state)
+        # Store the scene-defined flag name so we can set it on victory
+        from content.scenes import SCENES as _SCENES
+        _scene   = _SCENES.get(key, {})
+        _cb_beat = next((b for b in _scene.get("beats", []) if b.get("type") == "combat"), {})
+        combat_state["victory_flag"] = _cb_beat.get("flag", f"defeated_{enemy_key}")
         _save_combat(combat_state)
         _save_state(state)
         output["combat"]["actions"]         = get_player_actions(combat_state, state)
@@ -129,19 +134,18 @@ def choose():
     # Handle name input specially
     if data.get("name"):
         state.name = data["name"].strip() or "the drengr"
-        # Skip name prompt, advance to next scene
         from content.scenes import SCENES
         scene = SCENES.get(scene_key, {})
         choices = scene.get("choices", [])
         if choices:
-            next_key = apply_choice(scene_key, "0", state)
+            next_key, _ = apply_choice(scene_key, "0", state)
         else:
             next_key = scene.get("next", "battlefield_open")
         state.current_scene = next_key
         _save_state(state)
         return jsonify({"next_scene": next_key, "ok": True})
 
-    next_key = apply_choice(scene_key, choice_id, state)
+    next_key, narration = apply_choice(scene_key, choice_id, state)
 
     # Handle special destinations
     if next_key == "__save_quit__":
@@ -153,7 +157,7 @@ def choose():
     state.visited.append(scene_key)
     state.save(0)
     _save_state(state)
-    return jsonify({"next_scene": next_key, "ok": True})
+    return jsonify({"next_scene": next_key, "ok": True, "narration": narration})
 
 # ── Combat action ─────────────────────────────────────────────
 @app.route("/api/combat/action", methods=["POST"])
@@ -188,8 +192,10 @@ def combat_action():
         response["actions"] = get_player_actions(combat, state)
         _save_combat(combat)
     else:
+        # Set the scene-defined victory flag on the player state
+        if combat.get("won") and combat.get("victory_flag"):
+            state.set_flag(combat["victory_flag"], True)
         _save_combat(None)
-        # Advance past the combat scene
         state.current_scene = _advance_after_combat(
             state.current_scene, combat
         )
@@ -249,14 +255,12 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
     """After combat ends, move to the right next scene."""
     if combat.get("died"):
         return scene_key  # respawn in same scene
-    # Map combat scenes to their post-combat destinations
-    post_combat = {
-        "combat_draugar_east": "scavenge_east_after",
-        "combat_gunnar":       "zone_1_end",
-    }
     if combat.get("fled"):
         return "battlefield_open"
-    return post_combat.get(scene_key, "battlefield_open")
+    # Victory: return to the same scene — the combat beat has already been
+    # processed and the flag set, so render_scene will skip it and show
+    # the post-combat prose + choices instead.
+    return scene_key
 
 # ═══════════════════════════════════════════════════════════
 #  ENTRY

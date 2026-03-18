@@ -135,7 +135,7 @@ def apply_choice(scene_key: str, choice_id: str, state: PlayerState) -> str:
     if choice.get("heal"):
         state.heal(choice["heal"])
 
-    return choice.get("next", "end")
+    return choice.get("next", "end"), choice.get("narration")
 
 # ── Beat processor ────────────────────────────────────────────
 
@@ -172,7 +172,11 @@ def _process_beat(beat: dict, state: PlayerState, output: dict) -> None:
                 break
 
     elif kind == "combat":
-        output["combat"] = {"enemy_key": beat["enemy"]}
+        enemy_key = beat["enemy"]
+        flag      = beat.get("flag", f"defeated_{enemy_key}")
+        # Only trigger if not already defeated
+        if not state.has_flag(flag):
+            output["combat"] = {"enemy_key": enemy_key}
 
     elif kind == "stat":
         for stat, delta in beat.get("changes", {}).items():

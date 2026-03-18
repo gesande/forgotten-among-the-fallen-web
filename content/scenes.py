@@ -113,7 +113,13 @@ SCENE_FIND_WEAPON = {
             )
         },
     ],
-    "next": "battlefield_open",
+    "choices": [
+        {
+            "label":   "Grip it tight. Step forward.",
+            "next":    "battlefield_open",
+            "effects": {"brutality": 2},
+        },
+    ],
 }
 
 # ─────────────────────────────────────────────────────────────

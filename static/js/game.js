@@ -338,6 +338,20 @@ async function makeChoice(choiceId) {
   try {
     const data = await api("/api/choose", { choice_id: choiceId });
     if (data.game_over) { show("credits"); unhide("credits-screen"); return; }
+    // Show narration (choice consequence prose) before loading next scene
+    if (data.narration) {
+      const proseEl = $("prose-body");
+      proseEl.innerHTML = "";
+      const div = document.createElement("div");
+      div.className = "prose-block";
+      div.textContent = data.narration;
+      proseEl.appendChild(div);
+      $("choices-wrap").innerHTML = "";
+      $("notification").classList.add("hidden");
+      showLoading(false);
+      // Small pause then load next scene
+      await sleep(1800);
+    }
     loadScene();
   } catch(e) {
     console.error("Choice error:", e);
