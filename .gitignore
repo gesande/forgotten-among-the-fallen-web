@@ -1,2 +1,4 @@
 .idea
 saves
+__py_cache__
+.venv
