@@ -49,38 +49,46 @@ html, body {
 
 .rune-row {
   font-family: 'Cinzel', serif;
-  font-size: clamp(11px, 1.4vw, 14px);
-  letter-spacing: 0.3em;
-  color: var(--rune);
-  opacity: 0.6;
-  margin-bottom: 1.5rem;
+  font-size: clamp(13px, 1.6vw, 17px);
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  opacity: 0.75;
+  margin-bottom: 1.8rem;
+  text-shadow: 0 0 20px rgba(180,140,50,0.4);
 }
 
 .game-title {
   font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(28px, 5vw, 52px);
+  font-size: clamp(36px, 6.5vw, 72px);
   font-weight: 700;
   color: var(--parchment);
   letter-spacing: 0.06em;
   line-height: 1.15;
-  margin-bottom: 0.75rem;
-  text-shadow: 0 0 60px rgba(180,140,50,0.12);
+  margin-bottom: 1rem;
+  text-shadow:
+    0 2px 4px rgba(0,0,0,0.9),
+    0 4px 24px rgba(0,0,0,0.8),
+    0 0 60px rgba(180,140,50,0.25),
+    0 0 120px rgba(180,140,50,0.1);
 }
 
 .game-subtitle {
   font-family: 'Cinzel', serif;
-  font-size: clamp(11px, 1.2vw, 13px);
-  letter-spacing: 0.3em;
+  font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--fog);
+  color: var(--bone);
   margin-bottom: 2rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6);
+  opacity: 0.9;
 }
 
 .title-divider {
-  width: 280px;
+  width: 320px;
   height: 0.5px;
-  background: var(--iron);
+  background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
   margin: 0 auto;
+  opacity: 0.6;
 }
 
 .title-menu {
@@ -93,39 +101,44 @@ html, body {
 
 .menu-btn {
   font-family: 'Cinzel', serif;
-  font-size: 12px;
-  letter-spacing: 0.2em;
+  font-size: 13px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  padding: 12px 36px;
-  border: 0.5px solid rgba(180,140,50,0.35);
-  background: transparent;
-  color: var(--gold);
+  padding: 14px 40px;
+  border: 0.5px solid rgba(180,140,50,0.5);
+  background: rgba(0,0,0,0.45);
+  color: var(--gold-bright);
   cursor: pointer;
   border-radius: 2px;
   transition: all 0.2s;
-  min-width: 240px;
+  min-width: 260px;
+  text-shadow: 0 0 12px rgba(180,140,50,0.4);
+  backdrop-filter: blur(4px);
 }
 .menu-btn:hover {
-  background: rgba(180,140,50,0.08);
-  border-color: var(--gold);
-  color: var(--gold-bright);
+  background: rgba(180,140,50,0.12);
+  border-color: var(--gold-bright);
+  color: #F0C060;
+  text-shadow: 0 0 20px rgba(200,160,60,0.7);
 }
 .menu-btn.secondary {
-  border-color: var(--iron);
-  color: var(--fog);
+  border-color: rgba(100,95,88,0.5);
+  color: var(--bone);
   font-size: 11px;
+  background: rgba(0,0,0,0.35);
+  text-shadow: none;
 }
 .menu-btn.secondary:hover {
   border-color: var(--fog);
-  color: var(--bone);
-  background: transparent;
+  color: var(--parchment);
+  background: rgba(0,0,0,0.5);
 }
 
 .title-footer {
   font-family: 'Cinzel', serif;
   font-size: 10px;
   letter-spacing: 0.15em;
-  color: var(--iron);
+  color: rgba(100,95,88,0.5);
   text-transform: uppercase;
 }
 
@@ -719,28 +732,32 @@ html, body {
 
 .enter-runes {
   font-family: 'Cinzel', serif;
-  font-size: clamp(14px, 2vw, 18px);
-  letter-spacing: 0.4em;
-  color: var(--rune);
+  font-size: clamp(16px, 2.2vw, 22px);
+  letter-spacing: 0.45em;
+  color: var(--gold);
   margin-bottom: 1.5rem;
-  opacity: 0.6;
+  opacity: 0.7;
+  text-shadow: 0 0 20px rgba(180,140,50,0.5);
 }
 
 .enter-text {
   font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(18px, 3vw, 28px);
-  letter-spacing: 0.12em;
+  font-size: clamp(24px, 4vw, 48px);
+  letter-spacing: 0.18em;
   color: var(--parchment);
   margin-bottom: 0.6rem;
+  text-shadow:
+    0 2px 8px rgba(0,0,0,0.95),
+    0 0 40px rgba(180,140,50,0.3);
 }
 
 .enter-sub {
   font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  font-size: 12px;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--fog);
-  opacity: 0.6;
+  color: var(--bone);
+  opacity: 0.5;
 }
 
 /* ═══ RESPONSIVE ════════════════════════════════════════════ */
