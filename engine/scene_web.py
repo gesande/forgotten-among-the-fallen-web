@@ -93,7 +93,16 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
             })
             filtered_idx += 1
         if not raw_choices and scene.get("next"):
-            output["next"] = scene["next"]
+            # Only auto-advance (no Continue button) if scene has no prose to show
+            has_prose = any(
+                b.get("type") in ("prose", "italic", "memory", "conditional_prose")
+                for b in scene.get("beats", [])
+            )
+            if has_prose:
+                # Has prose — show Continue button that calls /api/advance
+                output["choices"] = [{"id": "__next__", "label": "Continue"}]
+            else:
+                output["next"] = scene["next"]
 
     # Refresh HUD after beat effects
     output["hud"] = _build_hud(state)

@@ -318,8 +318,10 @@ function renderChoices(choices, autoNext) {
 async function advanceScene(nextKey) {
   showLoading(true);
   try {
-    // Tell the server to advance to the next scene
-    const data = await api("/api/advance", { next_scene: nextKey });
+    const payload = nextKey
+      ? { next_scene: nextKey }
+      : { next_scene: "__scene_next__", scene_key: currentScene ? currentScene.scene_key : "" };
+    const data = await api("/api/advance", payload);
     if (data.game_over) { unhide("credits-screen"); return; }
     loadScene();
   } catch(e) {
@@ -336,9 +338,13 @@ async function makeChoice(choiceId) {
   showLoading(true);
   disableChoices(true);
   try {
+    // __next__ is a synthetic Continue for prose-only auto-next scenes
+    if (choiceId === "__next__") {
+      await advanceScene(null);
+      return;
+    }
     const data = await api("/api/choose", { choice_id: choiceId });
     if (data.game_over) { show("credits"); unhide("credits-screen"); return; }
-    // Show narration (choice consequence prose) before loading next scene
     if (data.narration) {
       const proseEl = $("prose-body");
       proseEl.innerHTML = "";
@@ -349,7 +355,6 @@ async function makeChoice(choiceId) {
       $("choices-wrap").innerHTML = "";
       $("notification").classList.add("hidden");
       showLoading(false);
-      // Small pause then load next scene
       await sleep(1800);
     }
     loadScene();

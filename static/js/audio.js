@@ -41,41 +41,48 @@ const SoundEngine = (() => {
   const SFX_BASE      = "/static/audio/music/";  // sfx in same folder for now
 
   // ── Crossfade ─────────────────────────────────────────────
+  let _fadeTimer = null;   // track active fade so we can cancel it
+
   function _crossfade(incoming, outgoing) {
+    // Cancel any in-progress fade
+    if (_fadeTimer) { clearInterval(_fadeTimer); _fadeTimer = null; }
     const interval = FADE_DURATION / FADE_STEPS;
     let step = 0;
-    const tick = setInterval(() => {
+    _fadeTimer = setInterval(() => {
       step++;
       const r = step / FADE_STEPS;
       if (outgoing && !outgoing.paused) outgoing.volume = Math.max(0, musicVolume * (1 - r));
       if (incoming) incoming.volume = Math.min(musicVolume, musicVolume * r);
       if (step >= FADE_STEPS) {
-        clearInterval(tick);
+        clearInterval(_fadeTimer);
+        _fadeTimer = null;
         if (outgoing) { outgoing.pause(); outgoing.currentTime = 0; }
       }
     }, interval);
   }
 
   // ── Core switch — SYNCHRONOUS, no await ───────────────────
-  // play() must stay in the direct call stack of a user gesture.
-  // We try .mp3 first (most common), .ogg as src fallback on the element.
   function _switchTo(trackName) {
     if (trackName === currentTrackId) return;
 
+    // Immediately stop any previous track to prevent overlap
+    if (currentTrack) {
+      if (_fadeTimer) { clearInterval(_fadeTimer); _fadeTimer = null; }
+      currentTrack.pause();
+      currentTrack.currentTime = 0;
+    }
+
     const track    = new window.Audio();
     track.loop     = true;
-    track.volume   = 0;
-    // Try mp3, browser falls back to ogg if mp3 fails
+    track.volume   = muted ? 0 : musicVolume;
     track.src      = MUSIC_BASE + trackName + ".mp3";
     track.onerror  = () => { track.src = MUSIC_BASE + trackName + ".ogg"; };
 
-    const prev     = currentTrack;
     currentTrack   = track;
     currentTrackId = trackName;
 
-    // play() called synchronously inside gesture → browser allows it
     track.play()
-      .then(() => _crossfade(track, prev))
+      .then(() => {})
       .catch(err => {
         console.warn("Audio blocked:", err.message);
       });
@@ -92,6 +99,7 @@ const SoundEngine = (() => {
 
   function stopMusic(fade = true) {
     if (!currentTrack) return;
+    if (_fadeTimer) { clearInterval(_fadeTimer); _fadeTimer = null; }
     if (fade) {
       _crossfade(null, currentTrack);
     } else {

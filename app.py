@@ -77,8 +77,8 @@ def get_scene():
         _save_state(state)
         key = "awakening"
 
-    # Auto-advance through chain scenes (scenes with only 'next', no choices)
-    # Limit to 10 hops to prevent infinite loops
+    # Auto-advance through chain scenes that have NO prose to show
+    # (pure side-effect scenes: only flag/stat/item beats, no prose/italic/memory)
     from content.scenes import SCENES
     hops = 0
     while hops < 10:
@@ -87,11 +87,13 @@ def get_scene():
         scene = SCENES[key]
         has_choices = bool(scene.get("choices"))
         has_next    = bool(scene.get("next"))
-        has_combat  = any(b.get("type") == "combat" for b in scene.get("beats", []))
-        has_input   = any(b.get("type") == "input"  for b in scene.get("beats", []))
-        # Only auto-advance if purely a passthrough (next only, no choices, no combat, no input)
-        if has_next and not has_choices and not has_combat and not has_input:
-            # Render the scene beats for side effects, then advance
+        beats       = scene.get("beats", [])
+        has_combat  = any(b.get("type") == "combat" for b in beats)
+        has_input   = any(b.get("type") == "input"  for b in beats)
+        has_prose   = any(b.get("type") in ("prose", "italic", "memory", "conditional_prose")
+                         for b in beats)
+        # Only auto-advance if: has next, no choices, no combat, no input, NO prose
+        if has_next and not has_choices and not has_combat and not has_input and not has_prose:
             output = render_scene(key, state)
             _save_state(state)
             key = scene["next"]
@@ -225,6 +227,12 @@ def advance():
     data     = request.get_json()
     next_key = data.get("next_scene", "")
     state    = _get_state()
+
+    # __scene_next__ means: look up the current scene's next key
+    if next_key == "__scene_next__":
+        from content.scenes import SCENES as _S
+        scene_key = data.get("scene_key") or state.current_scene
+        next_key  = _S.get(scene_key, {}).get("next", "battlefield_open")
 
     if next_key in ("__save_quit__", "end", "__end__"):
         state.save(0)
