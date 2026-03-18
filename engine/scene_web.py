@@ -82,14 +82,16 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
     # ── Build choices ─────────────────────────────────────────
     if not output["combat"]:
         raw_choices = scene.get("choices", [])
+        filtered_idx = 0
         for i, c in enumerate(raw_choices):
             cond = c.get("condition")
             if cond and not cond(state):
                 continue
             output["choices"].append({
-                "id":    str(i),
+                "id":    str(filtered_idx),
                 "label": c["label"],
             })
+            filtered_idx += 1
         if not raw_choices and scene.get("next"):
             output["next"] = scene["next"]
 

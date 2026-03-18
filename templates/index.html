@@ -23,7 +23,17 @@
     <button class="menu-btn" id="btn-load" style="display:none">Continue — the Dead Remember</button>
     <button class="menu-btn secondary" id="btn-quit">Leave this Place</button>
   </div>
+
   <div class="title-footer">No external dependencies · Pure Python + Flask</div>
+</div>
+
+<!-- ═══ CLICK-TO-ENTER OVERLAY ════════════════════════════ -->
+<div id="enter-overlay">
+  <div id="enter-content">
+    <div class="enter-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ</div>
+    <div class="enter-text">Enter</div>
+    
+  </div>
 </div>
 
 <!-- ═══ GAME SCREEN ═══════════════════════════════════════ -->
@@ -46,6 +56,20 @@
         <div class="hud-shards" id="hud-shards">0 <span>shards</span></div>
         <div id="hud-curse"></div>
         <div class="hud-memories" id="hud-memories"></div>
+        <!-- Audio panel toggle -->
+        <button id="mute-btn" class="audio-icon-btn" title="Audio settings">♪</button>
+        <div id="audio-panel" class="hidden">
+          <div class="audio-slider-row">
+            <span class="audio-label">Music</span>
+            <input type="range" id="music-vol" min="0" max="100" value="45" class="vol-slider">
+            <span class="audio-val" id="music-val">45</span>
+          </div>
+          <div class="audio-slider-row">
+            <span class="audio-label">SFX</span>
+            <input type="range" id="sfx-vol" min="0" max="100" value="70" class="vol-slider">
+            <span class="audio-val" id="sfx-val">70</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -126,6 +150,7 @@
   </div>
 </div>
 
+<script src="/static/js/audio.js"></script>
 <script src="/static/js/game.js"></script>
 </body>
 </html>

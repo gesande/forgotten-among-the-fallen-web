@@ -9,25 +9,43 @@ const ART_FALLBACK = "battlefield";
 // ── DOM refs ──────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 
-const screens = {
-  title:   $("title-screen"),
-  game:    $("game-screen"),
-  credits: $("credits-screen"),
-};
+// ── DOM refs — resolved after DOMContentLoaded ───────────────
+let screens = {};
 
 // ── State ─────────────────────────────────────────────────────
 let currentScene = null;
 let inCombat     = false;
+
+// ── Central fetch helper — always sends session cookie ────────
+async function api(path, body = null) {
+  const opts = {
+    credentials: "include",
+    headers: {},
+  };
+  if (body !== null) {
+    opts.method  = "POST";
+    opts.headers["Content-Type"] = "application/json";
+    opts.body    = JSON.stringify(body);
+  } else {
+    opts.method = "GET";
+  }
+  const res = await fetch(path, opts);
+  return res.json();
+}
 
 // ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
 
 async function init() {
+  // Resolve all DOM refs now that the document is ready
+  screens.title   = $("title-screen");
+  screens.game    = $("game-screen");
+  screens.credits = $("credits-screen");
+
   // Check for existing save
   try {
-    const res  = await fetch("/api/status");
-    const data = await res.json();
+    const data = await api("/api/status");
     if (data.has_save) {
       $("btn-load").style.display = "block";
     }
@@ -39,20 +57,102 @@ async function init() {
   $("btn-rise").addEventListener("click", riseAgain);
   $("btn-credits-back").addEventListener("click", () => {
     show("title"); hide("credits-screen");
+    SoundEngine.playTitle();
   });
   $("name-submit").addEventListener("click", submitName);
   $("name-input").addEventListener("keydown", e => {
     if (e.key === "Enter") submitName();
   });
+
+  // ── Audio controls ─────────────────────────────────────────
+
+  // Helper: sync in-game audio UI to current engine state
+  function syncAudioUI(musicPct, sfxPct, muted) {
+    const muteEl = $("mute-btn");
+    if (muteEl) {
+      muteEl.textContent = muted ? "♪ muted" : "♪ sound on";
+      muteEl.classList.toggle("muted", muted);
+    }
+    const mv = $("music-vol"); if (mv) mv.value = musicPct;
+    const mv2 = $("music-val"); if (mv2) mv2.textContent = musicPct;
+    const sv = $("sfx-vol");   if (sv) sv.value = sfxPct;
+    const sv2 = $("sfx-val");  if (sv2) sv2.textContent = sfxPct;
+  }
+
+  let musicPct = 45, sfxPct = 70, isMuted = false;
+
+  // Mute button — in-game only
+  const muteBtn = $("mute-btn");
+  if (muteBtn) {
+    muteBtn.addEventListener("click", () => {
+      isMuted = SoundEngine.toggleMute();
+      syncAudioUI(musicPct, sfxPct, isMuted);
+    });
+  }
+
+  // In-game audio panel toggle
+  const audioPanel = $("audio-panel");
+  if (muteBtn && audioPanel) {
+    muteBtn.addEventListener("click", () => {
+      audioPanel.classList.toggle("hidden");
+    });
+  }
+
+  // Music volume slider — in-game only
+  const musicVolEl = $("music-vol");
+  if (musicVolEl) {
+    musicVolEl.addEventListener("input", () => {
+      musicPct = parseInt(musicVolEl.value);
+      SoundEngine.setMusicVolume(musicPct / 100);
+      syncAudioUI(musicPct, sfxPct, isMuted);
+    });
+  }
+
+  // SFX volume slider — in-game only
+  const sfxVolEl = $("sfx-vol");
+  if (sfxVolEl) {
+    sfxVolEl.addEventListener("input", () => {
+      sfxPct = parseInt(sfxVolEl.value);
+      SoundEngine.setSfxVolume(sfxPct / 100);
+      syncAudioUI(musicPct, sfxPct, isMuted);
+    });
+  }
+
+  // Initial UI state
+  syncAudioUI(musicPct, sfxPct, false);
 }
+
+// ── Enter overlay — at module level for clean gesture call stack ──────
+// Browsers require play() to be in the direct call stack of a user event.
+// Keeping this outside init() / DOMContentLoaded avoids async chain breaks.
+(function() {
+  function attachOverlay() {
+    const overlay = document.getElementById("enter-overlay");
+    if (!overlay) return;
+    function dismiss() {
+      if (overlay.classList.contains("fade-out")) return;
+      overlay.classList.add("fade-out");
+      SoundEngine.playTitle();           // direct gesture → play()
+      setTimeout(() => overlay.remove(), 900);
+    }
+    overlay.addEventListener("click",       dismiss);
+    document.addEventListener("keydown",    dismiss, { once: true });
+    document.addEventListener("touchstart", dismiss, { once: true });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", attachOverlay);
+  } else {
+    attachOverlay();
+  }
+})();
 
 // ═══════════════════════════════════════════════════════════
 //  NAVIGATION
 // ═══════════════════════════════════════════════════════════
 
 function show(screenId) {
-  Object.values(screens).forEach(s => s.classList.add("hidden"));
-  screens[screenId].classList.remove("hidden");
+  Object.values(screens).forEach(s => s && s.classList.add("hidden"));
+  if (screens[screenId]) screens[screenId].classList.remove("hidden");
 }
 
 function hide(id) { $(id).classList.add("hidden"); }
@@ -63,15 +163,16 @@ function unhide(id) { $(id).classList.remove("hidden"); }
 // ═══════════════════════════════════════════════════════════
 
 async function startNewGame() {
-  await fetch("/api/new", { method: "POST" });
+  await api("/api/new", {});
+  SoundEngine.stopMusic(true);
   show("game");
   loadScene();
 }
 
 async function loadGame() {
-  const res  = await fetch("/api/load", { method: "POST" });
-  const data = await res.json();
+  const data = await api("/api/load", {});
   if (data.error) { alert("No save found."); return; }
+  SoundEngine.stopMusic(true);
   show("game");
   loadScene();
 }
@@ -83,8 +184,7 @@ async function loadGame() {
 async function loadScene() {
   showLoading(true);
   try {
-    const res  = await fetch("/api/scene");
-    const data = await res.json();
+    const data = await api("/api/scene");
 
     if (data.game_over) {
       if (data.credits) { show("credits"); hide("credits-screen"); unhide("credits-screen"); }
@@ -109,16 +209,21 @@ async function loadScene() {
 // ═══════════════════════════════════════════════════════════
 
 function renderScene(data) {
-  // ── Illustration ──────────────────────────────────────────
+  // ── Illustration — try .png first, fall back to .svg ────────
   const artKey = data.art_key || ART_FALLBACK;
   const artEl  = $("scene-art");
   artEl.style.opacity = "0";
-  artEl.src = `${ART_BASE}${artKey}.svg`;
-  artEl.onload = () => { artEl.style.opacity = "1"; };
-  artEl.onerror = () => {
-    artEl.src = `${ART_BASE}${ART_FALLBACK}.svg`;
-    artEl.style.opacity = "1";
-  };
+
+  function tryLoad(exts, idx) {
+    if (idx >= exts.length) { artEl.style.opacity = "1"; return; }
+    artEl.src = `${ART_BASE}${artKey}.${exts[idx]}`;
+    artEl.onload  = () => { artEl.style.opacity = "1"; };
+    artEl.onerror = () => tryLoad(exts, idx + 1);
+  }
+  tryLoad(["png", "jpg", "svg"], 0);
+
+  // ── Scene music ───────────────────────────────────────────
+  SoundEngine.playScene(artKey);
 
   // ── HUD ───────────────────────────────────────────────────
   if (data.hud) renderHUD(data.hud);
@@ -150,6 +255,7 @@ function renderScene(data) {
   if (data.memories?.length) {
     $("memory-text").textContent = data.memories[0];
     memFlash.classList.remove("hidden");
+    SoundEngine.playSfx("memory");
   } else {
     memFlash.classList.add("hidden");
   }
@@ -200,7 +306,11 @@ function renderChoices(choices, autoNext) {
     btn.className = "choice-btn";
     btn.dataset.num = i + 1;
     btn.textContent = choice.label;
-    btn.addEventListener("click", () => makeChoice(choice.id));
+    btn.addEventListener("mouseenter", () => SoundEngine.playSfx("choice"));
+    btn.addEventListener("click", () => {
+      SoundEngine.playSfx("confirm");
+      makeChoice(choice.id);
+    });
     wrap.appendChild(btn);
   });
 }
@@ -209,12 +319,7 @@ async function advanceScene(nextKey) {
   showLoading(true);
   try {
     // Tell the server to advance to the next scene
-    const res  = await fetch("/api/advance", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ next_scene: nextKey }),
-    });
-    const data = await res.json();
+    const data = await api("/api/advance", { next_scene: nextKey });
     if (data.game_over) { unhide("credits-screen"); return; }
     loadScene();
   } catch(e) {
@@ -231,12 +336,7 @@ async function makeChoice(choiceId) {
   showLoading(true);
   disableChoices(true);
   try {
-    const res  = await fetch("/api/choose", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ choice_id: choiceId }),
-    });
-    const data = await res.json();
+    const data = await api("/api/choose", { choice_id: choiceId });
     if (data.game_over) { show("credits"); unhide("credits-screen"); return; }
     loadScene();
   } catch(e) {
@@ -251,11 +351,7 @@ async function submitName() {
   if (!name) return;
   showLoading(true);
   try {
-    await fetch("/api/choose", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
-    });
+    await api("/api/choose", { name });
     loadScene();
   } catch(e) { showLoading(false); }
 }
@@ -293,8 +389,11 @@ function startCombat(data) {
   inCombat = true;
   const c = data.combat;
 
-  // Set combat art
+  // Switch to combat music and set art — one declaration
   const artKey = data.art_key || "combat_draugar";
+  SoundEngine.playScene(artKey);
+
+  // Set combat art
   $("combat-art").src = `${ART_BASE}${artKey}.svg`;
 
   // Enemy name & HP bar
@@ -329,12 +428,7 @@ function renderCombatActions(actions) {
 async function doCombatAction(actionId) {
   disableCombatBtns(true);
   try {
-    const res  = await fetch("/api/combat/action", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action_id: actionId }),
-    });
-    const data = await res.json();
+    const data = await api("/api/combat/action", { action_id: actionId });
 
     // Update enemy HP bar
     $("enemy-hp-bar").style.width = (data.enemy_hp_ratio * 100) + "%";
@@ -357,6 +451,8 @@ async function doCombatAction(actionId) {
 async function handleCombatEnd(data) {
   if (data.died) {
     // Show death overlay
+    SoundEngine.playSfx("death");
+    SoundEngine.stopMusic(true);
     hide("combat-panel");
     inCombat = false;
     const curseStacks = data.hud?.curse || 0;
@@ -369,6 +465,7 @@ async function handleCombatEnd(data) {
 
   // Won or fled — show rewards briefly then advance
   if (data.shards_gained > 0) {
+    SoundEngine.playSfx("shards");
     appendCombatLog(`+ ${data.shards_gained} echo shards`, "system");
   }
   (data.items_gained || []).forEach(item => appendCombatLog(`+ ${item}`, "system"));
@@ -383,14 +480,18 @@ function appendCombatLog(msg, type = "") {
   const logEl = $("combat-log");
   const div   = document.createElement("div");
   div.className = "log-entry" + (type ? ` ${type}` : "");
-  // Auto-classify messages
+  // Auto-classify messages and play sfx
   if (!type) {
-    if (msg.includes("taken") || msg.includes("wound") || msg.includes("fall"))
+    if (msg.includes("taken") || msg.includes("wound") || msg.includes("fall")) {
       div.classList.add("damage");
-    else if (msg.includes("miss") || msg.includes("wide") || msg.includes("step aside"))
+      SoundEngine.playSfx("combat_hit");
+    } else if (msg.includes("miss") || msg.includes("wide") || msg.includes("step aside")) {
       div.classList.add("miss");
-    else if (msg.includes("parry") || msg.includes("PARRY") || msg.includes("shard"))
+      SoundEngine.playSfx("combat_miss");
+    } else if (msg.includes("parry") || msg.includes("PARRY")) {
       div.classList.add("parry");
+      SoundEngine.playSfx("combat_parry");
+    }
   }
   div.textContent = msg;
   logEl.appendChild(div);

@@ -1,0 +1,287 @@
+# Forgotten Among the Fallen — Image Generation Prompts
+
+Save generated images as **1600×900px** (16:9) JPG or PNG.
+Replace the SVG files in `static/svg/` — just change the `<img>` src
+extension in `templates/index.html` from `.svg` to `.jpg` (or `.png`).
+
+---
+
+## Style Reference (add to ALL prompts)
+
+**Midjourney suffix** — paste after every prompt:
+```
+--ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion suffix** — add to every positive prompt:
+```
+cinematic lighting, volumetric fog, dark fantasy, muted desaturated palette,
+oil painting texture, 8k, highly detailed, masterpiece
+```
+
+**Negative prompt (SD)** — add to all:
+```
+bright colors, cartoon, anime, modern, guns, sci-fi, text, watermark,
+oversaturated, HDR, lens flare, purple sky
+```
+
+---
+
+## Scene 1 — battlefield.jpg
+**File:** `static/svg/battlefield.svg` → replace with `battlefield.jpg`
+
+**Midjourney:**
+```
+a vast dark viking battlefield after a total mutual annihilation, ten thousand
+bodies lying in deep mud under a heavy bruise-colored sky, no survivors, no
+crows, broken spears driven into the earth at strange angles, distant jagged
+mountains barely visible through thick grey fog, one pale crescent moon, cold
+iron light, pre-dawn, dark fantasy, painterly, desaturated, Erik the Viking
+aesthetic --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+vast viking battlefield after battle, mutual annihilation, ten thousand corpses
+in mud, broken shields, spears in ground, pale crescent moon, heavy fog, bruise
+colored sky, no survivors, cold iron light, dark fantasy, muted palette
+```
+
+---
+
+## Scene 2 — leif.jpg
+**File:** `static/svg/leif.svg` → replace with `leif.jpg`
+
+**Midjourney:**
+```
+a dying viking warrior sitting against a shattered wooden shield-wall in deep
+mud, arrow through his side, looking upward with calm resigned eyes, faint
+torchlight from the left, darkness all around, mist rising from the ground,
+dark fantasy portrait, painterly, desaturated earth tones, detailed armor,
+chainmail worn and bloodied --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+dying viking warrior sitting against broken shield wall, arrow in side, calm
+expression looking up, torchlight, ground mist, dark mud, chainmail armor,
+dark fantasy, muted tones, painterly, cinematic
+```
+
+---
+
+## Scene 3 — longhouse.jpg
+**File:** `static/svg/longhouse.svg` → replace with `longhouse.jpg`
+
+**Midjourney:**
+```
+ruins of a collapsed viking longhouse at night, interior view, heavy timber
+beams fallen inward, a blacksmith forge still glowing faintly with dying embers
+in the center, a small bone cairn with rune carvings faintly lit nearby, cold
+moonlight through collapsed roof, ash and dust in the air, dark fantasy,
+painterly, desolate atmosphere --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+collapsed viking longhouse interior at night, fallen timber beams, blacksmith
+forge with dying embers, bone cairn with glowing runes, moonlight through roof,
+ash and dust, dark fantasy, desolate, painterly, muted palette
+```
+
+---
+
+## Scene 4 — cairn.jpg
+**File:** `static/svg/cairn.svg` → replace with `cairn.jpg`
+
+**Midjourney:**
+```
+a single ancient bone cairn made of dark stacked stones in the middle of a dark
+battlefield at night, runes carved into the stones glowing faintly amber-gold,
+warm fire burning inside through carved gaps, cold stars above, mist rolling
+across the ground, still air, the only light source, dark fantasy, painterly,
+intimate, sacred atmosphere --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+ancient bone cairn stacked dark stones at night, glowing amber runes carved
+into stone, warm fire inside, cold starfield, ground mist, only light source,
+dark fantasy, sacred, painterly, cinematic lighting
+```
+
+---
+
+## Scene 5 — mound.jpg
+**File:** `static/svg/mound.svg` → replace with `mound.jpg`
+
+**Midjourney:**
+```
+a large ancient burial mound at night covered in grave markers, tilted wooden
+crosses and carved standing stones, the disturbed earth darker than the
+surroundings, oppressive purple-grey sky, thin fog crawling at the base, a
+feeling of profound unease, no figures visible, dark fantasy, painterly,
+ominous, prehistoric burial site, cursed ground --ar 16:9 --style raw --v 6
+--stylize 800
+```
+
+**Stable Diffusion:**
+```
+ancient viking burial mound at night, grave markers and tilted crosses, dark
+disturbed earth, oppressive purple grey sky, ground fog, no figures, ominous,
+cursed ground, dark fantasy, painterly, muted desaturated palette
+```
+
+---
+
+## Scene 6 — gunnar.jpg
+**File:** `static/svg/gunnar.svg` → replace with `gunnar.jpg`
+
+**Midjourney:**
+```
+a towering undead viking commander standing on a burial mound at night, heavy
+battered plate armor, a great axe held at his side, eyes glowing cold blue-
+white, spectral purple aura around him, face obscured by a cracked horned
+helmet, ground mist at his feet, a presence that is wrong, that should not be
+standing, dark fantasy boss character, painterly, cinematic, extremely
+atmospheric --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+undead viking commander on burial mound night, heavy battered plate armor,
+great axe, glowing cold blue eyes, spectral purple aura, cracked helmet,
+ground mist, wrong presence, dark fantasy boss, painterly, cinematic, detailed
+```
+
+---
+
+## Scene 7 — scavenge.jpg
+**File:** `static/svg/scavenge.svg` → replace with `scavenge.jpg`
+
+**Midjourney:**
+```
+dense carpet of fallen viking warriors after a battle, bodies piled two and
+three deep, broken weapons and shields everywhere, fog so thick the far end
+disappears, one arm beginning to rise from the pile of dead, glowing eye
+visible in the dark, horrifying implication of the dead awakening, dark
+fantasy, painterly, desaturated, body horror atmosphere --ar 16:9 --style raw
+--v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+dense battlefield dead vikings bodies piled in mud, broken weapons shields,
+thick fog, one arm rising from pile, glowing eye in darkness, dead awakening,
+dark fantasy, body horror, painterly, desaturated, cinematic
+```
+
+---
+
+## Scene 8 — combat_draugar.jpg
+**File:** `static/svg/combat_draugar.svg` → replace with `combat_draugar.jpg`
+
+**Midjourney:**
+```
+a viking warrior facing an undead draugar in close combat on a dark
+battlefield, the warrior raising a war axe with a glowing rune on the blade,
+the draugar with hollow glowing dead eyes and rusted weapons, both figures
+silhouetted against thin cold moonlight, fog at knee height, sparks between
+weapons, dark fantasy, action, painterly, cinematic --ar 16:9 --style raw --v 6
+--stylize 800
+```
+
+**Stable Diffusion:**
+```
+viking warrior vs undead draugar close combat, rune axe glowing, hollow dead
+eyes, moonlit battlefield silhouettes, fog, weapon sparks, dark fantasy,
+action, painterly, cinematic, detailed armor
+```
+
+---
+
+## Scene 9 — act_break.jpg
+**File:** `static/svg/act_break.svg` → replace with `act_break.jpg`
+
+**Midjourney:**
+```
+an infinite starfield over a frozen nordic landscape, distant jagged mountains
+with snow, a single thin beam of runic light rising from the ground into the
+sky, absolute silence, the feeling of standing between worlds, between life and
+death, vast and cold, dark fantasy, painterly, cosmic, liminal space --ar 16:9
+--style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+infinite starfield frozen nordic landscape, jagged snow mountains, thin runic
+light beam rising from ground, absolute silence, between worlds liminal space,
+vast cold dark, dark fantasy, painterly, cosmic atmosphere
+```
+
+---
+
+## How to swap in generated images
+
+1. Generate each image and save to `static/svg/` (yes, same folder is fine,
+   or create `static/img/` if you prefer)
+
+2. In `engine/scene_web.py`, the `SCENE_ART` dict maps scene keys to art keys.
+   The frontend loads `/static/svg/{art_key}.svg` — just change the base path
+   and extension in `static/js/game.js`:
+
+   ```js
+   // Change this line in game.js:
+   const ART_BASE = "/static/svg/";
+   // To:
+   const ART_BASE = "/static/img/";
+   ```
+
+   And update the extension check in `renderScene()`:
+   ```js
+   artEl.src = `${ART_BASE}${artKey}.jpg`;
+   ```
+
+3. The SVG fallback system remains — if an image fails to load it falls
+   back to `battlefield.jpg` automatically.
+
+---
+
+## Music file names expected
+
+Place audio files in `static/audio/` and `static/audio/`.
+The engine tries `.ogg` first, then `.mp3`.
+
+### Music tracks
+| Filename                  | Scene              | Mood                                    |
+|---------------------------|--------------------|-----------------------------------------|
+| `ambient_title.ogg`       | Title screen       | Slow dark Norse ambient, builds slowly  |
+| `ambient_battlefield.ogg` | Battlefield, Leif  | Slow wind, distant horn, no melody     |
+| `ambient_forge.ogg`       | Longhouse          | Low hum, crackling fire, bass drone    |
+| `ambient_cairn.ogg`       | Bone Cairn         | Ethereal, rune tones, sparse           |
+| `ambient_mound.ogg`       | The Mound          | Oppressive bass drone, silence breaks  |
+| `combat_draugar.ogg`      | Draugar combat     | Urgent percussion, no melody           |
+| `combat_boss.ogg`         | Gunnar boss fight  | War drums, heavy, relentless           |
+| `ambient_void.ogg`        | Act break          | Near silence, one distant horn note    |
+
+### SFX
+| Filename          | Trigger                    |
+|-------------------|----------------------------|
+| `sfx_choice.ogg`  | Hover over choice button   |
+| `sfx_confirm.ogg` | Click a choice             |
+| `sfx_memory.ogg`  | Memory fragment recovered  |
+| `sfx_death.ogg`   | Player falls in combat     |
+| `sfx_shards.ogg`  | Echo shards gained         |
+| `sfx_hit.ogg`     | Combat hit lands           |
+| `sfx_miss.ogg`    | Combat attack misses       |
+| `sfx_parry.ogg`   | Parry succeeds             |
+
+### Recommended Suno/Udio prompts for music
+- **ambient_battlefield**: "dark norse ambient, wind howling, distant war horn,
+  slow deep drums fading in and out, no melody, 3 minutes, loop"
+- **combat_draugar**: "viking battle percussion, urgent rhythmic drums, no
+  melody, intense, dark, 90 seconds loop"
+- **combat_boss**: "epic dark norse boss fight music, heavy war drums, chanting,
+  ominous, relentless tempo, 2 minutes loop"
+- **ambient_cairn**: "ethereal norse ambient, singing bowls, rune tones,
+  sparse, sacred feeling, very quiet, 3 minutes loop"
