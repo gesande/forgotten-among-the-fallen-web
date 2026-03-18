@@ -190,7 +190,7 @@ function renderChoices(choices, autoNext) {
     btn.className = "choice-btn";
     btn.dataset.num = "·";
     btn.textContent = "Continue";
-    btn.addEventListener("click", () => loadScene());
+    btn.addEventListener("click", () => advanceScene(autoNext));
     wrap.appendChild(btn);
     return;
   }
@@ -203,6 +203,24 @@ function renderChoices(choices, autoNext) {
     btn.addEventListener("click", () => makeChoice(choice.id));
     wrap.appendChild(btn);
   });
+}
+
+async function advanceScene(nextKey) {
+  showLoading(true);
+  try {
+    // Tell the server to advance to the next scene
+    const res  = await fetch("/api/advance", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ next_scene: nextKey }),
+    });
+    const data = await res.json();
+    if (data.game_over) { unhide("credits-screen"); return; }
+    loadScene();
+  } catch(e) {
+    console.error("Advance error:", e);
+    showLoading(false);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════

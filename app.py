@@ -77,6 +77,29 @@ def get_scene():
         _save_state(state)
         key = "awakening"
 
+    # Auto-advance through chain scenes (scenes with only 'next', no choices)
+    # Limit to 10 hops to prevent infinite loops
+    from content.scenes import SCENES
+    hops = 0
+    while hops < 10:
+        if key not in SCENES:
+            break
+        scene = SCENES[key]
+        has_choices = bool(scene.get("choices"))
+        has_next    = bool(scene.get("next"))
+        has_combat  = any(b.get("type") == "combat" for b in scene.get("beats", []))
+        has_input   = any(b.get("type") == "input"  for b in scene.get("beats", []))
+        # Only auto-advance if purely a passthrough (next only, no choices, no combat, no input)
+        if has_next and not has_choices and not has_combat and not has_input:
+            # Render the scene beats for side effects, then advance
+            output = render_scene(key, state)
+            _save_state(state)
+            key = scene["next"]
+            state.current_scene = key
+            hops += 1
+        else:
+            break
+
     output = render_scene(key, state)
     _save_state(state)
 
@@ -86,9 +109,9 @@ def get_scene():
         combat_state = start_combat(enemy_key, state)
         _save_combat(combat_state)
         _save_state(state)
-        output["combat"]["actions"] = get_player_actions(combat_state, state)
-        output["combat"]["enemy_name"] = ENEMIES[enemy_key]["name"]
-        output["combat"]["enemy_hp_ratio"] = (
+        output["combat"]["actions"]         = get_player_actions(combat_state, state)
+        output["combat"]["enemy_name"]      = ENEMIES[enemy_key]["name"]
+        output["combat"]["enemy_hp_ratio"]  = (
             combat_state["enemy"]["current_hp"] / combat_state["enemy"]["hp"]
         )
         output["combat"]["log"] = combat_state["log"]
@@ -190,7 +213,28 @@ def status():
         "deaths":       state.deaths,
     })
 
-@app.route("/api/load", methods=["POST"])
+@app.route("/api/advance", methods=["POST"])
+def advance():
+    """Advance to a known next scene (used by auto-next scenes with no choices)."""
+    data     = request.get_json()
+    next_key = data.get("next_scene", "")
+    state    = _get_state()
+
+    if next_key in ("__save_quit__", "end", "__end__"):
+        state.save(0)
+        _save_state(state)
+        return jsonify({"game_over": True})
+
+    if next_key == "__restart__":
+        state = PlayerState()
+        next_key = "awakening"
+
+    state.current_scene = next_key
+    state.save(0)
+    _save_state(state)
+    return jsonify({"ok": True, "next_scene": next_key})
+
+
 def load_game():
     state = PlayerState.load(0)
     if state is None:
