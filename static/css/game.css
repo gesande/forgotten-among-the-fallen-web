@@ -444,6 +444,7 @@ html, body {
 #prose-body {
   flex: 1;
   margin-bottom: 1.5rem;
+  overflow: hidden;
 }
 
 .prose-block {
@@ -451,7 +452,9 @@ html, body {
   line-height: 1.85;
   color: var(--parchment);
   margin-bottom: 1.2rem;
-  animation: fadeIn 0.5s ease;
+  opacity: 0;
+  transform: translateX(-18px);
+  animation: slideIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 .prose-block.italic {
   font-style: italic;
@@ -459,10 +462,76 @@ html, body {
   padding-left: 1rem;
   border-left: 2px solid var(--iron);
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+.prose-block.memory-block {
+  color: var(--frost);
+  font-style: italic;
+  border-left: 2px solid var(--frost);
+  padding-left: 1rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scene header slides in from top */
+#scene-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.5px solid rgba(180,140,50,0.25);
+  opacity: 0;
+  animation: slideInTop 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.1s forwards;
+}
+@keyframes slideInTop {
+  from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Choices slide in from bottom */
+#choices-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--iron);
+}
+.choice-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: left;
+  padding: 11px 16px;
+  background: transparent;
+  border: 0.5px solid var(--iron);
+  border-radius: 2px;
+  color: var(--fog);
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1.5;
+  opacity: 0;
+  animation: slideInBottom 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+.choice-btn:hover {
+  border-color: rgba(180,140,50,0.5);
+  color: var(--parchment);
+  background: rgba(180,140,50,0.04);
+}
+.choice-btn::before {
+  content: attr(data-num) " · ";
+  color: var(--iron);
+}
+@keyframes slideInBottom {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 
 /* Name input */
 #name-input-wrap {
@@ -486,38 +555,7 @@ html, body {
 #name-input:focus { border-color: var(--gold); }
 
 /* Choices */
-#choices-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 0.5px solid var(--iron);
-}
 
-.choice-btn {
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-align: left;
-  padding: 11px 16px;
-  background: transparent;
-  border: 0.5px solid var(--iron);
-  border-radius: 2px;
-  color: var(--fog);
-  cursor: pointer;
-  transition: all 0.15s;
-  line-height: 1.5;
-}
-.choice-btn:hover {
-  border-color: rgba(180,140,50,0.5);
-  color: var(--parchment);
-  background: rgba(180,140,50,0.04);
-}
-.choice-btn::before {
-  content: attr(data-num) " · ";
-  color: var(--iron);
-}
 
 /* Loading */
 #loading {

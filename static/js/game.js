@@ -233,7 +233,11 @@ function renderScene(data) {
   if (data.header) {
     $("scene-title").textContent    = data.header.title    || "";
     $("scene-subtitle").textContent = data.header.subtitle || "";
+    // Reset animation by cloning element
     hdr.classList.remove("hidden");
+    hdr.style.animation = "none";
+    hdr.offsetHeight; // force reflow
+    hdr.style.animation = "";
   } else {
     hdr.classList.add("hidden");
   }
@@ -260,18 +264,24 @@ function renderScene(data) {
     memFlash.classList.add("hidden");
   }
 
-  // ── Prose body ────────────────────────────────────────────
+  // ── Prose body — staggered slide-in ──────────────────────
   const proseEl = $("prose-body");
   proseEl.innerHTML = "";
-  (data.paragraphs || []).forEach((p, i) => {
-    if (p.type === "memory") return; // shown in memory flash
+  // Base delay: small pause then paragraphs stagger in one by one
+  const BASE_DELAY  = 0.25;   // seconds before first paragraph
+  const PARA_GAP    = 0.22;   // seconds between paragraphs
+  let paraIdx = 0;
+  (data.paragraphs || []).forEach((p) => {
+    if (p.type === "memory") return;
     const div = document.createElement("div");
-    div.className = "prose-block" + (p.type === "italic" ? " italic" : "");
+    let cls = "prose-block";
+    if (p.type === "italic")       cls += " italic";
+    if (p.type === "memory")       cls += " memory-block";
+    div.className   = cls;
     div.textContent = p.type === "italic" ? `"${p.text}"` : p.text;
-    div.style.animationDelay = `${i * 0.08}s`;
-    div.style.opacity = "0";
-    div.style.animation = `fadeIn 0.5s ease ${i * 0.08}s forwards`;
+    div.style.animationDelay = `${BASE_DELAY + paraIdx * PARA_GAP}s`;
     proseEl.appendChild(div);
+    paraIdx++;
   });
 
   // ── Name input ────────────────────────────────────────────
@@ -286,20 +296,27 @@ function renderScene(data) {
   $("name-input").value = "";
 
   // ── Choices ───────────────────────────────────────────────
-  renderChoices(data.choices || [], data.next, data.name_prompt);
+  renderChoices(data.choices || [], data.next, data.name_prompt, paraIdx);
 }
 
 let pendingChoiceId = null;  // remembers which choice was clicked before name input
 
-function renderChoices(choices, autoNext, hasNamePrompt) {
+function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
   const wrap = $("choices-wrap");
   wrap.innerHTML = "";
+
+  // Choices appear after prose — delay based on how many paragraphs came before
+  const BASE_DELAY = 0.25;
+  const PARA_GAP   = 0.22;
+  const CHOICE_GAP = 0.10;
+  const afterProse = BASE_DELAY + (paraCount || 0) * PARA_GAP + 0.15;
 
   if (autoNext) {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
     btn.dataset.num = "·";
     btn.textContent = "Continue";
+    btn.style.animationDelay = `${afterProse}s`;
     btn.addEventListener("click", () => advanceScene(autoNext));
     wrap.appendChild(btn);
     return;
@@ -310,6 +327,7 @@ function renderChoices(choices, autoNext, hasNamePrompt) {
     btn.className = "choice-btn";
     btn.dataset.num = i + 1;
     btn.textContent = choice.label;
+    btn.style.animationDelay = `${afterProse + i * CHOICE_GAP}s`;
     btn.addEventListener("mouseenter", () => SoundEngine.playSfx("choice"));
     btn.addEventListener("click", () => {
       SoundEngine.playSfx("confirm");
