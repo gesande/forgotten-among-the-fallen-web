@@ -308,12 +308,12 @@ SCENE_SOUL_LEIF = {
             "effects":   {"honour": 3},
         },
         {
-            "label":     "Pull the arrow. End it quickly.",
+            "label":     "He is dying. Stay with him until he is gone.",
             "next":      "leif_mercy_kill",
-            "effects":   {"mercy": 8, "resolve": -5},
+            "effects":   {"mercy": 8, "honour": 5},
             "narration": (
-                "It is mercy. You tell yourself it is mercy. "
-                "His eyes thank you before they close."
+                "You do not leave. That is all. "
+                "Sometimes that is enough."
             ),
         },
     ],
@@ -634,31 +634,50 @@ SCENE_LEIF_MERCY_KILL = {
         {
             "type": "prose",
             "text": (
-                "It is quick. He lets it be quick. "
-                "You hold the weight of it for a moment, "
-                "then set it down somewhere in your chest where you keep things "
-                "that have no other place to go."
+                "You stay. You do not speak. "
+                "There is nothing useful to say and Leif is past needing it. "
+                "His breathing slows in the way that breathing slows "
+                "when there is no more reason to rush."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"Good," he says. Not to you, specifically. '
+                'Just: good. Like a man setting down something he has carried a long way.'
             )
         },
         {
             "type": "prose",
             "text": (
-                "You search him out of necessity. "
-                "He carries a small knife, a pouch of echo dust, and a piece of birchbark "
-                "with a name scratched into it. "
-                "The name is yours."
+                "When it is over you sit with it for a moment. "
+                "Then you search him — not out of disrespect, "
+                "but because the dead have no use for what they carry "
+                "and you are not yet done with this battlefield."
             )
         },
         {
-            "type": "item",  "item": "Leif's knife",     "action": "give"},
+            "type": "prose",
+            "text": (
+                "He has a knife, a pouch of echo dust, and a piece of birchbark "
+                "with a name scratched into it. "
+                "The name is yours. "
+                "He carried it with him into the battle. "
+                "You do not know yet whether that makes the weight lighter or heavier."
+            )
+        },
+        {
+            "type": "item",  "item": "Leif's knife",  "action": "give"},
         {"type": "shards", "amount": 45},
         {
             "type": "memory",
-            "key":   "my_name",
-            "label": "Your name, on a dead man's birchbark",
+            "key":   "leif_last_word",
+            "label": "What Leif said at the end",
             "text":  (
-                "He knew your name. He carried it with him into the battle. "
-                "You do not know yet whether that makes the weight lighter or heavier."
+                "Good. That was all. "
+                "One word, said the way you say a word "
+                "when it is the last one and it has to be enough. "
+                "It was enough."
             ),
         },
         {"type": "flag", "key": "leif_done"},
