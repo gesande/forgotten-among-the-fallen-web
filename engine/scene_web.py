@@ -18,7 +18,7 @@ from content.scenes import SCENES
 
 # ── Art key mapping — which SVG to show per scene ────────────
 SCENE_ART = {
-    "name_entry":               "battlefield",
+    "name_entry":               "name_entry",
     "awakening":                "battlefield",
     "find_weapon":              "battlefield",
     "battlefield_open":         "battlefield",
@@ -42,7 +42,7 @@ SCENE_ART = {
     "gunnar_dialogue_peace":    "gunnar",
     "gunnar_dialogue_challenge":"gunnar",
     "gunnar_dialogue_truth":    "gunnar",
-    "combat_gunnar":            "gunnar",
+    "combat_gunnar":            "gunnar_combat",
     "zone_1_end":               "mound",
     "final_rest":               "cairn",
     "act_2_intro":              "act_break",

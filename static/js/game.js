@@ -6,6 +6,12 @@
 const ART_BASE = "/static/svg/";
 const ART_FALLBACK = "battlefield";
 
+// Art key aliases — use a different image file but trigger different music
+const ART_ALIASES = {
+  "name_entry":    "battlefield",
+  "gunnar_combat": "gunnar",
+};
+
 // ── DOM refs ──────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 
@@ -210,13 +216,14 @@ async function loadScene() {
 
 function renderScene(data) {
   // ── Illustration — try .png first, fall back to .svg ────────
-  const artKey = data.art_key || ART_FALLBACK;
-  const artEl  = $("scene-art");
+  const artKey    = data.art_key || ART_FALLBACK;
+  const imgKey    = ART_ALIASES[artKey] || artKey;   // alias for image file
+  const artEl     = $("scene-art");
   artEl.style.opacity = "0";
 
   function tryLoad(exts, idx) {
     if (idx >= exts.length) { artEl.style.opacity = "1"; return; }
-    artEl.src = `${ART_BASE}${artKey}.${exts[idx]}`;
+    artEl.src = `${ART_BASE}${imgKey}.${exts[idx]}`;
     artEl.onload  = () => { artEl.style.opacity = "1"; };
     artEl.onerror = () => tryLoad(exts, idx + 1);
   }
@@ -444,16 +451,16 @@ function startCombat(data) {
   const c = data.combat;
 
   // Switch to combat music and set art — one declaration
-  const artKey = data.art_key || "combat_draugar";
+  const artKey    = data.art_key || "combat_draugar";
+  const imgKeyC   = ART_ALIASES[artKey] || artKey;   // alias for image file
   SoundEngine.playScene(artKey);
 
-  // Set combat art
   // Set combat art — try png/jpg before svg
   const combatArtEl = $("combat-art");
   combatArtEl.style.opacity = "0";
   function tryCombatLoad(exts, idx) {
     if (idx >= exts.length) { combatArtEl.style.opacity = "1"; return; }
-    combatArtEl.src = `${ART_BASE}${artKey}.${exts[idx]}`;
+    combatArtEl.src = `${ART_BASE}${imgKeyC}.${exts[idx]}`;
     combatArtEl.onload  = () => { combatArtEl.style.opacity = "1"; };
     combatArtEl.onerror = () => tryCombatLoad(exts, idx + 1);
   }

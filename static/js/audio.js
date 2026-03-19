@@ -6,16 +6,18 @@
 const SoundEngine = (() => {
 
   const SCENE_MUSIC = {
-    "title":          "ambient_title",
-    "battlefield":    "ambient_battlefield",
-    "leif":           "ambient_battlefield",
-    "longhouse":      "ambient_forge",
-    "cairn":          "ambient_cairn",
-    "mound":          "ambient_mound",
-    "gunnar":         "combat_boss",
-    "scavenge":       "ambient_battlefield",
-    "combat_draugar": "combat_draugar",
-    "act_break":      "ambient_void",
+    "title":                "ambient_title",
+    "name_entry":           "ambient_cairn",       // introspective, not battlefield
+    "battlefield":          "ambient_battlefield",
+    "leif":                 "ambient_battlefield",
+    "longhouse":            "ambient_forge",
+    "cairn":                "ambient_cairn",
+    "mound":                "ambient_mound",
+    "gunnar":               "ambient_mound",       // dialogue — ominous, not combat yet
+    "gunnar_combat":        "combat_boss",          // only the actual fight
+    "scavenge":             "ambient_battlefield",
+    "combat_draugar":       "combat_draugar",
+    "act_break":            "ambient_void",
   };
 
   const SFX_MAP = {
