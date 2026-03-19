@@ -395,12 +395,31 @@ SCENE_LEIF_THE_OATH = {
             )
         },
         {
+            "type": "italic",
+            "text": (
+                '"I always thought," Leif says quietly, "that there was a reason. '
+                'Not cowardice — I knew you four years, and you were not a coward. '
+                'A debt, maybe. Something you found out. '
+                'Something about Gunnar that you could not live with '
+                'and could not say out loud."'
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"Whatever it was — it was enough for you. '
+                'Whether it was enough to justify it... '
+                'that is a different question."'
+            ),
+        },
+        {
             "type": "memory",
             "key":   "the_broken_oath",
             "label": "The night of the eastern ridge",
             "text":  (
                 "You were not there. You do not yet know why. "
-                "But the shape of the absence is beginning to form."
+                "But Leif's guess sits in you like an ember — "
+                "not because it is right, but because it is close enough to feel warm."
             ),
         },
     ],
@@ -1003,6 +1022,31 @@ SCENE_GUNNAR_DIALOGUE_CHALLENGE = {
             "type": "italic",
             "text": '"Good," says Gunnar. "At least be honest about it."',
         },
+        {
+            "type": "prose",
+            "text": (
+                "He looks at you for a long moment. Not with hatred — you expected "
+                "hatred and would have understood it. "
+                "What you see is something closer to relief."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"I have been standing on this mound for six days," he says. '
+                '"Waiting for you to come. '
+                'I knew you would come eventually. You always came back, in the end."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He rolls his shoulders. The axe comes up. "
+                "The movement is not angry — it is practiced. "
+                "He has done this ten thousand times. "
+                "He taught you to do this."
+            )
+        },
         {"type": "stat", "changes": {"resolve": 5}},
     ],
     "next": "combat_gunnar",
@@ -1049,7 +1093,7 @@ SCENE_COMBAT_GUNNAR = {
     ],
     "choices": [
         {
-            "label": "Take the Remembrance Key. Prepare to move on.",
+            "label": "Go to him. Hear what he has to say.",
             "next":  "zone_1_end",
         },
     ],
@@ -1064,25 +1108,50 @@ SCENE_ZONE_1_END = {
         "subtitle": "The Battlefield of Silence — cleared",
     },
     "beats": [
-        {"type": "item", "item": "Remembrance Key", "action": "give"},
         {
             "type": "prose",
             "text": (
-                "Gunnar is still. "
-                "Not gone — you do not think he can be gone — "
-                "but still, in the way that a long argument is still "
-                "when both sides run out of words. "
-                "For now, that is enough."
+                "He is on one knee. Not defeated — you do not think he can be defeated, "
+                "not truly — but spent. The axe is in the mud. "
+                "His hands are open."
             )
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"I did not wake by choice either," he says. '
+                '"I have been here since the last arrow. '
+                'I watched every one of them stop moving. '
+                'I did not stop."'
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"I think I am here because of you. '
+                'I think I was waiting. '
+                'I do not know what I am now that the waiting is done."'
+            ),
         },
         {
             "type": "prose",
             "text": (
-                "You stand on the mound and look at the battlefield. "
-                "Ten thousand dead and one of them is you. "
-                "You have been walking among them long enough "
-                "that the distinction has started to feel academic."
+                "He reaches into his coat and holds something out. "
+                "An iron key, old and heavy, marked with a rune you almost recognise."
             )
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"Take it. It opens something to the south — '
+                'I found it on the third day, when I was still looking for a reason. '
+                'I think the reason is you."'
+            ),
+        },
+        {
+            "type": "item",
+            "item": "Remembrance Key",
+            "action": "give",
         },
         {
             "type": "memory",
@@ -1096,7 +1165,16 @@ SCENE_ZONE_1_END = {
                 "That is, apparently, what you do."
             ),
         },
-        {"type": "separator", "style": "rune"},
+        {
+            "type": "prose",
+            "text": (
+                "When you look up, Gunnar is still. "
+                "Not gone — you do not think he can be gone — "
+                "but still, in the way that a long argument is still "
+                "when both sides have said everything true. "
+                "For now, that is enough."
+            )
+        },
         {
             "type": "prose",
             "text": (
@@ -1104,11 +1182,10 @@ SCENE_ZONE_1_END = {
                 "Through it you can see the shape of mountains — "
                 "or what your memory insists are mountains, "
                 "though they have no peaks and do not end. "
-                "The Remembrance Key is cold in your hand. "
+                "The key is cold in your hand. "
                 "Whatever it opens is through there."
             )
         },
-        {"type": "pause", "msg": "  [ Act 1 complete — press enter ]"},
     ],
     "choices": [
         {
@@ -1149,22 +1226,56 @@ SCENE_ACT_2_INTRO = {
         "subtitle": "The Truth in the Fog",
     },
     "beats": [
-        {"type": "separator", "style": "rune"},
         {
             "type": "prose",
-            "text": "The fog to the south is colder. That is the only difference, at first.",
+            "text": (
+                "The fog to the south is colder. That is the only difference, at first. "
+                "The same grey light. The same silence. "
+                "But the cold has a direction to it — "
+                "it comes from somewhere specific, "
+                "the way cold always comes from somewhere specific "
+                "even when you cannot name it."
+            )
         },
-        {"type": "delay", "seconds": 1.0},
+        {
+            "type": "prose",
+            "text": (
+                "You walk for what might be an hour or might be a day. "
+                "You do not tire the way you used to tire. "
+                "Your body remembers exhaustion as a concept "
+                "but has stopped practising it. "
+                "This should be more disturbing than it is."
+            )
+        },
         {
             "type": "italic",
-            "text": "To be continued.",
+            "text": (
+                "Somewhere behind you, the battlefield. "
+                "Ten thousand dead who stayed dead. "
+                "One who didn't. "
+                "You."
+            )
         },
-        {"type": "separator", "style": "rune"},
-        {"type": "delay", "seconds": 1.0},
+        {
+            "type": "prose",
+            "text": (
+                "The key is in your hand. "
+                "It has been warm since Gunnar gave it to you — "
+                "not body-warm, but warm the way old iron is warm "
+                "when it has been near fire for a long time. "
+                "It is pointing you somewhere. "
+                "You are beginning to understand that you do not have a choice "
+                "about whether to follow."
+            )
+        },
+        {
+            "type": "italic",
+            "text": "The fog does not lift. It never lifts. But you are still walking in it.",
+        },
     ],
     "choices": [
         {
-            "label":     "Save and quit.",
+            "label":     "Continue south. The key grows warmer.",
             "next":      "__save_quit__",
         },
         {
