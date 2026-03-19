@@ -460,7 +460,11 @@ SCENE_LEIF_GUNNAR_INTRO = {
         },
         {
             "type": "italic",
-            "text": '"He will find you," Leif says. "He always finds those who owe him a debt. Go to the mound first. Rest. There is a cairn — it still burns."',
+            "text": (
+                '"Go to the mound. He will be there. '
+                'And go to the cairn first — it still burns. '
+                'Whatever you owe Gunnar, do not face it on empty ground."'
+            ),
         },
     ],
     "choices": [
@@ -485,11 +489,72 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
         {
             "type": "prose",
             "text": (
-                "You scan the field. The fog shifts. "
-                "To the north, the longhouse ruins you have not yet searched. "
-                "To the east, the dense dead. "
-                "One of them moved, earlier. You remember that."
+                "You stop and take stock. The fog shifts but does not clear. "
+                "You have learned to read this battlefield the way you would read a room — "
+                "what is present, what is missing, what has been moved."
             )
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: (
+                        s.has_flag("found_forge") and
+                        s.has_flag("east_searched") and
+                        s.has_flag("leif_done")
+                    ),
+                    "text": (
+                        "The longhouse to the north: searched. The forge inside it, cold but yielded what it had. "
+                        "To the east: the dense dead, and whatever woke among them, settled now. "
+                        "The soldier against the shield-wall: gone, one way or another. "
+                        "To the south the mound waits, and Gunnar with it. "
+                        "There is nothing left to find here. Only the reckoning."
+                    ),
+                },
+                {
+                    "condition": lambda s: (
+                        s.has_flag("found_forge") and
+                        s.has_flag("east_searched")
+                    ),
+                    "text": (
+                        "The longhouse to the north: searched, the forge cold but generous. "
+                        "To the east: you have walked among the dense dead and returned. "
+                        "A soldier still breathes against the shield-wall to the west — "
+                        "or did, when you last looked. "
+                        "To the south, the mound. You have not gone there yet."
+                    ),
+                },
+                {
+                    "condition": lambda s: s.has_flag("found_forge"),
+                    "text": (
+                        "The longhouse to the north: searched. The forge inside still breathes. "
+                        "To the east, the dead lie thickest — you have not gone there yet. "
+                        "Something moved among them, earlier. You remember that. "
+                        "To the south, the mound."
+                    ),
+                },
+                {
+                    "condition": lambda s: s.has_flag("east_searched"),
+                    "text": (
+                        "The longhouse to the north: you have not searched it. "
+                        "There is smoke from somewhere inside — cold smoke, old smoke. "
+                        "To the east: done. The dead there are settled, mostly. "
+                        "A soldier still lives against the western shield-wall. "
+                        "To the south, the mound."
+                    ),
+                },
+                {
+                    # Default — nothing explored yet
+                    "text": (
+                        "To the north: longhouse ruins, partially standing. "
+                        "You can see the shape of a forge through the collapsed timbers. "
+                        "To the east: the dead lie thickest there — the last stand, by the look of it. "
+                        "To the west: a soldier, not quite dead, against a broken shield-wall. "
+                        "To the south: a mound. Old and deliberate. "
+                        "Someone is standing on it."
+                    ),
+                },
+            ],
         },
     ],
     "choices": [
@@ -506,7 +571,19 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
             "condition": lambda s: not s.has_flag("east_searched"),
         },
         {
-            "label":     "Return to the battlefield.",
+            "label":     "Go to the soldier against the shield-wall.",
+            "next":      "soul_leif",
+            "condition": lambda s: not s.has_flag("leif_done"),
+        },
+        {
+            "label":     "Go south — towards the mound.",
+            "next":      "the_mound",
+            "condition": lambda s: (
+                s.has_flag("found_forge") or s.has_flag("east_searched")
+            ),
+        },
+        {
+            "label":     "Return to the wider battlefield.",
             "next":      "battlefield_open",
         },
     ],
@@ -514,6 +591,29 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
 
 SCENE_LEIF_FAREWELL = {
     "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You move to leave. Leif's hand finds your wrist — "
+                "not a grip, just a weight. "
+                "He presses something into your palm."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"I found this on the mound, two days ago. '
+                'Before I stopped being able to walk that far. '
+                'I do not know what it opens. '
+                'But it has your name on it — not scratched in, just... '
+                'it feels like yours."'
+            ),
+        },
+        {
+            "type": "item",
+            "item": "Leif's token",
+            "action": "give",
+        },
         {
             "type": "prose",
             "text": (
