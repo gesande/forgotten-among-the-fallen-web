@@ -565,7 +565,9 @@ function appendCombatLog(msg, type = "") {
   }
   div.textContent = msg;
   logEl.appendChild(div);
-  logEl.scrollTop = logEl.scrollHeight;
+  // Scroll the wrapper (which has overflow-y: auto), not the log div itself
+  const wrapEl = $("combat-log-wrap");
+  if (wrapEl) wrapEl.scrollTop = wrapEl.scrollHeight;
 }
 
 async function riseAgain() {
