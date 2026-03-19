@@ -281,6 +281,8 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
 # ═══════════════════════════════════════════════════════════
 if __name__ == "__main__":
     os.makedirs("saves", exist_ok=True)
+    port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("FLASK_ENV") != "production"
     print("\n  Forgotten Among the Fallen")
-    print("  Open: http://localhost:5000\n")
-    app.run(debug=True, port=5000)
+    print(f"  Open: http://localhost:{port}\n")
+    app.run(host="0.0.0.0", port=port, debug=debug)
