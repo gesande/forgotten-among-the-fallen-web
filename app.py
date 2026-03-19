@@ -4,10 +4,11 @@
 #  Requires: pip install flask
 # ============================================================
 from flask import Flask, render_template, jsonify, request, session
-import json, os, uuid
+import json, os
 
 from engine.state     import PlayerState
 from engine.scene_web import render_scene, apply_choice, _build_hud
+from content.scenes   import SCENES
 from engine.combat_web import (
     ENEMIES, start_combat, get_player_actions,
     resolve_action
@@ -15,6 +16,8 @@ from engine.combat_web import (
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "forgotten-among-the-fallen-dev-key")
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_HTTPONLY"] = True
 
 # ── Session helpers ───────────────────────────────────────────
 
@@ -79,7 +82,6 @@ def get_scene():
 
     # Auto-advance through chain scenes that have NO prose to show
     # (pure side-effect scenes: only flag/stat/item beats, no prose/italic/memory)
-    from content.scenes import SCENES
     hops = 0
     while hops < 10:
         if key not in SCENES:
@@ -110,8 +112,7 @@ def get_scene():
         enemy_key    = output["combat"]["enemy_key"]
         combat_state = start_combat(enemy_key, state)
         # Store the scene-defined flag name so we can set it on victory
-        from content.scenes import SCENES as _SCENES
-        _scene   = _SCENES.get(key, {})
+        _scene   = SCENES.get(key, {})
         _cb_beat = next((b for b in _scene.get("beats", []) if b.get("type") == "combat"), {})
         combat_state["victory_flag"] = _cb_beat.get("flag", f"defeated_{enemy_key}")
         _save_combat(combat_state)
@@ -138,7 +139,6 @@ def choose():
         state.name = data["name"].strip() or "the drengr"
         # Use the choice the player actually selected before typing their name
         pending_id = str(data.get("pending_choice_id", "0"))
-        from content.scenes import SCENES
         scene = SCENES.get(scene_key, {})
         choices = scene.get("choices", [])
         if choices:
@@ -232,9 +232,8 @@ def advance():
 
     # __scene_next__ means: look up the current scene's next key
     if next_key == "__scene_next__":
-        from content.scenes import SCENES as _S
         scene_key = data.get("scene_key") or state.current_scene
-        next_key  = _S.get(scene_key, {}).get("next", "battlefield_open")
+        next_key  = SCENES.get(scene_key, {}).get("next", "battlefield_open")
 
     if next_key in ("__save_quit__", "end", "__end__"):
         state.save(0)

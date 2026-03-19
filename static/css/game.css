@@ -401,11 +401,6 @@ html, body {
 #narrative-panel::-webkit-scrollbar-thumb { background: var(--iron); }
 
 /* Scene header */
-#scene-header {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 0.5px solid rgba(180,140,50,0.25);
-}
 #scene-title {
   font-family: 'Cinzel', serif;
   font-size: clamp(15px, 2vw, 20px);
