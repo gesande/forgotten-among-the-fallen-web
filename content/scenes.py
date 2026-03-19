@@ -839,21 +839,47 @@ SCENE_CAIRN_REST = {
         {
             "type": "prose",
             "text": (
-                "You sit. The cairn's warmth spreads through your back. "
-                "You do not sleep — you are not certain you can sleep — "
-                "but you close your eyes and let the memory try to find you."
+                "You sit with your back against the cairn. "
+                "The warmth is steady — not warm like fire, "
+                "but warm like something that has been burning so long "
+                "it has forgotten how to stop. "
+                "You close your eyes and let the memory try to find you."
             )
         },
-        {"type": "delay", "seconds": 1.5},
+        {
+            "type": "memory",
+            "key":   "the_feast",
+            "label": "A feast in the longhouse — before",
+            "text":  (
+                "The hall is loud. Smoke and mead and a dozen arguments at once. "
+                "Someone is singing badly and everyone is letting them. "
+                "You are sitting at Gunnar's right hand — "
+                "the place of honour, the place of trust — "
+                "and he is saying something to you that you cannot quite hear "
+                "over the noise. But he is smiling. "
+                "You cannot remember the last time you saw him smile. "
+                "You cannot remember if he smiled after."
+            ),
+        },
         {
             "type": "italic",
-            "text": "A hall. Firelight. A voice you know better than your own saying your name with something that might be disappointment. Or grief.",
-            },
-        {"type": "pause"},
+            "text": (
+                "The fire. The faces you know. "
+                "Your hand around a cup that is full. "
+                "The specific weight of a night when nothing is wrong yet."
+            )
+        },
         {
             "type": "prose",
-            "text": "You open your eyes. The fog is the same. But you feel more solid in it."
+            "text": (
+                "You open your eyes. "
+                "The fog is the same. The battlefield is the same. "
+                "But something has shifted — "
+                "not in the world, but in the distance between you and what you lost. "
+                "It is smaller than it was."
+            )
         },
+        {"type": "heal", "amount": 30},
     ],
     "next": "battlefield_open",
 }
