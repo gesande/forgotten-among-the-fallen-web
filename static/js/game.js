@@ -307,8 +307,11 @@ function renderChoices(choices, autoNext, hasNamePrompt) {
     btn.addEventListener("mouseenter", () => SoundEngine.playSfx("choice"));
     btn.addEventListener("click", () => {
       SoundEngine.playSfx("confirm");
-      if (hasNamePrompt) {
-        // Store chosen option, hide choices, show name input
+      // Check name prompt state from DOM at click time — not from stale closure
+      const needsName = hasNamePrompt &&
+                        !$("name-input-wrap").classList.contains("hidden") === false &&
+                        currentScene && currentScene.name_prompt;
+      if (needsName) {
         pendingChoiceId = choice.id;
         wrap.innerHTML = "";
         $("name-input-wrap").classList.remove("hidden");
