@@ -58,7 +58,38 @@ SCENE_AWAKENING = {
         "subtitle": "you should not be standing",
     },
     "show_hud": False,
-    "beats": [],
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The battlefield stretches in every direction — a field of mud and iron "
+                "that has swallowed an entire army whole. "
+                "You can see the remnants of shield-walls, the broken lines where men "
+                "stood their ground and were ground down. "
+                "No side won here. Both sides lost everything."
+            )
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You do not know how long you have been lying among them. "
+                "You do not know why you rose when they did not. "
+                "You know your name — the fog gave that back to you, at least — "
+                "but everything else sits just beyond reach, "
+                "like words in a language you are forgetting."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                "Somewhere to the north, the ruins of a longhouse. "
+                "To the east, the dead lie thicker — the fighting was hardest there. "
+                "To the south, a burial mound rises from the earth like a held breath. "
+                "And somewhere nearby, you can hear something. "
+                "A voice, or what is left of one."
+            )
+        },
+    ],
     "choices": [
         {
             "label":     "Stand still. Listen. Try to understand where you are.",
