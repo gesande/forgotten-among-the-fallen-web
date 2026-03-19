@@ -263,13 +263,17 @@ def load_game():
 
 def _advance_after_combat(scene_key: str, combat: dict) -> str:
     """After combat ends, move to the right next scene."""
+    # On death: go to the scene BEFORE the combat so player
+    # sees the approach again rather than re-entering combat immediately
+    pre_combat = {
+        "combat_gunnar":       "the_mound",
+        "combat_draugar_east": "scavenge_east",
+    }
     if combat.get("died"):
-        return scene_key  # respawn in same scene
+        return pre_combat.get(scene_key, "battlefield_open")
     if combat.get("fled"):
         return "battlefield_open"
-    # Victory: return to the same scene — the combat beat has already been
-    # processed and the flag set, so render_scene will skip it and show
-    # the post-combat prose + choices instead.
+    # Victory: return to the same scene so post-combat choices are shown
     return scene_key
 
 # ═══════════════════════════════════════════════════════════

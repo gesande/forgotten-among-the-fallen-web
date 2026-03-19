@@ -274,14 +274,10 @@ function renderScene(data) {
     proseEl.appendChild(div);
   });
 
-  // ── Name input ────────────────────────────────────────────
+  // ── Name input — hidden until player picks a choice ───────
   const nameWrap = $("name-input-wrap");
-  if (data.name_prompt) {
-    nameWrap.classList.remove("hidden");
-    setTimeout(() => $("name-input").focus(), 200);
-  } else {
-    nameWrap.classList.add("hidden");
-  }
+  nameWrap.classList.add("hidden");
+  $("name-input").value = "";
 
   // ── Choices ───────────────────────────────────────────────
   renderChoices(data.choices || [], data.next, data.name_prompt);
@@ -378,10 +374,14 @@ async function makeChoice(choiceId) {
 async function submitName() {
   const name = $("name-input").value.trim();
   if (!name) return;
+  // Safety: if no choice was selected, hide name input and show choices again
+  if (pendingChoiceId === null) {
+    $("name-input-wrap").classList.add("hidden");
+    return;
+  }
   showLoading(true);
   try {
-    // Send the name AND which choice the player made before the name prompt
-    await api("/api/choose", { name, pending_choice_id: pendingChoiceId || "0" });
+    await api("/api/choose", { name, pending_choice_id: pendingChoiceId });
     pendingChoiceId = null;
     loadScene();
   } catch(e) { showLoading(false); }
