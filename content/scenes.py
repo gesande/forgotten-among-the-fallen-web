@@ -1302,16 +1302,50 @@ SCENE_ZONE_1_END = {
 }
 
 SCENE_FINAL_REST = {
+    "header": {
+        "title":    "THE BONE CAIRN",
+        "subtitle": "one more night",
+    },
     "beats": [
         {
             "type": "prose",
             "text": (
                 "You go back to the cairn. "
-                "You sit. You close your eyes. "
+                "The warmth is still there — it does not seem to diminish, "
+                "no matter how long it burns. "
+                "You put your back against it and look at the battlefield. "
+                "From here it is just shapes in fog. "
+                "You can almost believe it is something else."
+            )
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You close your eyes. "
                 "The memory comes closer — not all the way, but closer. "
-                "You can see the eastern ridge now. "
-                "You can see why you were not there. "
-                "You are not yet ready to say it out loud."
+                "You can see the eastern ridge. "
+                "You can see the moment. "
+                "You can feel the weight of the decision you made, "
+                "which is different from understanding it. "
+                "You are not yet ready to say it out loud. "
+                "But you are closer than you were."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                "The cairn hums very quietly. "
+                "Or perhaps that is you. "
+                "The distinction has become less important."
+            )
+        },
+        {
+            "type": "prose",
+            "text": (
+                "When you open your eyes the fog to the south is lighter. "
+                "Not gone — never gone — but thinner. "
+                "The key is warm in your hand. "
+                "It is time."
             )
         },
         {"type": "stat", "changes": {"resolve": 8, "honour": 5}},
