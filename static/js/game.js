@@ -284,10 +284,12 @@ function renderScene(data) {
   }
 
   // ── Choices ───────────────────────────────────────────────
-  renderChoices(data.choices || [], data.next);
+  renderChoices(data.choices || [], data.next, data.name_prompt);
 }
 
-function renderChoices(choices, autoNext) {
+let pendingChoiceId = null;  // remembers which choice was clicked before name input
+
+function renderChoices(choices, autoNext, hasNamePrompt) {
   const wrap = $("choices-wrap");
   wrap.innerHTML = "";
 
@@ -309,7 +311,15 @@ function renderChoices(choices, autoNext) {
     btn.addEventListener("mouseenter", () => SoundEngine.playSfx("choice"));
     btn.addEventListener("click", () => {
       SoundEngine.playSfx("confirm");
-      makeChoice(choice.id);
+      if (hasNamePrompt) {
+        // Store chosen option, hide choices, show name input
+        pendingChoiceId = choice.id;
+        wrap.innerHTML = "";
+        $("name-input-wrap").classList.remove("hidden");
+        setTimeout(() => $("name-input").focus(), 100);
+      } else {
+        makeChoice(choice.id);
+      }
     });
     wrap.appendChild(btn);
   });
@@ -370,7 +380,9 @@ async function submitName() {
   if (!name) return;
   showLoading(true);
   try {
-    await api("/api/choose", { name });
+    // Send the name AND which choice the player made before the name prompt
+    await api("/api/choose", { name, pending_choice_id: pendingChoiceId || "0" });
+    pendingChoiceId = null;
     loadScene();
   } catch(e) { showLoading(false); }
 }

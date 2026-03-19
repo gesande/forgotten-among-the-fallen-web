@@ -136,11 +136,13 @@ def choose():
     # Handle name input specially
     if data.get("name"):
         state.name = data["name"].strip() or "the drengr"
+        # Use the choice the player actually selected before typing their name
+        pending_id = str(data.get("pending_choice_id", "0"))
         from content.scenes import SCENES
         scene = SCENES.get(scene_key, {})
         choices = scene.get("choices", [])
         if choices:
-            next_key, _ = apply_choice(scene_key, "0", state)
+            next_key, _ = apply_choice(scene_key, pending_id, state)
         else:
             next_key = scene.get("next", "battlefield_open")
         state.current_scene = next_key
