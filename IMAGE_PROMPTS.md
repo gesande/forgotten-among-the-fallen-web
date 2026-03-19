@@ -277,11 +277,33 @@ The engine tries `.ogg` first, then `.mp3`.
 | `sfx_parry.ogg`   | Parry succeeds             |
 
 ### Recommended Suno/Udio prompts for music
+- **ambient_title**: "dark norse atmospheric intro, slow building tension, distant
+  single horn note fading in, deep silence between sounds, title screen atmosphere,
+  no melody, no percussion, 3 minutes loop"
 - **ambient_battlefield**: "dark norse ambient, wind howling, distant war horn,
   slow deep drums fading in and out, no melody, 3 minutes, loop"
+- **ambient_forge**: "dark medieval blacksmith ambient, dying forge embers crackling,
+  low resonant drone, occasional distant hammer strike on metal, warm but desolate,
+  sacred atmosphere, no melody, 3 minutes loop"
+- **ambient_cairn**: "ethereal norse ambient, singing bowls, rune tones,
+  sparse, sacred feeling, very quiet, 3 minutes loop"
+- **ambient_mound**: "oppressive dark norse drone, deep bass rumble, burial mound
+  atmosphere, silence punctuated by distant wind, ominous, no melody, no percussion,
+  unsettling, 3 minutes loop"
+- **ambient_void**: "near silence dark ambient, single distant viking horn note,
+  vast empty space, cold wind, between worlds liminal atmosphere, very minimal,
+  90 seconds loop"
 - **combat_draugar**: "viking battle percussion, urgent rhythmic drums, no
   melody, intense, dark, 90 seconds loop"
 - **combat_boss**: "epic dark norse boss fight music, heavy war drums, chanting,
   ominous, relentless tempo, 2 minutes loop"
-- **ambient_cairn**: "ethereal norse ambient, singing bowls, rune tones,
-  sparse, sacred feeling, very quiet, 3 minutes loop"
+
+### Recommended prompts for SFX
+- **sfx_choice**: "soft parchment rustling, quiet, subtle, ui hover sound"
+- **sfx_confirm**: "heavy iron click, satisfying, medieval, selection confirm sound"
+- **sfx_memory**: "ethereal frost bell chime, single note, reverb, memory recovered"
+- **sfx_death**: "deep resonant iron toll, single heavy bell, slow decay, death knell"
+- **sfx_shards**: "crystalline ice shards clinking, bright, magical, short"
+- **sfx_hit**: "iron on iron impact, heavy, combat hit, short sharp"
+- **sfx_miss**: "weapon swoosh through air, short, combat miss"
+- **sfx_parry**: "ringing metal clash, iron parry, short bright tone, success sound"
