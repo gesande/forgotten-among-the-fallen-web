@@ -273,6 +273,30 @@ html, body {
   text-shadow: 0 1px 4px rgba(0,0,0,0.95), 0 0 10px rgba(40,100,130,0.3);
 }
 
+#hud-inventory {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  pointer-events: none;
+}
+
+.hud-item {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(196,186,164,0.7);
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.95);
+  padding-left: 8px;
+  border-left: 1px solid rgba(180,140,50,0.3);
+  line-height: 1.6;
+}
+.hud-item::before {
+  content: "· ";
+  color: rgba(180,140,50,0.4);
+}
+
 /* ═══ AUDIO CONTROLS ════════════════════════════════════════ */
 .audio-icon-btn {
   background: none;
@@ -454,7 +478,7 @@ html, body {
   margin-bottom: 1.2rem;
   opacity: 0;
   transform: translateX(-18px);
-  animation: slideIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation: slideIn 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 .prose-block.italic {
   font-style: italic;
