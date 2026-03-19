@@ -602,11 +602,12 @@ SCENE_LEIF_FAREWELL = {
         {
             "type": "italic",
             "text": (
-                '"I found this on the mound, two days ago. '
-                'Before I stopped being able to walk that far. '
+                '"I found this the morning after the battle. '
+                'Before the wound got bad enough that I stopped moving. '
+                'It was on the mound — just sitting there, like it had been left. '
                 'I do not know what it opens. '
-                'But it has your name on it — not scratched in, just... '
-                'it feels like yours."'
+                'But I kept it. '
+                'I think I kept it for you."'
             ),
         },
         {
@@ -889,23 +890,39 @@ SCENE_FORGE_SEARCH = {
         {
             "type": "prose",
             "text": (
-                "The forge yields more than you expected. "
-                "Someone was working here close to the end — "
-                "there are half-finished repairs, a blade still in the vice, "
-                "and a small hoard of iron scraps that survived the collapse."
+                "The forge is cold but not abandoned. "
+                "Someone was working here right up to the end — "
+                "a blade still clamped in the vice, "
+                "half its edge reground. "
+                "The tools are laid out in the order of someone who expected to return. "
+                "They did not return."
             )
         },
-        {"type": "item",   "item": "iron scraps",    "action": "give"},
-        {"type": "item",   "item": "whetstone",      "action": "give"},
+        {
+            "type": "prose",
+            "text": (
+                "You work through it methodically. "
+                "Iron scraps. A whetstone, good quality. "
+                "A pouch of echo dust tucked under the bellows — "
+                "someone hid it there, which means someone knew what it was worth. "
+                "Your hands move through the search with the ease of practice. "
+                "You have done this before. After battles, after raids. "
+                "The memory does not surface, but the competence does."
+            )
+        },
+        {"type": "item",   "item": "iron scraps", "action": "give"},
+        {"type": "item",   "item": "whetstone",   "action": "give"},
         {"type": "shards", "amount": 80},
         {
             "type": "prose",
             "text": (
-                "There is also a piece of cloth, wrapped around something small. "
-                "You unwrap it. A medallion — clan mark, though which clan "
-                "you cannot quite read. "
-                "The style is familiar. "
-                "The familiarity is the kind that hurts."
+                "Beneath the workbench, wrapped in oiled cloth: a medallion. "
+                "Clan mark. You turn it over in your fingers. "
+                "The mark is one you know — not from this battle, "
+                "not from any single memory, "
+                "but from the deep place where the certain things live. "
+                "You have worn this. Or one exactly like it. "
+                "The difference, if there is one, does not matter."
             )
         },
         {
@@ -913,10 +930,12 @@ SCENE_FORGE_SEARCH = {
             "key":   "the_medallion",
             "label": "A clan medallion, familiar and nameless",
             "text":  (
-                "You have seen this mark before. "
-                "You have worn it. "
-                "You are certain of it — the weight of it in your hand is the weight "
-                "of something you once carried every day."
+                "The weight of it is the weight of belonging somewhere. "
+                "Of being someone's man. "
+                "You wore this mark when you swore the oath. "
+                "You do not know if you are still wearing it — "
+                "whether the oath broken means the mark void, "
+                "or whether the mark outlasts the man who broke it."
             ),
         },
         {"type": "item", "item": "clan medallion", "action": "give"},
