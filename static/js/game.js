@@ -274,9 +274,15 @@ function renderScene(data) {
     proseEl.appendChild(div);
   });
 
-  // ── Name input — hidden until player picks a choice ───────
+  // ── Name input ────────────────────────────────────────────
   const nameWrap = $("name-input-wrap");
-  nameWrap.classList.add("hidden");
+  if (data.name_prompt && (data.choices || []).length === 0) {
+    // name_entry scene: show immediately, no choices to pick first
+    nameWrap.classList.remove("hidden");
+    setTimeout(() => $("name-input").focus(), 200);
+  } else {
+    nameWrap.classList.add("hidden");
+  }
   $("name-input").value = "";
 
   // ── Choices ───────────────────────────────────────────────
@@ -307,18 +313,7 @@ function renderChoices(choices, autoNext, hasNamePrompt) {
     btn.addEventListener("mouseenter", () => SoundEngine.playSfx("choice"));
     btn.addEventListener("click", () => {
       SoundEngine.playSfx("confirm");
-      // Check name prompt state from DOM at click time — not from stale closure
-      const needsName = hasNamePrompt &&
-                        !$("name-input-wrap").classList.contains("hidden") === false &&
-                        currentScene && currentScene.name_prompt;
-      if (needsName) {
-        pendingChoiceId = choice.id;
-        wrap.innerHTML = "";
-        $("name-input-wrap").classList.remove("hidden");
-        setTimeout(() => $("name-input").focus(), 100);
-      } else {
-        makeChoice(choice.id);
-      }
+      makeChoice(choice.id);
     });
     wrap.appendChild(btn);
   });
@@ -377,14 +372,9 @@ async function makeChoice(choiceId) {
 async function submitName() {
   const name = $("name-input").value.trim();
   if (!name) return;
-  // Safety: if no choice was selected, hide name input and show choices again
-  if (pendingChoiceId === null) {
-    $("name-input-wrap").classList.add("hidden");
-    return;
-  }
   showLoading(true);
   try {
-    await api("/api/choose", { name, pending_choice_id: pendingChoiceId });
+    await api("/api/choose", { name });
     pendingChoiceId = null;
     loadScene();
   } catch(e) { showLoading(false); }
@@ -428,7 +418,16 @@ function startCombat(data) {
   SoundEngine.playScene(artKey);
 
   // Set combat art
-  $("combat-art").src = `${ART_BASE}${artKey}.svg`;
+  // Set combat art — try png/jpg before svg
+  const combatArtEl = $("combat-art");
+  combatArtEl.style.opacity = "0";
+  function tryCombatLoad(exts, idx) {
+    if (idx >= exts.length) { combatArtEl.style.opacity = "1"; return; }
+    combatArtEl.src = `${ART_BASE}${artKey}.${exts[idx]}`;
+    combatArtEl.onload  = () => { combatArtEl.style.opacity = "1"; };
+    combatArtEl.onerror = () => tryCombatLoad(exts, idx + 1);
+  }
+  tryCombatLoad(["png", "jpg", "svg"], 0);
 
   // Enemy name & HP bar
   $("combat-enemy-name").textContent = c.enemy_name || "Enemy";

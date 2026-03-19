@@ -7,15 +7,14 @@
 # ─────────────────────────────────────────────────────────────
 #  AWAKENING
 # ─────────────────────────────────────────────────────────────
-SCENE_AWAKENING = {
+# ── Name entry: shown first, before any choices ──────────────
+SCENE_NAME_ENTRY = {
     "header": {
         "title":    "FORGOTTEN AMONG THE FALLEN",
         "subtitle": "A Viking Dark Fantasy",
     },
     "show_hud": False,
     "beats": [
-        {"type": "separator", "style": "rune"},
-        {"type": "delay", "seconds": 0.8},
         {
             "type": "prose",
             "text": (
@@ -26,7 +25,6 @@ SCENE_AWAKENING = {
                 "And you are standing among them."
             )
         },
-        {"type": "pause"},
         {
             "type": "prose",
             "text": (
@@ -37,7 +35,6 @@ SCENE_AWAKENING = {
                 "Not yet."
             )
         },
-        {"type": "pause"},
         {
             "type": "prose",
             "text": (
@@ -51,6 +48,17 @@ SCENE_AWAKENING = {
             "store_as": "name",
         },
     ],
+    "next": "awakening",
+}
+
+# ── Awakening: choices shown after name is known ──────────────
+SCENE_AWAKENING = {
+    "header": {
+        "title":    "THE WAKING FIELD",
+        "subtitle": "you should not be standing",
+    },
+    "show_hud": False,
+    "beats": [],
     "choices": [
         {
             "label":     "Stand still. Listen. Try to understand where you are.",
@@ -1139,6 +1147,7 @@ SCENE_ACT_2_INTRO = {
 #  SCENE REGISTRY
 # ─────────────────────────────────────────────────────────────
 SCENES = {
+    "name_entry":                SCENE_NAME_ENTRY,
     "awakening":                 SCENE_AWAKENING,
     "find_weapon":               SCENE_FIND_WEAPON,
     "battlefield_open":          SCENE_BATTLEFIELD_OPEN,

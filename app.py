@@ -53,7 +53,7 @@ def index():
 @app.route("/api/new", methods=["POST"])
 def new_game():
     state = PlayerState()
-    state.current_scene = "awakening"
+    state.current_scene = "name_entry"
     _save_state(state)
     _save_combat(None)
     return jsonify({"ok": True})
@@ -63,7 +63,7 @@ def new_game():
 def get_scene():
     state = _get_state()
     if not state.current_scene:
-        state.current_scene = "awakening"
+        state.current_scene = "name_entry"
 
     key = state.current_scene
 
@@ -73,9 +73,9 @@ def get_scene():
 
     if key == "__restart__":
         state = PlayerState()
-        state.current_scene = "awakening"
+        state.current_scene = "name_entry"
         _save_state(state)
-        key = "awakening"
+        key = "name_entry"
 
     # Auto-advance through chain scenes that have NO prose to show
     # (pure side-effect scenes: only flag/stat/item beats, no prose/italic/memory)

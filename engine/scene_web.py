@@ -18,6 +18,7 @@ from content.scenes import SCENES
 
 # ── Art key mapping — which SVG to show per scene ────────────
 SCENE_ART = {
+    "name_entry":               "battlefield",
     "awakening":                "battlefield",
     "find_weapon":              "battlefield",
     "battlefield_open":         "battlefield",
@@ -94,15 +95,17 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
             filtered_idx += 1
         if not raw_choices and scene.get("next"):
             # Only auto-advance (no Continue button) if scene has no prose to show
-            has_prose = any(
+            has_prose  = any(
                 b.get("type") in ("prose", "italic", "memory", "conditional_prose")
                 for b in scene.get("beats", [])
             )
-            if has_prose:
-                # Has prose — show Continue button that calls /api/advance
+            has_input  = any(b.get("type") == "input" for b in scene.get("beats", []))
+            if has_prose and not has_input:
+                # Has prose but no input — show Continue button
                 output["choices"] = [{"id": "__next__", "label": "Continue"}]
-            else:
+            elif not has_prose:
                 output["next"] = scene["next"]
+            # If has_input: name field acts as the continue — no extra button needed
 
     # Refresh HUD after beat effects
     output["hud"] = _build_hud(state)
