@@ -9,7 +9,7 @@ const SoundEngine = (() => {
     "title":                "ambient_title",
     "name_entry":           "ambient_cairn",       // introspective, not battlefield
     "battlefield":          "ambient_battlefield",
-    "leif":                 "ambient_battlefield",
+    "leif":                 "ambient_leif",
     "longhouse":            "ambient_forge",
     "cairn":                "ambient_cairn",
     "mound":                "ambient_mound",

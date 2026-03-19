@@ -256,7 +256,8 @@ The engine tries `.ogg` first, then `.mp3`.
 | Filename                  | Scene              | Mood                                    |
 |---------------------------|--------------------|-----------------------------------------|
 | `ambient_title.ogg`       | Title screen       | Slow dark Norse ambient, builds slowly  |
-| `ambient_battlefield.ogg` | Battlefield, Leif  | Slow wind, distant horn, no melody     |
+| `ambient_leif.ogg`        | Leif scenes        | Slow sorrowful strings, melancholic    |
+| `ambient_battlefield.ogg` | Battlefield        | Slow wind, distant horn, no melody     |
 | `ambient_forge.ogg`       | Longhouse          | Low hum, crackling fire, bass drone    |
 | `ambient_cairn.ogg`       | Bone Cairn         | Ethereal, rune tones, sparse           |
 | `ambient_mound.ogg`       | The Mound          | Oppressive bass drone, silence breaks  |
@@ -280,6 +281,9 @@ The engine tries `.ogg` first, then `.mp3`.
 - **ambient_title**: "dark norse atmospheric intro, slow building tension, distant
   single horn note fading in, deep silence between sounds, title screen atmosphere,
   no melody, no percussion, 3 minutes loop"
+- **ambient_leif**: "slow sorrowful norse ambient, single cello or low strings,
+  sparse melody, dying soldier atmosphere, melancholic but not hopeless,
+  quiet and intimate, no percussion, 3 minutes loop"
 - **ambient_battlefield**: "dark norse ambient, wind howling, distant war horn,
   slow deep drums fading in and out, no melody, 3 minutes, loop"
 - **ambient_forge**: "dark medieval blacksmith ambient, dying forge embers crackling,
