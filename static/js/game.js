@@ -217,15 +217,22 @@ async function loadScene() {
 function renderScene(data) {
   // ── Illustration — try .png first, fall back to .svg ────────
   const artKey    = data.art_key || ART_FALLBACK;
-  const imgKey    = ART_ALIASES[artKey] || artKey;   // alias for image file
+  const imgKey    = ART_ALIASES[artKey] || artKey;
   const artEl     = $("scene-art");
   artEl.style.opacity = "0";
+  artEl.src = "";   // clear first to force reload even if same src
 
   function tryLoad(exts, idx) {
-    if (idx >= exts.length) { artEl.style.opacity = "1"; return; }
-    artEl.src = `${ART_BASE}${imgKey}.${exts[idx]}`;
+    if (idx >= exts.length) {
+      // All formats failed — show fallback
+      artEl.src = `${ART_BASE}${ART_FALLBACK}.svg`;
+      artEl.style.opacity = "1";
+      return;
+    }
+    const url = `${ART_BASE}${imgKey}.${exts[idx]}`;
     artEl.onload  = () => { artEl.style.opacity = "1"; };
     artEl.onerror = () => tryLoad(exts, idx + 1);
+    artEl.src = url;
   }
   tryLoad(["png", "jpg", "svg"], 0);
 
@@ -458,11 +465,17 @@ function startCombat(data) {
   // Set combat art — try png/jpg before svg
   const combatArtEl = $("combat-art");
   combatArtEl.style.opacity = "0";
+  combatArtEl.src = "";
   function tryCombatLoad(exts, idx) {
-    if (idx >= exts.length) { combatArtEl.style.opacity = "1"; return; }
-    combatArtEl.src = `${ART_BASE}${imgKeyC}.${exts[idx]}`;
+    if (idx >= exts.length) {
+      combatArtEl.src = `${ART_BASE}${ART_FALLBACK}.svg`;
+      combatArtEl.style.opacity = "1";
+      return;
+    }
+    const url = `${ART_BASE}${imgKeyC}.${exts[idx]}`;
     combatArtEl.onload  = () => { combatArtEl.style.opacity = "1"; };
     combatArtEl.onerror = () => tryCombatLoad(exts, idx + 1);
+    combatArtEl.src = url;
   }
   tryCombatLoad(["png", "jpg", "svg"], 0);
 
