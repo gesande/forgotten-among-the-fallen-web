@@ -275,8 +275,8 @@ function renderScene(data) {
   const proseEl = $("prose-body");
   proseEl.innerHTML = "";
   // Base delay: small pause then paragraphs stagger in one by one
-  const BASE_DELAY  = 0.35;   // seconds before first paragraph
-  const PARA_GAP    = 0.45;   // seconds between paragraphs
+  const BASE_DELAY  = 0.5;    // seconds before first paragraph
+  const PARA_GAP    = 0.75;   // seconds between paragraphs
   let paraIdx = 0;
   (data.paragraphs || []).forEach((p) => {
     if (p.type === "memory") return;
@@ -313,10 +313,10 @@ function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
   wrap.innerHTML = "";
 
   // Choices appear after prose — delay based on how many paragraphs came before
-  const BASE_DELAY = 0.35;
-  const PARA_GAP   = 0.45;
-  const CHOICE_GAP = 0.12;
-  const afterProse = BASE_DELAY + (paraCount || 0) * PARA_GAP + 0.3;
+  const BASE_DELAY = 0.5;
+  const PARA_GAP   = 0.75;
+  const CHOICE_GAP = 0.15;
+  const afterProse = BASE_DELAY + (paraCount || 0) * PARA_GAP + 0.5;
 
   if (autoNext) {
     const btn = document.createElement("button");
