@@ -202,6 +202,13 @@ async function loadScene() {
 
     if (data.combat) {
       startCombat(data);
+    } else if (data.combat_resolved) {
+      // Combat scene already won — advance immediately
+      await api("/api/advance", {
+        next_scene: "__scene_next__",
+        scene_key: data.scene_key,
+      });
+      loadScene();
     }
   } catch(e) {
     console.error("Scene load error:", e);

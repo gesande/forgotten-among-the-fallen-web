@@ -67,11 +67,17 @@ SCENE_ART = {
 def render_scene(scene_key: str, state: PlayerState) -> dict:
     """
     Process a scene and return a structured dict for the frontend.
-    Applies all beat side-effects (flags, stats, items) immediately.
-    Combat beats return a special trigger — frontend switches to combat UI.
+    Side-effects (items, stats, flags, shards, heal) only apply on
+    the first visit — subsequent loads are display-only.
     """
     if scene_key not in SCENES:
         return {"error": f"Unknown scene: {scene_key}"}
+
+    # Track whether this is the first time we're processing this scene
+    visited_key = f"scene_visited_{scene_key}"
+    first_visit = not state.has_flag(visited_key)
+    if first_visit:
+        state.set_flag(visited_key, True)
 
     scene   = SCENES[scene_key]
     output  = {
@@ -91,7 +97,7 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
 
     # ── Process beats ─────────────────────────────────────────
     for beat in scene.get("beats", []):
-        _process_beat(beat, state, output)
+        _process_beat(beat, state, output, first_visit)
         # Stop processing beats once combat is triggered
         if output["combat"]:
             break
@@ -109,6 +115,18 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
                 "label": c["label"],
             })
             filtered_idx += 1
+
+        # If no choices and no next — check if this was a pure combat scene
+        # whose combat was skipped (already defeated). Auto-advance via backend.
+        all_combat = all(
+            b.get("type") == "combat"
+            for b in scene.get("beats", [])
+            if b.get("type") not in ("flag", "stat")
+        )
+        if not raw_choices and not scene.get("next") and all_combat:
+            # Combat already resolved — signal frontend to call /api/advance
+            output["combat_resolved"] = True
+
         if not raw_choices and scene.get("next"):
             # Only auto-advance (no Continue button) if scene has no prose to show
             has_prose  = any(
@@ -167,7 +185,7 @@ def apply_choice(scene_key: str, choice_id: str, state: PlayerState) -> str:
 
 # ── Beat processor ────────────────────────────────────────────
 
-def _process_beat(beat: dict, state: PlayerState, output: dict) -> None:
+def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: bool = True) -> None:
     kind = beat.get("type", "prose")
 
     # Condition gate
@@ -184,7 +202,7 @@ def _process_beat(beat: dict, state: PlayerState, output: dict) -> None:
     elif kind == "memory":
         key   = beat.get("key", "memory")
         label = beat.get("label", "")
-        if state.add_memory(key, label):
+        if state.add_memory(key, label):  # add_memory is already idempotent
             output["memories"].append(beat["text"])
             output["paragraphs"].append({
                 "type": "memory",
@@ -202,37 +220,41 @@ def _process_beat(beat: dict, state: PlayerState, output: dict) -> None:
     elif kind == "combat":
         enemy_key = beat["enemy"]
         flag      = beat.get("flag", f"defeated_{enemy_key}")
-        # Only trigger if not already defeated
         if not state.has_flag(flag):
             output["combat"] = {"enemy_key": enemy_key}
 
+    # ── Side-effects below only apply on first visit ──────────
     elif kind == "stat":
-        for stat, delta in beat.get("changes", {}).items():
-            state.modify_stat(stat, delta)
+        if first_visit:
+            for stat, delta in beat.get("changes", {}).items():
+                state.modify_stat(stat, delta)
 
     elif kind == "flag":
-        state.set_flag(beat["key"], beat.get("value", True))
+        if first_visit:
+            state.set_flag(beat["key"], beat.get("value", True))
 
     elif kind == "item":
-        item   = beat["item"]
-        action = beat.get("action", "give")
-        if action == "give":
-            state.add_item(item)
-            output["items"].append(item)
-        elif action == "take":
-            state.remove_item(item)
+        if first_visit:
+            item   = beat["item"]
+            action = beat.get("action", "give")
+            if action == "give":
+                state.add_item(item)
+                output["items"].append(item)
+            elif action == "take":
+                state.remove_item(item)
 
     elif kind == "shards":
-        amount = beat["amount"]
-        state.echo_shards = max(0, state.echo_shards + amount)
-        output["shards"] += amount
+        if first_visit:
+            amount = beat["amount"]
+            state.echo_shards = max(0, state.echo_shards + amount)
+            output["shards"] += amount
 
     elif kind == "heal":
-        amount = beat.get("amount", state.max_health)
-        state.heal(amount)
+        if first_visit:
+            amount = beat.get("amount", state.max_health)
+            state.heal(amount)
 
     elif kind == "input":
-        # Flag the output — frontend will show a name input field
         if beat.get("store_as") == "name":
             output["name_prompt"] = True
 

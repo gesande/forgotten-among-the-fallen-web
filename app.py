@@ -273,13 +273,25 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
     pre_combat = {
         "combat_gunnar":       "the_mound",
         "combat_draugar_east": "scavenge_east",
+        "combat_fog_sentinel": "fog_sentinel",
+    }
+    # On flee: return to the scene before combat, not always battlefield
+    pre_combat_fled = {
+        "combat_gunnar":       "the_mound",
+        "combat_draugar_east": "scavenge_east",
+        "combat_fog_sentinel": "fog_sentinel",
     }
     if combat.get("died"):
         return pre_combat.get(scene_key, "battlefield_open")
     if combat.get("fled"):
-        return "battlefield_open"
-    # Victory: return to the same scene so post-combat choices are shown
-    return scene_key
+        return pre_combat_fled.get(scene_key, "battlefield_open")
+    # Victory: advance to post-combat scene
+    post_combat = {
+        "combat_gunnar":       "zone_1_end",
+        "combat_draugar_east": "scavenge_east_after",
+        "combat_fog_sentinel": "fog_sentinel_after",
+    }
+    return post_combat.get(scene_key, scene_key)
 
 # ═══════════════════════════════════════════════════════════
 #  ENTRY
