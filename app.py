@@ -6,6 +6,9 @@
 from flask import Flask, render_template, jsonify, request, session
 import json, os
 
+BASE_DIR  = os.path.dirname(os.path.abspath(__file__))
+SAVES_DIR = os.path.join(BASE_DIR, "saves")
+
 from engine.state     import PlayerState
 from engine.scene_web import render_scene, apply_choice, _build_hud
 from content.scenes   import SCENES
@@ -20,7 +23,7 @@ app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 
 # Always ensure saves dir exists regardless of how app is started
-os.makedirs("saves", exist_ok=True)
+os.makedirs(SAVES_DIR, exist_ok=True)
 
 # ── Session helpers ───────────────────────────────────────────
 
@@ -217,7 +220,7 @@ def combat_action():
 def status():
     state = _get_state()
     return jsonify({
-        "has_save":     os.path.exists("saves/save_0.json"),
+        "has_save":     os.path.exists(os.path.join(SAVES_DIR, "save_0.json")),
         "scene":        state.current_scene,
         "curse":        state.curse_stacks,
         "shards":       state.echo_shards,
@@ -282,7 +285,7 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
 #  ENTRY
 # ═══════════════════════════════════════════════════════════
 if __name__ == "__main__":
-    os.makedirs("saves", exist_ok=True)
+    os.makedirs(SAVES_DIR, exist_ok=True)
     port = int(os.environ.get("PORT", 5000))
     debug = os.environ.get("FLASK_ENV") != "production"
     print("\n  Forgotten Among the Fallen")

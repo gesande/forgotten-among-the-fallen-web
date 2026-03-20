@@ -120,14 +120,18 @@ class PlayerState:
         return obj
 
     def save(self, slot: int = 0):
-        path = os.path.join("saves", f"save_{slot}.json")
-        os.makedirs("saves", exist_ok=True)
+        saves_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "saves")
+        saves_dir = os.path.normpath(saves_dir)
+        os.makedirs(saves_dir, exist_ok=True)
+        path = os.path.join(saves_dir, f"save_{slot}.json")
         with open(path, "w") as f:
             json.dump(self.to_dict(), f, indent=2)
 
     @classmethod
     def load(cls, slot: int = 0) -> Optional["PlayerState"]:
-        path = os.path.join("saves", f"save_{slot}.json")
+        saves_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "saves")
+        saves_dir = os.path.normpath(saves_dir)
+        path = os.path.join(saves_dir, f"save_{slot}.json")
         if not os.path.exists(path):
             return None
         with open(path) as f:
