@@ -46,6 +46,22 @@ SCENE_ART = {
     "zone_1_end":               "mound",
     "final_rest":               "cairn",
     "act_2_intro":              "act_break",
+    # Act II — The Stirring Beneath
+    "fog_road":                 "fog_road",
+    "fog_the_held":             "fog_road",
+    "fog_held_other":           "fog_road",
+    "fog_held_release":         "fog_road",
+    "fog_held_after":           "fog_road",
+    "fog_sentinel":             "fog_sentinel",
+    "fog_sentinel_wait":        "fog_sentinel",
+    "fog_sentinel_avoided":     "fog_sentinel",
+    "combat_fog_sentinel":      "fog_sentinel",
+    "fog_sentinel_after":       "fog_road",
+    "gatehouse_approach":       "gatehouse",
+    "gatehouse_guards":         "gatehouse",
+    "gatehouse_courtyard":      "gatehouse",
+    "gatehouse_wall":           "gatehouse",
+    "gatehouse_inside":         "gatehouse",
 }
 
 def render_scene(scene_key: str, state: PlayerState) -> dict:

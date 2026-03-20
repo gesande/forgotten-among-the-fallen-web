@@ -113,15 +113,7 @@ const SoundEngine = (() => {
   }
 
   function playSfx(name) {
-    if (muted) return;
-    const sfxName = SFX_MAP[name];
-    if (!sfxName) return;
-    try {
-      const a   = new window.Audio(SFX_BASE + sfxName + ".mp3");
-      a.volume  = sfxVolume;
-      a.onerror = () => { a.src = SFX_BASE + sfxName + ".ogg"; a.play().catch(() => {}); };
-      a.play().catch(() => {});
-    } catch(e) {}
+    return; // SFX disabled until audio files are added to static/audio/sfx/
   }
 
   function toggleMute() {

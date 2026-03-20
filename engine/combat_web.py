@@ -72,6 +72,44 @@ ENEMIES = {
         "loot":   [("iron scraps", 1.0), ("cracked shield", 0.5)],
         "shards": (100, 180),
     },
+    "fog_sentinel": {
+        "name":       "the Fog-Sentinel",
+        "name_short": "the Sentinel",
+        "hp":         55,
+        "damage":     (10, 22),
+        "accuracy":   0.65,
+        "drain":      True,
+        "drain_amount": 8,
+        "phrases": {
+            "windup": [
+                "The bell-tone rises. Its arms extend toward you — not reaching, containing.",
+                "It rotates toward you without moving its feet. The sound becomes pressure.",
+                "The fog thickens around it. You feel the air trying to hold you still.",
+            ],
+            "hit": [
+                "The contact is wrong — not pain exactly. More like something leaving you.",
+                "It touches you and the bell-tone spikes. Your wrath drains with it.",
+                "You are struck and for a moment you forget what you were angry about.",
+            ],
+            "miss": [
+                "You step outside its reach. The sound follows but the arms do not.",
+                "It passes through where you were. Cold. Very cold.",
+                "You move. It recalibrates — slowly, like a compass finding north.",
+            ],
+            "drain_trigger": [
+                "Your strike lands — and you feel it pull something back. The Sentinel steadies.",
+                "It absorbs the blow. Not taking damage — taking fuel.",
+                "The harder you hit, the more it drinks.",
+            ],
+            "death": [
+                "The bell-tone stops. Not fades — stops. Mid-ring, like a thread cut.",
+                "It collapses inward, not outward. As if it was always mostly absence.",
+                "The fog where it stood is colder than the rest. For a long time after.",
+            ],
+        },
+        "loot":   [("fog shard", 1.0)],
+        "shards": (80, 140),
+    },
     "gunnar": {
         "name":        "Gunnar the Hollow King",
         "name_short":  "Gunnar",
@@ -168,7 +206,7 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     if action_id == "light":
         base = roll_range(8, 18)
         dmg  = _apply_mods(base, player, "light")
-        _hit_enemy(dmg, e)
+        _hit_enemy(dmg, e, player, log)
         player.modify_stat("wrath", 10)
         combo = player.flags.get("combo", 0) + 1
         player.set_flag("combo", min(combo, 3))
@@ -180,14 +218,14 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         else:
             base = roll_range(18, 30)
             dmg  = _apply_mods(base, player, "heavy")
-            _hit_enemy(dmg, e)
+            _hit_enemy(dmg, e, player, log)
             player.modify_stat("wrath", 18)
             log.append(_heavy_prose(dmg, e))
 
     elif action_id == "parry":
         if chance(0.45 + player.honour * 0.003):
             dmg = roll_range(12, 22)
-            _hit_enemy(dmg, e)
+            _hit_enemy(dmg, e, player, log)
             player.modify_stat("honour", 2)
             player.modify_stat("wrath", 25)
             log.append("You read the blow perfectly. Your parry opens a gap — you answer it.")
@@ -205,7 +243,7 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     elif action_id == "runic":
         player.echo_shards -= 100
         dmg = roll_range(35, 50)
-        _hit_enemy(dmg, e)
+        _hit_enemy(dmg, e, player, log)
         player.modify_stat("brutality", 5)
         player.wrath = 0
         log.append("The shards burn cold in your fist. The rune ᚠ blooms across your weapon.")
@@ -295,8 +333,17 @@ def _resolve_enemy_death(e, player, combat_state, log):
         player.add_memory("gunnar_defeated", "The death of Gunnar the Hollow King")
     player.set_flag(f"defeated_{e['key']}", True)
 
-def _hit_enemy(dmg, e):
+def _hit_enemy(dmg, e, player=None, log=None):
     e["current_hp"] = max(0, e["current_hp"] - dmg)
+    # Drain mechanic — sentinel heals from player wrath
+    if e.get("drain") and player is not None:
+        drain = min(e["drain_amount"], getattr(player, "wrath", 0))
+        if drain > 0:
+            player.wrath = max(0, player.wrath - drain)
+            heal = min(drain, e["hp"] - e["current_hp"])
+            e["current_hp"] = min(e["hp"], e["current_hp"] + heal)
+            if log is not None:
+                log.append(random.choice(e["phrases"]["drain_trigger"]))
 
 def _apply_mods(base, player, kind):
     mod = base

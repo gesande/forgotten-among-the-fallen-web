@@ -1474,13 +1474,569 @@ SCENE_ACT_2_INTRO = {
     "choices": [
         {
             "label":     "Continue south. The key grows warmer.",
-            "next":      "__save_quit__",
+            "next":      "fog_road",
         },
         {
             "label":     "Return to the battlefield (restart Act 1).",
             "next":      "__restart__",
         },
     ],
+}
+
+# ═════════════════════════════════════════════════════════════
+#  ACT II — THE STIRRING BENEATH
+# ═════════════════════════════════════════════════════════════
+
+SCENE_FOG_ROAD = {
+    "header": {
+        "title":    "THE ROAD SOUTH",
+        "subtitle": "the fog does not thin",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": "The fog south of the battlefield moves differently.",
+        },
+        {
+            "type": "prose",
+            "text": "Not wind. There is no wind here. It moves the way breath moves — "
+                    "in and out, slow and without intention. You have been walking for "
+                    "what feels like an hour. The key is warm against your palm. Not hot. "
+                    "Warm. Like something recently held by someone else.",
+        },
+        {
+            "type": "prose",
+            "text": "The ground beneath you is not a road. It was a road once — you can "
+                    "feel the stones beneath the mud, placed by someone with purpose. "
+                    "Now it leads south into nothing you can see.",
+        },
+        {
+            "type": "italic",
+            "text": "You hear something ahead. Not a voice. The shape a voice leaves "
+                    "after it stops.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Stop and listen.",
+            "effects": {"honour": 2},
+            "next":  "fog_the_held",
+        },
+        {
+            "label": "Keep moving.",
+            "next":  "fog_the_held",
+        },
+        {
+            "label": "Look at the key.",
+            "next":  "fog_the_held",
+        },
+    ],
+}
+
+SCENE_FOG_THE_HELD = {
+    "header": {
+        "title":    "THE HELD",
+        "subtitle": "they have been standing like this for a long time",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": "There are two of them.",
+        },
+        {
+            "type": "prose",
+            "text": "Not soldiers. A man and a woman, dressed in travelling clothes — "
+                    "the kind worn by people who move between settlements, not fight in "
+                    "them. They stand in the middle of the road facing each other as if "
+                    "mid-conversation. Their feet have sunk slightly into the mud.",
+        },
+        {
+            "type": "prose",
+            "text": "They are not dead. Their eyes are open. Their chests rise and fall.",
+        },
+        {
+            "type": "prose",
+            "text": "When you step closer, the woman's head turns toward you. Not fast. "
+                    "Not threatening. The way a person turns when they hear their name "
+                    "spoken in another room.",
+        },
+        {
+            "type": "italic",
+            "text": "Her mouth opens. \"Don't,\" she says. Not to you. To the man beside "
+                    "her. He doesn't move.",
+        },
+        {
+            "type": "prose",
+            "text": "She reaches out and takes your arm. Her grip is cold and absolute.",
+        },
+        {
+            "type": "italic",
+            "text": "She is not trying to hurt you. She is trying to hold on.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Pull free. Force your way past.",
+            "next":  "fog_held_after",
+        },
+        {
+            "label": "Stay still. \"I see you. You can let go.\"",
+            "next":  "fog_held_release",
+        },
+        {
+            "label": "Look at the man. The other one hasn't moved.",
+            "next":  "fog_held_other",
+        },
+    ],
+}
+
+SCENE_FOG_HELD_OTHER = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "The man has not moved since you arrived. Not his head, not his "
+                    "hands. His eyes are fixed on a point somewhere past your left "
+                    "shoulder — something that was there before you were, something "
+                    "that will still be there after.",
+        },
+        {
+            "type": "italic",
+            "text": "He is not unreachable. He is simply very far away.",
+        },
+        {
+            "type": "prose",
+            "text": "The woman's grip on your arm tightens. She is watching you watch him.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Pull free. You cannot help them.",
+            "next":  "fog_held_after",
+        },
+        {
+            "label": "Speak to her. \"You can let go. Both of you.\"",
+            "next":  "fog_held_release",
+        },
+    ],
+}
+
+SCENE_FOG_HELD_RELEASE = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "Her grip loosens. Not all at once — finger by finger, the way "
+                    "ice thaws.",
+        },
+        {
+            "type": "prose",
+            "text": "She doesn't look at you when she releases. She looks at the man "
+                    "beside her. Something passes between them that you cannot read. "
+                    "He turns his head — slowly, the same way she did — and looks at you.",
+        },
+        {
+            "type": "italic",
+            "text": "\"How long,\" he says. Not a question. A statement he has said "
+                    "many times before.",
+        },
+        {
+            "type": "prose",
+            "text": "You don't know the answer. But you stay until they both face "
+                    "forward again — facing south, facing the same direction as you. "
+                    "Facing whatever is ahead.",
+        },
+        {
+            "type": "italic",
+            "text": "They don't follow. But they stand easier now.",
+        },
+        {
+            "type": "memory",
+            "key":   "held_released",
+            "label": "What it costs to be seen",
+            "text":  "The woman's grip releasing. Finger by finger. The man finally "
+                     "turning his head. How long it took. How little it required.",
+        },
+        {
+            "type": "stat",
+            "changes": {"honour": 5},
+        },
+    ],
+    "next": "fog_sentinel",
+}
+
+SCENE_FOG_HELD_AFTER = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You are free. The cold of her grip stays on your arm like a "
+                    "bruise that hasn't surfaced yet.",
+        },
+        {
+            "type": "prose",
+            "text": "She didn't fall. She is still standing. Still reaching toward "
+                    "where you were.",
+        },
+        {
+            "type": "italic",
+            "text": "You don't look back.",
+        },
+        {
+            "type": "memory",
+            "key":   "held_forced",
+            "label": "The strength required to leave someone behind",
+            "text":  "The cold of her grip. How long it stayed. What it meant that "
+                     "leaving was possible at all.",
+        },
+        {
+            "type": "stat",
+            "changes": {"brutality": 5},
+        },
+        {
+            "type": "heal",
+            "amount": -15,
+        },
+        {
+            "type": "flag",
+            "key":   "held_forced",
+            "value": True,
+        },
+    ],
+    "next": "fog_sentinel",
+}
+
+SCENE_FOG_SENTINEL = {
+    "header": {
+        "title":    "THE FOG-SENTINEL",
+        "subtitle": "it is not trapped here — it is keeping something trapped",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You hear it before you see it.",
+        },
+        {
+            "type": "prose",
+            "text": "A sound like a bell that was struck once, a long time ago, and "
+                    "never finished ringing. Low. Persistent. Coming from everywhere "
+                    "and nowhere in the fog ahead.",
+        },
+        {
+            "type": "prose",
+            "text": "Then you see the shape. It is tall. Taller than a man, but the "
+                    "proportions are wrong — too narrow, too still, arms that hang too "
+                    "low. It stands in the centre of the road. It does not breathe. "
+                    "It does not move.",
+        },
+        {
+            "type": "prose",
+            "text": "But the sound is coming from it.",
+        },
+        {
+            "type": "prose",
+            "text": "When you take a step forward, it turns. No neck movement — the "
+                    "whole body rotates as one, like a post driven into the ground. "
+                    "Its face, if it has one, is hidden in fog. Its hands — too long, "
+                    "too thin — rise slowly to its sides.",
+        },
+        {
+            "type": "italic",
+            "text": "It is not trapped here. It is keeping something trapped.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Attack. Commit fully.",
+            "next":  "combat_fog_sentinel",
+        },
+        {
+            "label": "Circle wide. Leave the road entirely.",
+            "next":  "fog_sentinel_avoided",
+        },
+        {
+            "label": "Stand still. Wait.",
+            "next":  "fog_sentinel_wait",
+        },
+    ],
+}
+
+SCENE_FOG_SENTINEL_WAIT = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You stop. The bell-tone continues, unchanged.",
+        },
+        {
+            "type": "prose",
+            "text": "Then the Sentinel takes one step forward. Slow. Deliberate. "
+                    "The fog around it moves with it, as if it is carrying the fog "
+                    "rather than walking through it.",
+        },
+        {
+            "type": "italic",
+            "text": "Waiting is not an option. It will reach you.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Attack now.",
+            "next":  "combat_fog_sentinel",
+        },
+        {
+            "label": "Circle wide. Get off the road.",
+            "next":  "fog_sentinel_avoided",
+        },
+    ],
+}
+
+SCENE_FOG_SENTINEL_AVOIDED = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You leave the road. The ground off the path is softer — mud, "
+                    "grass, something that might have been a field once. You circle "
+                    "wide, keeping the Sentinel in your peripheral vision.",
+        },
+        {
+            "type": "italic",
+            "text": "It tracks you the entire time. The whole body rotating, slowly, "
+                    "following your arc through the fog. When you reach the road again "
+                    "it has not moved from its position. But the sound is gone.",
+        },
+        {
+            "type": "prose",
+            "text": "The silence where the bell-tone was feels larger than the sound did.",
+        },
+        {
+            "type": "flag",
+            "key":   "sentinel_avoided",
+            "value": True,
+        },
+    ],
+    "next": "fog_sentinel_after",
+}
+
+SCENE_COMBAT_FOG_SENTINEL = {
+    "header": {
+        "title":    "THE FOG-SENTINEL",
+        "subtitle": "the harder you hit, the more it drinks",
+    },
+    "beats": [
+        {
+            "type": "combat",
+            "enemy": "fog_sentinel",
+        },
+    ],
+}
+
+SCENE_FOG_SENTINEL_AFTER = {
+    "beats": [
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: s.flags.get("sentinel_avoided"),
+                    "text": "The road ahead is quieter. Not less thick — quieter. "
+                            "As if something that was listening has stopped.",
+                },
+                {
+                    "condition": None,
+                    "text": "It falls without a sound. The bell-tone stops mid-ring, "
+                            "cut like a thread. The fog where it stood is colder than "
+                            "the rest.",
+                },
+            ],
+        },
+        {
+            "type": "prose",
+            "text": "The key pulls south. Ahead, just visible through the fog, is a "
+                    "shape that is not fog. Stone. A wall. A gate.",
+        },
+        {
+            "type": "italic",
+            "text": "The Stirring Beneath begins.",
+        },
+    ],
+    "next": "gatehouse_approach",
+}
+
+SCENE_GATEHOUSE_APPROACH = {
+    "header": {
+        "title":    "THE GATEHOUSE",
+        "subtitle": "someone lit that torch recently",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": "The wall appears before the gate does.",
+        },
+        {
+            "type": "prose",
+            "text": "Stone. Old, but not ancient — built by people who expected it "
+                    "to last a generation, not forever. The fog thins slightly here, "
+                    "as if the structure itself pushes it back. You can see the top "
+                    "of the gatehouse tower. A torch burns there.",
+        },
+        {
+            "type": "italic",
+            "text": "Someone lit that torch. Recently.",
+        },
+        {
+            "type": "prose",
+            "text": "The gate is open. Not ajar — fully open, both doors pressed back "
+                    "against the walls as if welcoming. As if they were opened for "
+                    "someone expected.",
+        },
+        {
+            "type": "prose",
+            "text": "Two guards stand at the gate. Full armour, spears at rest. Their "
+                    "posture is correct — weight balanced, eyes forward, the stance of "
+                    "men who take their post seriously. They are not breathing.",
+        },
+        {
+            "type": "prose",
+            "text": "You watch for a long time. Their chests do not rise. Their eyes "
+                    "do not move. But they are standing, and their spears are held "
+                    "with purpose, and something about them is waiting.",
+        },
+        {
+            "type": "italic",
+            "text": "When you step through the gate one of them turns his head. Not "
+                    "toward you. Away from you. As if he heard something behind him "
+                    "that you cannot hear.",
+        },
+        {
+            "type": "prose",
+            "text": "You are inside.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Look at the guards closely.",
+            "next":  "gatehouse_guards",
+        },
+        {
+            "label": "Look at the courtyard ahead.",
+            "next":  "gatehouse_courtyard",
+        },
+        {
+            "label": "Touch the wall.",
+            "next":  "gatehouse_wall",
+        },
+    ],
+}
+
+SCENE_GATEHOUSE_GUARDS = {
+    "beats": [
+        {
+            "type": "italic",
+            "text": "Their faces are familiar. Not known — familiar. The way a word "
+                    "is familiar before you remember its meaning.",
+        },
+        {
+            "type": "prose",
+            "text": "You have seen men stand like this. You have stood like this. "
+                    "There is something in the angle of the shoulders, the particular "
+                    "stillness, that belongs to a specific kind of training.",
+        },
+        {
+            "type": "italic",
+            "text": "Gunnar's men stood like this.",
+        },
+        {
+            "type": "memory",
+            "key":   "guards_recognised",
+            "label": "Where you have seen that stillness before",
+            "text":  "The guards at the gate. The angle of their shoulders. "
+                     "The particular stillness of men trained by the same hand.",
+        },
+        {
+            "type": "flag",
+            "key":   "guards_examined",
+            "value": True,
+        },
+    ],
+    "next": "gatehouse_inside",
+}
+
+SCENE_GATEHOUSE_COURTYARD = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "Beyond the gate is a courtyard. Cobblestones. A well. Three "
+                    "buildings and a tower. Everything is exactly where it should be.",
+        },
+        {
+            "type": "italic",
+            "text": "Nothing is where it feels like it should be.",
+        },
+        {
+            "type": "prose",
+            "text": "A horse stands at a hitching post, saddled and ready. A bucket "
+                    "of water beside it, full. Three soldiers cross the courtyard "
+                    "frozen mid-step — one looking down, one looking up, one looking "
+                    "directly at you.",
+        },
+        {
+            "type": "italic",
+            "text": "The one looking at you has been looking at you since before "
+                    "you arrived.",
+        },
+    ],
+    "next": "gatehouse_inside",
+}
+
+SCENE_GATEHOUSE_WALL = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You press your palm flat against the stone.",
+        },
+        {
+            "type": "italic",
+            "text": "It is warm. Warmer than the torch explains. Warmer than stone "
+                    "should be.",
+        },
+        {
+            "type": "prose",
+            "text": "Not the warmth of sun-heated rock. The warmth of something "
+                    "held. Something that has not been released.",
+        },
+        {
+            "type": "memory",
+            "key":   "wall_warmth",
+            "label": "Something about warmth in the wrong place",
+            "text":  "The stone of the gatehouse wall. How warm it was. "
+                     "What kind of warmth that was.",
+        },
+    ],
+    "next": "gatehouse_inside",
+}
+
+SCENE_GATEHOUSE_INSIDE = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "The courtyard is silent in the way the battlefield was silent — "
+                    "completely, without apology. But the battlefield was empty. "
+                    "This is not empty.",
+        },
+        {
+            "type": "prose",
+            "text": "A horse stands at a hitching post, saddled and ready. Three "
+                    "soldiers frozen mid-step across the cobblestones. The smell of "
+                    "food — real food, recently cooked — drifting from the largest "
+                    "building ahead.",
+        },
+        {
+            "type": "prose",
+            "text": "Light under the door of the Great Hall. And a voice, low and "
+                    "even, speaking to no one visible:",
+        },
+        {
+            "type": "italic",
+            "text": "\"I wondered which door you would use.\"",
+        },
+    ],
+    "next": "great_hall_entrance",
 }
 
 # ─────────────────────────────────────────────────────────────
@@ -1515,4 +2071,20 @@ SCENES = {
     "zone_1_end":             SCENE_ZONE_1_END,
     "final_rest":             SCENE_FINAL_REST,
     "act_2_intro":            SCENE_ACT_2_INTRO,
+    # Act II — The Stirring Beneath
+    "fog_road":               SCENE_FOG_ROAD,
+    "fog_the_held":           SCENE_FOG_THE_HELD,
+    "fog_held_other":         SCENE_FOG_HELD_OTHER,
+    "fog_held_release":       SCENE_FOG_HELD_RELEASE,
+    "fog_held_after":         SCENE_FOG_HELD_AFTER,
+    "fog_sentinel":           SCENE_FOG_SENTINEL,
+    "fog_sentinel_wait":      SCENE_FOG_SENTINEL_WAIT,
+    "fog_sentinel_avoided":   SCENE_FOG_SENTINEL_AVOIDED,
+    "combat_fog_sentinel":    SCENE_COMBAT_FOG_SENTINEL,
+    "fog_sentinel_after":     SCENE_FOG_SENTINEL_AFTER,
+    "gatehouse_approach":     SCENE_GATEHOUSE_APPROACH,
+    "gatehouse_guards":       SCENE_GATEHOUSE_GUARDS,
+    "gatehouse_courtyard":    SCENE_GATEHOUSE_COURTYARD,
+    "gatehouse_wall":         SCENE_GATEHOUSE_WALL,
+    "gatehouse_inside":       SCENE_GATEHOUSE_INSIDE,
 }

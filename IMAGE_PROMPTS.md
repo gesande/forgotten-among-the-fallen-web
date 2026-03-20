@@ -252,6 +252,87 @@ vast cold dark, dark fantasy, painterly, cosmic atmosphere
 Place audio files in `static/audio/` and `static/audio/`.
 The engine tries `.ogg` first, then `.mp3`.
 
+---
+
+## Act II — The Stirring Beneath
+
+---
+
+## Scene 10 — fog_road.jpg
+**File:** `static/svg/fog_road.svg` → replace with `fog_road.jpg`
+**Used in:** fog_road, fog_the_held, fog_held_release, fog_held_after, fog_sentinel_after
+
+**Midjourney:**
+```
+a narrow ancient stone road disappearing into impenetrable white-grey fog, deep
+mud on both sides, the road barely visible beyond ten feet, two small human
+figures standing motionless in the middle distance facing each other as if
+frozen mid-conversation, thick fog consuming everything above waist height,
+cold diffuse light with no visible source, dark fantasy, painterly, completely
+desaturated, liminal, purgatorial atmosphere, no sky visible, silent
+--ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+ancient stone road into thick fog, two figures frozen mid-conversation in
+distance, deep mud, no sky, cold diffuse light, desaturated, dark fantasy,
+painterly, liminal purgatorial atmosphere, silent, cinematic
+```
+
+---
+
+## Scene 11 — fog_sentinel.jpg
+**File:** `static/svg/fog_sentinel.svg` → replace with `fog_sentinel.jpg`
+**Used in:** fog_sentinel, fog_sentinel_wait, combat_fog_sentinel
+
+**Midjourney:**
+```
+a towering impossibly thin humanoid figure standing motionless in the center
+of a fog-shrouded road, proportions deeply wrong — too narrow, arms hanging
+far too low, no visible face, whole body like a dark post driven into the
+earth, thick white fog curling around it as if the fog belongs to it, cold
+bluish-white light emanating faintly from where a face should be, dark
+fantasy horror, painterly, desaturated, deeply unsettling stillness,
+bell jar atmosphere --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+impossibly thin tall humanoid figure on foggy road, wrong proportions arms
+too long, no face, fog curling around it possessively, faint cold blue-white
+glow, dark fantasy horror, deeply unsettling, painterly, desaturated,
+cinematic, purgatorial
+```
+
+---
+
+## Scene 12 — gatehouse.jpg
+**File:** `static/svg/gatehouse.svg` → replace with `gatehouse.jpg`
+**Used in:** gatehouse_approach, gatehouse_guards, gatehouse_courtyard, gatehouse_wall, gatehouse_inside
+
+**Midjourney:**
+```
+a fortified viking gatehouse seen from outside at night, both heavy wooden
+doors standing fully open as if welcoming, two armored guards standing
+perfectly still at their posts not breathing, a single torch burning at
+the top of the stone tower, thick fog pressing against the walls but not
+entering, warm orange torchlight against cold grey stone, a horse saddled
+and waiting at a hitching post just inside the gate, dark fantasy, painterly,
+desaturated, deeply wrong stillness, something held rather than abandoned
+--ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+viking stone gatehouse at night, doors open wide, two guards standing
+perfectly still not breathing, single torch on tower, thick fog outside
+walls, warm torchlight cold stone, horse saddled waiting inside, dark
+fantasy, painterly, desaturated, unsettling stillness, cinematic
+```
+
+---
+
 ### Music tracks
 | Filename                  | Scene              | Mood                                    |
 |---------------------------|--------------------|-----------------------------------------|
@@ -261,9 +342,12 @@ The engine tries `.ogg` first, then `.mp3`.
 | `ambient_forge.ogg`       | Longhouse          | Low hum, crackling fire, bass drone    |
 | `ambient_cairn.ogg`       | Bone Cairn         | Ethereal, rune tones, sparse           |
 | `ambient_mound.ogg`       | The Mound          | Oppressive bass drone, silence breaks  |
+| `ambient_void.ogg`        | Act break          | Near silence, one distant horn note    |
+| `ambient_fog_road.ogg`    | Fog road / The Held | Slow breathing rhythm, no melody, warm but wrong |
+| `ambient_gatehouse.ogg`   | Gatehouse          | Complete silence broken by single creak or drip |
 | `combat_draugar.ogg`      | Draugar combat     | Urgent percussion, no melody           |
 | `combat_boss.ogg`         | Gunnar boss fight  | War drums, heavy, relentless           |
-| `ambient_void.ogg`        | Act break          | Near silence, one distant horn note    |
+| `combat_sentinel.ogg`     | Fog-sentinel fight | Single sustained bell tone, slow pulse, no percussion |
 
 ### SFX
 | Filename          | Trigger                    |
@@ -311,3 +395,18 @@ The engine tries `.ogg` first, then `.mp3`.
 - **sfx_hit**: "iron on iron impact, heavy, combat hit, short sharp"
 - **sfx_miss**: "weapon swoosh through air, short, combat miss"
 - **sfx_parry**: "ringing metal clash, iron parry, short bright tone, success sound"
+
+---
+
+## Act II — Audio additions
+
+### New music tracks
+- **ambient_fog_road**: "slow rhythmic breathing sound as ambient music, warm but
+  deeply wrong temperature, no instruments, fog atmosphere, purgatorial, something
+  inhuman exhaling slowly, liminal dread, 3 minutes loop"
+- **ambient_gatehouse**: "complete interior silence ambient, single drop of water
+  echoing in stone chamber, occasional distant creak of heavy wood, held breath
+  atmosphere, warmth without comfort, 3 minutes loop"
+- **combat_sentinel**: "single sustained low bell tone pulsing slowly, no percussion
+  no melody, the bell never fully decays, something absorbing sound, combat
+  atmosphere without urgency, 90 seconds loop"
