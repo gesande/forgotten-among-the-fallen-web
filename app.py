@@ -19,6 +19,9 @@ app.secret_key = os.environ.get("SECRET_KEY", "forgotten-among-the-fallen-dev-ke
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 
+# Always ensure saves dir exists regardless of how app is started
+os.makedirs("saves", exist_ok=True)
+
 # ── Session helpers ───────────────────────────────────────────
 
 def _get_state() -> PlayerState:
@@ -253,7 +256,7 @@ def advance():
 def load_game():
     state = PlayerState.load(0)
     if state is None:
-        return jsonify({"error": "No save found"}), 404
+        return jsonify({"ok": False, "error": "No save found"})
     _save_state(state)
     _save_combat(None)
     return jsonify({"ok": True, "scene": state.current_scene})

@@ -177,7 +177,7 @@ async function startNewGame() {
 
 async function loadGame() {
   const data = await api("/api/load", {});
-  if (data.error) { alert("No save found."); return; }
+  if (!data.ok) { alert("No save found."); return; }
   SoundEngine.stopMusic(true);
   show("game");
   loadScene();
