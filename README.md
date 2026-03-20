@@ -1,4 +1,23 @@
-# Forgotten Among the Fallen — Web Version
+# Forgotten Among the Fallen
+
+A dark fantasy Viking experience set in a desolate world between life and death.
+
+Beneath a silent, star-filled sky, fallen warriors lie forgotten — but not at rest.
+Ancient runes still burn in the earth, and something stirs beneath the fog.
+
+Explore a cursed battlefield where time has no meaning, uncover remnants of a lost world,
+and face forces that should not exist.
+
+## Features
+
+- Atmospheric dark fantasy setting inspired by Norse myth and liminal spaces
+- Desolate environments shaped by war, ruin, and silence
+- Runic elements and subtle supernatural presence
+- Cinematic visual tone with painterly aesthetics
+
+## Vision
+
+A slow, immersive experience focused on mood, isolation, and the boundary between life and death.
 
 ## Setup
 
@@ -44,14 +63,14 @@ saves/                  ← Auto-created, JSON save files
 
 ## API Endpoints
 
-| Method | Route                  | Description                        |
-|--------|------------------------|------------------------------------|
-| POST   | /api/new               | Start a new game                   |
-| POST   | /api/load              | Load save slot 0                   |
-| GET    | /api/scene             | Get current scene (rendered JSON)  |
-| POST   | /api/choose            | Make a choice `{choice_id}`        |
-| POST   | /api/combat/action     | Execute combat action `{action_id}`|
-| GET    | /api/status            | Save state summary                 |
+| Method | Route              | Description                         |
+|--------|--------------------|-------------------------------------|
+| POST   | /api/new           | Start a new game                    |
+| POST   | /api/load          | Load save slot 0                    |
+| GET    | /api/scene         | Get current scene (rendered JSON)   |
+| POST   | /api/choose        | Make a choice `{choice_id}`         |
+| POST   | /api/combat/action | Execute combat action `{action_id}` |
+| GET    | /api/status        | Save state summary                  |
 
 ## Adding scenes
 
