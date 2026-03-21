@@ -1904,37 +1904,284 @@ SCENE_GATEHOUSE_APPROACH = {
                     "posture is correct — weight balanced, eyes forward, the stance of "
                     "men who take their post seriously. They are not breathing.",
         },
+        # Conditional — held_forced changes what happens next
         {
-            "type": "prose",
-            "text": "You watch for a long time. Their chests do not rise. Their eyes "
-                    "do not move. But they are standing, and their spears are held "
-                    "with purpose, and something about them is waiting.",
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: s.flags.get("held_forced"),
+                    "text": "When you step closer, both of them move. "
+                            "Not the slow head-turn of the others — "
+                            "this is faster. More deliberate. "
+                            "Their spears drop from rest to level in one motion. "
+                            "Their eyes find you.",
+                },
+                {
+                    "condition": None,
+                    "text": "You watch for a long time. Their chests do not rise. "
+                            "Their eyes do not move. But they are standing, "
+                            "and their spears are held with purpose, "
+                            "and something about them is waiting.",
+                },
+            ],
         },
         {
-            "type": "italic",
-            "text": "When you step through the gate one of them turns his head. Not "
-                    "toward you. Away from you. As if he heard something behind him "
-                    "that you cannot hear.",
-        },
-        {
-            "type": "prose",
-            "text": "You are inside.",
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: s.flags.get("held_forced"),
+                    "text": "They remember. Or something in them does. "
+                            "Something passed through the fog before you did — "
+                            "something that felt like what you left behind on the road.",
+                },
+                {
+                    "condition": None,
+                    "text": "When you step through the gate one of them turns his head. "
+                            "Not toward you. Away from you. As if he heard something "
+                            "behind him that you cannot hear.",
+                },
+            ],
         },
     ],
     "choices": [
         {
+            "label": "Approach carefully. Hands visible.",
+            "next":  "gatehouse_guards_hostile",
+            "condition": lambda s: s.flags.get("held_forced"),
+        },
+        {
+            "label": "Step back. Give them space.",
+            "next":  "gatehouse_guards_hostile",
+            "condition": lambda s: s.flags.get("held_forced"),
+        },
+        {
             "label": "Look at the guards closely.",
             "next":  "gatehouse_guards",
+            "condition": lambda s: not s.flags.get("held_forced"),
         },
         {
             "label": "Look at the courtyard ahead.",
             "next":  "gatehouse_courtyard",
+            "condition": lambda s: not s.flags.get("held_forced"),
         },
         {
             "label": "Touch the wall.",
             "next":  "gatehouse_wall",
+            "condition": lambda s: not s.flags.get("held_forced"),
         },
     ],
+}
+
+SCENE_GATEHOUSE_GUARDS_HOSTILE = {
+    "header": {
+        "title":    "THE GATEHOUSE",
+        "subtitle": "the spears do not lower",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": "The spears do not lower. "
+                    "Their eyes track you — not the vacant gaze of the others "
+                    "frozen around the battlefield. "
+                    "These are watching. Measuring.",
+        },
+        {
+            "type": "prose",
+            "text": "They do not speak. "
+                    "They have not spoken in a long time — "
+                    "you can see it in the way their mouths are set, "
+                    "the silence that has become permanent. "
+                    "But they hear. Something in them hears.",
+        },
+        {
+            "type": "italic",
+            "text": "Whatever came through the fog before you, "
+                    "they felt it. "
+                    "It left a mark they recognise.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Say nothing. Stand still. Let them look.",
+            "next":  "gatehouse_guards_calmed",
+            "effects": {"honour": 3},
+        },
+        {
+            "label": "\"I am not here to fight. I came through the fog alone.\"",
+            "next":  "gatehouse_guards_spoken",
+        },
+        {
+            "label": "Show them Gunnar's Axe. Let them see whose it is.",
+            "next":  "gatehouse_guards_axe",
+            "condition": lambda s: s.flags.get("held_forced") and s.equipped_weapon == "Gunnar's Axe",
+        },
+        {
+            "label": "Force your way through.",
+            "next":  "gatehouse_guards_forced",
+            "effects": {"honour": -5, "brutality": 5},
+        },
+    ],
+}
+
+SCENE_GATEHOUSE_GUARDS_CALMED = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You stop. You do not reach for anything. "
+                    "You let the silence do what words cannot.",
+        },
+        {
+            "type": "prose",
+            "text": "The guard on the left — the one who moved first — "
+                    "holds longest. The spear point wavers. "
+                    "Then, slowly, it drops. Not all the way. "
+                    "But enough.",
+        },
+        {
+            "type": "italic",
+            "text": "The one on the right follows. "
+                    "A beat later, as if checking that the first one meant it.",
+        },
+        {
+            "type": "prose",
+            "text": "They do not step aside. "
+                    "But there is a gap between them now that was not there before. "
+                    "An offering, not a welcome.",
+        },
+        {
+            "type": "memory",
+            "key":   "guards_calmed",
+            "label": "What stillness can do that force cannot",
+            "text":  "The spear lowering. Not because you overpowered them — "
+                     "because you gave them time to remember "
+                     "that you were not the thing they feared.",
+        },
+    ],
+    "next": "gatehouse_inside",
+}
+
+SCENE_GATEHOUSE_GUARDS_SPOKEN = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "Your voice is strange in this place. "
+                    "You have not spoken aloud since the battlefield — "
+                    "you did not realise until the words came out "
+                    "how quiet everything has been.",
+        },
+        {
+            "type": "prose",
+            "text": "The guards react to the sound. "
+                    "Not to the meaning — to the fact of it. "
+                    "Someone is speaking. Someone still can.",
+        },
+        {
+            "type": "italic",
+            "text": "The left guard's spear wavers. "
+                    "His head tilts — the first unscripted movement "
+                    "you have seen from either of them.",
+        },
+        {
+            "type": "prose",
+            "text": "It is not understanding. But it is something. "
+                    "A crack in whatever holds them here like this.",
+        },
+        {
+            "type": "prose",
+            "text": "You keep talking. It does not matter what you say. "
+                    "The sound is enough. "
+                    "Eventually, the spears come down.",
+        },
+    ],
+    "next": "gatehouse_inside",
+}
+
+SCENE_GATEHOUSE_GUARDS_AXE = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You draw the axe slowly — "
+                    "not as a threat, handle first, "
+                    "the blade turned away. "
+                    "You hold it out so they can see the mark on the head.",
+        },
+        {
+            "type": "italic",
+            "text": "Both of them freeze.",
+        },
+        {
+            "type": "prose",
+            "text": "They know it. "
+                    "Of course they know it — "
+                    "they carried spears under the man who carried this. "
+                    "They watched him hold it the way you are holding it now.",
+        },
+        {
+            "type": "prose",
+            "text": "The spears lower together this time. No hesitation. "
+                    "Whatever they are, whatever holds them here, "
+                    "there is still something in them that remembers "
+                    "what it meant to be sworn to a commander.",
+        },
+        {
+            "type": "italic",
+            "text": "They step aside. "
+                    "Not because you forced them. "
+                    "Because Gunnar's axe asked them to.",
+        },
+        {
+            "type": "memory",
+            "key":   "guards_axe_recognition",
+            "label": "What the axe still means to those who served under it",
+            "text":  "The guards stepping aside for the axe. "
+                     "Not for you — for what you carried. "
+                     "What that says about Gunnar. "
+                     "What it says about you that you have it.",
+        },
+        {
+            "type": "stat",
+            "changes": {"honour": 5},
+        },
+    ],
+    "next": "gatehouse_inside",
+}
+
+SCENE_GATEHOUSE_GUARDS_FORCED = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "You go through them. "
+                    "Not a fight — they are not fast enough for a fight. "
+                    "More like moving through a door that resists.",
+        },
+        {
+            "type": "prose",
+            "text": "One spear catches your arm. "
+                    "The other grazes your shoulder. "
+                    "You are through before either of them can bring weight to bear.",
+        },
+        {
+            "type": "italic",
+            "text": "Behind you, they do not pursue. "
+                    "They return to their positions. "
+                    "As if it did not happen. "
+                    "As if you are not worth remembering.",
+        },
+        {
+            "type": "prose",
+            "text": "That is almost worse.",
+        },
+        {
+            "type": "heal",
+            "amount": -20,
+        },
+        {
+            "type": "flag",
+            "key":   "guards_forced",
+            "value": True,
+        },
+    ],
+    "next": "gatehouse_inside",
 }
 
 SCENE_GATEHOUSE_GUARDS = {
@@ -2705,6 +2952,11 @@ SCENES = {
     "fog_sentinel_after":     SCENE_FOG_SENTINEL_AFTER,
     "gatehouse_approach":     SCENE_GATEHOUSE_APPROACH,
     "gatehouse_guards":       SCENE_GATEHOUSE_GUARDS,
+    "gatehouse_guards_hostile": SCENE_GATEHOUSE_GUARDS_HOSTILE,
+    "gatehouse_guards_calmed":  SCENE_GATEHOUSE_GUARDS_CALMED,
+    "gatehouse_guards_spoken":  SCENE_GATEHOUSE_GUARDS_SPOKEN,
+    "gatehouse_guards_axe":     SCENE_GATEHOUSE_GUARDS_AXE,
+    "gatehouse_guards_forced":  SCENE_GATEHOUSE_GUARDS_FORCED,
     "gatehouse_courtyard":    SCENE_GATEHOUSE_COURTYARD,
     "gatehouse_wall":         SCENE_GATEHOUSE_WALL,
     "gatehouse_inside":       SCENE_GATEHOUSE_INSIDE,
