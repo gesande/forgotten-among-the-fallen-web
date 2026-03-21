@@ -144,7 +144,7 @@ ENEMIES = {
             "phase3":  "He speaks a word in Old Norse you do not recognise. His shadow splits. There are two of him now — one still, one moving.",
             "death":   '"It... does not matter," he says. "You will wake. And I will be here. I am always here."',
         },
-        "loot":   [("Remembrance Key", 1.0), ("Gunnar's Axe", 1.0)],
+        "loot":   [],
         "shards": (2400, 2400),
     },
 }

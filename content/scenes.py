@@ -1022,15 +1022,6 @@ SCENE_COMBAT_DRAUGAR_EAST = {
             "enemy": "draugar_weak",
             "flag":  "defeated_draugar_east",
         },
-        {
-            "type": "prose",
-            "text": (
-                "The battlefield settles again. "
-                "You stand in it, breathing. "
-                "The quiet after violence is a specific kind of quiet. "
-                "You recognise it."
-            )
-        },
         {"type": "stat", "changes": {"brutality": 3}},
     ],
     "choices": [
@@ -1047,6 +1038,15 @@ SCENE_COMBAT_DRAUGAR_EAST = {
 
 SCENE_SCAVENGE_EAST_AFTER = {
     "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The battlefield settles again. "
+                "You stand in it, breathing. "
+                "The quiet after violence is a specific kind of quiet. "
+                "You recognise it."
+            )
+        },
         {
             "type": "prose",
             "text": (
@@ -1279,6 +1279,19 @@ SCENE_ZONE_1_END = {
                 "not truly — but spent. The axe is in the mud. "
                 "His hands are open."
             )
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You look at the axe. It is not a trophy. "
+                "You do not pick it up as a trophy. "
+                "But you pick it up."
+            )
+        },
+        {
+            "type": "item",
+            "item": "Gunnar's Axe",
+            "action": "give",
         },
         {
             "type": "italic",
@@ -1706,7 +1719,7 @@ SCENE_FOG_HELD_AFTER = {
 SCENE_FOG_SENTINEL = {
     "header": {
         "title":    "THE FOG-SENTINEL",
-        "subtitle": "it is not trapped here — it is keeping something trapped",
+        "subtitle": "the bell-tone has no source you can name",
     },
     "beats": [
         {
@@ -2021,15 +2034,14 @@ SCENE_GATEHOUSE_INSIDE = {
         },
         {
             "type": "prose",
-            "text": "A horse stands at a hitching post, saddled and ready. Three "
-                    "soldiers frozen mid-step across the cobblestones. The smell of "
-                    "food — real food, recently cooked — drifting from the largest "
-                    "building ahead.",
+            "text": "The smell of food reaches you before anything else. "
+                    "Real food, recently cooked. "
+                    "Light under the door of the Great Hall ahead. "
+                    "Warmth where there should be cold.",
         },
         {
             "type": "prose",
-            "text": "Light under the door of the Great Hall. And a voice, low and "
-                    "even, speaking to no one visible:",
+            "text": "And a voice, low and even, speaking to no one visible:",
         },
         {
             "type": "italic",
