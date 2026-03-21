@@ -62,6 +62,17 @@ SCENE_ART = {
     "gatehouse_courtyard":      "gatehouse",
     "gatehouse_wall":           "gatehouse",
     "gatehouse_inside":         "gatehouse",
+    # Act II — The Great Hall / Odrik
+    "great_hall_entrance":      "great_hall",
+    "odrik_silence":            "great_hall",
+    "odrik_knew":               "great_hall",
+    "odrik_what_are_you":       "great_hall",
+    "odrik_measures_you":       "great_hall",
+    "odrik_first_questions":    "great_hall",
+    "odrik_explains_place":     "great_hall",
+    "odrik_the_night":          "great_hall",
+    "odrik_the_key":            "great_hall",
+    "odrik_why_bound":          "great_hall",
 }
 
 def render_scene(scene_key: str, state: PlayerState) -> dict:

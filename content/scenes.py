@@ -2051,9 +2051,618 @@ SCENE_GATEHOUSE_INSIDE = {
     "next": "great_hall_entrance",
 }
 
-# ─────────────────────────────────────────────────────────────
-#  SCENE REGISTRY
-# ─────────────────────────────────────────────────────────────
+# ═════════════════════════════════════════════════════════════
+#  ACT II — THE GREAT HALL / ODRIK
+# ═════════════════════════════════════════════════════════════
+
+SCENE_GREAT_HALL_ENTRANCE = {
+    "header": {
+        "title":    "THE GREAT HALL",
+        "subtitle": "everything is exactly as it was left",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The Great Hall is wrong in the same way everything here is wrong — "
+                "perfectly preserved, perfectly still, "
+                "perfectly the moment before something happened."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Forty men sit at the long tables. "
+                "Cups raised, mouths open, faces turned toward each other "
+                "in the specific geometry of interrupted conversation. "
+                "The food on the tables is real. "
+                "The smell of it reaches you in waves — "
+                "roast meat, bread, something sweet. "
+                "None of it has spoiled. "
+                "None of it ever will."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "At the far end, alone at the head table, "
+                "sits one man who is not frozen."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He is not young. Fifty, perhaps — "
+                "the kind of man who has spent fifty years "
+                "acquiring a precise and careful stillness. "
+                "A dark robe, ink-stained at the cuffs. "
+                "A cup in front of him, untouched. "
+                "His eyes are on the table."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "He already knew you were in the room "
+                "before you crossed the threshold."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He does not look up when you approach. "
+                "He speaks first."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"You came alone,\" he says. "
+                "\"I did not know if you would come alone.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "A pause. He is listening to something — "
+                "the quality of your footsteps, perhaps, "
+                "or the silence you bring with you."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "\"You fought the Sentinel.\"",
+        },
+        {
+            "type": "prose",
+            "text": "Still he does not look up.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I heard the bell stop. "
+                "I have been listening for that sound "
+                "for a very long time.\""
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Say nothing. Wait.",
+            "next":  "odrik_silence",
+        },
+        {
+            "label": "\"Then you knew I was coming.\"",
+            "next":  "odrik_knew",
+        },
+        {
+            "label": "\"What are you?\"",
+            "next":  "odrik_what_are_you",
+        },
+    ],
+}
+
+SCENE_ODRIK_SILENCE = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You say nothing. "
+                "You have learned, in this place, "
+                "that silence is sometimes the most honest answer."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "He looks up.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"Good,\" he says. "
+                "Not approval, exactly. "
+                "More like confirmation of something he suspected."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"Gunnar said you listened before you spoke. "
+                "Most people don't. "
+                "It is why he trusted you.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He says Gunnar's name the way you say the name "
+                "of someone you have been thinking about "
+                "for a very long time. "
+                "Carefully. Like it still has weight."
+            ),
+        },
+    ],
+    "next": "odrik_measures_you",
+}
+
+SCENE_ODRIK_KNEW = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "He looks up for the first time.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I knew someone would come,\" he says. "
+                "\"I did not know it would be you "
+                "until the Sentinel stopped.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"That thing tests what belongs here "
+                "and what does not. "
+                "The dead belong here — they cannot leave. "
+                "The living do not belong — they cannot enter. "
+                "You are neither.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He says this without drama. "
+                "It is an observation, not an accusation."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"That narrows it considerably,\" "
+                "he says. \"To one person.\""
+            ),
+        },
+    ],
+    "next": "odrik_measures_you",
+}
+
+SCENE_ODRIK_WHAT_ARE_YOU = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "That makes him look up.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"An interesting first question,\" he says. "
+                "Not pleased, not offended. "
+                "Noting it."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I am Odrik. I was Gunnar's adviser "
+                "for eleven years. "
+                "I followed him to this valley "
+                "because he asked me to.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"What I am now — "
+                "that is a more difficult question. "
+                "I have had considerable time to consider it "
+                "and I do not yet have a satisfying answer.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He looks at you steadily. "
+                "He is deciding something."
+            ),
+        },
+    ],
+    "next": "odrik_measures_you",
+}
+
+SCENE_ODRIK_MEASURES_YOU = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He looks at you properly now. "
+                "Not at your face — at everything else. "
+                "Your hands. What you carry. "
+                "The way you are standing."
+            ),
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: "Gunnar's Axe" in s.inventory,
+                    "text": (
+                        "His eyes stop at the axe on your belt. "
+                        "Gunnar's axe. "
+                        "He would know it anywhere — "
+                        "he watched Gunnar carry it for eleven years."
+                    ),
+                },
+                {
+                    "condition": None,
+                    "text": (
+                        "His eyes move across what you carry. "
+                        "He catalogues it without expression."
+                    ),
+                },
+            ],
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: "Gunnar's Axe" in s.inventory,
+                    "text": (
+                        "\"He gave it to you,\" Odrik says. "
+                        "Flat. Careful. "
+                        "\"Or you took it.\""
+                    ),
+                },
+                {
+                    "condition": None,
+                    "text": (
+                        "\"You have been on the battlefield,\" "
+                        "he says. \"You found things.\""
+                    ),
+                },
+            ],
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"Sit down,\" he says. "
+                "\"I will answer what I can. "
+                "I cannot promise it will be everything.\""
+            ),
+        },
+        {
+            "type": "flag",
+            "key":   "odrik_met",
+            "value": True,
+        },
+    ],
+    "next": "odrik_first_questions",
+}
+
+SCENE_ODRIK_FIRST_QUESTIONS = {
+    "header": {
+        "title":    "ODRIK THE BOUND",
+        "subtitle": "he will answer what he can",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He turns the cup in his hands without drinking. "
+                "A habit — something to do with his hands "
+                "while he chooses his words."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "\"What is this place?\"",
+            "next":  "odrik_explains_place",
+        },
+        {
+            "label": "\"What happened the night of the battle?\"",
+            "next":  "odrik_the_night",
+        },
+        {
+            "label": "\"What does the key open?\"",
+            "next":  "odrik_the_key",
+            "condition": lambda s: "Remembrance Key" in s.inventory,
+        },
+        {
+            "label": "\"Why are you still here?\"",
+            "next":  "odrik_why_bound",
+        },
+    ],
+}
+
+SCENE_ODRIK_EXPLAINS_PLACE = {
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                "\"It is a place between,\" he says. "
+                "\"Between dying and being dead. "
+                "Between what happened and what it meant.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He looks at the frozen men around them."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"They are held here. "
+                "Not imprisoned — held. "
+                "There is a difference. "
+                "A prison keeps you against your will. "
+                "This holds you because something is unfinished. "
+                "Something they were part of "
+                "that has not resolved.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"The battlefield. The longhouse. "
+                "This hall. "
+                "All of it is the same thing — "
+                "a moment that refuses to end "
+                "because it was not allowed to end properly.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He says this as if reciting something "
+                "he has worked out slowly, "
+                "over a long time, "
+                "in a room where no one else could hear."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "\"You are here to end it.\"",
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Not a question. "
+                "But not entirely certain either."
+            ),
+        },
+    ],
+    "next": "odrik_first_questions",
+}
+
+SCENE_ODRIK_THE_NIGHT = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "Something changes in his face.",
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Not a flinch — he is too controlled for that. "
+                "More like a door being carefully, "
+                "deliberately, closed."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"Not yet,\" he says."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He meets your eyes. He does not look away."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I will tell you. "
+                "I have thought about telling you "
+                "every day since this began. "
+                "But there are things you need to see first. "
+                "Things in this building "
+                "that will make what I tell you "
+                "mean something instead of nothing.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I am not protecting myself,\" he says. "
+                "\"I want you to believe that. "
+                "I am trying to make sure "
+                "that when you know, "
+                "you actually know. "
+                "Not just the words.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You believe him. "
+                "You are not entirely sure why."
+            ),
+        },
+        {
+            "type": "flag",
+            "key":   "odrik_deflected_night",
+            "value": True,
+        },
+    ],
+    "next": "odrik_first_questions",
+}
+
+SCENE_ODRIK_THE_KEY = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": "He goes very still.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"Show me.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You hold it out. "
+                "He does not touch it — "
+                "he leans forward and looks at it the way "
+                "a man looks at something "
+                "he thought was lost."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I made that,\" he says quietly. "
+                "\"Eleven years ago. "
+                "Before any of this. "
+                "Before I knew what it would be needed for.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"It is not a key to a place. "
+                "It is a key to a memory — "
+                "specifically, to yours. "
+                "It was made from something of yours "
+                "that Gunnar kept. "
+                "Something you gave him "
+                "the night you swore the oath.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He sits back. "
+                "He is watching your face."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"You don't remember giving it to him,\" "
+                "he says. \"Not yet. "
+                "You will.\""
+            ),
+        },
+        {
+            "type": "memory",
+            "key":   "the_key_origin",
+            "label": "What the key is made from",
+            "text":  (
+                "Odrik made it. Eleven years ago. "
+                "From something you gave Gunnar "
+                "the night you swore the oath. "
+                "Something you no longer remember giving."
+            ),
+        },
+    ],
+    "next": "odrik_first_questions",
+}
+
+SCENE_ODRIK_WHY_BOUND = {
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                "\"Because I have not done "
+                "what I came here to do,\" he says."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He says it simply. "
+                "Not with self-pity — "
+                "more the way you state a fact "
+                "that has been true for a long time "
+                "and that you have made your peace with."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I came to this valley as Gunnar's adviser. "
+                "My purpose was to prevent what happened. "
+                "I failed. "
+                "I knew I had failed while it was still happening "
+                "and I could not stop it.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"The binding is not a punishment. "
+                "It is an unfinished sentence. "
+                "I cannot leave until the sentence is finished.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He looks at you steadily."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"You finishing it "
+                "and me finishing it "
+                "are the same thing. "
+                "That is why I have been waiting for you.\""
+            ),
+        },
+        {
+            "type": "memory",
+            "key":   "odrik_purpose",
+            "label": "Why Odrik is bound",
+            "text":  (
+                "He came to prevent what happened. "
+                "He failed. "
+                "The binding is an unfinished sentence — "
+                "he cannot leave until it ends. "
+                "Your ending it and his ending it "
+                "are the same thing."
+            ),
+        },
+    ],
+    "next": "odrik_first_questions",
+}
 SCENES = {
     "name_entry":                SCENE_NAME_ENTRY,
     "awakening":                 SCENE_AWAKENING,
@@ -2099,4 +2708,15 @@ SCENES = {
     "gatehouse_courtyard":    SCENE_GATEHOUSE_COURTYARD,
     "gatehouse_wall":         SCENE_GATEHOUSE_WALL,
     "gatehouse_inside":       SCENE_GATEHOUSE_INSIDE,
+    # Act II — The Great Hall / Odrik
+    "great_hall_entrance":    SCENE_GREAT_HALL_ENTRANCE,
+    "odrik_silence":          SCENE_ODRIK_SILENCE,
+    "odrik_knew":             SCENE_ODRIK_KNEW,
+    "odrik_what_are_you":     SCENE_ODRIK_WHAT_ARE_YOU,
+    "odrik_measures_you":     SCENE_ODRIK_MEASURES_YOU,
+    "odrik_first_questions":  SCENE_ODRIK_FIRST_QUESTIONS,
+    "odrik_explains_place":   SCENE_ODRIK_EXPLAINS_PLACE,
+    "odrik_the_night":        SCENE_ODRIK_THE_NIGHT,
+    "odrik_the_key":          SCENE_ODRIK_THE_KEY,
+    "odrik_why_bound":        SCENE_ODRIK_WHY_BOUND,
 }
