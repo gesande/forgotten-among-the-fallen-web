@@ -410,3 +410,29 @@ fantasy, painterly, desaturated, unsettling stillness, cinematic
 - **combat_sentinel**: "single sustained low bell tone pulsing slowly, no percussion
   no melody, the bell never fully decays, something absorbing sound, combat
   atmosphere without urgency, 90 seconds loop"
+
+---
+
+## Scene 13 — great_hall.jpg
+**File:** `static/svg/great_hall.svg` → replace with `great_hall.jpg`
+**Used in:** great_hall_entrance, all odrik_* scenes
+
+**Midjourney:**
+```
+interior of a viking great hall frozen in time, forty warriors sitting at long
+wooden tables mid-feast with cups raised and mouths open as if interrupted
+mid-conversation, none of them moving, candles burning without melting, food
+on the tables that has not spoiled, at the far end of the hall a single older
+man in a dark ink-stained robe sits alone at the head table watching, warm
+amber candlelight against cold stone walls, deep shadows in the rafters, dark
+fantasy, painterly, desaturated, deeply wrong stillness, the wrongness of a
+moment held too long --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+viking great hall frozen mid-feast, forty warriors at tables cups raised
+mouths open interrupted, food unspoiled candles unmelted, lone older man
+in dark robe at head table watching, amber candlelight cold stone, deep
+shadows, dark fantasy, painterly, desaturated, uncanny stillness, cinematic
+```
