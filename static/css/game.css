@@ -442,7 +442,7 @@ html, body {
 }
 .memory-label {
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--frost);
@@ -451,8 +451,8 @@ html, body {
 #memory-text {
   font-family: 'IM Fell English', serif;
   font-style: italic;
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 17px;
+  line-height: 1.85;
   color: rgba(74,120,138,0.85);
   padding-left: 1rem;
 }
@@ -477,8 +477,8 @@ html, body {
 }
 
 .prose-block {
-  font-size: clamp(14px, 1.4vw, 16px);
-  line-height: 1.85;
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.9;
   color: var(--parchment);
   margin-bottom: 1.2rem;
   opacity: 0;
