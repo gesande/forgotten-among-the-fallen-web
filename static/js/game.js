@@ -443,6 +443,12 @@ function renderHUD(hud) {
     memEl.textContent = `${hud.memories} ${hud.memories === 1 ? "memory" : "memories"} recovered`;
   }
 
+  // Equipped weapon
+  const weaponEl = $("hud-weapon");
+  if (weaponEl && hud.equipped && hud.equipped !== "bare hands") {
+    weaponEl.textContent = hud.equipped;
+  }
+
   // Inventory
   const invEl = $("hud-inventory");
   if (invEl) {

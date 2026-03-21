@@ -345,8 +345,16 @@ def _hit_enemy(dmg, e, player=None, log=None):
             if log is not None:
                 log.append(random.choice(e["phrases"]["drain_trigger"]))
 
+WEAPON_BONUS = {
+    "bare hands":   0,
+    "rusted axe":   0,
+    "Leif's knife": 3,
+    "Gunnar's Axe": 8,
+}
+
 def _apply_mods(base, player, kind):
     mod = base
+    mod += WEAPON_BONUS.get(player.equipped_weapon, 0)
     if player.brutality > 50: mod += roll(6)
     if player.honour > 70 and kind == "light": mod += roll(4)
     if player.is_cursed(): mod -= roll(4)

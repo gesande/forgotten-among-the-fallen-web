@@ -2305,7 +2305,7 @@ SCENE_ODRIK_MEASURES_YOU = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: "Gunnar's Axe" in s.inventory,
+                    "condition": lambda s: s.equipped_weapon == "Gunnar's Axe",
                     "text": (
                         "His eyes stop at the axe on your belt. "
                         "Gunnar's axe. "
@@ -2326,7 +2326,7 @@ SCENE_ODRIK_MEASURES_YOU = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: "Gunnar's Axe" in s.inventory,
+                    "condition": lambda s: s.equipped_weapon == "Gunnar's Axe",
                     "text": (
                         "\"He gave it to you,\" Odrik says. "
                         "Flat. Careful. "

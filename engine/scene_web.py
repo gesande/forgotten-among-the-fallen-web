@@ -289,6 +289,7 @@ def _build_hud(state: PlayerState) -> dict:
         "shards":     state.echo_shards,
         "memories":   len(state.memories),
         "inventory":  state.inventory,
+        "equipped":   state.equipped_weapon,
         "is_dead":    state.is_dead(),
         "is_cursed":  state.is_cursed(),
     }

@@ -96,7 +96,19 @@ class PlayerState:
         return self.health <= 0
 
     def add_item(self, item: str):
-        self.inventory.append(item)
+        if item not in self.inventory:
+            self.inventory.append(item)
+        # Auto-equip if this weapon is better than current
+        tiers = {
+            "bare hands":   0,
+            "rusted axe":   1,
+            "Leif's knife": 2,
+            "Gunnar's Axe": 3,
+        }
+        if item in tiers:
+            current_tier = tiers.get(self.equipped_weapon, 0)
+            if tiers[item] > current_tier:
+                self.equipped_weapon = item
 
     def has_item(self, item: str) -> bool:
         return item in self.inventory
