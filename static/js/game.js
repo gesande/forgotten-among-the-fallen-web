@@ -57,9 +57,11 @@ async function init() {
     }
   } catch(e) {}
 
-  $("btn-new").addEventListener("click", startNewGame);
-  $("btn-load").addEventListener("click", loadGame);
-  $("btn-quit").addEventListener("click", () => window.close());
+  $("btn-new").addEventListener("click", () => { dismissOverlay(); startNewGame(); });
+  $("btn-load").addEventListener("click", () => { dismissOverlay(); loadGame(); });
+  $("btn-quit").addEventListener("click", () => {
+    if (!window.close()) { window.location.href = "about:blank"; }
+  });
   $("btn-rise").addEventListener("click", riseAgain);
   $("btn-credits-back").addEventListener("click", () => {
     show("title"); hide("credits-screen");
@@ -131,19 +133,21 @@ async function init() {
 // ── Enter overlay — at module level for clean gesture call stack ──────
 // Browsers require play() to be in the direct call stack of a user event.
 // Keeping this outside init() / DOMContentLoaded avoids async chain breaks.
+function dismissOverlay() {
+  const overlay = document.getElementById("enter-overlay");
+  if (!overlay || overlay.classList.contains("fade-out")) return;
+  overlay.classList.add("fade-out");
+  SoundEngine.playTitle();
+  setTimeout(() => overlay.remove(), 900);
+}
+
 (function() {
   function attachOverlay() {
     const overlay = document.getElementById("enter-overlay");
     if (!overlay) return;
-    function dismiss() {
-      if (overlay.classList.contains("fade-out")) return;
-      overlay.classList.add("fade-out");
-      SoundEngine.playTitle();           // direct gesture → play()
-      setTimeout(() => overlay.remove(), 900);
-    }
-    overlay.addEventListener("click",       dismiss);
-    document.addEventListener("keydown",    dismiss, { once: true });
-    document.addEventListener("touchstart", dismiss, { once: true });
+    overlay.addEventListener("click",       dismissOverlay);
+    document.addEventListener("keydown",    dismissOverlay, { once: true });
+    document.addEventListener("touchstart", dismissOverlay, { once: true });
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", attachOverlay);
