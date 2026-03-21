@@ -256,6 +256,7 @@ def advance():
     return jsonify({"ok": True, "next_scene": next_key})
 
 
+@app.route("/api/load", methods=["POST"])
 def load_game():
     state = PlayerState.load(0)
     if state is None:
