@@ -40,7 +40,7 @@ const SoundEngine = (() => {
   const FADE_STEPS    = 30;
   const FADE_DURATION = 2000;
   const MUSIC_BASE    = "/static/audio/music/";
-  const SFX_BASE      = "/static/audio/music/";  // sfx in same folder for now
+  const SFX_BASE      = "/static/audio/sfx/";  // sfx in same folder for now
 
   // ── Crossfade ─────────────────────────────────────────────
   let _fadeTimer = null;   // track active fade so we can cancel it
@@ -113,7 +113,15 @@ const SoundEngine = (() => {
   }
 
   function playSfx(name) {
-    return; // SFX disabled until audio files are added to static/audio/sfx/
+    if (muted) return;
+    const sfxName = SFX_MAP[name];
+    if (!sfxName) return;
+    try {
+      const a   = new window.Audio(SFX_BASE + sfxName + ".wav");
+      a.volume  = sfxVolume;
+      a.onerror = () => { a.src = SFX_BASE + sfxName + ".ogg"; a.play().catch(() => {}); };
+      a.play().catch(() => {});
+    } catch(e) {}
   }
 
   function toggleMute() {
