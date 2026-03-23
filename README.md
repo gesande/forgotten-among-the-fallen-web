@@ -88,3 +88,6 @@ Leif. Gunnar. The Mound of Oathbreakers. A broken oath.
 **Act II — The Stirring Beneath**
 In progress. A fortified keep frozen in time. Odrik the Bound.
 The fog holds more than silence.
+
+**Act III - The Silence Beneath**
+**Act IV - “The Keeper of the Unfinished**
