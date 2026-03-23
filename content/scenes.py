@@ -167,7 +167,7 @@ SCENE_FIND_WEAPON = {
 SCENE_BATTLEFIELD_OPEN = {
     "header": {
         "title":    "THE BATTLEFIELD OF SILENCE",
-        "subtitle": "Zone 1 — The Waking Field",
+        "subtitle": "The Waking Field",
     },
     "beats": [
         {
