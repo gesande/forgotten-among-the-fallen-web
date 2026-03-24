@@ -324,7 +324,6 @@ function renderScene(data) {
   renderChoices(data.choices || [], data.next, data.name_prompt, paraIdx);
 }
 
-let pendingChoiceId = null;  // remembers which choice was clicked before name input
 
 function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
   const wrap = $("choices-wrap");
@@ -418,7 +417,6 @@ async function submitName() {
   showLoading(true);
   try {
     await api("/api/choose", { name });
-    pendingChoiceId = null;
     loadScene();
   } catch(e) { showLoading(false); }
 }
