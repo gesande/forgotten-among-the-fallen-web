@@ -16,6 +16,7 @@
 from engine.state import PlayerState
 from engine.conditions import eval_condition
 from content.scenes import SCENES
+from content.game_config import HUD_STATS
 
 def render_scene(scene_key: str, state: PlayerState) -> dict:
     """
@@ -220,18 +221,19 @@ def _build_hud(state: PlayerState) -> dict:
     elif hp_ratio > 0.25: hp_desc = "Bleeding"
     else:                 hp_desc = "Near Death"
 
-    return {
-        "hp":         state.health,
-        "max_hp":     state.max_health,
-        "hp_ratio":   hp_ratio,
-        "hp_desc":    hp_desc,
-        "wrath":      state.wrath,
-        "max_wrath":  state.max_wrath if hasattr(state, "max_wrath") else 100,
-        "curse":      state.curse_stacks,
-        "shards":     state.echo_shards,
-        "memories":   len(state.memories),
-        "inventory":  state.inventory,
-        "equipped":   state.equipped_weapon,
-        "is_dead":    state.is_dead(),
-        "is_cursed":  state.is_cursed(),
+    hud = {
+        "hp":        state.health,
+        "max_hp":    state.max_health,
+        "hp_ratio":  hp_ratio,
+        "hp_desc":   hp_desc,
+        "memories":  len(state.memories),
+        "inventory": state.inventory,
+        "equipped":  state.equipped_weapon,
+        "is_dead":   state.is_dead(),
+        "is_cursed": state.is_cursed(),
     }
+    for entry in HUD_STATS:
+        hud[entry["key"]] = getattr(state, entry["stat"], 0)
+        if "max_stat" in entry:
+            hud[f"max_{entry['key']}"] = getattr(state, entry["max_stat"], 100)
+    return hud

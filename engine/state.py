@@ -6,6 +6,7 @@
 from dataclasses import dataclass, field
 from typing import Optional
 import json, os
+from content.game_config import STATS, WEAPON_TIERS, START_SCENE
 
 @dataclass
 class PlayerState:
@@ -43,7 +44,7 @@ class PlayerState:
     memories: list = field(default_factory=list)
 
     # ── World state ───────────────────────────────────────────
-    current_scene: str = "awakening"
+    current_scene: str = START_SCENE
     visited: list      = field(default_factory=list)
     deaths: int        = 0
 
@@ -79,7 +80,12 @@ class PlayerState:
         val = getattr(self, stat, None)
         if val is None:
             return
-        new_val = max(0, min(100, val + delta))
+        cfg = STATS.get(stat, {"min": 0, "max": 100})
+        lo = cfg.get("min", 0)
+        hi = cfg.get("max", 100)
+        new_val = max(lo, val + delta)
+        if hi is not None:
+            new_val = min(hi, new_val)
         setattr(self, stat, new_val)
 
     def take_damage(self, amount: int) -> int:
@@ -98,16 +104,9 @@ class PlayerState:
     def add_item(self, item: str):
         if item not in self.inventory:
             self.inventory.append(item)
-        # Auto-equip if this weapon is better than current
-        tiers = {
-            "bare hands":   0,
-            "rusted axe":   1,
-            "Leif's knife": 2,
-            "Gunnar's Axe": 3,
-        }
-        if item in tiers:
-            current_tier = tiers.get(self.equipped_weapon, 0)
-            if tiers[item] > current_tier:
+        if item in WEAPON_TIERS:
+            current_tier = WEAPON_TIERS.get(self.equipped_weapon, 0)
+            if WEAPON_TIERS[item] > current_tier:
                 self.equipped_weapon = item
 
     def has_item(self, item: str) -> bool:
