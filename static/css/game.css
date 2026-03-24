@@ -191,7 +191,7 @@ html, body {
 /* HUD on art panel */
 #hud {
   position: absolute;
-  bottom: 16px;
+  top: 16px;
   left: 0;
   right: 0;
   display: flex;
@@ -200,8 +200,8 @@ html, body {
   pointer-events: none;
 }
 
-#hud-left { display: flex; flex-direction: column-reverse; gap: 5px; width: 150px; }
-#hud-right { display: flex; flex-direction: column-reverse; text-align: right; }
+#hud-left { display: flex; flex-direction: column; gap: 5px; width: 150px; }
+#hud-right { text-align: right; }
 
 .hud-label {
   font-family: 'Cinzel', serif;
