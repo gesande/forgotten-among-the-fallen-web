@@ -9,6 +9,7 @@
 # ─────────────────────────────────────────────────────────────
 # ── Name entry: shown first, before any choices ──────────────
 SCENE_NAME_ENTRY = {
+    "art": "name_entry",
     "header": {
         "title":    "FORGOTTEN AMONG THE FALLEN",
         "subtitle": "A Viking Dark Fantasy",
@@ -53,6 +54,7 @@ SCENE_NAME_ENTRY = {
 
 # ── Awakening: choices shown after name is known ──────────────
 SCENE_AWAKENING = {
+    "art": "battlefield",
     "header": {
         "title":    "THE WAKING FIELD",
         "subtitle": "you should not be standing",
@@ -127,6 +129,7 @@ SCENE_AWAKENING = {
 #  FIND WEAPON (branch from awakening)
 # ─────────────────────────────────────────────────────────────
 SCENE_FIND_WEAPON = {
+    "art": "battlefield",
     "show_hud": False,
     "beats": [
         {
@@ -165,6 +168,7 @@ SCENE_FIND_WEAPON = {
 #  BATTLEFIELD — OPEN
 # ─────────────────────────────────────────────────────────────
 SCENE_BATTLEFIELD_OPEN = {
+    "art": "battlefield",
     "header": {
         "title":    "THE BATTLEFIELD OF SILENCE",
         "subtitle": "The Waking Field",
@@ -252,6 +256,7 @@ SCENE_BATTLEFIELD_OPEN = {
 #  SOUL: LEIF — The Dying Soldier
 # ─────────────────────────────────────────────────────────────
 SCENE_SOUL_LEIF = {
+    "art": "leif",
     "header": {
         "title":    "THE DYING SOLDIER",
         "subtitle": "A bound soul — not yet gone",
@@ -316,6 +321,7 @@ SCENE_SOUL_LEIF = {
 }
 
 SCENE_LEIF_GIVES_NAME = {
+    "art": "leif",
     "beats": [
         {
             "type": "italic",
@@ -366,6 +372,7 @@ SCENE_LEIF_GIVES_NAME = {
 }
 
 SCENE_LEIF_THE_OATH = {
+    "art": "leif",
     "beats": [
         {
             "type": "italic",
@@ -438,6 +445,7 @@ SCENE_LEIF_THE_OATH = {
 }
 
 SCENE_LEIF_GUNNAR_INTRO = {
+    "art": "leif",
     "beats": [
         {
             "type": "italic",
@@ -481,6 +489,7 @@ SCENE_LEIF_GUNNAR_INTRO = {
 # Fallback scene — shown when player has talked to Leif but not yet
 # explored enough to unlock the mound path
 SCENE_BATTLEFIELD_LOOK_AROUND = {
+    "art": "battlefield",
     "beats": [
         {
             "type": "prose",
@@ -577,6 +586,7 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
 }
 
 SCENE_LEIF_FAREWELL = {
+    "art": "leif",
     "beats": [
         {
             "type": "prose",
@@ -618,6 +628,7 @@ SCENE_LEIF_FAREWELL = {
 }
 
 SCENE_LEIF_MERCY_KILL = {
+    "art": "leif",
     "beats": [
         {
             "type": "prose",
@@ -674,6 +685,7 @@ SCENE_LEIF_MERCY_KILL = {
 }
 
 SCENE_LEIF_DEFENSE = {
+    "art": "leif",
     "beats": [
         {
             "type": "italic",
@@ -698,6 +710,7 @@ SCENE_LEIF_DEFENSE = {
 }
 
 SCENE_LEIF_BATTLE_ACCOUNT = {
+    "art": "leif",
     "beats": [
         {
             "type": "italic",
@@ -727,6 +740,7 @@ SCENE_LEIF_BATTLE_ACCOUNT = {
 }
 
 SCENE_LEIF_SURVIVORS = {
+    "art": "leif",
     "beats": [
         {
             "type": "italic",
@@ -747,6 +761,7 @@ SCENE_LEIF_SURVIVORS = {
 #  LONGHOUSE RUINS
 # ─────────────────────────────────────────────────────────────
 SCENE_LONGHOUSE_RUINS = {
+    "art": "longhouse",
     "header": {
         "title":    "THE LONGHOUSE RUINS",
         "subtitle": "A structure that stood for three generations",
@@ -823,6 +838,7 @@ SCENE_LONGHOUSE_RUINS = {
 }
 
 SCENE_CAIRN_REST = {
+    "art": "cairn",
     "beats": [
         {
             "type": "prose",
@@ -873,6 +889,7 @@ SCENE_CAIRN_REST = {
 }
 
 SCENE_FORGE_SEARCH = {
+    "art": "longhouse",
     "beats": [
         {
             "type": "prose",
@@ -935,6 +952,7 @@ SCENE_FORGE_SEARCH = {
 #  SCAVENGE EAST
 # ─────────────────────────────────────────────────────────────
 SCENE_SCAVENGE_EAST = {
+    "art": "scavenge",
     "header": {
         "title":    "THE DENSE DEAD",
         "subtitle": "The fighting was hardest here",
@@ -1003,6 +1021,8 @@ SCENE_SCAVENGE_EAST = {
 #  COMBAT SCENES
 # ─────────────────────────────────────────────────────────────
 SCENE_COMBAT_DRAUGAR_EAST = {
+    "art": "combat_draugar",
+    "next": "scavenge_east_after",
     "beats": [
         {
             "type":  "combat",
@@ -1024,6 +1044,7 @@ SCENE_COMBAT_DRAUGAR_EAST = {
 }
 
 SCENE_SCAVENGE_EAST_AFTER = {
+    "art": "scavenge",
     "beats": [
         {
             "type": "prose",
@@ -1065,6 +1086,7 @@ SCENE_SCAVENGE_EAST_AFTER = {
 #  THE MOUND — Boss Approach
 # ─────────────────────────────────────────────────────────────
 SCENE_THE_MOUND = {
+    "art": "mound",
     "header": {
         "title":    "THE MOUND OF OATHBREAKERS",
         "subtitle": "Those buried without honour sleep lightly here",
@@ -1150,6 +1172,7 @@ SCENE_THE_MOUND = {
 }
 
 SCENE_GUNNAR_DIALOGUE_PEACE = {
+    "art": "gunnar",
     "beats": [
         {
             "type": "italic",
@@ -1168,6 +1191,7 @@ SCENE_GUNNAR_DIALOGUE_PEACE = {
 }
 
 SCENE_GUNNAR_DIALOGUE_CHALLENGE = {
+    "art": "gunnar",
     "beats": [
         {
             "type": "italic",
@@ -1204,6 +1228,7 @@ SCENE_GUNNAR_DIALOGUE_CHALLENGE = {
 }
 
 SCENE_GUNNAR_DIALOGUE_TRUTH = {
+    "art": "gunnar",
     "beats": [
         {
             "type": "italic",
@@ -1235,6 +1260,8 @@ SCENE_GUNNAR_DIALOGUE_TRUTH = {
 }
 
 SCENE_COMBAT_GUNNAR = {
+    "art": "gunnar_combat",
+    "next": "act1_end",
     "beats": [
         {
             "type":  "combat",
@@ -1254,6 +1281,7 @@ SCENE_COMBAT_GUNNAR = {
 #  ZONE 1 END
 # ─────────────────────────────────────────────────────────────
 SCENE_ACT1_END = {
+    "art": "mound",
     "header": {
         "title":    "SILENCE FALLS",
         "subtitle": "The Battlefield of Silence — cleared",
@@ -1366,6 +1394,7 @@ SCENE_ACT1_END = {
 }
 
 SCENE_FINAL_REST = {
+    "art": "cairn",
     "header": {
         "title":    "THE BONE CAIRN",
         "subtitle": "one more night",
@@ -1419,6 +1448,7 @@ SCENE_FINAL_REST = {
 }
 
 SCENE_ACT_2_INTRO = {
+    "art": "act_break",
     "header": {
         "title":    "ACT II",
         "subtitle": "The Truth in the Fog",

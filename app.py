@@ -286,13 +286,8 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
         return pre_combat.get(scene_key, "battlefield_open")
     if combat.get("fled"):
         return pre_combat_fled.get(scene_key, "battlefield_open")
-    # Victory: advance to post-combat scene
-    post_combat = {
-        "combat_gunnar":       "act1_end",
-        "combat_draugar_east": "scavenge_east_after",
-        "combat_fog_sentinel": "fog_sentinel_after",
-    }
-    return post_combat.get(scene_key, scene_key)
+    # Victory: advance to scene defined in scene data
+    return SCENES[scene_key].get("next", scene_key)
 
 # ═══════════════════════════════════════════════════════════
 #  ENTRY

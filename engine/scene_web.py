@@ -17,74 +17,6 @@ from engine.state import PlayerState
 from engine.conditions import eval_condition
 from content.scenes import SCENES
 
-# ── Art key mapping — which SVG to show per scene ────────────
-SCENE_ART = {
-    "name_entry":               "name_entry",
-    "awakening":                "battlefield",
-    "find_weapon":              "battlefield",
-    "battlefield_open":         "battlefield",
-    "battlefield_look_around":  "battlefield",
-    "soul_leif":                "leif",
-    "leif_gives_name":          "leif",
-    "leif_the_oath":            "leif",
-    "leif_gunnar_intro":        "leif",
-    "leif_farewell":            "leif",
-    "leif_mercy_kill":          "leif",
-    "leif_defense":             "leif",
-    "leif_battle_account":      "leif",
-    "leif_survivors":           "leif",
-    "longhouse_ruins":          "longhouse",
-    "cairn_rest":               "cairn",
-    "forge_search":             "longhouse",
-    "scavenge_east":            "scavenge",
-    "scavenge_east_after":      "scavenge",
-    "combat_draugar_east":      "combat_draugar",
-    "the_mound":                "mound",
-    "gunnar_dialogue_peace":    "gunnar",
-    "gunnar_dialogue_challenge":"gunnar",
-    "gunnar_dialogue_truth":    "gunnar",
-    "combat_gunnar":            "gunnar_combat",
-    "act1_end":                 "mound",
-    "final_rest":               "cairn",
-    "act_2_intro":              "act_break",
-    # Act II — The Stirring Beneath
-    "fog_road":                 "fog_road",
-    "fog_the_held":             "fog_road",
-    "fog_held_other":           "fog_road",
-    "fog_held_release":         "fog_road",
-    "fog_held_after":           "fog_road",
-    "fog_sentinel":             "fog_sentinel",
-    "fog_sentinel_wait":        "fog_sentinel",
-    "fog_sentinel_avoided":     "fog_sentinel",
-    "combat_fog_sentinel":      "fog_sentinel",
-    "fog_sentinel_after":       "fog_road",
-    "gatehouse_approach":       "gatehouse",
-    "gatehouse_guards":         "gatehouse",
-    "gatehouse_guards_hostile": "gatehouse",
-    "gatehouse_guards_calmed":  "gatehouse",
-    "gatehouse_guards_spoken":  "gatehouse",
-    "gatehouse_guards_axe":     "gatehouse",
-    "gatehouse_guards_forced":  "gatehouse",
-    "gatehouse_courtyard":      "gatehouse",
-    "gatehouse_wall":           "gatehouse",
-    "gatehouse_inside":         "gatehouse",
-    # Act II — The Great Hall / Odrik
-    "great_hall_entrance":      "great_hall",
-    "great_hall_rune_door":     "great_hall",
-    "odrik_go_forward":         "odrik_go_forward",
-    "act2_end":                 "great_hall",
-    "act_3_intro":              "act_break",
-    "odrik_silence":            "great_hall",
-    "odrik_knew":               "great_hall",
-    "odrik_what_are_you":       "great_hall",
-    "odrik_measures_you":       "great_hall",
-    "odrik_first_questions":    "great_hall",
-    "odrik_explains_place":     "great_hall",
-    "odrik_the_night":          "great_hall",
-    "odrik_the_key":            "great_hall",
-    "odrik_why_bound":          "great_hall",
-}
-
 def render_scene(scene_key: str, state: PlayerState) -> dict:
     """
     Process a scene and return a structured dict for the frontend.
@@ -103,7 +35,7 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
     scene   = SCENES[scene_key]
     output  = {
         "scene_key": scene_key,
-        "art_key":   SCENE_ART.get(scene_key, "battlefield"),
+        "art_key":   scene.get("art", "battlefield"),
         "header":    scene.get("header"),
         "paragraphs":[],      # rendered narrative text blocks
         "memories":  [],      # any memories recovered this scene

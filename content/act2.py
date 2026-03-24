@@ -5,6 +5,7 @@
 # ============================================================
 
 SCENE_FOG_ROAD = {
+    "art": "fog_road",
     "header": {
         "title":    "THE ROAD SOUTH",
         "subtitle": "the fog does not thin",
@@ -51,6 +52,7 @@ SCENE_FOG_ROAD = {
 }
 
 SCENE_FOG_THE_HELD = {
+    "art": "fog_road",
     "header": {
         "title":    "THE HELD",
         "subtitle": "they have been standing like this for a long time",
@@ -108,6 +110,7 @@ SCENE_FOG_THE_HELD = {
 }
 
 SCENE_FOG_HELD_OTHER = {
+    "art": "fog_road",
     "beats": [
         {
             "type": "prose",
@@ -138,6 +141,7 @@ SCENE_FOG_HELD_OTHER = {
 }
 
 SCENE_FOG_HELD_RELEASE = {
+    "art": "fog_road",
     "beats": [
         {
             "type": "prose",
@@ -181,6 +185,7 @@ SCENE_FOG_HELD_RELEASE = {
 }
 
 SCENE_FOG_HELD_AFTER = {
+    "art": "fog_road",
     "beats": [
         {
             "type": "prose",
@@ -221,6 +226,7 @@ SCENE_FOG_HELD_AFTER = {
 }
 
 SCENE_FOG_SENTINEL = {
+    "art": "fog_sentinel",
     "header": {
         "title":    "THE FOG-SENTINEL",
         "subtitle": "the bell-tone has no source you can name",
@@ -276,6 +282,7 @@ SCENE_FOG_SENTINEL = {
 }
 
 SCENE_FOG_SENTINEL_WAIT = {
+    "art": "fog_sentinel",
     "beats": [
         {
             "type": "prose",
@@ -305,6 +312,7 @@ SCENE_FOG_SENTINEL_WAIT = {
 }
 
 SCENE_FOG_SENTINEL_AVOIDED = {
+    "art": "fog_sentinel",
     "beats": [
         {
             "type": "prose",
@@ -332,6 +340,8 @@ SCENE_FOG_SENTINEL_AVOIDED = {
 }
 
 SCENE_COMBAT_FOG_SENTINEL = {
+    "art": "fog_sentinel",
+    "next": "fog_sentinel_after",
     "header": {
         "title":    "THE FOG-SENTINEL",
         "subtitle": "the harder you hit, the more it drinks",
@@ -345,6 +355,7 @@ SCENE_COMBAT_FOG_SENTINEL = {
 }
 
 SCENE_FOG_SENTINEL_AFTER = {
+    "art": "fog_road",
     "beats": [
         {
             "type": "conditional_prose",
@@ -376,6 +387,7 @@ SCENE_FOG_SENTINEL_AFTER = {
 }
 
 SCENE_GATEHOUSE_APPROACH = {
+    "art": "gatehouse",
     "header": {
         "title":    "THE GATEHOUSE",
         "subtitle": "someone lit that torch recently",
@@ -477,6 +489,7 @@ SCENE_GATEHOUSE_APPROACH = {
 }
 
 SCENE_GATEHOUSE_GUARDS_HOSTILE = {
+    "art": "gatehouse",
     "header": {
         "title":    "THE GATEHOUSE",
         "subtitle": "the spears do not lower",
@@ -528,6 +541,7 @@ SCENE_GATEHOUSE_GUARDS_HOSTILE = {
 }
 
 SCENE_GATEHOUSE_GUARDS_CALMED = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "prose",
@@ -565,6 +579,7 @@ SCENE_GATEHOUSE_GUARDS_CALMED = {
 }
 
 SCENE_GATEHOUSE_GUARDS_SPOKEN = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "prose",
@@ -601,6 +616,7 @@ SCENE_GATEHOUSE_GUARDS_SPOKEN = {
 }
 
 SCENE_GATEHOUSE_GUARDS_AXE = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "prose",
@@ -651,6 +667,7 @@ SCENE_GATEHOUSE_GUARDS_AXE = {
 }
 
 SCENE_GATEHOUSE_GUARDS_FORCED = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "prose",
@@ -689,6 +706,7 @@ SCENE_GATEHOUSE_GUARDS_FORCED = {
 }
 
 SCENE_GATEHOUSE_GUARDS = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "italic",
@@ -722,6 +740,7 @@ SCENE_GATEHOUSE_GUARDS = {
 }
 
 SCENE_GATEHOUSE_COURTYARD = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "prose",
@@ -749,6 +768,7 @@ SCENE_GATEHOUSE_COURTYARD = {
 }
 
 SCENE_GATEHOUSE_WALL = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "prose",
@@ -776,6 +796,7 @@ SCENE_GATEHOUSE_WALL = {
 }
 
 SCENE_GATEHOUSE_INSIDE = {
+    "art": "gatehouse",
     "beats": [
         {
             "type": "prose",
@@ -807,6 +828,7 @@ SCENE_GATEHOUSE_INSIDE = {
 # ═════════════════════════════════════════════════════════════
 
 SCENE_GREAT_HALL_ENTRANCE = {
+    "art": "great_hall",
     "header": {
         "title":    "THE GREAT HALL",
         "subtitle": "everything is exactly as it was left",
@@ -977,6 +999,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
 }
 
 SCENE_ODRIK_SILENCE = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "prose",
@@ -1020,6 +1043,7 @@ SCENE_ODRIK_SILENCE = {
 }
 
 SCENE_ODRIK_KNEW = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "prose",
@@ -1062,6 +1086,7 @@ SCENE_ODRIK_KNEW = {
 }
 
 SCENE_ODRIK_WHAT_ARE_YOU = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "prose",
@@ -1105,6 +1130,7 @@ SCENE_ODRIK_WHAT_ARE_YOU = {
 }
 
 SCENE_ODRIK_MEASURES_YOU = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "prose",
@@ -1174,6 +1200,7 @@ SCENE_ODRIK_MEASURES_YOU = {
 }
 
 SCENE_ODRIK_FIRST_QUESTIONS = {
+    "art": "great_hall",
     "header": {
         "title":    "ODRIK THE BOUND",
         "subtitle": "he will answer what he can",
@@ -1220,6 +1247,7 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
 }
 
 SCENE_ODRIK_EXPLAINS_PLACE = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "italic",
@@ -1287,6 +1315,7 @@ SCENE_ODRIK_EXPLAINS_PLACE = {
 }
 
 SCENE_ODRIK_THE_NIGHT = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "prose",
@@ -1367,6 +1396,7 @@ SCENE_ODRIK_THE_NIGHT = {
 }
 
 SCENE_ODRIK_THE_KEY = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "prose",
@@ -1440,6 +1470,7 @@ SCENE_ODRIK_THE_KEY = {
 }
 
 SCENE_GREAT_HALL_RUNE_DOOR = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "prose",
@@ -1508,6 +1539,7 @@ SCENE_GREAT_HALL_RUNE_DOOR = {
 }
 
 SCENE_ODRIK_WHY_BOUND = {
+    "art": "great_hall",
     "beats": [
         {
             "type": "italic",
@@ -1577,6 +1609,7 @@ SCENE_ODRIK_WHY_BOUND = {
 }
 
 SCENE_ACT2_END = {
+    "art": "great_hall",
     "header": {
         "title":    "ACT II COMPLETE",
         "subtitle": "The Stirring Beneath",
@@ -1631,6 +1664,7 @@ SCENE_ACT2_END = {
 }
 
 SCENE_ACT_3_INTRO = {
+    "art": "act_break",
     "header": {
         "title":    "ACT III",
         "subtitle": "The Silence Beneath",
@@ -1650,6 +1684,7 @@ SCENE_ACT_3_INTRO = {
 }
 
 SCENE_ODRIK_GO_FORWARD = {
+    "art": "odrik_go_forward",
     "beats": [
         {
             "type": "prose",
