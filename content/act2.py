@@ -350,7 +350,7 @@ SCENE_FOG_SENTINEL_AFTER = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: s.flags.get("sentinel_avoided"),
+                    "condition": {"flag": "sentinel_avoided"},
                     "text": "The road ahead is quieter. Not less thick — quieter. "
                             "As if something that was listening has stopped.",
                 },
@@ -413,7 +413,7 @@ SCENE_GATEHOUSE_APPROACH = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: s.flags.get("held_forced"),
+                    "condition": {"flag": "held_forced"},
                     "text": "When you step closer, both of them move. "
                             "Not the slow head-turn of the others — "
                             "this is faster. More deliberate. "
@@ -433,7 +433,7 @@ SCENE_GATEHOUSE_APPROACH = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: s.flags.get("held_forced"),
+                    "condition": {"flag": "held_forced"},
                     "text": "They remember. Or something in them does. "
                             "Something passed through the fog before you did — "
                             "something that felt like what you left behind on the road.",
@@ -451,27 +451,27 @@ SCENE_GATEHOUSE_APPROACH = {
         {
             "label": "Approach carefully. Hands visible.",
             "next":  "gatehouse_guards_hostile",
-            "condition": lambda s: s.flags.get("held_forced"),
+            "condition": {"flag": "held_forced"},
         },
         {
             "label": "Step back. Give them space.",
             "next":  "gatehouse_guards_hostile",
-            "condition": lambda s: s.flags.get("held_forced"),
+            "condition": {"flag": "held_forced"},
         },
         {
             "label": "Look at the guards closely.",
             "next":  "gatehouse_guards",
-            "condition": lambda s: not s.flags.get("held_forced"),
+            "condition": {"not": {"flag": "held_forced"}},
         },
         {
             "label": "Look at the courtyard ahead.",
             "next":  "gatehouse_courtyard",
-            "condition": lambda s: not s.flags.get("held_forced"),
+            "condition": {"not": {"flag": "held_forced"}},
         },
         {
             "label": "Touch the wall.",
             "next":  "gatehouse_wall",
-            "condition": lambda s: not s.flags.get("held_forced"),
+            "condition": {"not": {"flag": "held_forced"}},
         },
     ],
 }
@@ -517,7 +517,7 @@ SCENE_GATEHOUSE_GUARDS_HOSTILE = {
         {
             "label": "Show them Gunnar's Axe. Let them see whose it is.",
             "next":  "gatehouse_guards_axe",
-            "condition": lambda s: s.flags.get("held_forced") and s.equipped_weapon == "Gunnar's Axe",
+            "condition": {"and": [{"flag": "held_forced"}, {"equipped": "Gunnar's Axe"}]},
         },
         {
             "label": "Force your way through.",
@@ -837,7 +837,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
                         "At the far end, alone at the head table, "
                         "sits one man who is not frozen."
@@ -849,7 +849,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
                         "He is not young. Fifty, perhaps — "
                         "the kind of man who has spent fifty years "
@@ -865,7 +865,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
                         "He already knew you were in the room "
                         "before you crossed the threshold."
@@ -877,7 +877,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
                         "He does not look up when you approach. "
                         "He speaks first."
@@ -889,7 +889,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
                         "\"You came alone,\" he says. "
                         "\"I did not know if you would come alone.\""
@@ -901,7 +901,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
                         "A pause. He is listening to something — "
                         "the quality of your footsteps, perhaps, "
@@ -914,7 +914,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": "\"You fought the Sentinel.\"",
                 },
             ],
@@ -923,7 +923,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": "Still he does not look up.",
                 },
             ],
@@ -932,7 +932,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
                         "\"I heard the bell stop. "
                         "I have been listening for that sound "
@@ -946,38 +946,32 @@ SCENE_GREAT_HALL_ENTRANCE = {
         {
             "label": "Say nothing. Wait.",
             "next":  "odrik_silence",
-            "condition": lambda s: not s.flags.get("odrik_met"),
+            "condition": {"not": {"flag": "odrik_met"}},
         },
         {
             "label": "\"Then you knew I was coming.\"",
             "next":  "odrik_knew",
-            "condition": lambda s: not s.flags.get("odrik_met"),
+            "condition": {"not": {"flag": "odrik_met"}},
         },
         {
             "label": "\"What are you?\"",
             "next":  "odrik_what_are_you",
-            "condition": lambda s: not s.flags.get("odrik_met"),
+            "condition": {"not": {"flag": "odrik_met"}},
         },
         {
             "label": "Examine the door frame.",
             "next":  "great_hall_rune_door",
-            "condition": lambda s: (
-                s.flags.get("odrik_met") and
-                s.flags.get("odrik_place_seen") and
-                s.has_memory("odrik_purpose") and
-                s.has_memory("the_key_origin") and
-                not s.flags.get("rune_door_seen")
-            ),
+            "condition": {"and": [{"flag": "odrik_met"}, {"flag": "odrik_place_seen"}, {"memory": "odrik_purpose"}, {"memory": "the_key_origin"}, {"not": {"flag": "rune_door_seen"}}]},
         },
         {
             "label": "Return to Odrik.",
             "next":  "odrik_first_questions",
-            "condition": lambda s: s.flags.get("odrik_met"),
+            "condition": {"flag": "odrik_met"},
         },
         {
             "label": "Leave the hall. Continue forward.",
             "next":  "act2_end",
-            "condition": lambda s: s.flags.get("odrik_sent_forward"),
+            "condition": {"flag": "odrik_sent_forward"},
         },
     ],
 }
@@ -1125,7 +1119,7 @@ SCENE_ODRIK_MEASURES_YOU = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: s.equipped_weapon == "Gunnar's Axe",
+                    "condition": {"equipped": "Gunnar's Axe"},
                     "text": (
                         "His eyes stop at the axe on your belt. "
                         "Gunnar's axe. "
@@ -1146,7 +1140,7 @@ SCENE_ODRIK_MEASURES_YOU = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: s.equipped_weapon == "Gunnar's Axe",
+                    "condition": {"equipped": "Gunnar's Axe"},
                     "text": (
                         "\"He gave it to you,\" Odrik says. "
                         "Flat. Careful. "
@@ -1202,15 +1196,12 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
         {
             "label": "Show him the key. \"The rune is incomplete.\"",
             "next":  "odrik_the_night",
-            "condition": lambda s: (
-                s.flags.get("rune_door_seen") and
-                not s.flags.get("odrik_night_confronted")
-            ),
+            "condition": {"and": [{"flag": "rune_door_seen"}, {"not": {"flag": "odrik_night_confronted"}}]},
         },
         {
             "label": "\"What does the key open?\"",
             "next":  "odrik_the_key",
-            "condition": lambda s: "Remembrance Key" in s.inventory,
+            "condition": {"has_item": "Remembrance Key"},
         },
         {
             "label": "\"Why are you still here?\"",
@@ -1219,10 +1210,7 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
         {
             "label": "\"Why can't you tell me?\"",
             "next":  "odrik_go_forward",
-            "condition": lambda s: (
-                s.flags.get("odrik_night_confronted") and
-                not s.flags.get("odrik_sent_forward")
-            ),
+            "condition": {"and": [{"flag": "odrik_night_confronted"}, {"not": {"flag": "odrik_sent_forward"}}]},
         },
         {
             "label": "Leave Odrik for now. Look around the hall.",

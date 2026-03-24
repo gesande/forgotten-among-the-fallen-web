@@ -184,7 +184,7 @@ SCENE_BATTLEFIELD_OPEN = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: s.curse_stacks >= 2,
+                    "condition": {"stat_gte": "curse_stacks", "value": 2},
                     "text": (
                         "The fog is heavier than before. At the edge of your vision, "
                         "shapes move that stop when you look at them. "
@@ -216,38 +216,34 @@ SCENE_BATTLEFIELD_OPEN = {
         {
             "label":     "Go to the man against the shield-wall.",
             "next":      "soul_leif",
-            "condition": lambda s: not s.has_flag("leif_done"),
+            "condition": {"not": {"flag": "leif_done"}},
         },
         {
             "label":     "Search the longhouse ruins to the north.",
             "next":      "longhouse_ruins",
             "effects":   {"resolve": 2},
-            "condition": lambda s: not s.has_flag("found_forge"),
+            "condition": {"not": {"flag": "found_forge"}},
         },
         {
             "label":     "Search the forge again.",
             "next":      "forge_search",
-            "condition": lambda s: s.has_flag("found_forge") and not s.has_flag("forge_searched"),
+            "condition": {"and": [{"flag": "found_forge"}, {"not": {"flag": "forge_searched"}}]},
         },
         {
             "label":     "Move east into the dense dead. Scavenge.",
             "next":      "scavenge_east",
             "effects":   {"brutality": 3},
-            "condition": lambda s: not s.has_flag("east_searched"),
+            "condition": {"not": {"flag": "east_searched"}},
         },
         {
             "label":     "Go south — towards the mound.",
             "next":      "the_mound",
-            "condition": lambda s: s.has_flag("found_forge") or s.has_flag("east_searched"),
+            "condition": {"flag": "found_forge"} or s.has_flag("east_searched"),
         },
         {
             "label":     "Look around. There must be more here.",
             "next":      "battlefield_look_around",
-            "condition": lambda s: (
-                not s.has_flag("found_forge") and
-                not s.has_flag("east_searched") and
-                s.has_flag("leif_done")
-            ),
+            "condition": {"and": [{"not": {"flag": "found_forge"}}, {"not": {"flag": "east_searched"}}, {"flag": "leif_done"}]},
         },
     ],
 }
@@ -498,11 +494,7 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: (
-                        s.has_flag("found_forge") and
-                        s.has_flag("east_searched") and
-                        s.has_flag("leif_done")
-                    ),
+                    "condition": {"and": [{"flag": "found_forge"}, {"flag": "east_searched"}, {"flag": "leif_done"}]},
                     "text": (
                         "The longhouse to the north: searched. The forge inside it, cold but yielded what it had. "
                         "To the east: the dense dead, and whatever woke among them, settled now. "
@@ -512,10 +504,7 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
                     ),
                 },
                 {
-                    "condition": lambda s: (
-                        s.has_flag("found_forge") and
-                        s.has_flag("east_searched")
-                    ),
+                    "condition": {"and": [{"flag": "found_forge"}, {"flag": "east_searched"}]},
                     "text": (
                         "The longhouse to the north: searched, the forge cold but generous. "
                         "To the east: you have walked among the dense dead and returned. "
@@ -525,7 +514,7 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
                     ),
                 },
                 {
-                    "condition": lambda s: s.has_flag("found_forge"),
+                    "condition": {"flag": "found_forge"},
                     "text": (
                         "The longhouse to the north: searched. The forge inside still breathes. "
                         "To the east, the dead lie thickest — you have not gone there yet. "
@@ -534,7 +523,7 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
                     ),
                 },
                 {
-                    "condition": lambda s: s.has_flag("east_searched"),
+                    "condition": {"flag": "east_searched"},
                     "text": (
                         "The longhouse to the north: you have not searched it. "
                         "There is smoke from somewhere inside — cold smoke, old smoke. "
@@ -562,25 +551,23 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
             "label":     "Search the longhouse ruins to the north.",
             "next":      "longhouse_ruins",
             "effects":   {"resolve": 2},
-            "condition": lambda s: not s.has_flag("found_forge"),
+            "condition": {"not": {"flag": "found_forge"}},
         },
         {
             "label":     "Go east — into the dense dead.",
             "next":      "scavenge_east",
             "effects":   {"brutality": 3},
-            "condition": lambda s: not s.has_flag("east_searched"),
+            "condition": {"not": {"flag": "east_searched"}},
         },
         {
             "label":     "Go to the soldier against the shield-wall.",
             "next":      "soul_leif",
-            "condition": lambda s: not s.has_flag("leif_done"),
+            "condition": {"not": {"flag": "leif_done"}},
         },
         {
             "label":     "Go south — towards the mound.",
             "next":      "the_mound",
-            "condition": lambda s: (
-                s.has_flag("found_forge") or s.has_flag("east_searched")
-            ),
+            "condition": {"or": [{"flag": "found_forge"}, {"flag": "east_searched"}]},
         },
         {
             "label":     "Return to the wider battlefield.",
@@ -1098,7 +1085,7 @@ SCENE_THE_MOUND = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": lambda s: s.has_memory("the_broken_oath"),
+                    "condition": {"memory": "the_broken_oath"},
                     "text": (
                         "You stand at the edge of it for a long time. "
                         "You think about oaths. "
@@ -1157,7 +1144,7 @@ SCENE_THE_MOUND = {
         {
             "label":     '"Tell me what I did."',
             "next":      "gunnar_dialogue_truth",
-            "condition": lambda s: s.has_memory("the_broken_oath"),
+            "condition": {"memory": "the_broken_oath"},
         },
     ],
 }

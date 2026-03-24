@@ -14,6 +14,7 @@
 #  }
 # ============================================================
 from engine.state import PlayerState
+from engine.conditions import eval_condition
 from content.scenes import SCENES
 
 # ── Art key mapping — which SVG to show per scene ────────────
@@ -128,7 +129,7 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
         filtered_idx = 0
         for i, c in enumerate(raw_choices):
             cond = c.get("condition")
-            if cond and not cond(state):
+            if cond and not eval_condition(cond, state):
                 continue
             output["choices"].append({
                 "id":    str(filtered_idx),
@@ -175,7 +176,7 @@ def apply_choice(scene_key: str, choice_id: str, state: PlayerState) -> str:
     available = []
     for c in choices:
         cond = c.get("condition")
-        if cond and not cond(state):
+        if cond and not eval_condition(cond, state):
             continue
         available.append(c)
 
@@ -210,7 +211,7 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
 
     # Condition gate
     cond = beat.get("condition")
-    if cond and not cond(state):
+    if cond and not eval_condition(cond, state):
         return
 
     if kind == "prose":
@@ -233,7 +234,7 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
     elif kind == "conditional_prose":
         for variant in beat.get("variants", []):
             vcond = variant.get("condition")
-            if vcond is None or vcond(state):
+            if vcond is None or eval_condition(vcond, state):
                 output["paragraphs"].append({"type": "prose", "text": variant["text"]})
                 break
 
