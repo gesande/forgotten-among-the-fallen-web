@@ -2460,7 +2460,6 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "condition": lambda s: (
                 s.flags.get("odrik_met") and
                 s.flags.get("odrik_place_seen") and
-                s.flags.get("odrik_deflected_night") and
                 s.has_memory("odrik_purpose") and
                 s.has_memory("the_key_origin") and
                 not s.flags.get("rune_door_seen")
@@ -2692,9 +2691,12 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
             "next":  "odrik_explains_place",
         },
         {
-            "label": "\"What happened the night of the battle?\"",
+            "label": "Show him the key. \"The rune is incomplete.\"",
             "next":  "odrik_the_night",
-            "condition": lambda s: s.flags.get("rune_door_seen"),
+            "condition": lambda s: (
+                s.flags.get("rune_door_seen") and
+                not s.flags.get("odrik_night_confronted")
+            ),
         },
         {
             "label": "\"What does the key open?\"",
@@ -2783,61 +2785,76 @@ SCENE_ODRIK_THE_NIGHT = {
     "beats": [
         {
             "type": "prose",
-            "text": "Something changes in his face.",
-        },
-        {
-            "type": "prose",
             "text": (
-                "Not a flinch — he is too controlled for that. "
-                "More like a door being carefully, "
-                "deliberately, closed."
-            ),
-        },
-        {
-            "type": "italic",
-            "text": (
-                "\"Not yet,\" he says."
+                "You hold out the key. "
+                "Not as a threat — you let him see it."
             ),
         },
         {
             "type": "prose",
-            "text": (
-                "He meets your eyes. He does not look away."
-            ),
-        },
-        {
-            "type": "italic",
-            "text": (
-                "\"I will tell you. "
-                "I have thought about telling you "
-                "every day since this began. "
-                "But there are things you need to see first. "
-                "Things in this building "
-                "that will make what I tell you "
-                "mean something instead of nothing.\""
-            ),
-        },
-        {
-            "type": "italic",
-            "text": (
-                "\"I am not protecting myself,\" he says. "
-                "\"I want you to believe that. "
-                "I am trying to make sure "
-                "that when you know, "
-                "you actually know. "
-                "Not just the words.\""
-            ),
+            "text": "Odrik looks at it. He does not move.",
         },
         {
             "type": "prose",
             "text": (
-                "You believe him. "
-                "You are not entirely sure why."
+                "And then something shifts in him — "
+                "not in his face, not in his hands. "
+                "Deeper than that. "
+                "As if a structure beneath him trembles."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "It lasts one breath. Then he is himself again.",
+        },
+        {
+            "type": "italic",
+            "text": "\"The rune is incomplete.\"",
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He looks at you for the first time "
+                "without first calculating."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "\"Then why does it hold?\"",
+        },
+        {
+            "type": "prose",
+            "text": "You know the answer. You saw it in the door frame.",
+        },
+        {
+            "type": "italic",
+            "text": "\"Because something else is finishing it.\"",
+        },
+        {
+            "type": "prose",
+            "text": "Silence.",
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Odrik sets the cup down. "
+                "He has not set it down once until now."
+            ),
+        },
+        {
+            "type": "memory",
+            "key":   "rune_not_alone",
+            "label": "What the rune is connected to",
+            "text":  (
+                "The rune at the door is incomplete. And yet it holds. "
+                "Because something else is finishing it. "
+                "You said it before you fully understood it. "
+                "Odrik set down the cup."
             ),
         },
         {
             "type": "flag",
-            "key":   "odrik_deflected_night",
+            "key":   "odrik_night_confronted",
             "value": True,
         },
     ],
