@@ -38,7 +38,7 @@ There are no tests, linting, or build tools configured.
 
 **Content — `content/scenes.py`**
 - ~2974 lines of pure Python dicts — no logic, only declarative scene data
-- 58 scenes across Act I (28 scenes: awakening → Gunnar boss) and Act II (30 scenes: fog road → great hall)
+- 58 scenes across Act I — The Battlefield of Silence (28 scenes: awakening → Gunnar boss) and Act II — The Stirring Beneath (30 scenes: fog road → great hall)
 - Beat types: `prose`, `italic`, `memory`, `conditional_prose`, `combat`, `stat`, `flag`, `item`, `input`
 - Scenes reference enemies by key (e.g. `"draugar_weak"`, `"gunnar"`) — resolved in `combat_web.py`
 
