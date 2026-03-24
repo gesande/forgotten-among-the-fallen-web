@@ -2470,6 +2470,11 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "next":  "odrik_first_questions",
             "condition": lambda s: s.flags.get("odrik_met"),
         },
+        {
+            "label": "Leave the hall. Continue forward.",
+            "next":  "act2_end",
+            "condition": lambda s: s.flags.get("odrik_sent_forward"),
+        },
     ],
 }
 
@@ -3079,6 +3084,79 @@ SCENE_ODRIK_WHY_BOUND = {
     "next": "odrik_first_questions",
 }
 
+SCENE_ACT2_END = {
+    "header": {
+        "title":    "ACT II COMPLETE",
+        "subtitle": "The Stirring Beneath",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You leave the hall the way you entered it. "
+                "The frozen men do not turn. "
+                "The food does not spoil. "
+                "The candles do not move."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Behind you, Odrik sits at the head table "
+                "with the cup still resting where he left it. "
+                "He does not call after you. "
+                "He knew you would go."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "The rune is not alone. "
+                "Follow what it is connected to."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Beyond the gatehouse, the fog is different. "
+                "Not thinner — deeper. "
+                "As if the further south you go, "
+                "the more the fog has to say."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "The key is warm in your hand. It has been warm since the hall.",
+        },
+    ],
+    "choices": [
+        {
+            "label":   "Continue. Follow the rune.",
+            "next":    "act_3_intro",
+            "effects": {"resolve": 10},
+        },
+    ],
+}
+
+SCENE_ACT_3_INTRO = {
+    "header": {
+        "title":    "ACT III",
+        "subtitle": "The Silence Beneath",
+    },
+    "beats": [
+        {
+            "type": "italic",
+            "text": "Coming soon.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Return to the hall (restart Act 2).",
+            "next":  "__restart__",
+        },
+    ],
+}
+
 SCENE_ODRIK_GO_FORWARD = {
     "beats": [
         {
@@ -3208,4 +3286,6 @@ SCENES = {
     "odrik_the_key":          SCENE_ODRIK_THE_KEY,
     "odrik_why_bound":        SCENE_ODRIK_WHY_BOUND,
     "odrik_go_forward":       SCENE_ODRIK_GO_FORWARD,
+    "act2_end":               SCENE_ACT2_END,
+    "act_3_intro":            SCENE_ACT_3_INTRO,
 }

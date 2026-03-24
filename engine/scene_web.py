@@ -71,6 +71,8 @@ SCENE_ART = {
     "great_hall_entrance":      "great_hall",
     "great_hall_rune_door":     "great_hall",
     "odrik_go_forward":         "odrik_go_forward",
+    "act2_end":                 "great_hall",
+    "act_3_intro":              "act_break",
     "odrik_silence":            "great_hall",
     "odrik_knew":               "great_hall",
     "odrik_what_are_you":       "great_hall",
