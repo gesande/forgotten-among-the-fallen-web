@@ -566,14 +566,6 @@ SCENE_GATEHOUSE_GUARDS_CALMED = {
                     "But there is a gap between them now that was not there before. "
                     "An offering, not a welcome.",
         },
-        {
-            "type": "memory",
-            "key":   "guards_calmed",
-            "label": "What stillness can do that force cannot",
-            "text":  "The spear lowering. Not because you overpowered them — "
-                     "because you gave them time to remember "
-                     "that you were not the thing they feared.",
-        },
     ],
     "next": "gatehouse_inside",
 }
