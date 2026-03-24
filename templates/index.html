@@ -58,21 +58,23 @@
         <div id="hud-curse"></div>
         <div class="hud-memories" id="hud-memories"></div>
         <div class="hud-weapon" id="hud-weapon"></div>
-        <!-- Audio panel toggle -->
-        <button id="mute-btn" class="audio-icon-btn" title="Audio settings">♪</button>
-        <div id="audio-panel" class="hidden">
-          <div class="audio-slider-row">
-            <span class="audio-label">Music</span>
-            <input type="range" id="music-vol" min="0" max="100" value="45" class="vol-slider">
-            <span class="audio-val" id="music-val">45</span>
-          </div>
-          <div class="audio-slider-row">
-            <span class="audio-label">SFX</span>
-            <input type="range" id="sfx-vol" min="0" max="100" value="70" class="vol-slider">
-            <span class="audio-val" id="sfx-val">70</span>
-          </div>
-        </div>
         <div id="hud-inventory"></div>
+      </div>
+    </div>
+    <!-- Audio controls — bottom-right of art panel -->
+    <div id="audio-corner">
+      <button id="mute-btn" class="audio-icon-btn" title="Audio settings">♪</button>
+      <div id="audio-panel" class="hidden">
+        <div class="audio-slider-row">
+          <span class="audio-label">Music</span>
+          <input type="range" id="music-vol" min="0" max="100" value="45" class="vol-slider">
+          <span class="audio-val" id="music-val">45</span>
+        </div>
+        <div class="audio-slider-row">
+          <span class="audio-label">SFX</span>
+          <input type="range" id="sfx-vol" min="0" max="100" value="70" class="vol-slider">
+          <span class="audio-val" id="sfx-val">70</span>
+        </div>
       </div>
     </div>
   </div>
