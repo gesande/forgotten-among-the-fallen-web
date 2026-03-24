@@ -1342,6 +1342,18 @@ SCENE_ODRIK_THE_NIGHT = {
             "text": "It lasts one breath. Then he is himself again.",
         },
         {
+            "type": "memory",
+            "key":   "the_key_recognized",
+            "label": "What the key did to Odrik",
+            "text":  (
+                "When he saw the key, something in him moved that he did not choose to move. "
+                "Not recognition. Not fear. "
+                "The structure beneath him — the same structure as the rune — "
+                "responded. As if the key and the binding share a root "
+                "he has spent forty years trying not to think about."
+            ),
+        },
+        {
             "type": "italic",
             "text": "\"The rune is incomplete.\"",
         },
