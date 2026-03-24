@@ -191,7 +191,7 @@ def get_player_actions(combat_state: dict, player: PlayerState) -> list:
     if e.get("shield") and not e.get("flanked"):
         actions.append({"id": "flank", "label": "Circle wide — find the flank"})
     if player.echo_shards >= 100:
-        actions.append({"id": "runic", "label": f"Spend 100 shards — Runic Burst"})
+        actions.append({"id": "runic", "label": "Spend 100 shards — Runic Burst"})
     if not e.get("phases") and e["current_hp"] < e["hp"] * 0.30 and player.honour >= 40:
         actions.append({"id": "mercy", "label": "Lower your weapon"})
     actions.append({"id": "flee", "label": "Retreat into the fog"})
@@ -368,6 +368,6 @@ def _light_prose(dmg, e):
 
 def _heavy_prose(dmg, e):
     name = e["name_short"]
-    if dmg < 15: return f"A solid hit — the weight tells, even if the precision does not."
+    if dmg < 15: return "A solid hit — the weight tells, even if the precision does not."
     if dmg < 25: return f"{name} is staggered by the force. You feel the impact in your shoulders."
     return f"The heavy strike connects. {name} is driven back — something in it is broken."
