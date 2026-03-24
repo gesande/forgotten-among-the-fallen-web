@@ -36,7 +36,7 @@ A slow, immersive experience focused on mood, isolation, and the boundary betwee
 ## Setup
 
 ```bash
-pip install flask
+pip install flask>=3.0.0
 python app.py
 ```
 
@@ -53,14 +53,15 @@ docker compose up --build
 ```
 app.py                  ← Flask server + API routes
 engine/
-  state.py              ← PlayerState
+  state.py              ← PlayerState dataclass + save/load
   scene_web.py          ← Scene runner returning JSON
   combat_web.py         ← Combat engine returning JSON
 content/
-  scenes.py             ← All scenes (Act I + Act II)
+  scenes.py             ← All scenes (Act I + Act II + placeholders)
 static/
   css/game.css          ← Dark fantasy stylesheet
   js/game.js            ← Frontend controller
+  js/audio.js           ← Music + SFX engine
   svg/                  ← Scene illustrations
 templates/
   index.html            ← Single-page game shell
@@ -82,12 +83,15 @@ IMAGE_PROMPTS.md        ← AI image generation prompts for all scenes
 ## Content
 
 **Act I — The Battlefield of Silence**
-27 scenes. A warrior wakes on a battlefield, denied Valhalla, denied death.
+Complete. A warrior wakes on a battlefield, denied Valhalla, denied death.
 Leif. Gunnar. The Mound of Oathbreakers. A broken oath.
 
 **Act II — The Stirring Beneath**
-In progress. A fortified keep frozen in time. Odrik the Bound.
-The fog holds more than silence.
+Complete. A fortified keep frozen in time. Odrik the Bound.
+A runic structure that holds the moment in place. The rune is not alone.
 
-**Act III - The Silence Beneath**
-**Act IV - The Keeper of the Unfinished**
+**Act III — The Silence Beneath**
+Planned.
+
+**Act IV — The Keeper of the Unfinished**
+Planned.
