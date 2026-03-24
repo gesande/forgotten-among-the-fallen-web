@@ -43,7 +43,7 @@ SCENE_ART = {
     "gunnar_dialogue_challenge":"gunnar",
     "gunnar_dialogue_truth":    "gunnar",
     "combat_gunnar":            "gunnar_combat",
-    "zone_1_end":               "mound",
+    "act1_end":                 "mound",
     "final_rest":               "cairn",
     "act_2_intro":              "act_break",
     # Act II — The Stirring Beneath

@@ -1258,7 +1258,7 @@ SCENE_COMBAT_GUNNAR = {
     "choices": [
         {
             "label": "Go to him. Hear what he has to say.",
-            "next":  "zone_1_end",
+            "next":  "act1_end",
         },
     ],
 }
@@ -1266,7 +1266,7 @@ SCENE_COMBAT_GUNNAR = {
 # ─────────────────────────────────────────────────────────────
 #  ZONE 1 END
 # ─────────────────────────────────────────────────────────────
-SCENE_ZONE_1_END = {
+SCENE_ACT1_END = {
     "header": {
         "title":    "SILENCE FALLS",
         "subtitle": "The Battlefield of Silence — cleared",
@@ -2936,7 +2936,7 @@ SCENES = {
     "gunnar_dialogue_challenge": SCENE_GUNNAR_DIALOGUE_CHALLENGE,
     "gunnar_dialogue_truth":  SCENE_GUNNAR_DIALOGUE_TRUTH,
     "combat_gunnar":          SCENE_COMBAT_GUNNAR,
-    "zone_1_end":             SCENE_ZONE_1_END,
+    "act1_end":             SCENE_ACT1_END,
     "final_rest":             SCENE_FINAL_REST,
     "act_2_intro":            SCENE_ACT_2_INTRO,
     # Act II — The Stirring Beneath
