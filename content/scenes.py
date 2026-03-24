@@ -2172,8 +2172,8 @@ SCENE_GATEHOUSE_GUARDS_FORCED = {
             "text": "That is almost worse.",
         },
         {
-            "type": "heal",
-            "amount": -20,
+            "type": "stat",
+            "changes": {"health": -20},
         },
         {
             "type": "flag",
