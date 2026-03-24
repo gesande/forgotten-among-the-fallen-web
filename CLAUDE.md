@@ -37,10 +37,14 @@ There are no tests, linting, or build tools configured.
 - `combat_web.py`: Turn-based combat engine. Player actions: light/heavy strike, parry, flank, runic burst, mercy, flee. Curse stacks scale enemy damage via `1.0 + curse_stacks * 0.06`.
 
 **Content — `content/scenes.py`**
-- ~2974 lines of pure Python dicts — no logic, only declarative scene data
-- 58 scenes across Act I — The Battlefield of Silence (28 scenes: awakening → Leif → battlefield hub → Gunnar boss → `act1_end`) and Act II — The Stirring Beneath (30 scenes: fog road → Held → Sentinel → Gatehouse → Great Hall / Odrik)
+- Pure Python dicts — no logic, only declarative scene data
+- Act I — The Battlefield of Silence: awakening → Leif → battlefield hub → Gunnar boss → `act1_end`
+- Act II — The Stirring Beneath: fog road → Held → Sentinel → Gatehouse → Great Hall / Odrik → rune door → `act2_end`
+- Act III — The Silence Beneath: placeholder only (`act_3_intro`)
 - Beat types: `prose`, `italic`, `memory`, `conditional_prose`, `combat`, `stat`, `flag`, `item`, `input`
+- `heal` beat: HP restoration only. HP damage uses `stat` beat with `{"health": -N}`
 - Scenes reference enemies by key (e.g. `"draugar_weak"`, `"gunnar"`) — resolved in `combat_web.py`
+- `art_key` mappings in `scene_web.py` map scene keys to image filenames; multiple scenes can share one image
 
 **Frontend — `static/js/game.js` + `audio.js`**
 - Vanilla JS, no frameworks
@@ -53,7 +57,7 @@ There are no tests, linting, or build tools configured.
 - **Hidden Moral Stats**: honour, resolve, brutality, mercy affect choice availability and conditional prose variants
 - **Memory Fragments**: Narrative collectibles; visible in HUD
 - **Echo Shards**: Combat currency for Runic Burst ability
-- **Act progression**: Act I complete and playtestable; Act II drafted; Acts III/IV planned
+- **Act progression**: Act I complete and playtestable; Act II structurally complete (`act2_end` written, building exploration scenes TBD); Act III placeholder; Act IV planned
 
 ## Content Authoring
 
