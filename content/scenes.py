@@ -2708,6 +2708,14 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
             "next":  "odrik_why_bound",
         },
         {
+            "label": "\"Why can't you tell me?\"",
+            "next":  "odrik_go_forward",
+            "condition": lambda s: (
+                s.flags.get("odrik_night_confronted") and
+                not s.flags.get("odrik_sent_forward")
+            ),
+        },
+        {
             "label": "Leave Odrik for now. Look around the hall.",
             "next":  "great_hall_entrance",
         },
@@ -3070,6 +3078,73 @@ SCENE_ODRIK_WHY_BOUND = {
     ],
     "next": "odrik_first_questions",
 }
+
+SCENE_ODRIK_GO_FORWARD = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He looks at where the cup was. "
+                "As if its absence means something."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"I was there. I saw all of it.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "A pause.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"There are things I cannot say. "
+                "Not because I choose silence — "
+                "the binding holds those words. "
+                "They exist in me but they cannot come out.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"But they exist somewhere else too. "
+                "In this building. "
+                "In what was left behind.\""
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He meets your eyes."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"The rune is not alone. "
+                "Follow what it is connected to.\""
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "\"You will find out what happened. "
+                "Not from me. "
+                "From the place itself.\""
+            ),
+        },
+        {
+            "type": "flag",
+            "key":   "odrik_sent_forward",
+            "value": True,
+        },
+    ],
+    "next": "great_hall_entrance",
+}
+
 SCENES = {
     "name_entry":                SCENE_NAME_ENTRY,
     "awakening":                 SCENE_AWAKENING,
@@ -3132,4 +3207,5 @@ SCENES = {
     "odrik_the_night":        SCENE_ODRIK_THE_NIGHT,
     "odrik_the_key":          SCENE_ODRIK_THE_KEY,
     "odrik_why_bound":        SCENE_ODRIK_WHY_BOUND,
+    "odrik_go_forward":       SCENE_ODRIK_GO_FORWARD,
 }

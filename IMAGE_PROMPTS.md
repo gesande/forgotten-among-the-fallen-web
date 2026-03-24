@@ -415,7 +415,7 @@ fantasy, painterly, desaturated, unsettling stillness, cinematic
 
 ## Scene 13 — great_hall.jpg
 **File:** `static/svg/great_hall.svg` → replace with `great_hall.jpg`
-**Used in:** great_hall_entrance, all odrik_* scenes
+**Used in:** great_hall_entrance, great_hall_rune_door, most odrik_* scenes
 
 **Midjourney:**
 ```
@@ -435,4 +435,29 @@ viking great hall frozen mid-feast, forty warriors at tables cups raised
 mouths open interrupted, food unspoiled candles unmelted, lone older man
 in dark robe at head table watching, amber candlelight cold stone, deep
 shadows, dark fantasy, painterly, desaturated, uncanny stillness, cinematic
+```
+---
+
+## Scene 14 — odrik_go_forward.jpg
+**File:** `static/svg/odrik_go_forward.svg` → replace with `odrik_go_forward.jpg`
+**Used in:** odrik_go_forward
+
+**Midjourney:**
+```
+close portrait of an aged viking adviser in a dark ink-stained robe seated
+at a great hall head table, an empty cup resting on the table before him,
+hands still and open, eyes looking directly at the viewer with the weight
+of long-held knowledge, forty frozen warriors blurred in deep background,
+amber candlelight catching the lines of his face, the stillness of a man
+who has just released something he could not release before, dark fantasy,
+painterly, desaturated, intimate, heavy silence --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+```
+aged viking adviser dark ink-stained robe, seated at great hall table,
+empty cup before him, hands open still, eyes direct at viewer, weight of
+held knowledge, frozen warriors blurred background, amber candlelight,
+just released long-held secret, dark fantasy, painterly, desaturated,
+intimate portrait, heavy silence, cinematic
 ```
