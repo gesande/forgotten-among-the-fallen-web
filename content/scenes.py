@@ -1704,8 +1704,8 @@ SCENE_FOG_HELD_AFTER = {
             "changes": {"brutality": 5},
         },
         {
-            "type": "heal",
-            "amount": -15,
+            "type": "stat",
+            "changes": {"health": -15},
         },
         {
             "type": "flag",
