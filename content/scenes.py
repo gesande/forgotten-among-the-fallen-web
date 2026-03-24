@@ -2330,81 +2330,146 @@ SCENE_GREAT_HALL_ENTRANCE = {
             ),
         },
         {
-            "type": "prose",
-            "text": (
-                "At the far end, alone at the head table, "
-                "sits one man who is not frozen."
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": (
+                        "At the far end, alone at the head table, "
+                        "sits one man who is not frozen."
+                    ),
+                },
+            ],
         },
         {
-            "type": "prose",
-            "text": (
-                "He is not young. Fifty, perhaps — "
-                "the kind of man who has spent fifty years "
-                "acquiring a precise and careful stillness. "
-                "A dark robe, ink-stained at the cuffs. "
-                "A cup in front of him, untouched. "
-                "His eyes are on the table."
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": (
+                        "He is not young. Fifty, perhaps — "
+                        "the kind of man who has spent fifty years "
+                        "acquiring a precise and careful stillness. "
+                        "A dark robe, ink-stained at the cuffs. "
+                        "A cup in front of him, untouched. "
+                        "His eyes are on the table."
+                    ),
+                },
+            ],
         },
         {
-            "type": "italic",
-            "text": (
-                "He already knew you were in the room "
-                "before you crossed the threshold."
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": (
+                        "He already knew you were in the room "
+                        "before you crossed the threshold."
+                    ),
+                },
+            ],
         },
         {
-            "type": "prose",
-            "text": (
-                "He does not look up when you approach. "
-                "He speaks first."
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": (
+                        "He does not look up when you approach. "
+                        "He speaks first."
+                    ),
+                },
+            ],
         },
         {
-            "type": "italic",
-            "text": (
-                "\"You came alone,\" he says. "
-                "\"I did not know if you would come alone.\""
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": (
+                        "\"You came alone,\" he says. "
+                        "\"I did not know if you would come alone.\""
+                    ),
+                },
+            ],
         },
         {
-            "type": "prose",
-            "text": (
-                "A pause. He is listening to something — "
-                "the quality of your footsteps, perhaps, "
-                "or the silence you bring with you."
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": (
+                        "A pause. He is listening to something — "
+                        "the quality of your footsteps, perhaps, "
+                        "or the silence you bring with you."
+                    ),
+                },
+            ],
         },
         {
-            "type": "italic",
-            "text": "\"You fought the Sentinel.\"",
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": "\"You fought the Sentinel.\"",
+                },
+            ],
         },
         {
-            "type": "prose",
-            "text": "Still he does not look up.",
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": "Still he does not look up.",
+                },
+            ],
         },
         {
-            "type": "italic",
-            "text": (
-                "\"I heard the bell stop. "
-                "I have been listening for that sound "
-                "for a very long time.\""
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": lambda s: not s.flags.get("odrik_met"),
+                    "text": (
+                        "\"I heard the bell stop. "
+                        "I have been listening for that sound "
+                        "for a very long time.\""
+                    ),
+                },
+            ],
         },
     ],
     "choices": [
         {
             "label": "Say nothing. Wait.",
             "next":  "odrik_silence",
+            "condition": lambda s: not s.flags.get("odrik_met"),
         },
         {
             "label": "\"Then you knew I was coming.\"",
             "next":  "odrik_knew",
+            "condition": lambda s: not s.flags.get("odrik_met"),
         },
         {
             "label": "\"What are you?\"",
             "next":  "odrik_what_are_you",
+            "condition": lambda s: not s.flags.get("odrik_met"),
+        },
+        {
+            "label": "Examine the door frame.",
+            "next":  "great_hall_rune_door",
+            "condition": lambda s: (
+                s.flags.get("odrik_met") and
+                s.flags.get("odrik_place_seen") and
+                s.flags.get("odrik_deflected_night") and
+                s.has_memory("odrik_purpose") and
+                s.has_memory("the_key_origin") and
+                not s.flags.get("rune_door_seen")
+            ),
+        },
+        {
+            "label": "Return to Odrik.",
+            "next":  "odrik_first_questions",
+            "condition": lambda s: s.flags.get("odrik_met"),
         },
     ],
 }
@@ -2629,6 +2694,7 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
         {
             "label": "\"What happened the night of the battle?\"",
             "next":  "odrik_the_night",
+            "condition": lambda s: s.flags.get("rune_door_seen"),
         },
         {
             "label": "\"What does the key open?\"",
@@ -2638,6 +2704,10 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
         {
             "label": "\"Why are you still here?\"",
             "next":  "odrik_why_bound",
+        },
+        {
+            "label": "Leave Odrik for now. Look around the hall.",
+            "next":  "great_hall_entrance",
         },
     ],
 }
@@ -2699,6 +2769,11 @@ SCENE_ODRIK_EXPLAINS_PLACE = {
                 "Not a question. "
                 "But not entirely certain either."
             ),
+        },
+        {
+            "type": "flag",
+            "key":   "odrik_place_seen",
+            "value": True,
         },
     ],
     "next": "odrik_first_questions",
@@ -2842,6 +2917,74 @@ SCENE_ODRIK_THE_KEY = {
     "next": "odrik_first_questions",
 }
 
+SCENE_GREAT_HALL_RUNE_DOOR = {
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You stop at the door frame. "
+                "You are not sure why — something in the way the light falls here, "
+                "or does not fall. Something that made you slow down."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Then you see them. "
+                "Runes, cut into the stone on both sides of the frame. "
+                "Cut too deep — deeper than any blade should reach. "
+                "The stone around them has not cracked, has not splintered. "
+                "Whatever made these marks was not cutting. "
+                "It was insisting."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "They do not form a complete circle.",
+        },
+        {
+            "type": "prose",
+            "text": (
+                "And yet they hold. "
+                "You can feel it — something in the air around the frame "
+                "that is not quite pressure, not quite warmth. "
+                "A shape that completes itself in a medium you cannot see."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "As if the pattern continues beyond what the eye can follow."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "This was not made to seal something away.",
+        },
+        {
+            "type": "italic",
+            "text": "It was made to keep something in place.",
+        },
+        {
+            "type": "memory",
+            "key":   "rune_door",
+            "label": "What is holding the hall together",
+            "text":  (
+                "The runes at the door frame. Cut too deep, incomplete, and yet — "
+                "they hold. Not a seal. Not a lock. "
+                "A structure that keeps the moment from ending. "
+                "Someone made this. Someone who knew exactly what they were doing."
+            ),
+        },
+        {
+            "type": "flag",
+            "key":   "rune_door_seen",
+            "value": True,
+        },
+    ],
+    "next": "great_hall_entrance",
+}
+
 SCENE_ODRIK_WHY_BOUND = {
     "beats": [
         {
@@ -2962,6 +3105,7 @@ SCENES = {
     "gatehouse_inside":       SCENE_GATEHOUSE_INSIDE,
     # Act II — The Great Hall / Odrik
     "great_hall_entrance":    SCENE_GREAT_HALL_ENTRANCE,
+    "great_hall_rune_door":   SCENE_GREAT_HALL_RUNE_DOOR,
     "odrik_silence":          SCENE_ODRIK_SILENCE,
     "odrik_knew":             SCENE_ODRIK_KNEW,
     "odrik_what_are_you":     SCENE_ODRIK_WHAT_ARE_YOU,
