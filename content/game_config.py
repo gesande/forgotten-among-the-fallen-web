@@ -8,14 +8,14 @@
 # All stats the engine should know about (used for bounds in
 # modify_stat). Stats not listed here default to 0–100 clamping.
 STATS = {
-    "honour":       {"default": 50,  "min": 0, "max": 100},
-    "resolve":      {"default": 50,  "min": 0, "max": 100},
-    "brutality":    {"default": 0,   "min": 0, "max": 100},
+    "honour":       {"default": 50,  "min": 0, "max": 100, "threshold": 70},   # is_honoured >=
+    "resolve":      {"default": 50,  "min": 0, "max": 100, "threshold": 20},   # is_broken   <
+    "brutality":    {"default": 0,   "min": 0, "max": 100, "threshold": 60},   # is_brutal   >=
     "mercy":        {"default": 0,   "min": 0, "max": 100},
     "wrath":        {"default": 0,   "min": 0, "max": 100},
     "stamina":      {"default": 100, "min": 0, "max": 100},
     "echo_shards":  {"default": 0,   "min": 0, "max": None},
-    "curse_stacks": {"default": 0,   "min": 0, "max": 5},
+    "curse_stacks": {"default": 0,   "min": 0, "max": 5,   "threshold": 3},    # is_cursed   >=
 }
 
 # ── Equipment registry ─────────────────────────────────────────

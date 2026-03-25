@@ -50,16 +50,16 @@ class PlayerState:
 
     # ── Derived properties ────────────────────────────────────
     def is_cursed(self) -> bool:
-        return self.curse_stacks >= 3
+        return self.curse_stacks >= STATS["curse_stacks"]["threshold"]
 
     def is_broken(self) -> bool:
-        return self.resolve < 20
+        return self.resolve < STATS["resolve"]["threshold"]
 
     def is_honoured(self) -> bool:
-        return self.honour >= 70
+        return self.honour >= STATS["honour"]["threshold"]
 
     def is_brutal(self) -> bool:
-        return self.brutality >= 60
+        return self.brutality >= STATS["brutality"]["threshold"]
 
     def has_memory(self, key: str) -> bool:
         return key in self.memories
