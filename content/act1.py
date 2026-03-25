@@ -253,7 +253,7 @@ SCENE_BATTLEFIELD_OPEN = {
         {
             "label":     "Go south — towards the mound.",
             "next":      "the_mound",
-            "condition": {"flag": "found_forge"} or s.has_flag("east_searched"),
+            "condition": {"or": [{"flag": "found_forge"}, {"flag": "east_searched"}]},
         },
         {
             "label":     "Look around. There must be more here.",
