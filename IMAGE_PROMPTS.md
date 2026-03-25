@@ -247,13 +247,6 @@ vast cold dark, dark fantasy, painterly, cosmic atmosphere
 
 ---
 
-## Music file names expected
-
-Place audio files in `static/audio/` and `static/audio/`.
-The engine tries `.ogg` first, then `.mp3`.
-
----
-
 ## Act II — The Stirring Beneath
 
 ---
@@ -330,86 +323,6 @@ perfectly still not breathing, single torch on tower, thick fog outside
 walls, warm torchlight cold stone, horse saddled waiting inside, dark
 fantasy, painterly, desaturated, unsettling stillness, cinematic
 ```
-
----
-
-### Music tracks
-| Filename                  | Scene              | Mood                                    |
-|---------------------------|--------------------|-----------------------------------------|
-| `ambient_title.ogg`       | Title screen       | Slow dark Norse ambient, builds slowly  |
-| `ambient_leif.ogg`        | Leif scenes        | Slow sorrowful strings, melancholic    |
-| `ambient_battlefield.ogg` | Battlefield        | Slow wind, distant horn, no melody     |
-| `ambient_forge.ogg`       | Longhouse          | Low hum, crackling fire, bass drone    |
-| `ambient_cairn.ogg`       | Bone Cairn         | Ethereal, rune tones, sparse           |
-| `ambient_mound.ogg`       | The Mound          | Oppressive bass drone, silence breaks  |
-| `ambient_void.ogg`        | Act break          | Near silence, one distant horn note    |
-| `ambient_fog_road.ogg`    | Fog road / The Held | Slow breathing rhythm, no melody, warm but wrong |
-| `ambient_gatehouse.ogg`   | Gatehouse          | Complete silence broken by single creak or drip |
-| `combat_draugar.ogg`      | Draugar combat     | Urgent percussion, no melody           |
-| `combat_boss.ogg`         | Gunnar boss fight  | War drums, heavy, relentless           |
-| `combat_sentinel.ogg`     | Fog-sentinel fight | Single sustained bell tone, slow pulse, no percussion |
-
-### SFX
-| Filename          | Trigger                    |
-|-------------------|----------------------------|
-| `sfx_choice.ogg`  | Hover over choice button   |
-| `sfx_confirm.ogg` | Click a choice             |
-| `sfx_memory.ogg`  | Memory fragment recovered  |
-| `sfx_death.ogg`   | Player falls in combat     |
-| `sfx_shards.ogg`  | Echo shards gained         |
-| `sfx_hit.ogg`     | Combat hit lands           |
-| `sfx_miss.ogg`    | Combat attack misses       |
-| `sfx_parry.ogg`   | Parry succeeds             |
-
-### Recommended Suno/Udio prompts for music
-- **ambient_title**: "dark norse atmospheric intro, slow building tension, distant
-  single horn note fading in, deep silence between sounds, title screen atmosphere,
-  no melody, no percussion, 3 minutes loop"
-- **ambient_leif**: "slow sorrowful norse ambient, single cello or low strings,
-  sparse melody, dying soldier atmosphere, melancholic but not hopeless,
-  quiet and intimate, no percussion, 3 minutes loop"
-- **ambient_battlefield**: "dark norse ambient, wind howling, distant war horn,
-  slow deep drums fading in and out, no melody, 3 minutes, loop"
-- **ambient_forge**: "dark medieval blacksmith ambient, dying forge embers crackling,
-  low resonant drone, occasional distant hammer strike on metal, warm but desolate,
-  sacred atmosphere, no melody, 3 minutes loop"
-- **ambient_cairn**: "ethereal norse ambient, singing bowls, rune tones,
-  sparse, sacred feeling, very quiet, 3 minutes loop"
-- **ambient_mound**: "oppressive dark norse drone, deep bass rumble, burial mound
-  atmosphere, silence punctuated by distant wind, ominous, no melody, no percussion,
-  unsettling, 3 minutes loop"
-- **ambient_void**: "near silence dark ambient, single distant viking horn note,
-  vast empty space, cold wind, between worlds liminal atmosphere, very minimal,
-  90 seconds loop"
-- **combat_draugar**: "viking battle percussion, urgent rhythmic drums, no
-  melody, intense, dark, 90 seconds loop"
-- **combat_boss**: "epic dark norse boss fight music, heavy war drums, chanting,
-  ominous, relentless tempo, 2 minutes loop"
-
-### Recommended prompts for SFX
-- **sfx_choice**: "soft parchment rustling, quiet, subtle, ui hover sound"
-- **sfx_confirm**: "heavy iron click, satisfying, medieval, selection confirm sound"
-- **sfx_memory**: "ethereal frost bell chime, single note, reverb, memory recovered"
-- **sfx_death**: "deep resonant iron toll, single heavy bell, slow decay, death knell"
-- **sfx_shards**: "crystalline ice shards clinking, bright, magical, short"
-- **sfx_hit**: "iron on iron impact, heavy, combat hit, short sharp"
-- **sfx_miss**: "weapon swoosh through air, short, combat miss"
-- **sfx_parry**: "ringing metal clash, iron parry, short bright tone, success sound"
-
----
-
-## Act II — Audio additions
-
-### New music tracks
-- **ambient_fog_road**: "slow rhythmic breathing sound as ambient music, warm but
-  deeply wrong temperature, no instruments, fog atmosphere, purgatorial, something
-  inhuman exhaling slowly, liminal dread, 3 minutes loop"
-- **ambient_gatehouse**: "complete interior silence ambient, single drop of water
-  echoing in stone chamber, occasional distant creak of heavy wood, held breath
-  atmosphere, warmth without comfort, 3 minutes loop"
-- **combat_sentinel**: "single sustained low bell tone pulsing slowly, no percussion
-  no melody, the bell never fully decays, something absorbing sound, combat
-  atmosphere without urgency, 90 seconds loop"
 
 ---
 
