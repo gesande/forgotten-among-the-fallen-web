@@ -154,6 +154,17 @@ SCENE_FIND_WEAPON = {
                 "Your hands remember even when you do not."
             )
         },
+        {
+            "type": "memory",
+            "key":   "the_weapon_grip",
+            "label": "How I hold a weapon before the battle",
+            "text":  (
+                "The thumb runs along the edge to test it. The wrist turns once, "
+                "checking the balance. You did not decide to do these things. "
+                "Your body did them — the way it has done them "
+                "every morning of every campaign you no longer remember."
+            ),
+        },
     ],
     "choices": [
         {
@@ -623,6 +634,45 @@ SCENE_LEIF_FAREWELL = {
             )
         },
         {"type": "flag", "key": "leif_done"},
+    ],
+    "next": "leif_knife_offer",
+}
+
+SCENE_LEIF_KNIFE_OFFER = {
+    "art": "leif",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "His knife is still on his belt. "
+                "He has not offered it. He has not asked you to leave it."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Ask for the knife.",
+            "next":  "leif_knife_taken",
+        },
+        {
+            "label": "Leave without it.",
+            "next":  "battlefield_open",
+        },
+    ],
+}
+
+SCENE_LEIF_KNIFE_TAKEN = {
+    "art": "leif",
+    "beats": [
+        {
+            "type": "prose",
+            "text": "He nods. Once. As if he had been waiting to be asked.",
+        },
+        {
+            "type": "item",
+            "item": "Leif's knife",
+            "action": "give",
+        },
     ],
     "next": "battlefield_open",
 }
@@ -1529,6 +1579,8 @@ SCENES = {
     "leif_the_oath":          SCENE_LEIF_THE_OATH,
     "leif_gunnar_intro":      SCENE_LEIF_GUNNAR_INTRO,
     "leif_farewell":          SCENE_LEIF_FAREWELL,
+    "leif_knife_offer":       SCENE_LEIF_KNIFE_OFFER,
+    "leif_knife_taken":       SCENE_LEIF_KNIFE_TAKEN,
     "leif_mercy_kill":        SCENE_LEIF_MERCY_KILL,
     "leif_defense":           SCENE_LEIF_DEFENSE,
     "leif_battle_account":    SCENE_LEIF_BATTLE_ACCOUNT,
