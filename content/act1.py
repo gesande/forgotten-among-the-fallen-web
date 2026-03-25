@@ -1190,6 +1190,18 @@ SCENE_THE_MOUND = {
         },
         {"type": "pause"},
         {
+            "type": "memory",
+            "key":   "the_death",
+            "label": "The memory of dying",
+            "text":  (
+                "The mud. The screaming, already fading. "
+                "The axe — not this one, a different one — coming from above. "
+                "And then: nothing. "
+                "That is all you have. The rest is still fog. "
+                "But the nothing at the end — that part is very clear."
+            ),
+        },
+        {
             "type": "prose",
             "text": (
                 "He looks like you remember — "

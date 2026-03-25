@@ -40,27 +40,28 @@
 <!-- ═══ GAME SCREEN ═══════════════════════════════════════ -->
 <div id="game-screen" class="screen hidden">
 
+  <!-- HUD — fixed over left (art) half, visible during combat too -->
+  <div id="hud">
+    <div id="hud-left">
+      <div class="hud-label">Health</div>
+      <div class="bar-wrap"><div class="bar" id="hp-bar"></div></div>
+      <div class="hud-label" id="hud-hp-desc">Unbroken</div>
+      <div class="hud-label" style="margin-top:6px">Wrath</div>
+      <div class="bar-wrap"><div class="bar wrath" id="wrath-bar"></div></div>
+    </div>
+    <div id="hud-right">
+      <div class="hud-shards" id="hud-shards">0 <span>shards</span></div>
+      <div id="hud-curse"></div>
+      <div class="hud-memories" id="hud-memories"></div>
+      <div class="hud-weapon" id="hud-weapon"></div>
+      <div id="hud-inventory"></div>
+    </div>
+  </div>
+
   <!-- Illustration panel -->
   <div id="art-panel">
     <img id="scene-art" src="" alt="" class="scene-illustration"/>
     <div id="art-overlay"></div>
-    <!-- HUD overlaid on art -->
-    <div id="hud">
-      <div id="hud-left">
-        <div class="hud-label">Health</div>
-        <div class="bar-wrap"><div class="bar" id="hp-bar"></div></div>
-        <div class="hud-label" id="hud-hp-desc">Unbroken</div>
-        <div class="hud-label" style="margin-top:6px">Wrath</div>
-        <div class="bar-wrap"><div class="bar wrath" id="wrath-bar"></div></div>
-      </div>
-      <div id="hud-right">
-        <div class="hud-shards" id="hud-shards">0 <span>shards</span></div>
-        <div id="hud-curse"></div>
-        <div class="hud-memories" id="hud-memories"></div>
-        <div class="hud-weapon" id="hud-weapon"></div>
-        <div id="hud-inventory"></div>
-      </div>
-    </div>
     <!-- Audio controls — bottom-right of art panel -->
     <div id="audio-corner">
       <button id="mute-btn" class="audio-icon-btn" title="Audio settings">♪</button>

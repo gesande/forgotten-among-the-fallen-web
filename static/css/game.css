@@ -192,14 +192,15 @@ html, body {
 
 /* HUD on art panel */
 #hud {
-  position: absolute;
+  position: fixed;
   top: 16px;
   left: 0;
-  right: 0;
+  right: 50%;
   display: flex;
   justify-content: space-between;
   padding: 0 16px;
   pointer-events: none;
+  z-index: 60;
 }
 
 #hud-left { display: flex; flex-direction: column; gap: 5px; width: 150px; }
