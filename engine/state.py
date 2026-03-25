@@ -6,7 +6,7 @@
 from dataclasses import dataclass, field
 from typing import Optional
 import json, os
-from content.game_config import STATS, WEAPON_TIERS, SHIELD_TIERS, START_SCENE
+from content.game_config import STATS, EQUIPMENT, START_SCENE
 
 @dataclass
 class PlayerState:
@@ -104,14 +104,12 @@ class PlayerState:
     def add_item(self, item: str):
         if item not in self.inventory:
             self.inventory.append(item)
-        if item in WEAPON_TIERS:
-            current_tier = WEAPON_TIERS.get(self.equipped.get("weapon", "bare hands"), 0)
-            if WEAPON_TIERS[item] > current_tier:
-                self.equipped["weapon"] = item
-        if item in SHIELD_TIERS:
-            current_tier = SHIELD_TIERS.get(self.equipped.get("shield", ""), {}).get("tier", 0)
-            if SHIELD_TIERS[item]["tier"] > current_tier:
-                self.equipped["shield"] = item
+        eq = EQUIPMENT.get(item)
+        if eq:
+            slot = eq["slot"]
+            current_tier = EQUIPMENT.get(self.equipped.get(slot, ""), {}).get("tier", 0)
+            if eq["tier"] > current_tier:
+                self.equipped[slot] = item
 
     def has_item(self, item: str) -> bool:
         return item in self.inventory

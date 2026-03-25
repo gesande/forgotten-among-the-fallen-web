@@ -18,21 +18,19 @@ STATS = {
     "curse_stacks": {"default": 0,   "min": 0, "max": 5},
 }
 
-# ── Weapon auto-equip tiers ────────────────────────────────────
-# Higher tier weapons are auto-equipped when picked up.
-WEAPON_TIERS = {
-    "bare hands":    0,
-    "rusted axe":    1,
-    "sharpened axe": 2,
-    "Leif's knife":  2,
-    "Gunnar's Axe":  3,
-}
-
-# ── Shield auto-equip tiers + passive defense ─────────────────
-# Higher tier shields are auto-equipped when picked up.
-# "defense" = flat damage absorbed per incoming hit.
-SHIELD_TIERS = {
-    "traveller's shield": {"tier": 1, "defense": 4},
+# ── Equipment registry ─────────────────────────────────────────
+# All equippable items. "slot" determines which equipped[slot] they fill.
+# Higher "tier" items auto-equip when picked up, replacing lower tier.
+# Slot-specific properties:
+#   weapon → "damage_bonus": flat added to every strike
+#   shield → "defense":      flat damage absorbed per incoming hit
+EQUIPMENT = {
+    "bare hands":         {"slot": "weapon", "tier": 0, "damage_bonus": 0},
+    "rusted axe":         {"slot": "weapon", "tier": 1, "damage_bonus": 0},
+    "sharpened axe":      {"slot": "weapon", "tier": 2, "damage_bonus": 4},
+    "Leif's knife":       {"slot": "weapon", "tier": 2, "damage_bonus": 3},
+    "Gunnar's Axe":       {"slot": "weapon", "tier": 3, "damage_bonus": 8},
+    "traveller's shield": {"slot": "shield", "tier": 1, "defense": 4},
 }
 
 # ── HUD layout ────────────────────────────────────────────────
