@@ -128,9 +128,6 @@ def apply_choice(scene_key: str, choice_id: str, state: PlayerState) -> str:
     # Apply items
     if choice.get("item"):
         state.add_item(choice["item"])
-    # Apply shards
-    if choice.get("shards"):
-        state.echo_shards += choice["shards"]
     # Apply heal
     if choice.get("heal"):
         state.heal(choice["heal"])
@@ -182,6 +179,8 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
         if first_visit:
             for stat, delta in beat.get("changes", {}).items():
                 state.modify_stat(stat, delta)
+                if stat == "echo_shards" and delta > 0:
+                    output["shards"] += delta
 
     elif kind == "flag":
         if first_visit:
@@ -196,12 +195,6 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
                 output["items"].append(item)
             elif action == "take":
                 state.remove_item(item)
-
-    elif kind == "shards":
-        if first_visit:
-            amount = beat["amount"]
-            state.echo_shards = max(0, state.echo_shards + amount)
-            output["shards"] += amount
 
     elif kind == "heal":
         if first_visit:

@@ -761,7 +761,7 @@ SCENE_LEIF_MERCY_KILL = {
         },
         {
             "type": "item",  "item": "Leif's knife",  "action": "give"},
-        {"type": "shards", "amount": 45},
+        {"type": "stat", "changes": {"echo_shards": 45}},
         {
             "type": "memory",
             "key":   "leif_last_word",
@@ -1015,7 +1015,7 @@ SCENE_FORGE_SEARCH = {
         },
         {"type": "item",   "item": "iron scraps", "action": "give"},
         {"type": "item",   "item": "whetstone",   "action": "give"},
-        {"type": "shards", "amount": 80},
+        {"type": "stat", "changes": {"echo_shards": 80}},
         {
             "type": "prose",
             "text": (
@@ -1116,7 +1116,7 @@ SCENE_SCAVENGE_EAST = {
                 "This is partly true."
             )
         },
-        {"type": "shards", "amount": 120},
+        {"type": "stat", "changes": {"echo_shards": 120}},
         {"type": "item",   "item": "iron scraps",  "action": "give"},
         {
             "type": "prose",
@@ -1201,7 +1201,7 @@ SCENE_SCAVENGE_EAST_AFTER = {
                 "this was where the officers fell."
             )
         },
-        {"type": "shards", "amount": 180},
+        {"type": "stat", "changes": {"echo_shards": 180}},
         {"type": "item",   "item": "reinforced vambrace", "action": "give"},
         {
             "type": "memory",
