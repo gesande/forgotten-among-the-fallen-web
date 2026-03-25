@@ -21,10 +21,18 @@ STATS = {
 # ── Weapon auto-equip tiers ────────────────────────────────────
 # Higher tier weapons are auto-equipped when picked up.
 WEAPON_TIERS = {
-    "bare hands":   0,
-    "rusted axe":   1,
-    "Leif's knife": 2,
-    "Gunnar's Axe": 3,
+    "bare hands":    0,
+    "rusted axe":    1,
+    "sharpened axe": 2,
+    "Leif's knife":  2,
+    "Gunnar's Axe":  3,
+}
+
+# ── Shield auto-equip tiers + passive defense ─────────────────
+# Higher tier shields are auto-equipped when picked up.
+# "defense" = flat damage absorbed per incoming hit.
+SHIELD_TIERS = {
+    "traveller's shield": {"tier": 1, "defense": 4},
 }
 
 # ── HUD layout ────────────────────────────────────────────────

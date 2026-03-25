@@ -6,6 +6,7 @@
 # ============================================================
 import random
 from engine.state import PlayerState
+from content.game_config import SHIELD_TIERS
 
 ENEMIES = {
     "draugar_weak": {
@@ -311,7 +312,9 @@ def _resolve_enemy_turn(e, player, log):
     if e.get("shield") and not e.get("flanked"):
         dmg_range = (dmg_range[0] + 5, dmg_range[1] + 8)
     if chance(e["accuracy"]):
-        dmg    = roll_range(*dmg_range)
+        dmg = roll_range(*dmg_range)
+        shield_def = SHIELD_TIERS.get(player.equipped_shield, {}).get("defense", 0)
+        dmg = max(1, dmg - shield_def)
         actual = player.take_damage(dmg)
         player.modify_stat("wrath", 8)
         log.append(random.choice(e["phrases"]["hit"]))

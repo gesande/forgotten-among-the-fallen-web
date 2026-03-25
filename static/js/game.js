@@ -451,6 +451,12 @@ function renderHUD(hud) {
     weaponEl.textContent = hud.equipped;
   }
 
+  // Equipped shield
+  const shieldEl = $("hud-shield");
+  if (shieldEl) {
+    shieldEl.textContent = hud.shield || "";
+  }
+
   // Inventory
   const invEl = $("hud-inventory");
   if (invEl) {

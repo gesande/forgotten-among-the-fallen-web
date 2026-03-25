@@ -180,6 +180,16 @@ SCENE_FOG_HELD_RELEASE = {
             "type": "stat",
             "changes": {"honour": 5},
         },
+        {
+            "type": "prose",
+            "text": (
+                "Before you go, you notice what the man was carrying at his side. "
+                "A small shield — traveller's make, not a warrior's, "
+                "but solid enough. He sets it down without looking at you. "
+                "An offering. Or a release."
+            ),
+        },
+        {"type": "item", "item": "traveller's shield", "action": "give"},
     ],
     "next": "fog_sentinel",
 }

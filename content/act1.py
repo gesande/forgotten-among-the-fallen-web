@@ -881,6 +881,11 @@ SCENE_LONGHOUSE_RUINS = {
             "next":      "forge_search",
         },
         {
+            "label":     "Sharpen your axe on the forge wheel.",
+            "next":      "forge_sharpen",
+            "condition": {"and": [{"has_item": "rusted axe"}, {"has_item": "whetstone"}]},
+        },
+        {
             "label":     "Return to the battlefield.",
             "next":      "battlefield_open",
         },
@@ -996,6 +1001,45 @@ SCENE_FORGE_SEARCH = {
         {"type": "flag", "key": "forge_searched"},
     ],
     "next": "battlefield_open",
+}
+
+SCENE_FORGE_SHARPEN = {
+    "art": "longhouse",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You lock the rusted axe in the vice and take up the whetstone. "
+                "The sound it makes against the edge is the sound of patience — "
+                "slow strokes, angle held constant, "
+                "the same pressure at the heel as at the tip. "
+                "Your hands know this. "
+                "They do not need you to remember why."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                "Stone on iron. The smell of metal going warm. "
+                "The specific satisfaction of something made right."
+            )
+        },
+        {
+            "type": "prose",
+            "text": (
+                "When you test the edge against your thumb it catches cleanly. "
+                "Not a warrior's blade — not yet — "
+                "but a tool that will hold what you ask of it. "
+                "You wipe the iron filings from the flat and feel "
+                "something settle in your chest. "
+                "The rust is gone. The edge is yours."
+            )
+        },
+        {"type": "item",  "item": "rusted axe",   "action": "take"},
+        {"type": "item",  "item": "sharpened axe", "action": "give"},
+        {"type": "flag",  "key": "axe_sharpened"},
+    ],
+    "next": "longhouse_ruins",
 }
 
 # ─────────────────────────────────────────────────────────────
@@ -1600,6 +1644,7 @@ SCENES = {
     "longhouse_ruins":        SCENE_LONGHOUSE_RUINS,
     "cairn_rest":             SCENE_CAIRN_REST,
     "forge_search":           SCENE_FORGE_SEARCH,
+    "forge_sharpen":          SCENE_FORGE_SHARPEN,
     "scavenge_east":          SCENE_SCAVENGE_EAST,
     "combat_draugar_east":    SCENE_COMBAT_DRAUGAR_EAST,
     "scavenge_east_after":    SCENE_SCAVENGE_EAST_AFTER,
