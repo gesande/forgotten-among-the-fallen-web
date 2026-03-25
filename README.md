@@ -51,22 +51,28 @@ docker compose up --build
 ## Structure
 
 ```
-app.py                  ← Flask server + API routes
+app.py                    ← Flask server + API routes
 engine/
-  state.py              ← PlayerState dataclass + save/load
-  scene_web.py          ← Scene runner returning JSON
-  combat_web.py         ← Combat engine returning JSON
+  state.py                ← PlayerState dataclass + save/load
+  scene_web.py            ← Scene beat processor, returns JSON
+  combat.py               ← Combat engine, returns JSON
+  conditions.py           ← Data-driven condition evaluator
 content/
-  scenes.py             ← All scenes (Act I + Act II + placeholders)
+  game_config.py          ← STATS, EQUIPMENT, HUD layout, start scene
+  enemies.py              ← Enemy definitions (stats, phrases, loot)
+  act1.py                 ← Act I scenes
+  act2.py                 ← Act II scenes
+  scenes.py               ← Aggregator: {**ACT1, **ACT2}
 static/
-  css/game.css          ← Dark fantasy stylesheet
-  js/game.js            ← Frontend controller
-  js/audio.js           ← Music + SFX engine
-  svg/                  ← Scene illustrations
+  css/game.css            ← Dark fantasy stylesheet
+  js/game.js              ← Frontend controller
+  js/audio.js             ← Music + SFX engine (art_key → track)
+  svg/                    ← Scene illustrations
 templates/
-  index.html            ← Single-page game shell
-saves/                  ← Auto-created, JSON save files
-IMAGE_PROMPTS.md        ← AI image generation prompts for all scenes
+  index.html              ← Single-page game shell
+saves/                    ← Auto-created, JSON save files
+IMAGE_PROMPTS.md          ← AI image generation prompts
+AUDIO_PROMPTS.md          ← AI music generation prompts
 ```
 
 ## API

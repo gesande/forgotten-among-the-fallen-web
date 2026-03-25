@@ -32,35 +32,105 @@ There are no tests, linting, or build tools configured.
 - API routes: `/api/new`, `/api/load`, `/api/scene`, `/api/choose`, `/api/combat/action`, `/api/advance`, `/api/status`
 
 **Game Engine — `engine/`**
-- `state.py`: `PlayerState` dataclass — visible resources (health, stamina, wrath, echo_shards, curse_stacks), hidden moral stats (honour, resolve, brutality, mercy, 0–100), inventory, story flags, memory fragments. Saves/loads to `saves/save_0.json`.
-- `scene_web.py`: Processes scene beats (prose, choices, stat changes, flags, items, combat triggers) and returns JSON. Side effects apply only on first scene visit. Auto-advances scenes with no prose/choices/combat.
-- `combat_web.py`: Turn-based combat engine. Player actions: light/heavy strike, parry, flank, runic burst, mercy, flee. Curse stacks scale enemy damage via `1.0 + curse_stacks * 0.06`.
+- `state.py`: `PlayerState` dataclass. Stats, inventory, flags, memory fragments, save/load. Derived threshold methods (`is_cursed` etc.) read thresholds from `STATS` config.
+- `scene_web.py`: Processes scene beats and returns JSON. Side effects apply only on first visit. Auto-advances scenes with no prose/choices/combat.
+- `combat.py`: Turn-based combat engine. Player actions: light/heavy strike, parry, flank, runic burst, mercy, flee. Reads enemies from `content/enemies.py`, damage modifiers from `content/game_config.py`.
+- `conditions.py`: Data-driven condition evaluator used by scene and choice visibility logic.
 
-**Content — `content/scenes.py`**
-- Pure Python dicts — no logic, only declarative scene data
-- Act I — The Battlefield of Silence: awakening → Leif → battlefield hub → Gunnar boss → `act1_end`
-- Act II — The Stirring Beneath: fog road → Held → Sentinel → Gatehouse → Great Hall / Odrik → rune door → `act2_end`
-- Act III — The Silence Beneath: placeholder only (`act_3_intro`)
-- Beat types: `prose`, `italic`, `memory`, `conditional_prose`, `combat`, `stat`, `flag`, `item`, `input`
-- `heal` beat: HP restoration only. HP damage uses `stat` beat with `{"health": -N}`
-- Scenes reference enemies by key (e.g. `"draugar_weak"`, `"gunnar"`) — resolved in `combat_web.py`
-- `art_key` mappings in `scene_web.py` map scene keys to image filenames; multiple scenes can share one image
+**Game Config — `content/game_config.py`**
+- `STATS`: per-stat bounds (`min`/`max`/`default`) and derived thresholds (`threshold`)
+- `EQUIPMENT`: all equippable items with `slot`, `tier`, and slot-specific properties (`damage_bonus` for weapons, `defense` for shields). Auto-equip is tier-based.
+- `HUD_STATS`: which stats appear in the HUD
+- `START_SCENE`: entry point scene key
+
+**Content — `content/`**
+- `enemies.py`: Enemy definitions. Each enemy is a dict with stats, phrases, loot, and optional `on_death` side effects (`flag`, `memory`). No engine changes needed to add enemies.
+- `act1.py`, `act2.py`: Scene dicts per act. Pure data, no logic.
+- `scenes.py`: Thin aggregator — `SCENES = {**ACT1, **ACT2}`
 
 **Frontend — `static/js/game.js` + `audio.js`**
 - Vanilla JS, no frameworks
-- `game.js`: Fetches scenes/choices/combat from API, updates DOM, manages HUD and loading states
+- `game.js`: Fetches scenes/choices/combat from API, updates DOM, manages HUD
 - `audio.js`: Scene-based music via `art_key` → track mapping; crossfade (2s); independent music/SFX volume
 
 ## Key Game Systems
 
-- **Curse Accumulation**: Deaths add curse stacks, darkening prose and scaling enemy damage
+- **Curse Accumulation**: Deaths add curse stacks, darkening prose and scaling enemy damage (`1.0 + curse_stacks * 0.06`)
 - **Hidden Moral Stats**: honour, resolve, brutality, mercy affect choice availability and conditional prose variants
-- **Memory Fragments**: Narrative collectibles; visible in HUD
+- **Memory Fragments**: Narrative collectibles visible in HUD
 - **Echo Shards**: Combat currency for Runic Burst ability
-- **Act progression**: Act I complete and playtestable; Act II structurally complete (`act2_end` written, building exploration scenes TBD); Act III placeholder; Act IV planned
+- **Equipment slots**: `equipped` dict on PlayerState; `"weapon"` and `"shield"` slots currently
+- **Act progression**: Act I complete; Act II structurally complete; Act III placeholder; Act IV planned
 
 ## Content Authoring
 
-To add a new scene, add an entry to the `SCENES` dict in `content/scenes.py` following existing patterns. Scene keys must be unique and referenced by `choices[n]["next"]` from preceding scenes. New enemy types are defined in `combat_web.py` in the `ENEMIES` dict.
+### Adding a scene
+Add an entry to `content/act1.py` or `content/act2.py` and register it in the local `SCENES` dict at the bottom of the file. Scene keys must be unique. Preceding scenes reference this key via `choices[n]["next"]` or `"next"`.
 
-Art assets follow a naming convention: `static/svg/<scene_key>.png` (PNG for display) with optional `.svg` source. Audio tracks in `static/audio/music/` are mapped in `audio.js`.
+```python
+SCENE_MY_SCENE = {
+    "art": "art_key",          # maps to static/svg/<art_key>.png and audio
+    "header": {"title": "...", "subtitle": "..."},  # optional
+    "beats": [...],
+    "choices": [...],          # omit for auto-advance via "next"
+    "next": "next_scene_key",  # used if no choices, or after combat victory
+}
+```
+
+### Beat types
+| Type | Effect |
+|------|--------|
+| `prose` | Paragraph of narrative text |
+| `italic` | Italicised prose (speech, sensation) |
+| `memory` | Adds memory fragment; `key`, `label`, `text` |
+| `conditional_prose` | Shows first matching `variants[].condition` |
+| `combat` | Triggers combat with `enemy` key; skipped if already defeated |
+| `stat` | `{"changes": {"stat": delta}}` — first visit only. Use `{"echo_shards": N}` for shard rewards. |
+| `flag` | Sets a story flag — first visit only |
+| `item` | `action: "give"` or `action: "take"` — first visit only |
+| `heal` | Restores HP — first visit only |
+| `input` | Text input prompt |
+
+### Condition DSL (used in `condition` fields on beats and choices)
+```python
+{"flag":     "name"}              # flag is set
+{"memory":   "name"}              # player has memory
+{"has_item": "name"}              # item in inventory
+{"equipped": "weapon_name"}       # weapon slot matches
+{"stat_gte": "stat", "value": N}  # stat >= N
+{"not": <cond>}
+{"and": [<cond>, ...]}
+{"or":  [<cond>, ...]}
+```
+
+### Adding an enemy
+Add an entry to `content/enemies.py`. The engine handles all combat mechanics generically.
+
+```python
+"my_enemy": {
+    "name": "Full Name", "name_short": "Short",
+    "hp": 60, "damage": (10, 20), "accuracy": 0.65,
+    "shards": (80, 150),
+    "loot": [("item_name", 0.8)],
+    "on_death": {                        # optional
+        "flag":   "my_flag",
+        "memory": ("key", "label"),
+    },
+    "phrases": {"windup": [...], "hit": [...], "miss": [...], "death": [...]},
+}
+```
+
+Optional combat feature flags: `shield` (reduces flanking), `drain`/`drain_amount` (sentinel mechanic), `phases` (boss phase count).
+
+### Adding equipment
+Add an entry to `EQUIPMENT` in `content/game_config.py`. Auto-equip and stat lookups are handled generically.
+
+```python
+"my item": {"slot": "weapon", "tier": 2, "damage_bonus": 5},
+"my shield": {"slot": "shield", "tier": 1, "defense": 4},
+```
+
+### Art and audio
+- Images: `static/svg/<art_key>.png`
+- Music: add `"art_key": "track_name"` to `ART_MUSIC` in `static/js/audio.js`, place `track_name.mp3` in `static/audio/music/`
+- The `"art"` field in a scene drives both the image and the music track
