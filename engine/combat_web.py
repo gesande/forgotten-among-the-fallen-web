@@ -313,7 +313,7 @@ def _resolve_enemy_turn(e, player, log):
         dmg_range = (dmg_range[0] + 5, dmg_range[1] + 8)
     if chance(e["accuracy"]):
         dmg = roll_range(*dmg_range)
-        shield_def = SHIELD_TIERS.get(player.equipped_shield, {}).get("defense", 0)
+        shield_def = SHIELD_TIERS.get(player.equipped.get("shield", ""), {}).get("defense", 0)
         dmg = max(1, dmg - shield_def)
         actual = player.take_damage(dmg)
         player.modify_stat("wrath", 8)
@@ -357,7 +357,7 @@ WEAPON_BONUS = {
 
 def _apply_mods(base, player, kind):
     mod = base
-    mod += WEAPON_BONUS.get(player.equipped_weapon, 0)
+    mod += WEAPON_BONUS.get(player.equipped.get("weapon", "bare hands"), 0)
     if player.brutality > 50: mod += roll(6)
     if player.honour > 70 and kind == "light": mod += roll(4)
     if player.is_cursed(): mod -= roll(4)

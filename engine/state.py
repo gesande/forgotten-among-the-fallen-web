@@ -35,8 +35,7 @@ class PlayerState:
 
     # ── Inventory ─────────────────────────────────────────────
     inventory: list = field(default_factory=list)
-    equipped_weapon: str = "bare hands"
-    equipped_shield: str = ""
+    equipped: dict = field(default_factory=lambda: {"weapon": "bare hands", "shield": ""})
 
     # ── Story flags ───────────────────────────────────────────
     flags: dict = field(default_factory=dict)
@@ -106,13 +105,13 @@ class PlayerState:
         if item not in self.inventory:
             self.inventory.append(item)
         if item in WEAPON_TIERS:
-            current_tier = WEAPON_TIERS.get(self.equipped_weapon, 0)
+            current_tier = WEAPON_TIERS.get(self.equipped.get("weapon", "bare hands"), 0)
             if WEAPON_TIERS[item] > current_tier:
-                self.equipped_weapon = item
+                self.equipped["weapon"] = item
         if item in SHIELD_TIERS:
-            current_tier = SHIELD_TIERS.get(self.equipped_shield, {}).get("tier", 0)
+            current_tier = SHIELD_TIERS.get(self.equipped.get("shield", ""), {}).get("tier", 0)
             if SHIELD_TIERS[item]["tier"] > current_tier:
-                self.equipped_shield = item
+                self.equipped["shield"] = item
 
     def has_item(self, item: str) -> bool:
         return item in self.inventory

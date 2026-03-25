@@ -11,7 +11,7 @@
 #    {"flag":     "name"}           → state.flags.get("name") is truthy
 #    {"memory":   "name"}           → state.has_memory("name")
 #    {"has_item": "name"}           → "name" in state.inventory
-#    {"equipped": "name"}           → state.equipped_weapon == "name"
+#    {"equipped": "name"}           → state.equipped["weapon"] == "name"
 #    {"stat_gte": "stat", "value": N} → getattr(state, "stat") >= N
 #
 #  Combinators:
@@ -37,7 +37,7 @@ def eval_condition(cond, state) -> bool:
         return cond["has_item"] in state.inventory
 
     if "equipped" in cond:
-        return state.equipped_weapon == cond["equipped"]
+        return state.equipped.get("weapon") == cond["equipped"]
 
     if "stat_gte" in cond:
         return getattr(state, cond["stat_gte"]) >= cond["value"]

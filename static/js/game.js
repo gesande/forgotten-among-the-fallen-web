@@ -445,16 +445,15 @@ function renderHUD(hud) {
     memEl.textContent = `${hud.memories} ${hud.memories === 1 ? "memory" : "memories"} recovered`;
   }
 
-  // Equipped weapon
+  // Equipped items
   const weaponEl = $("hud-weapon");
-  if (weaponEl && hud.equipped && hud.equipped !== "bare hands") {
-    weaponEl.textContent = hud.equipped;
+  if (weaponEl) {
+    const w = hud.equipped?.weapon;
+    weaponEl.textContent = (w && w !== "bare hands") ? w : "";
   }
-
-  // Equipped shield
   const shieldEl = $("hud-shield");
   if (shieldEl) {
-    shieldEl.textContent = hud.shield || "";
+    shieldEl.textContent = hud.equipped?.shield || "";
   }
 
   // Inventory
