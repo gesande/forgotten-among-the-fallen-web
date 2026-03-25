@@ -1,6 +1,6 @@
 # ============================================================
-#  engine/combat_web.py
-#  Combat engine for the web version.
+#  engine/combat.py
+#  Combat engine.
 #  Returns structured dicts instead of printing to terminal.
 #  All prose, choices, and outcomes go through JSON to the UI.
 # ============================================================

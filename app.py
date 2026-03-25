@@ -12,7 +12,7 @@ SAVES_DIR = os.path.join(BASE_DIR, "saves")
 from engine.state     import PlayerState
 from engine.scene_web import render_scene, apply_choice, _build_hud
 from content.scenes   import SCENES
-from engine.combat_web import (
+from engine.combat import (
     ENEMIES, start_combat, get_player_actions,
     resolve_action
 )
