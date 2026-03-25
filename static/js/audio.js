@@ -22,8 +22,8 @@ const SoundEngine = (() => {
     "fog_road":             "ambient_fog",
     "fog_sentinel":         "combat_sentinel",
     "gatehouse":            "ambient_gatehouse",
-    "great_hall":           "ambient_great_hall",
-    "odrik_go_forward":     "ambient_great_hall",
+    "great_hall":           "ambient_greathall",
+    "odrik_go_forward":     "ambient_greathall",
   };
 
   const SFX_MAP = {
