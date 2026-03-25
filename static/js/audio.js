@@ -18,6 +18,12 @@ const SoundEngine = (() => {
     "scavenge":             "ambient_battlefield",
     "combat_draugar":       "combat_draugar",
     "act_break":            "ambient_void",
+    // Act II — The Stirring Beneath
+    "fog_road":             "ambient_fog",
+    "fog_sentinel":         "combat_sentinel",
+    "gatehouse":            "ambient_gatehouse",
+    "great_hall":           "ambient_great_hall",
+    "odrik_go_forward":     "ambient_great_hall",
   };
 
   const SFX_MAP = {
