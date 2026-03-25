@@ -341,7 +341,7 @@ SCENE_FOG_SENTINEL_AVOIDED = {
 
 SCENE_COMBAT_FOG_SENTINEL = {
     "art": "fog_sentinel",
-    "next": "fog_sentinel_after",
+    "next": "gatehouse_approach",
     "header": {
         "title":    "THE FOG-SENTINEL",
         "subtitle": "the harder you hit, the more it drinks",
