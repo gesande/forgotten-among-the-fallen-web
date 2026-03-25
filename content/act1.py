@@ -490,7 +490,7 @@ SCENE_LEIF_GUNNAR_INTRO = {
         },
         {
             "label":     "Leave without a word. The dead do not need courtesy.",
-            "next":      "battlefield_open",
+            "next":      "leif_ambush",
             "effects":   {"honour": -3, "brutality": 2},
             "flags":     {"leif_done": True},
         },
@@ -638,6 +638,50 @@ SCENE_LEIF_FAREWELL = {
     "next": "leif_knife_offer",
 }
 
+SCENE_LEIF_AMBUSH = {
+    "art": "leif",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You turn away from Leif. "
+                "Your mind is still on the conversation — on the name, on the weight of what he carried. "
+                "You are not paying attention to the field."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                "The sound reaches you before you understand it. "
+                "Iron on iron. Close."
+            )
+        },
+        {
+            "type": "prose",
+            "text": (
+                "One of the risen has been standing in the mud ten feet away, "
+                "watching you with Leif, waiting. "
+                "It has a shield — cracked along the rim but solid. "
+                "It raises it now. "
+                "It has been waiting for you to stop looking."
+            )
+        },
+    ],
+    "next": "combat_shieldwall_leif",
+}
+
+SCENE_COMBAT_SHIELDWALL_LEIF = {
+    "art": "combat_draugar",
+    "next": "battlefield_open",
+    "beats": [
+        {
+            "type":  "combat",
+            "enemy": "shieldwall_draugar",
+        },
+        {"type": "stat", "changes": {"resolve": 3}},
+    ],
+}
+
 SCENE_LEIF_KNIFE_OFFER = {
     "art": "leif",
     "beats": [
@@ -656,7 +700,7 @@ SCENE_LEIF_KNIFE_OFFER = {
         },
         {
             "label": "Leave without it.",
-            "next":  "battlefield_open",
+            "next":  "leif_ambush",
         },
     ],
 }
@@ -674,7 +718,7 @@ SCENE_LEIF_KNIFE_TAKEN = {
             "action": "give",
         },
     ],
-    "next": "battlefield_open",
+    "next": "leif_ambush",
 }
 
 SCENE_LEIF_MERCY_KILL = {
@@ -731,7 +775,7 @@ SCENE_LEIF_MERCY_KILL = {
         },
         {"type": "flag", "key": "leif_done"},
     ],
-    "next": "battlefield_open",
+    "next": "leif_ambush",
 }
 
 SCENE_LEIF_DEFENSE = {
@@ -1635,6 +1679,8 @@ SCENES = {
     "leif_the_oath":          SCENE_LEIF_THE_OATH,
     "leif_gunnar_intro":      SCENE_LEIF_GUNNAR_INTRO,
     "leif_farewell":          SCENE_LEIF_FAREWELL,
+    "leif_ambush":            SCENE_LEIF_AMBUSH,
+    "combat_shieldwall_leif": SCENE_COMBAT_SHIELDWALL_LEIF,
     "leif_knife_offer":       SCENE_LEIF_KNIFE_OFFER,
     "leif_knife_taken":       SCENE_LEIF_KNIFE_TAKEN,
     "leif_mercy_kill":        SCENE_LEIF_MERCY_KILL,
