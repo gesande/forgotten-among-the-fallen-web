@@ -339,14 +339,15 @@ function renderScene(data) {
 
   // ── Name input ────────────────────────────────────────────
   const nameWrap = $("name-input-wrap");
-  if (data.name_prompt && (data.choices || []).length === 0) {
-    // name_entry scene: show immediately, no choices to pick first
-    nameWrap.classList.remove("hidden");
-    setTimeout(() => $("name-input").focus(), 200);
-  } else {
-    nameWrap.classList.add("hidden");
-  }
   $("name-input").value = "";
+  nameWrap.classList.add("hidden");
+  if (data.name_prompt && (data.choices || []).length === 0) {
+    const afterProse = (0.8 + (paraIdx || 0) * 1.1 + 0.5) * 1000;
+    setTimeout(() => {
+      nameWrap.classList.remove("hidden");
+      setTimeout(() => $("name-input").focus(), 200);
+    }, afterProse);
+  }
 
   // ── Choices ───────────────────────────────────────────────
   renderChoices(data.choices || [], data.next, data.name_prompt, paraIdx);
