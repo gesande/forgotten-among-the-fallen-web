@@ -415,7 +415,7 @@ async function advanceScene(nextKey) {
 
 async function makeChoice(choiceId) {
   showLoading(true);
-  disableChoices(true);
+  $("choices-wrap").innerHTML = "";
   try {
     // __next__ is a synthetic Continue for prose-only auto-next scenes
     if (choiceId === "__next__") {
