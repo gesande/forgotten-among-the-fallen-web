@@ -680,8 +680,9 @@ SCENE_COMBAT_SHIELDWALL_LEIF = {
     "next": "battlefield_open",
     "beats": [
         {
-            "type":  "combat",
-            "enemy": "shieldwall_draugar",
+            "type":    "combat",
+            "enemy":   "shieldwall_draugar",
+            "variant": "veteran",
         },
         {"type": "stat", "changes": {"resolve": 3}},
     ],
