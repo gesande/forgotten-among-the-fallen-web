@@ -49,22 +49,28 @@ const SoundEngine = (() => {
   const SFX_BASE      = "/static/audio/sfx/";  // sfx in same folder for now
 
   // ── Crossfade ─────────────────────────────────────────────
-  let _fadeTimer = null;   // track active fade so we can cancel it
+  let _fadeTimer    = null;
+  let _outgoingTrack = null;  // track currently fading out
 
   function _crossfade(incoming, outgoing) {
-    // Cancel any in-progress fade
     if (_fadeTimer) { clearInterval(_fadeTimer); _fadeTimer = null; }
+    // Stop any track that was still fading out from a previous transition
+    if (_outgoingTrack) { _outgoingTrack.pause(); _outgoingTrack.currentTime = 0; }
+    _outgoingTrack = outgoing || null;
+
     const interval = FADE_DURATION / FADE_STEPS;
     let step = 0;
     _fadeTimer = setInterval(() => {
       step++;
       const r = step / FADE_STEPS;
-      if (outgoing && !outgoing.paused) outgoing.volume = Math.max(0, musicVolume * (1 - r));
+      if (_outgoingTrack && !_outgoingTrack.paused)
+        _outgoingTrack.volume = Math.max(0, musicVolume * (1 - r));
       if (incoming) incoming.volume = Math.min(musicVolume, musicVolume * r);
       if (step >= FADE_STEPS) {
         clearInterval(_fadeTimer);
         _fadeTimer = null;
-        if (outgoing) { outgoing.pause(); outgoing.currentTime = 0; }
+        if (_outgoingTrack) { _outgoingTrack.pause(); _outgoingTrack.currentTime = 0; }
+        _outgoingTrack = null;
       }
     }, interval);
   }
