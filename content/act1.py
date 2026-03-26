@@ -928,11 +928,12 @@ SCENE_LONGHOUSE_RUINS = {
         {
             "label":     "Search the forge for usable materials.",
             "next":      "forge_search",
+            "condition": {"not": {"flag": "forge_searched"}},
         },
         {
             "label":     "Sharpen your axe with the whetstone.",
             "next":      "forge_sharpen",
-            "condition": {"and": [{"has_item": "rusted axe"}, {"has_item": "whetstone"}]},
+            "condition": {"and": [{"has_item": "rusted axe"}, {"has_item": "whetstone"}, {"not": {"flag": "axe_sharpened"}}]},
         },
         {
             "label":     "Return to the battlefield.",
