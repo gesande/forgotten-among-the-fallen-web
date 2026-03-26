@@ -128,13 +128,33 @@ Add an entry to `content/enemies.py`. The engine handles all combat mechanics ge
 
 Optional combat feature flags: `shield` (reduces flanking), `drain`/`drain_amount` (sentinel mechanic), `phases` (boss phase count).
 
+Optional `"weapon"` dict on enemy: `{"name": "...", "effect": "bleeding"}` — causes bleeding on the player when the enemy hits (4–8 dmg/turn for 3 turns, does not stack).
+
+Optional `"variants"` dict: named stat overrides used when a scene specifies `"variant"`. Any field can be overridden (`hp`, `damage`, `accuracy`, `weapon`, etc.).
+
+```python
+"variants": {
+    "frenzied": {"hp": 65, "damage": (12, 22), "accuracy": 0.70,
+                 "weapon": {"name": "jagged axe", "effect": "bleeding"}},
+    "wounded":  {"hp": 25, "damage": (6, 14)},
+},
+```
+
+Trigger a variant from a scene beat:
+```python
+{"type": "combat", "enemy": "draugar_weak", "variant": "frenzied"}
+```
+
 ### Adding equipment
 Add an entry to `EQUIPMENT` in `content/game_config.py`. Auto-equip and stat lookups are handled generically.
 
 ```python
 "my item": {"slot": "weapon", "tier": 2, "damage_bonus": 5},
+"my item": {"slot": "weapon", "tier": 2, "damage_bonus": 5, "effect": "bleeding"},
 "my shield": {"slot": "shield", "tier": 1, "defense": 4},
 ```
+
+Optional `"effect"` on weapons: `"bleeding"` deals 4–8 damage/turn for 3 turns after a hit (does not stack). Enemy bleeds; player bleeds when hit by an enemy with a `"weapon"` carrying the same effect.
 
 ### Art and audio
 - Images: `static/svg/<art_key>.png`
