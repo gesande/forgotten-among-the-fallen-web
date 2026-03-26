@@ -1087,6 +1087,17 @@ SCENE_FORGE_SHARPEN = {
         {"type": "item",  "item": "rusted axe",   "action": "take"},
         {"type": "item",  "item": "sharpened axe", "action": "give"},
         {"type": "flag",  "key": "axe_sharpened"},
+        {
+            "type":  "memory",
+            "key":   "axe_sharpened",
+            "label": "The Whetstone",
+            "text": (
+                "Stone on iron. Slow strokes, constant angle. "
+                "Your hands knew the work before your mind did. "
+                "You do not remember who taught you — "
+                "only that someone did, once, and that it mattered."
+            ),
+        },
     ],
     "next": "longhouse_ruins",
 }
