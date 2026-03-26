@@ -29,6 +29,166 @@
 # ============================================================
 
 ENEMIES = {
+    "wolf": {
+        "name":       "a Pale Wolf",
+        "name_short": "the Wolf",
+        "hp":         35,
+        "damage":     (10, 18),
+        "accuracy":   0.75,
+        "weapon":     {"name": "bite", "effect": "bleeding"},
+        "shards":     (40, 80),
+        "loot":       [("wolf pelt", 0.6)],
+        "variants": {
+            "pack_leader": {
+                "name":     "the Pack Leader",
+                "hp":       55,
+                "damage":   (14, 24),
+                "accuracy": 0.80,
+                "weapon":   {"name": "bite", "effect": "bleeding"},
+            },
+            "starved": {
+                "name":     "a Starved Wolf",
+                "hp":       22,
+                "damage":   (12, 20),
+                "accuracy": 0.82,
+            },
+            "dire": {
+                "name":     "a Dire Wolf",
+                "hp":       70,
+                "damage":   (18, 30),
+                "accuracy": 0.78,
+                "weapon":   {"name": "maw", "effect": "bleeding"},
+            },
+            "silver": {
+                "name":     "a Silver Wolf",
+                "hp":       45,
+                "damage":   (12, 22),
+                "accuracy": 0.88,
+            },
+        },
+        "phrases": {
+            "windup": [
+                "The wolf circles low, its eyes flat and pale. It is not afraid of you.",
+                "It feints left — fast, faster than you expected.",
+                "It drops its head and charges without warning.",
+            ],
+            "hit": [
+                "The jaws find your arm. The grip is a vice.",
+                "It hits low and you go down on one knee.",
+                "Teeth in your side. You feel the warmth before the pain.",
+            ],
+            "miss": [
+                "You throw your arm up. It snaps on air.",
+                "You sidestep. It overshoots and scrambles to turn.",
+                "It lunges — you move — its teeth click shut on nothing.",
+            ],
+            "death": [
+                "It folds without a sound. The pale eyes go dark.",
+                "The wolf lies still. It chose the wrong battlefield.",
+                "It was hungry. That was all. Now it is not.",
+            ],
+        },
+    },
+
+    "rat": {
+        "name":       "a Battlefield Rat",
+        "name_short": "the Rat",
+        "hp":         15,
+        "damage":     (4, 9),
+        "accuracy":   0.80,
+        "shards":     (10, 30),
+        "loot":       [],
+        "variants": {
+            "giant": {
+                "name":     "a Giant Rat",
+                "hp":       30,
+                "damage":   (8, 15),
+                "accuracy": 0.75,
+                "weapon":   {"name": "bite", "effect": "bleeding"},
+            },
+            "plague": {
+                "name":     "a Plague Rat",
+                "hp":       18,
+                "damage":   (6, 12),
+                "accuracy": 0.78,
+                "weapon":   {"name": "bite", "effect": "bleeding"},
+            },
+            "swarm": {
+                "name":     "a Rat Swarm",
+                "hp":       50,
+                "damage":   (10, 16),
+                "accuracy": 0.85,
+            },
+        },
+        "phrases": {
+            "windup": [
+                "It scurries forward in a sudden burst — teeth first.",
+                "The rat freezes, then launches itself at your leg.",
+                "It moves along the ground faster than it has any right to.",
+            ],
+            "hit": [
+                "Small teeth find the gap between your boot and your shin.",
+                "It bites and holds on. You shake it free.",
+                "A sharp pain — low down, easy to ignore until it isn't.",
+            ],
+            "miss": [
+                "You stamp. It dodges. It has done this before.",
+                "It misses and skitters past you into the dark.",
+                "You kick out. It was already somewhere else.",
+            ],
+            "death": [
+                "It stops. Just stops.",
+                "A small thing. It was only hungry.",
+                "It curls once and goes still.",
+            ],
+        },
+    },
+
+    "hermit": {
+        "name":       "the Hermit",
+        "name_short": "the Hermit",
+        "hp":         45,
+        "damage":     (7, 14),
+        "accuracy":   0.62,
+        "shards":     (50, 100),
+        "loot":       [("dried herbs", 0.7), ("runic token", 0.3)],
+        "variants": {
+            "hostile": {
+                "hp":       45,
+                "damage":   (10, 18),
+                "accuracy": 0.68,
+                "weapon":   {"name": "iron staff", "effect": "bleeding"},
+            },
+            "mad": {
+                "hp":       35,
+                "damage":   (12, 22),
+                "accuracy": 0.72,
+            },
+        },
+        "phrases": {
+            "windup": [
+                "He moves without warning — faster than an old man should.",
+                "He mutters something and swings the staff low.",
+                "He stops talking and that is when you know it has started.",
+            ],
+            "hit": [
+                "The staff catches your knee. He knows where it hurts.",
+                "He is inside your guard before you see it. The blow lands clean.",
+                "A sharp strike to the shoulder. He has done this before.",
+            ],
+            "miss": [
+                "He overreaches. The years cost him something after all.",
+                "You step back. He does not follow — he waits.",
+                "The blow goes wide. He does not seem surprised.",
+            ],
+            "death": [
+                "He sits down slowly, as if he chose it.",
+                "He says something you don't catch. Then he is still.",
+                "He looks almost relieved.",
+            ],
+        },
+    },
+
     "draugar_weak": {
         "name":       "a Risen Footsoldier",
         "name_short": "the Draugar",
@@ -210,3 +370,14 @@ ENEMIES = {
         },
     },
 }
+
+# ── Enemy roster ───────────────────────────────────────────────
+# Key                  Variants
+# ─────────────────────────────────────────────────────────────
+# rat                  giant, plague, swarm
+# wolf                 pack_leader, starved, dire, silver
+# hermit               hostile, mad
+# draugar_weak         frenzied
+# shieldwall_draugar   veteran, cornered
+# fog_sentinel         awakened, fractured
+# gunnar               (boss — no variants)
