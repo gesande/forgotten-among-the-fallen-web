@@ -6,7 +6,7 @@
 const SoundEngine = (() => {
   const SCENE_MUSIC = {
     title: "ambient_title",
-    name_entry: "ambient_cairn", // introspective, not battlefield
+    name_entry: "ambient_title",
     battlefield: "ambient_battlefield",
     leif: "ambient_leif",
     longhouse: "ambient_forge",
