@@ -485,7 +485,7 @@ html, body {
 }
 
 .prose-block {
-  font-size: clamp(16px, 1.6vw, 19px);
+  font-size: clamp(17px, 1.7vw, 20px);
   line-height: 1.9;
   color: var(--parchment);
   margin-bottom: 1.2rem;
@@ -541,14 +541,14 @@ html, body {
 }
 .choice-btn {
   font-family: 'Cinzel', serif;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-align: left;
   padding: 11px 16px;
   background: transparent;
   border: 0.5px solid var(--iron);
   border-radius: 2px;
-  color: var(--fog);
+  color: var(--bone);
   cursor: pointer;
   transition: all 0.15s;
   line-height: 1.5;
@@ -676,9 +676,9 @@ html, body {
 }
 
 .log-entry {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
-  color: var(--bone);
+  color: var(--parchment);
   animation: fadeIn 0.3s ease;
 }
 .log-entry.damage { color: #C03030; }
@@ -697,14 +697,14 @@ html, body {
 
 .combat-btn {
   font-family: 'Cinzel', serif;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-align: left;
   padding: 9px 14px;
   background: transparent;
   border: 0.5px solid var(--iron);
   border-radius: 2px;
-  color: var(--fog);
+  color: var(--bone);
   cursor: pointer;
   transition: all 0.15s;
 }
