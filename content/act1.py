@@ -930,7 +930,7 @@ SCENE_LONGHOUSE_RUINS = {
             "next":      "forge_search",
         },
         {
-            "label":     "Sharpen your axe on the forge wheel.",
+            "label":     "Sharpen your axe with the whetstone.",
             "next":      "forge_sharpen",
             "condition": {"and": [{"has_item": "rusted axe"}, {"has_item": "whetstone"}]},
         },
