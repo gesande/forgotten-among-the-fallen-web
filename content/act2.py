@@ -1922,10 +1922,10 @@ SCENE_HERMIT_GREET = {
         {
             "type": "italic",
             "text": (
-                '"It has been here longer than I have. I fed it, when I could. "
-                "It was not grateful. Animals rarely are." '
+                "\"It has been here longer than I have. I fed it, when I could. "
+                "It was not grateful. Animals rarely are.\" "
                 "He pauses. "
-                '"You are not from the road."'
+                "\"You are not from the road.\""
             ),
         },
     ],
@@ -1954,10 +1954,10 @@ SCENE_HERMIT_BATTLEFIELD = {
             "type": "italic",
             "text": (
                 "He nods slowly, as if this confirms something. "
-                '"The battlefield sends them sometimes. Not often. "
-                "Usually the ones who had something unfinished." '
+                "\"The battlefield sends them sometimes. Not often. "
+                "Usually the ones who had something unfinished.\" "
                 "He looks at your hands. "
-                '"What did you leave undone?"'
+                "\"What did you leave undone?\""
             ),
         },
     ],
@@ -1986,11 +1986,11 @@ SCENE_HERMIT_WHO = {
         {
             "type": "italic",
             "text": (
-                '"No one, now. I was a skald once. "
+                "\"No one, now. I was a skald once. "
                 "Then a soldier. Then a penitent. "
-                "Now I sit under a tree and feed wolves." '
+                "Now I sit under a tree and feed wolves.\" "
                 "He almost smiles. "
-                '"The last stage suits me best."'
+                "\"The last stage suits me best.\""
             ),
         },
     ],
@@ -2013,13 +2013,13 @@ SCENE_HERMIT_WHY = {
             "type": "italic",
             "text": (
                 "He looks up at the oak. "
-                '"Because the tree asked. Not in words. "
+                "\"Because the tree asked. Not in words. "
                 "Trees do not use words. "
-                "But it asked." '
+                "But it asked.\" "
                 "He is quiet for a moment. "
-                '"The battlefield keeps its dead. "
+                "\"The battlefield keeps its dead. "
                 "The wood keeps its living. "
-                "I am somewhere between."'
+                "I am somewhere between.\""
             ),
         },
     ],
@@ -2033,10 +2033,10 @@ SCENE_HERMIT_SILENCE = {
             "type": "italic",
             "text": (
                 "He seems to approve of this. "
-                '"Most of them talk immediately. "
-                "The ones who wait usually know something worth waiting for." '
+                "\"Most of them talk immediately. "
+                "The ones who wait usually know something worth waiting for.\" "
                 "He rises, slowly, joints announcing themselves. "
-                '"Walk with me."'
+                "\"Walk with me.\""
             ),
         },
         {"type": "stat", "changes": {"resolve": 3}},
@@ -2067,11 +2067,11 @@ SCENE_HERMIT_OATH = {
         {
             "type": "italic",
             "text": (
-                '"The battlefield keeps you because the oath is not finished. "
+                "\"The battlefield keeps you because the oath is not finished. "
                 "Not broken — unfinished. "
-                "There is a difference." '
+                "There is a difference.\" "
                 "He hands you something small and cold. "
-                '"Keep this. You will know when to use it."'
+                "\"Keep this. You will know when to use it.\""
             ),
         },
         {"type": "item",  "item": "runic token",  "action": "give"},
