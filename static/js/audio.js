@@ -116,8 +116,8 @@ const SoundEngine = (() => {
 
   function playScene(artKey) {
     if (muted) return;
-    const t = SCENE_MUSIC[artKey];
-    if (t) _switchTo(t);
+    const t = SCENE_MUSIC[artKey] || "exploration";
+    _switchTo(t);
   }
 
   function stopMusic(fade = true) {
