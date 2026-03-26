@@ -4,58 +4,63 @@
 // ============================================================
 
 const SoundEngine = (() => {
-
   const SCENE_MUSIC = {
-    "title":                "ambient_title",
-    "name_entry":           "ambient_cairn",       // introspective, not battlefield
-    "battlefield":          "ambient_battlefield",
-    "leif":                 "ambient_leif",
-    "longhouse":            "ambient_forge",
-    "cairn":                "ambient_cairn",
-    "mound":                "ambient_mound",
-    "gunnar":               "ambient_mound",       // dialogue — ominous, not combat yet
-    "gunnar_combat":        "combat_boss",          // only the actual fight
-    "scavenge":             "ambient_battlefield",
-    "combat_draugar":       "combat_draugar",
-    "act_break":            "ambient_void",
+    title: "ambient_title",
+    name_entry: "ambient_cairn", // introspective, not battlefield
+    battlefield: "ambient_battlefield",
+    leif: "ambient_leif",
+    longhouse: "ambient_forge",
+    cairn: "ambient_cairn",
+    mound: "ambient_mound",
+    gunnar: "ambient_mound", // dialogue — ominous, not combat yet
+    gunnar_combat: "combat_boss", // only the actual fight
+    scavenge: "ambient_battlefield",
+    combat_draugar: "combat_draugar",
+    act_break: "ambient_void",
     // Act II — The Stirring Beneath
-    "fog_road":             "ambient_fog",
-    "fog_sentinel":         "combat_sentinel",
-    "gatehouse":            "ambient_gatehouse",
-    "great_hall":           "ambient_greathall",
-    "odrik_go_forward":     "ambient_greathall",
+    fog_road: "ambient_fog",
+    fog_sentinel: "combat_sentinel",
+    gatehouse: "ambient_gatehouse",
+    great_hall: "ambient_greathall",
+    odrik_go_forward: "ambient_greathall",
   };
 
   const SFX_MAP = {
-    choice:       "sfx_choice",
-    confirm:      "sfx_confirm",
-    memory:       "sfx_memory",
-    death:        "sfx_death",
-    shards:       "sfx_shards",
-    combat_hit:   "sfx_hit",
-    combat_miss:  "sfx_miss",
+    choice: "sfx_choice",
+    confirm: "sfx_confirm",
+    memory: "sfx_memory",
+    death: "sfx_death",
+    shards: "sfx_shards",
+    combat_hit: "sfx_hit",
+    combat_miss: "sfx_miss",
     combat_parry: "sfx_parry",
   };
 
-  let currentTrack   = null;
+  let currentTrack = null;
   let currentTrackId = null;
-  let musicVolume    = 0.45;
-  let sfxVolume      = 0.7;
-  let muted          = false;
+  let musicVolume = 0.45;
+  let sfxVolume = 0.7;
+  let muted = false;
 
-  const FADE_STEPS    = 30;
+  const FADE_STEPS = 30;
   const FADE_DURATION = 2000;
-  const MUSIC_BASE    = "/static/audio/music/";
-  const SFX_BASE      = "/static/audio/sfx/";  // sfx in same folder for now
+  const MUSIC_BASE = "/static/audio/music/";
+  const SFX_BASE = "/static/audio/sfx/"; // sfx in same folder for now
 
   // ── Crossfade ─────────────────────────────────────────────
-  let _fadeTimer    = null;
-  let _outgoingTrack = null;  // track currently fading out
+  let _fadeTimer = null;
+  let _outgoingTrack = null; // track currently fading out
 
   function _crossfade(incoming, outgoing) {
-    if (_fadeTimer) { clearInterval(_fadeTimer); _fadeTimer = null; }
+    if (_fadeTimer) {
+      clearInterval(_fadeTimer);
+      _fadeTimer = null;
+    }
     // Stop any track that was still fading out from a previous transition
-    if (_outgoingTrack) { _outgoingTrack.pause(); _outgoingTrack.currentTime = 0; }
+    if (_outgoingTrack) {
+      _outgoingTrack.pause();
+      _outgoingTrack.currentTime = 0;
+    }
     _outgoingTrack = outgoing || null;
 
     const interval = FADE_DURATION / FADE_STEPS;
@@ -69,7 +74,10 @@ const SoundEngine = (() => {
       if (step >= FADE_STEPS) {
         clearInterval(_fadeTimer);
         _fadeTimer = null;
-        if (_outgoingTrack) { _outgoingTrack.pause(); _outgoingTrack.currentTime = 0; }
+        if (_outgoingTrack) {
+          _outgoingTrack.pause();
+          _outgoingTrack.currentTime = 0;
+        }
         _outgoingTrack = null;
       }
     }, interval);
@@ -81,24 +89,29 @@ const SoundEngine = (() => {
 
     const outgoing = currentTrack;
 
-    const track    = new window.Audio();
-    track.loop     = true;
-    track.volume   = 0;   // crossfade brings it up
-    track.src      = MUSIC_BASE + trackName + ".mp3";
-    track.onerror  = () => { track.src = MUSIC_BASE + trackName + ".ogg"; };
+    const track = new window.Audio();
+    track.loop = true;
+    track.volume = 0; // crossfade brings it up
+    track.src = MUSIC_BASE + trackName + ".mp3";
+    track.onerror = () => {
+      track.src = MUSIC_BASE + trackName + ".ogg";
+    };
 
-    currentTrack   = track;
+    currentTrack = track;
     currentTrackId = trackName;
 
     if (muted) return;
 
-    track.play()
+    track
+      .play()
       .then(() => _crossfade(track, outgoing))
-      .catch(err => console.warn("Audio blocked:", err.message));
+      .catch((err) => console.warn("Audio blocked:", err.message));
   }
 
   // ── Public API ────────────────────────────────────────────
-  function playTitle()  { if (!muted) _switchTo("ambient_title"); }
+  function playTitle() {
+    if (!muted) _switchTo("ambient_title");
+  }
 
   function playScene(artKey) {
     if (muted) return;
@@ -108,14 +121,17 @@ const SoundEngine = (() => {
 
   function stopMusic(fade = true) {
     if (!currentTrack) return;
-    if (_fadeTimer) { clearInterval(_fadeTimer); _fadeTimer = null; }
+    if (_fadeTimer) {
+      clearInterval(_fadeTimer);
+      _fadeTimer = null;
+    }
     if (fade) {
       _crossfade(null, currentTrack);
     } else {
       currentTrack.pause();
       currentTrack.currentTime = 0;
     }
-    currentTrack   = null;
+    currentTrack = null;
     currentTrackId = null;
   }
 
@@ -124,11 +140,14 @@ const SoundEngine = (() => {
     const sfxName = SFX_MAP[name];
     if (!sfxName) return;
     try {
-      const a   = new window.Audio(SFX_BASE + sfxName + ".wav");
-      a.volume  = sfxVolume;
-      a.onerror = () => { a.src = SFX_BASE + sfxName + ".ogg"; a.play().catch(() => {}); };
+      const a = new window.Audio(SFX_BASE + sfxName + ".wav");
+      a.volume = sfxVolume;
+      a.onerror = () => {
+        a.src = SFX_BASE + sfxName + ".ogg";
+        a.play().catch(() => {});
+      };
       a.play().catch(() => {});
-    } catch(e) {}
+    } catch (e) {}
   }
 
   function toggleMute() {
@@ -142,10 +161,21 @@ const SoundEngine = (() => {
     if (currentTrack && !muted) currentTrack.volume = musicVolume;
   }
 
-  function setSfxVolume(v) { sfxVolume = Math.max(0, Math.min(1, v)); }
-  function isMuted()       { return muted; }
+  function setSfxVolume(v) {
+    sfxVolume = Math.max(0, Math.min(1, v));
+  }
+  function isMuted() {
+    return muted;
+  }
 
-  return { playTitle, playScene, stopMusic, playSfx,
-           toggleMute, isMuted, setMusicVolume, setSfxVolume };
-
+  return {
+    playTitle,
+    playScene,
+    stopMusic,
+    playSfx,
+    toggleMute,
+    isMuted,
+    setMusicVolume,
+    setSfxVolume,
+  };
 })();

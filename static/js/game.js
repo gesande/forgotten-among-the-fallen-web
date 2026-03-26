@@ -8,19 +8,19 @@ const ART_FALLBACK = "battlefield";
 
 // Art key aliases — use a different image file but trigger different music
 const ART_ALIASES = {
-  "name_entry":    "battlefield",
-  "gunnar_combat": "gunnar",
+  name_entry: "battlefield",
+  gunnar_combat: "gunnar",
 };
 
 // ── DOM refs ──────────────────────────────────────────────────
-const $ = id => document.getElementById(id);
+const $ = (id) => document.getElementById(id);
 
 // ── DOM refs — resolved after DOMContentLoaded ───────────────
 let screens = {};
 
 // ── State ─────────────────────────────────────────────────────
 let currentScene = null;
-let inCombat     = false;
+let inCombat = false;
 
 // ── Central fetch helper — always sends session cookie ────────
 async function api(path, body = null) {
@@ -29,9 +29,9 @@ async function api(path, body = null) {
     headers: {},
   };
   if (body !== null) {
-    opts.method  = "POST";
+    opts.method = "POST";
     opts.headers["Content-Type"] = "application/json";
-    opts.body    = JSON.stringify(body);
+    opts.body = JSON.stringify(body);
   } else {
     opts.method = "GET";
   }
@@ -45,8 +45,8 @@ async function api(path, body = null) {
 
 async function init() {
   // Resolve all DOM refs now that the document is ready
-  screens.title   = $("title-screen");
-  screens.game    = $("game-screen");
+  screens.title = $("title-screen");
+  screens.game = $("game-screen");
   screens.credits = $("credits-screen");
 
   // Check for existing save
@@ -55,20 +55,29 @@ async function init() {
     if (data.has_save) {
       $("btn-load").style.display = "block";
     }
-  } catch(e) {}
+  } catch (e) {}
 
-  $("btn-new").addEventListener("click", () => { dismissOverlay(); startNewGame(); });
-  $("btn-load").addEventListener("click", () => { dismissOverlay(); loadGame(); });
+  $("btn-new").addEventListener("click", () => {
+    dismissOverlay();
+    startNewGame();
+  });
+  $("btn-load").addEventListener("click", () => {
+    dismissOverlay();
+    loadGame();
+  });
   $("btn-quit").addEventListener("click", () => {
-    if (!window.close()) { window.location.href = "about:blank"; }
+    if (!window.close()) {
+      window.location.href = "about:blank";
+    }
   });
   $("btn-rise").addEventListener("click", riseAgain);
   $("btn-credits-back").addEventListener("click", () => {
-    show("title"); hide("credits-screen");
+    show("title");
+    hide("credits-screen");
     SoundEngine.playTitle();
   });
   $("name-submit").addEventListener("click", submitName);
-  $("name-input").addEventListener("keydown", e => {
+  $("name-input").addEventListener("keydown", (e) => {
     if (e.key === "Enter") submitName();
   });
 
@@ -81,13 +90,19 @@ async function init() {
       muteEl.textContent = muted ? "♪ muted" : "♪ sound on";
       muteEl.classList.toggle("muted", muted);
     }
-    const mv = $("music-vol"); if (mv) mv.value = musicPct;
-    const mv2 = $("music-val"); if (mv2) mv2.textContent = musicPct;
-    const sv = $("sfx-vol");   if (sv) sv.value = sfxPct;
-    const sv2 = $("sfx-val");  if (sv2) sv2.textContent = sfxPct;
+    const mv = $("music-vol");
+    if (mv) mv.value = musicPct;
+    const mv2 = $("music-val");
+    if (mv2) mv2.textContent = musicPct;
+    const sv = $("sfx-vol");
+    if (sv) sv.value = sfxPct;
+    const sv2 = $("sfx-val");
+    if (sv2) sv2.textContent = sfxPct;
   }
 
-  let musicPct = 45, sfxPct = 70, isMuted = false;
+  let musicPct = 45,
+    sfxPct = 70,
+    isMuted = false;
 
   // Mute button — in-game only
   const muteBtn = $("mute-btn");
@@ -141,12 +156,12 @@ function dismissOverlay() {
   setTimeout(() => overlay.remove(), 900);
 }
 
-(function() {
+(function () {
   function attachOverlay() {
     const overlay = document.getElementById("enter-overlay");
     if (!overlay) return;
-    overlay.addEventListener("click",       dismissOverlay);
-    document.addEventListener("keydown",    dismissOverlay, { once: true });
+    overlay.addEventListener("click", dismissOverlay);
+    document.addEventListener("keydown", dismissOverlay, { once: true });
     document.addEventListener("touchstart", dismissOverlay, { once: true });
   }
   if (document.readyState === "loading") {
@@ -161,12 +176,16 @@ function dismissOverlay() {
 // ═══════════════════════════════════════════════════════════
 
 function show(screenId) {
-  Object.values(screens).forEach(s => s && s.classList.add("hidden"));
+  Object.values(screens).forEach((s) => s && s.classList.add("hidden"));
   if (screens[screenId]) screens[screenId].classList.remove("hidden");
 }
 
-function hide(id) { $(id).classList.add("hidden"); }
-function unhide(id) { $(id).classList.remove("hidden"); }
+function hide(id) {
+  $(id).classList.add("hidden");
+}
+function unhide(id) {
+  $(id).classList.remove("hidden");
+}
 
 // ═══════════════════════════════════════════════════════════
 //  NEW GAME / LOAD
@@ -181,7 +200,10 @@ async function startNewGame() {
 
 async function loadGame() {
   const data = await api("/api/load", {});
-  if (!data.ok) { alert("No save found."); return; }
+  if (!data.ok) {
+    alert("No save found.");
+    return;
+  }
   SoundEngine.stopMusic(true);
   show("game");
   loadScene();
@@ -197,7 +219,11 @@ async function loadScene() {
     const data = await api("/api/scene");
 
     if (data.game_over) {
-      if (data.credits) { show("credits"); hide("credits-screen"); unhide("credits-screen"); }
+      if (data.credits) {
+        show("credits");
+        hide("credits-screen");
+        unhide("credits-screen");
+      }
       return;
     }
 
@@ -214,7 +240,7 @@ async function loadScene() {
       });
       loadScene();
     }
-  } catch(e) {
+  } catch (e) {
     console.error("Scene load error:", e);
   } finally {
     showLoading(false);
@@ -227,11 +253,11 @@ async function loadScene() {
 
 function renderScene(data) {
   // ── Illustration — try .png first, fall back to .svg ────────
-  const artKey    = data.art_key || ART_FALLBACK;
-  const imgKey    = ART_ALIASES[artKey] || artKey;
-  const artEl     = $("scene-art");
+  const artKey = data.art_key || ART_FALLBACK;
+  const imgKey = ART_ALIASES[artKey] || artKey;
+  const artEl = $("scene-art");
   artEl.style.opacity = "0";
-  artEl.src = "";   // clear first to force reload even if same src
+  artEl.src = ""; // clear first to force reload even if same src
 
   function tryLoad(exts, idx) {
     if (idx >= exts.length) {
@@ -241,7 +267,9 @@ function renderScene(data) {
       return;
     }
     const url = `${ART_BASE}${imgKey}.${exts[idx]}`;
-    artEl.onload  = () => { artEl.style.opacity = "1"; };
+    artEl.onload = () => {
+      artEl.style.opacity = "1";
+    };
     artEl.onerror = () => tryLoad(exts, idx + 1);
     artEl.src = url;
   }
@@ -256,7 +284,7 @@ function renderScene(data) {
   // ── Header ────────────────────────────────────────────────
   const hdr = $("scene-header");
   if (data.header) {
-    $("scene-title").textContent    = data.header.title    || "";
+    $("scene-title").textContent = data.header.title || "";
     $("scene-subtitle").textContent = data.header.subtitle || "";
     // Reset animation by cloning element
     hdr.classList.remove("hidden");
@@ -270,8 +298,8 @@ function renderScene(data) {
   // ── Notifications (items / shards) ────────────────────────
   const notif = $("notification");
   const notifParts = [];
-  if (data.shards  > 0) notifParts.push(`+ ${data.shards} echo shards`);
-  if (data.items?.length) notifParts.push(...data.items.map(i => `+ ${i}`));
+  if (data.shards > 0) notifParts.push(`+ ${data.shards} echo shards`);
+  if (data.items?.length) notifParts.push(...data.items.map((i) => `+ ${i}`));
   if (notifParts.length) {
     notif.innerHTML = notifParts.join("<br>");
     notif.classList.remove("hidden");
@@ -293,16 +321,16 @@ function renderScene(data) {
   const proseEl = $("prose-body");
   proseEl.innerHTML = "";
   // Base delay: small pause then paragraphs stagger in one by one
-  const BASE_DELAY  = 0.5;    // seconds before first paragraph
-  const PARA_GAP    = 0.75;   // seconds between paragraphs
+  const BASE_DELAY = 0.5; // seconds before first paragraph
+  const PARA_GAP = 0.75; // seconds between paragraphs
   let paraIdx = 0;
   (data.paragraphs || []).forEach((p) => {
     if (p.type === "memory") return;
     const div = document.createElement("div");
     let cls = "prose-block";
-    if (p.type === "italic")       cls += " italic";
-    if (p.type === "memory")       cls += " memory-block";
-    div.className   = cls;
+    if (p.type === "italic") cls += " italic";
+    if (p.type === "memory") cls += " memory-block";
+    div.className = cls;
     div.textContent = p.type === "italic" ? `"${p.text}"` : p.text;
     div.style.animationDelay = `${BASE_DELAY + paraIdx * PARA_GAP}s`;
     proseEl.appendChild(div);
@@ -324,14 +352,13 @@ function renderScene(data) {
   renderChoices(data.choices || [], data.next, data.name_prompt, paraIdx);
 }
 
-
 function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
   const wrap = $("choices-wrap");
   wrap.innerHTML = "";
 
   // Choices appear after prose — delay based on how many paragraphs came before
   const BASE_DELAY = 0.5;
-  const PARA_GAP   = 0.75;
+  const PARA_GAP = 0.75;
   const CHOICE_GAP = 0.15;
   const afterProse = BASE_DELAY + (paraCount || 0) * PARA_GAP + 0.5;
 
@@ -366,11 +393,17 @@ async function advanceScene(nextKey) {
   try {
     const payload = nextKey
       ? { next_scene: nextKey }
-      : { next_scene: "__scene_next__", scene_key: currentScene ? currentScene.scene_key : "" };
+      : {
+          next_scene: "__scene_next__",
+          scene_key: currentScene ? currentScene.scene_key : "",
+        };
     const data = await api("/api/advance", payload);
-    if (data.game_over) { unhide("credits-screen"); return; }
+    if (data.game_over) {
+      unhide("credits-screen");
+      return;
+    }
     loadScene();
-  } catch(e) {
+  } catch (e) {
     console.error("Advance error:", e);
     showLoading(false);
   }
@@ -390,7 +423,11 @@ async function makeChoice(choiceId) {
       return;
     }
     const data = await api("/api/choose", { choice_id: choiceId });
-    if (data.game_over) { show("credits"); unhide("credits-screen"); return; }
+    if (data.game_over) {
+      show("credits");
+      unhide("credits-screen");
+      return;
+    }
     if (data.narration) {
       const proseEl = $("prose-body");
       proseEl.innerHTML = "";
@@ -404,7 +441,7 @@ async function makeChoice(choiceId) {
       await sleep(1800);
     }
     loadScene();
-  } catch(e) {
+  } catch (e) {
     console.error("Choice error:", e);
     showLoading(false);
     disableChoices(false);
@@ -418,7 +455,9 @@ async function submitName() {
   try {
     await api("/api/choose", { name });
     loadScene();
-  } catch(e) { showLoading(false); }
+  } catch (e) {
+    showLoading(false);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -426,10 +465,10 @@ async function submitName() {
 // ═══════════════════════════════════════════════════════════
 
 function renderHUD(hud) {
-  $("hp-bar").style.width    = (hud.hp_ratio * 100) + "%";
-  $("wrath-bar").style.width = ((hud.wrath / (hud.max_wrath || 100)) * 100) + "%";
+  $("hp-bar").style.width = hud.hp_ratio * 100 + "%";
+  $("wrath-bar").style.width = (hud.wrath / (hud.max_wrath || 100)) * 100 + "%";
   $("hud-hp-desc").textContent = hud.hp_desc || "";
-  $("hud-shards").innerHTML   = `${hud.shards} <span>shards</span>`;
+  $("hud-shards").innerHTML = `${hud.shards} <span>shards</span>`;
 
   // Curse dots
   const curseEl = $("hud-curse");
@@ -449,7 +488,7 @@ function renderHUD(hud) {
   const weaponEl = $("hud-weapon");
   if (weaponEl) {
     const w = hud.equipped?.weapon;
-    weaponEl.textContent = (w && w !== "bare hands") ? w : "";
+    weaponEl.textContent = w && w !== "bare hands" ? w : "";
   }
   const shieldEl = $("hud-shield");
   if (shieldEl) {
@@ -460,9 +499,9 @@ function renderHUD(hud) {
   const invEl = $("hud-inventory");
   if (invEl) {
     invEl.innerHTML = "";
-    (hud.inventory || []).forEach(item => {
+    (hud.inventory || []).forEach((item) => {
       const span = document.createElement("span");
-      span.className   = "hud-item";
+      span.className = "hud-item";
       span.textContent = item;
       invEl.appendChild(span);
     });
@@ -478,8 +517,8 @@ function startCombat(data) {
   const c = data.combat;
 
   // Switch to combat music and set art — one declaration
-  const artKey    = data.art_key || "combat_draugar";
-  const imgKeyC   = ART_ALIASES[artKey] || artKey;   // alias for image file
+  const artKey = data.art_key || "combat_draugar";
+  const imgKeyC = ART_ALIASES[artKey] || artKey; // alias for image file
   SoundEngine.playScene(artKey);
 
   // Set combat art — try png/jpg before svg
@@ -493,7 +532,9 @@ function startCombat(data) {
       return;
     }
     const url = `${ART_BASE}${imgKeyC}.${exts[idx]}`;
-    combatArtEl.onload  = () => { combatArtEl.style.opacity = "1"; };
+    combatArtEl.onload = () => {
+      combatArtEl.style.opacity = "1";
+    };
     combatArtEl.onerror = () => tryCombatLoad(exts, idx + 1);
     combatArtEl.src = url;
   }
@@ -501,12 +542,12 @@ function startCombat(data) {
 
   // Enemy name & HP bar
   $("combat-enemy-name").textContent = c.enemy_name || "Enemy";
-  $("enemy-hp-bar").style.width = (c.enemy_hp_ratio * 100) + "%";
+  $("enemy-hp-bar").style.width = c.enemy_hp_ratio * 100 + "%";
 
   // Initial log
   const logEl = $("combat-log");
   logEl.innerHTML = "";
-  (c.log || []).forEach(msg => appendCombatLog(msg));
+  (c.log || []).forEach((msg) => appendCombatLog(msg));
 
   // Actions
   renderCombatActions(c.actions || []);
@@ -518,11 +559,11 @@ function startCombat(data) {
 function renderCombatActions(actions) {
   const wrap = $("combat-actions");
   wrap.innerHTML = "";
-  actions.forEach(a => {
+  actions.forEach((a) => {
     const btn = document.createElement("button");
-    btn.className     = "combat-btn";
-    btn.textContent   = a.label;
-    btn.dataset.id    = a.id;
+    btn.className = "combat-btn";
+    btn.textContent = a.label;
+    btn.dataset.id = a.id;
     btn.addEventListener("click", () => doCombatAction(a.id));
     wrap.appendChild(btn);
   });
@@ -534,18 +575,18 @@ async function doCombatAction(actionId) {
     const data = await api("/api/combat/action", { action_id: actionId });
 
     // Update enemy HP bar
-    $("enemy-hp-bar").style.width = (data.enemy_hp_ratio * 100) + "%";
+    $("enemy-hp-bar").style.width = data.enemy_hp_ratio * 100 + "%";
     if (data.hud) renderHUD(data.hud);
 
     // Append log entries
-    (data.log || []).forEach(msg => appendCombatLog(msg));
+    (data.log || []).forEach((msg) => appendCombatLog(msg));
 
     if (data.over) {
       await handleCombatEnd(data);
     } else {
       renderCombatActions(data.actions || []);
     }
-  } catch(e) {
+  } catch (e) {
     console.error("Combat error:", e);
     disableCombatBtns(false);
   }
@@ -559,9 +600,10 @@ async function handleCombatEnd(data) {
     hide("combat-panel");
     inCombat = false;
     const curseStacks = data.hud?.curse || 0;
-    $("death-curse").textContent = curseStacks > 0
-      ? `Curse: ${"●".repeat(curseStacks)}${"○".repeat(5 - curseStacks)}`
-      : "";
+    $("death-curse").textContent =
+      curseStacks > 0
+        ? `Curse: ${"●".repeat(curseStacks)}${"○".repeat(5 - curseStacks)}`
+        : "";
     unhide("death-overlay");
     return;
   }
@@ -571,7 +613,9 @@ async function handleCombatEnd(data) {
     SoundEngine.playSfx("shards");
     appendCombatLog(`+ ${data.shards_gained} echo shards`, "system");
   }
-  (data.items_gained || []).forEach(item => appendCombatLog(`+ ${item}`, "system"));
+  (data.items_gained || []).forEach((item) =>
+    appendCombatLog(`+ ${item}`, "system"),
+  );
 
   await sleep(1800);
   hide("combat-panel");
@@ -581,14 +625,22 @@ async function handleCombatEnd(data) {
 
 function appendCombatLog(msg, type = "") {
   const logEl = $("combat-log");
-  const div   = document.createElement("div");
+  const div = document.createElement("div");
   div.className = "log-entry" + (type ? ` ${type}` : "");
   // Auto-classify messages and play sfx
   if (!type) {
-    if (msg.includes("taken") || msg.includes("wound") || msg.includes("fall")) {
+    if (
+      msg.includes("taken") ||
+      msg.includes("wound") ||
+      msg.includes("fall")
+    ) {
       div.classList.add("damage");
       SoundEngine.playSfx("combat_hit");
-    } else if (msg.includes("miss") || msg.includes("wide") || msg.includes("step aside")) {
+    } else if (
+      msg.includes("miss") ||
+      msg.includes("wide") ||
+      msg.includes("step aside")
+    ) {
       div.classList.add("miss");
       SoundEngine.playSfx("combat_miss");
     } else if (msg.includes("parry") || msg.includes("PARRY")) {
@@ -615,18 +667,20 @@ async function riseAgain() {
 function showLoading(on) {
   const el = $("loading");
   if (on) el.classList.remove("hidden");
-  else    el.classList.add("hidden");
+  else el.classList.add("hidden");
 }
 
 function disableChoices(on) {
-  document.querySelectorAll(".choice-btn").forEach(b => b.disabled = on);
+  document.querySelectorAll(".choice-btn").forEach((b) => (b.disabled = on));
 }
 
 function disableCombatBtns(on) {
-  document.querySelectorAll(".combat-btn").forEach(b => b.disabled = on);
+  document.querySelectorAll(".combat-btn").forEach((b) => (b.disabled = on));
 }
 
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
 // ── Boot ──────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", init);

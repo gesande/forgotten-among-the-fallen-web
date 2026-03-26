@@ -3,16 +3,18 @@
 #  Flask web server. Run: python app.py
 #  Requires: pip install flask
 # ============================================================
-from flask import Flask, render_template, jsonify, request, session
-import json, os
+import json
+import os
+
+from flask import Flask, jsonify, render_template, request, session
+
+from content.scenes import SCENES
+from engine.combat import ENEMIES, get_player_actions, resolve_action, start_combat
+from engine.scene_web import render_scene, apply_choice, _build_hud
+from engine.state import PlayerState
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SAVES_DIR = os.path.join(BASE_DIR, "saves")
-
-from engine.state import PlayerState
-from engine.scene_web import render_scene, apply_choice, _build_hud
-from content.scenes import SCENES
-from engine.combat import ENEMIES, start_combat, get_player_actions, resolve_action
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "forgotten-among-the-fallen-dev-key")

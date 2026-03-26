@@ -5,7 +5,8 @@
 # ============================================================
 from dataclasses import dataclass, field
 from typing import Optional
-import json, os
+import json
+import os
 from content.game_config import STATS, EQUIPMENT, START_SCENE
 
 
