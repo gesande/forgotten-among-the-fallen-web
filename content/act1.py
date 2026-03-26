@@ -11,7 +11,7 @@
 SCENE_NAME_ENTRY = {
     "art": "name_entry",
     "header": {
-        "title":    "FORGOTTEN AMONG THE FALLEN",
+        "title": "FORGOTTEN AMONG THE FALLEN",
         "subtitle": "A Viking Dark Fantasy",
     },
     "show_hud": False,
@@ -24,7 +24,7 @@ SCENE_NAME_ENTRY = {
                 "and then nothing. "
                 "Now there is only silence, fog, and ten thousand corpses. "
                 "And you are standing among them."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -34,14 +34,14 @@ SCENE_NAME_ENTRY = {
                 "You look at your hands. They are yours. "
                 "You look at the bodies. They are not moving. "
                 "Not yet."
-            )
+            ),
         },
         {
             "type": "prose",
             "text": (
                 "A name sits at the edge of your memory like a word in a language "
                 "you used to speak. You reach for it."
-            )
+            ),
         },
         {
             "type": "input",
@@ -56,7 +56,7 @@ SCENE_NAME_ENTRY = {
 SCENE_AWAKENING = {
     "art": "battlefield",
     "header": {
-        "title":    "THE WAKING FIELD",
+        "title": "THE WAKING FIELD",
         "subtitle": "you should not be standing",
     },
     "show_hud": False,
@@ -69,7 +69,7 @@ SCENE_AWAKENING = {
                 "You can see the remnants of shield-walls, the broken lines where men "
                 "stood their ground and were ground down. "
                 "No side won here. Both sides lost everything."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -79,7 +79,7 @@ SCENE_AWAKENING = {
                 "You know your name — the fog gave that back to you, at least — "
                 "but everything else sits just beyond reach, "
                 "like words in a language you are forgetting."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -89,14 +89,14 @@ SCENE_AWAKENING = {
                 "To the south, a burial mound rises from the earth like a held breath. "
                 "And somewhere nearby, you can hear something. "
                 "A voice, or what is left of one."
-            )
+            ),
         },
     ],
     "choices": [
         {
-            "label":     "Stand still. Listen. Try to understand where you are.",
-            "next":      "battlefield_open",
-            "effects":   {"resolve": 5},
+            "label": "Stand still. Listen. Try to understand where you are.",
+            "next": "battlefield_open",
+            "effects": {"resolve": 5},
             "narration": (
                 "You breathe. Slowly. The fog shifts around you. "
                 "You are alive — or something close enough to alive that the difference "
@@ -104,9 +104,9 @@ SCENE_AWAKENING = {
             ),
         },
         {
-            "label":     "Move. Find someone. Find anything still breathing.",
-            "next":      "battlefield_open",
-            "effects":   {"resolve": -3, "brutality": 2},
+            "label": "Move. Find someone. Find anything still breathing.",
+            "next": "battlefield_open",
+            "effects": {"resolve": -3, "brutality": 2},
             "narration": (
                 "You start walking before you have decided where. "
                 "Somewhere in the fog, something shifts. "
@@ -114,9 +114,9 @@ SCENE_AWAKENING = {
             ),
         },
         {
-            "label":     "Look for a weapon. Whatever happened, you will not face it unarmed.",
-            "next":      "find_weapon",
-            "effects":   {"brutality": 5},
+            "label": "Look for a weapon. Whatever happened, you will not face it unarmed.",
+            "next": "find_weapon",
+            "effects": {"brutality": 5},
             "narration": (
                 "There are weapons everywhere. The dead have no use for them. "
                 "You do."
@@ -139,7 +139,7 @@ SCENE_FIND_WEAPON = {
                 "The handle is cracked, the head rusted to the colour of dried blood. "
                 "It is heavier than you remember axes being — "
                 "though you cannot yet say what you remember."
-            )
+            ),
         },
         {
             "type": "item",
@@ -152,13 +152,13 @@ SCENE_FIND_WEAPON = {
                 "You test its balance. Your hands know what to do. "
                 "That is something. "
                 "Your hands remember even when you do not."
-            )
+            ),
         },
         {
             "type": "memory",
-            "key":   "the_weapon_grip",
+            "key": "the_weapon_grip",
             "label": "How I hold a weapon before the battle",
-            "text":  (
+            "text": (
                 "The thumb runs along the edge to test it. The wrist turns once, "
                 "checking the balance. You did not decide to do these things. "
                 "Your body did them — the way it has done them "
@@ -168,8 +168,8 @@ SCENE_FIND_WEAPON = {
     ],
     "choices": [
         {
-            "label":   "Grip it tight. Step forward.",
-            "next":    "battlefield_open",
+            "label": "Grip it tight. Step forward.",
+            "next": "battlefield_open",
             "effects": {"brutality": 2},
         },
     ],
@@ -181,7 +181,7 @@ SCENE_FIND_WEAPON = {
 SCENE_BATTLEFIELD_OPEN = {
     "art": "battlefield",
     "header": {
-        "title":    "THE BATTLEFIELD OF SILENCE",
+        "title": "THE BATTLEFIELD OF SILENCE",
         "subtitle": "The Waking Field",
     },
     "beats": [
@@ -193,7 +193,7 @@ SCENE_BATTLEFIELD_OPEN = {
                 "as though the ground swallowed them mid-throw. "
                 "You count banners — two factions, neither of which you recognise. "
                 "Or perhaps you recognise both, and the memory refuses to surface."
-            )
+            ),
         },
         {
             "type": "conditional_prose",
@@ -213,7 +213,7 @@ SCENE_BATTLEFIELD_OPEN = {
                         "It smells like iron, cold earth, and something you have no word for."
                     ),
                 },
-            ]
+            ],
         },
         {
             "type": "prose",
@@ -224,46 +224,54 @@ SCENE_BATTLEFIELD_OPEN = {
                 "Bodies upon bodies. The fighting was densest there. "
                 "Closer, perhaps thirty paces west, a man sits against a shattered shield-wall. "
                 "He is not one of the dead. Not yet."
-            )
+            ),
         },
     ],
     "choices": [
         {
-            "label":     "Go to the man against the shield-wall.",
-            "next":      "soul_leif",
+            "label": "Go to the man against the shield-wall.",
+            "next": "soul_leif",
             "condition": {"not": {"flag": "leif_done"}},
         },
         {
-            "label":     "Search the longhouse ruins to the north.",
-            "next":      "longhouse_ruins",
-            "effects":   {"resolve": 2},
+            "label": "Search the longhouse ruins to the north.",
+            "next": "longhouse_ruins",
+            "effects": {"resolve": 2},
             "condition": {"not": {"flag": "found_forge"}},
         },
         {
-            "label":     "Search the forge again.",
-            "next":      "forge_search",
-            "condition": {"and": [{"flag": "found_forge"}, {"not": {"flag": "forge_searched"}}]},
+            "label": "Search the forge again.",
+            "next": "forge_search",
+            "condition": {
+                "and": [{"flag": "found_forge"}, {"not": {"flag": "forge_searched"}}]
+            },
         },
         {
-            "label":     "Return to the longhouse ruins.",
-            "next":      "longhouse_ruins",
+            "label": "Return to the longhouse ruins.",
+            "next": "longhouse_ruins",
             "condition": {"and": [{"flag": "found_forge"}, {"flag": "forge_searched"}]},
         },
         {
-            "label":     "Move east into the dense dead. Scavenge.",
-            "next":      "scavenge_east",
-            "effects":   {"brutality": 3},
+            "label": "Move east into the dense dead. Scavenge.",
+            "next": "scavenge_east",
+            "effects": {"brutality": 3},
             "condition": {"not": {"flag": "east_searched"}},
         },
         {
-            "label":     "Go south — towards the mound.",
-            "next":      "the_mound",
+            "label": "Go south — towards the mound.",
+            "next": "the_mound",
             "condition": {"or": [{"flag": "found_forge"}, {"flag": "east_searched"}]},
         },
         {
-            "label":     "Look around. There must be more here.",
-            "next":      "battlefield_look_around",
-            "condition": {"and": [{"not": {"flag": "found_forge"}}, {"not": {"flag": "east_searched"}}, {"flag": "leif_done"}]},
+            "label": "Look around. There must be more here.",
+            "next": "battlefield_look_around",
+            "condition": {
+                "and": [
+                    {"not": {"flag": "found_forge"}},
+                    {"not": {"flag": "east_searched"}},
+                    {"flag": "leif_done"},
+                ]
+            },
         },
     ],
 }
@@ -274,7 +282,7 @@ SCENE_BATTLEFIELD_OPEN = {
 SCENE_SOUL_LEIF = {
     "art": "leif",
     "header": {
-        "title":    "THE DYING SOLDIER",
+        "title": "THE DYING SOLDIER",
         "subtitle": "A bound soul — not yet gone",
     },
     "beats": [
@@ -285,7 +293,7 @@ SCENE_SOUL_LEIF = {
                 "An arrow in his side, driven deep enough that you cannot tell if it is "
                 "keeping him alive or simply preventing him from dying quickly. "
                 "He watches you approach with eyes that have given up being afraid."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -296,7 +304,7 @@ SCENE_SOUL_LEIF = {
             "text": (
                 "You look at him. You look at your hands. "
                 "You do not have a good answer."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -310,27 +318,26 @@ SCENE_SOUL_LEIF = {
     ],
     "choices": [
         {
-            "label":     '"Tell me what happened here."',
-            "next":      "leif_battle_account",
-            "effects":   {"resolve": 3},
+            "label": '"Tell me what happened here."',
+            "next": "leif_battle_account",
+            "effects": {"resolve": 3},
         },
         {
-            "label":     '"Tell me my name."',
-            "next":      "leif_gives_name",
-            "effects":   {"resolve": 5},
+            "label": '"Tell me my name."',
+            "next": "leif_gives_name",
+            "effects": {"resolve": 5},
         },
         {
-            "label":     '"Who is still alive?"',
-            "next":      "leif_survivors",
-            "effects":   {"honour": 3},
+            "label": '"Who is still alive?"',
+            "next": "leif_survivors",
+            "effects": {"honour": 3},
         },
         {
-            "label":     "He is dying. Stay with him until he is gone.",
-            "next":      "leif_mercy_kill",
-            "effects":   {"mercy": 8, "honour": 5},
+            "label": "He is dying. Stay with him until he is gone.",
+            "next": "leif_mercy_kill",
+            "effects": {"mercy": 8, "honour": 5},
             "narration": (
-                "You do not leave. That is all. "
-                "Sometimes that is enough."
+                "You do not leave. That is all. " "Sometimes that is enough."
             ),
         },
     ],
@@ -351,13 +358,13 @@ SCENE_LEIF_GIVES_NAME = {
                 "It hits you like cold water — not because it is surprising, "
                 "but because something in your chest clicks into place when you hear it. "
                 "A lock finding its key."
-            )
+            ),
         },
         {
             "type": "memory",
-            "key":   "my_name",
+            "key": "my_name",
             "label": "Your name, spoken by a dying man",
-            "text":  (
+            "text": (
                 "Your name. You had it all along, but you needed someone else "
                 "to say it aloud to believe it. "
                 "This is the first thing you are certain of since you woke."
@@ -372,17 +379,17 @@ SCENE_LEIF_GIVES_NAME = {
     ],
     "choices": [
         {
-            "label":     '"What did I do?"',
-            "next":      "leif_the_oath",
+            "label": '"What did I do?"',
+            "next": "leif_the_oath",
         },
         {
-            "label":     '"Who is Gunnar?"',
-            "next":      "leif_gunnar_intro",
+            "label": '"Who is Gunnar?"',
+            "next": "leif_gunnar_intro",
         },
         {
-            "label":     "Do not ask. You are not certain you want to know.",
-            "next":      "leif_farewell",
-            "effects":   {"resolve": -5},
+            "label": "Do not ask. You are not certain you want to know.",
+            "next": "leif_farewell",
+            "effects": {"resolve": -5},
         },
     ],
 }
@@ -395,8 +402,8 @@ SCENE_LEIF_THE_OATH = {
             "text": (
                 '"You broke the oath," Leif says. '
                 '"The oath of the drengr. '
-                'You swore to stand at Gunnar\'s shield. '
-                'On the last night, when the Svear came from the eastern ridge — '
+                "You swore to stand at Gunnar's shield. "
+                "On the last night, when the Svear came from the eastern ridge — "
                 'you were not there."'
             ),
         },
@@ -411,15 +418,15 @@ SCENE_LEIF_THE_OATH = {
                 "The words drop into you like stones into deep water. "
                 "You wait for the guilt. "
                 "It arrives slowly — it has had time to age."
-            )
+            ),
         },
         {
             "type": "italic",
             "text": (
                 '"I always thought," Leif says quietly, "that there was a reason. '
-                'Not cowardice — I knew you four years, and you were not a coward. '
-                'A debt, maybe. Something you found out. '
-                'Something about Gunnar that you could not live with '
+                "Not cowardice — I knew you four years, and you were not a coward. "
+                "A debt, maybe. Something you found out. "
+                "Something about Gunnar that you could not live with "
                 'and could not say out loud."'
             ),
         },
@@ -427,15 +434,15 @@ SCENE_LEIF_THE_OATH = {
             "type": "italic",
             "text": (
                 '"Whatever it was — it was enough for you. '
-                'Whether it was enough to justify it... '
+                "Whether it was enough to justify it... "
                 'that is a different question."'
             ),
         },
         {
             "type": "memory",
-            "key":   "the_broken_oath",
+            "key": "the_broken_oath",
             "label": "The night of the eastern ridge",
-            "text":  (
+            "text": (
                 "You were not there. You do not yet know why. "
                 "But Leif's guess sits in you like an ember — "
                 "not because it is right, but because it is close enough to feel warm."
@@ -444,18 +451,18 @@ SCENE_LEIF_THE_OATH = {
     ],
     "choices": [
         {
-            "label":     '"Where is Gunnar now?"',
-            "next":      "leif_gunnar_intro",
+            "label": '"Where is Gunnar now?"',
+            "next": "leif_gunnar_intro",
         },
         {
-            "label":     '"I had a reason."',
-            "next":      "leif_defense",
-            "effects":   {"honour": -5, "resolve": 5},
+            "label": '"I had a reason."',
+            "next": "leif_defense",
+            "effects": {"honour": -5, "resolve": 5},
         },
         {
-            "label":     "Say nothing. There is nothing to say.",
-            "next":      "leif_farewell",
-            "effects":   {"honour": 5, "resolve": -3},
+            "label": "Say nothing. There is nothing to say.",
+            "next": "leif_farewell",
+            "effects": {"honour": 5, "resolve": -3},
         },
     ],
 }
@@ -474,30 +481,30 @@ SCENE_LEIF_GUNNAR_INTRO = {
         {
             "type": "prose",
             "text": (
-                "Leif\'s breath is shallow now. Each one is a decision. "
+                "Leif's breath is shallow now. Each one is a decision. "
                 "He has made his peace with the final one."
-            )
+            ),
         },
         {
             "type": "italic",
             "text": (
                 '"Go to the mound. He will be there. '
-                'And go to the cairn first — it still burns. '
+                "And go to the cairn first — it still burns. "
                 'Whatever you owe Gunnar, do not face it on empty ground."'
             ),
         },
     ],
     "choices": [
         {
-            "label":     '"Thank you, Leif."',
-            "next":      "leif_farewell",
-            "effects":   {"honour": 5, "mercy": 3},
+            "label": '"Thank you, Leif."',
+            "next": "leif_farewell",
+            "effects": {"honour": 5, "mercy": 3},
         },
         {
-            "label":     "Leave without a word. The dead do not need courtesy.",
-            "next":      "leif_ambush",
-            "effects":   {"honour": -3, "brutality": 2},
-            "flags":     {"leif_done": True},
+            "label": "Leave without a word. The dead do not need courtesy.",
+            "next": "leif_ambush",
+            "effects": {"honour": -3, "brutality": 2},
+            "flags": {"leif_done": True},
         },
     ],
 }
@@ -513,13 +520,19 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
                 "You stop and take stock. The fog shifts but does not clear. "
                 "You have learned to read this battlefield the way you would read a room — "
                 "what is present, what is missing, what has been moved."
-            )
+            ),
         },
         {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": {"and": [{"flag": "found_forge"}, {"flag": "east_searched"}, {"flag": "leif_done"}]},
+                    "condition": {
+                        "and": [
+                            {"flag": "found_forge"},
+                            {"flag": "east_searched"},
+                            {"flag": "leif_done"},
+                        ]
+                    },
                     "text": (
                         "The longhouse to the north: searched. The forge inside it, cold but yielded what it had. "
                         "To the east: the dense dead, and whatever woke among them, settled now. "
@@ -529,7 +542,9 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
                     ),
                 },
                 {
-                    "condition": {"and": [{"flag": "found_forge"}, {"flag": "east_searched"}]},
+                    "condition": {
+                        "and": [{"flag": "found_forge"}, {"flag": "east_searched"}]
+                    },
                     "text": (
                         "The longhouse to the north: searched, the forge cold but generous. "
                         "To the east: you have walked among the dense dead and returned. "
@@ -573,30 +588,30 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
     ],
     "choices": [
         {
-            "label":     "Search the longhouse ruins to the north.",
-            "next":      "longhouse_ruins",
-            "effects":   {"resolve": 2},
+            "label": "Search the longhouse ruins to the north.",
+            "next": "longhouse_ruins",
+            "effects": {"resolve": 2},
             "condition": {"not": {"flag": "found_forge"}},
         },
         {
-            "label":     "Go east — into the dense dead.",
-            "next":      "scavenge_east",
-            "effects":   {"brutality": 3},
+            "label": "Go east — into the dense dead.",
+            "next": "scavenge_east",
+            "effects": {"brutality": 3},
             "condition": {"not": {"flag": "east_searched"}},
         },
         {
-            "label":     "Go to the soldier against the shield-wall.",
-            "next":      "soul_leif",
+            "label": "Go to the soldier against the shield-wall.",
+            "next": "soul_leif",
             "condition": {"not": {"flag": "leif_done"}},
         },
         {
-            "label":     "Go south — towards the mound.",
-            "next":      "the_mound",
+            "label": "Go south — towards the mound.",
+            "next": "the_mound",
             "condition": {"or": [{"flag": "found_forge"}, {"flag": "east_searched"}]},
         },
         {
-            "label":     "Return to the wider battlefield.",
-            "next":      "battlefield_open",
+            "label": "Return to the wider battlefield.",
+            "next": "battlefield_open",
         },
     ],
 }
@@ -610,16 +625,16 @@ SCENE_LEIF_FAREWELL = {
                 "You move to leave. Leif's hand finds your wrist — "
                 "not a grip, just a weight. "
                 "He presses something into your palm."
-            )
+            ),
         },
         {
             "type": "italic",
             "text": (
                 '"I found this the morning after the battle. '
-                'Before the wound got bad enough that I stopped moving. '
-                'It was on the mound — just sitting there, like it had been left. '
-                'I do not know what it opens. '
-                'But I kept it. '
+                "Before the wound got bad enough that I stopped moving. "
+                "It was on the mound — just sitting there, like it had been left. "
+                "I do not know what it opens. "
+                "But I kept it. "
                 'I think I kept it for you."'
             ),
         },
@@ -636,7 +651,7 @@ SCENE_LEIF_FAREWELL = {
                 "upright, eyes open, no theatrics. "
                 "You hope your own death had something like that. "
                 "You suspect it did not."
-            )
+            ),
         },
         {"type": "flag", "key": "leif_done"},
     ],
@@ -652,14 +667,14 @@ SCENE_LEIF_AMBUSH = {
                 "You turn away from Leif. "
                 "Your mind is still on the conversation — on the name, on the weight of what he carried. "
                 "You are not paying attention to the field."
-            )
+            ),
         },
         {
             "type": "italic",
             "text": (
                 "The sound reaches you before you understand it. "
                 "Iron on iron. Close."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -669,7 +684,7 @@ SCENE_LEIF_AMBUSH = {
                 "It has a shield — cracked along the rim but solid. "
                 "It raises it now. "
                 "It has been waiting for you to stop looking."
-            )
+            ),
         },
     ],
     "next": "combat_shieldwall_leif",
@@ -680,8 +695,8 @@ SCENE_COMBAT_SHIELDWALL_LEIF = {
     "next": "battlefield_open",
     "beats": [
         {
-            "type":    "combat",
-            "enemy":   "shieldwall_draugar",
+            "type": "combat",
+            "enemy": "shieldwall_draugar",
             "variant": "veteran",
         },
         {"type": "stat", "changes": {"resolve": 3}},
@@ -702,11 +717,11 @@ SCENE_LEIF_KNIFE_OFFER = {
     "choices": [
         {
             "label": "Ask for the knife.",
-            "next":  "leif_knife_taken",
+            "next": "leif_knife_taken",
         },
         {
             "label": "Leave without it.",
-            "next":  "leif_ambush",
+            "next": "leif_ambush",
         },
     ],
 }
@@ -737,14 +752,14 @@ SCENE_LEIF_MERCY_KILL = {
                 "There is nothing useful to say and Leif is past needing it. "
                 "His breathing slows in the way that breathing slows "
                 "when there is no more reason to rush."
-            )
+            ),
         },
         {
             "type": "italic",
             "text": (
                 '"Good," he says. Not to you, specifically. '
-                'Just: good. Like a man setting down something he has carried a long way.'
-            )
+                "Just: good. Like a man setting down something he has carried a long way."
+            ),
         },
         {
             "type": "prose",
@@ -753,7 +768,7 @@ SCENE_LEIF_MERCY_KILL = {
                 "Then you search him — not out of disrespect, "
                 "but because the dead have no use for what they carry "
                 "and you are not yet done with this battlefield."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -763,16 +778,15 @@ SCENE_LEIF_MERCY_KILL = {
                 "The name is yours. "
                 "He carried it with him into the battle. "
                 "You do not know yet whether that makes the weight lighter or heavier."
-            )
+            ),
         },
-        {
-            "type": "item",  "item": "Leif's knife",  "action": "give"},
+        {"type": "item", "item": "Leif's knife", "action": "give"},
         {"type": "stat", "changes": {"echo_shards": 45}},
         {
             "type": "memory",
-            "key":   "leif_last_word",
+            "key": "leif_last_word",
             "label": "What Leif said at the end",
-            "text":  (
+            "text": (
                 "Good. That was all. "
                 "One word, said the way you say a word "
                 "when it is the last one and it has to be enough. "
@@ -799,7 +813,7 @@ SCENE_LEIF_DEFENSE = {
                 "But the words that would carry it are not. "
                 "Not yet. "
                 "The memory is still fog."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -816,8 +830,8 @@ SCENE_LEIF_BATTLE_ACCOUNT = {
             "type": "italic",
             "text": (
                 '"It was a rout," Leif says. "Both sides. '
-                'The Svear came from the east ridge at dawn. '
-                'We had a scout there — should have seen them. '
+                "The Svear came from the east ridge at dawn. "
+                "We had a scout there — should have seen them. "
                 'We never found the scout."'
             ),
         },
@@ -833,7 +847,7 @@ SCENE_LEIF_BATTLE_ACCOUNT = {
                 "No prisoners, no surrender. "
                 "The kind of battle that happens when someone makes a catastrophic decision "
                 "and no one survives to account for it."
-            )
+            ),
         },
     ],
     "next": "leif_gives_name",
@@ -848,10 +862,7 @@ SCENE_LEIF_SURVIVORS = {
         },
         {
             "type": "prose",
-            "text": (
-                "He says it without drama. "
-                "You find you appreciate that."
-            )
+            "text": ("He says it without drama. " "You find you appreciate that."),
         },
     ],
     "next": "leif_gives_name",
@@ -863,7 +874,7 @@ SCENE_LEIF_SURVIVORS = {
 SCENE_LONGHOUSE_RUINS = {
     "art": "longhouse",
     "header": {
-        "title":    "THE LONGHOUSE RUINS",
+        "title": "THE LONGHOUSE RUINS",
         "subtitle": "A structure that stood for three generations",
     },
     "beats": [
@@ -875,7 +886,7 @@ SCENE_LONGHOUSE_RUINS = {
                 "then whatever shape it held. "
                 "A fire burned here recently. "
                 "Or perhaps a long time ago. Time moves differently on this field."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -885,11 +896,11 @@ SCENE_LONGHOUSE_RUINS = {
                 "Someone built this forge to last. "
                 "You recognise the craft in it — not because you remember where you learned, "
                 "but because your hands do."
-            )
+            ),
         },
         {
             "type": "flag",
-            "key":   "found_forge",
+            "key": "found_forge",
         },
         {
             "type": "prose",
@@ -900,7 +911,7 @@ SCENE_LONGHOUSE_RUINS = {
                 "Runes carved into the topstone — old ones, pre-Christianisation, "
                 "the kind your grandmother would have known. "
                 "The fire inside it has not gone out."
-            )
+            ),
         },
         {
             "type": "heal",
@@ -908,9 +919,9 @@ SCENE_LONGHOUSE_RUINS = {
         },
         {
             "type": "memory",
-            "key":   "the_bone_cairn",
+            "key": "the_bone_cairn",
             "label": "The warmth of the first cairn",
-            "text":  (
+            "text": (
                 "You place your hand on the cairn and feel something release "
                 "in the base of your spine. "
                 "A knot you did not know was there. "
@@ -921,29 +932,35 @@ SCENE_LONGHOUSE_RUINS = {
     ],
     "choices": [
         {
-            "label":     "Rest at the cairn. You have time.",
-            "next":      "cairn_rest",
-            "effects":   {"resolve": 8},
-            "flags":     {"rested_at_cairn": True},
+            "label": "Rest at the cairn. You have time.",
+            "next": "cairn_rest",
+            "effects": {"resolve": 8},
+            "flags": {"rested_at_cairn": True},
         },
         {
-            "label":     "Search the forge for usable materials.",
-            "next":      "forge_search",
+            "label": "Search the forge for usable materials.",
+            "next": "forge_search",
             "condition": {"not": {"flag": "forge_searched"}},
         },
         {
-            "label":     "Sharpen your axe with the whetstone.",
-            "next":      "forge_sharpen",
-            "condition": {"and": [{"has_item": "rusted axe"}, {"has_item": "whetstone"}, {"not": {"flag": "axe_sharpened"}}]},
+            "label": "Sharpen your axe with the whetstone.",
+            "next": "forge_sharpen",
+            "condition": {
+                "and": [
+                    {"has_item": "rusted axe"},
+                    {"has_item": "whetstone"},
+                    {"not": {"flag": "axe_sharpened"}},
+                ]
+            },
         },
         {
-            "label":     "Sit with the dying embers a moment.",
-            "next":      "longhouse_embers",
+            "label": "Sit with the dying embers a moment.",
+            "next": "longhouse_embers",
             "condition": {"not": {"flag": "embers_remembered"}},
         },
         {
-            "label":     "Return to the battlefield.",
-            "next":      "battlefield_open",
+            "label": "Return to the battlefield.",
+            "next": "battlefield_open",
         },
     ],
 }
@@ -958,7 +975,7 @@ SCENE_LONGHOUSE_EMBERS = {
                 "not much, a few coals still holding orange beneath grey ash. "
                 "You hold your hands out. "
                 "The warmth is faint, but it is real."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -970,11 +987,11 @@ SCENE_LONGHOUSE_EMBERS = {
                 "Someone sitting close enough that your shoulders touched. "
                 "You do not remember who. "
                 "You remember that you did not want to move."
-            )
+            ),
         },
         {
             "type": "memory",
-            "key":   "the_hearth",
+            "key": "the_hearth",
             "label": "A hearth in winter",
             "text": (
                 "A hall. A fire. Wind loud outside and warmth louder inside. "
@@ -999,13 +1016,13 @@ SCENE_CAIRN_REST = {
                 "but warm like something that has been burning so long "
                 "it has forgotten how to stop. "
                 "You close your eyes and let the memory try to find you."
-            )
+            ),
         },
         {
             "type": "memory",
-            "key":   "the_feast",
+            "key": "the_feast",
             "label": "A feast in the longhouse — before",
-            "text":  (
+            "text": (
                 "The hall is loud. Smoke and mead and a dozen arguments at once. "
                 "Someone is singing badly and everyone is letting them. "
                 "You are sitting at Gunnar's right hand — "
@@ -1022,7 +1039,7 @@ SCENE_CAIRN_REST = {
                 "The fire. The faces you know. "
                 "Your hand around a cup that is full. "
                 "The specific weight of a night when nothing is wrong yet."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1032,7 +1049,7 @@ SCENE_CAIRN_REST = {
                 "But something has shifted — "
                 "not in the world, but in the distance between you and what you lost. "
                 "It is smaller than it was."
-            )
+            ),
         },
         {"type": "heal", "amount": 30},
     ],
@@ -1051,7 +1068,7 @@ SCENE_FORGE_SEARCH = {
                 "half its edge reground. "
                 "The tools are laid out in the order of someone who expected to return. "
                 "They did not return."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1063,10 +1080,10 @@ SCENE_FORGE_SEARCH = {
                 "Your hands move through the search with the ease of practice. "
                 "You have done this before. After battles, after raids. "
                 "The memory does not surface, but the competence does."
-            )
+            ),
         },
-        {"type": "item",   "item": "iron scraps", "action": "give"},
-        {"type": "item",   "item": "whetstone",   "action": "give"},
+        {"type": "item", "item": "iron scraps", "action": "give"},
+        {"type": "item", "item": "whetstone", "action": "give"},
         {"type": "stat", "changes": {"echo_shards": 80}},
         {
             "type": "prose",
@@ -1078,13 +1095,13 @@ SCENE_FORGE_SEARCH = {
                 "but from the deep place where the certain things live. "
                 "You have worn this. Or one exactly like it. "
                 "The difference, if there is one, does not matter."
-            )
+            ),
         },
         {
             "type": "memory",
-            "key":   "the_medallion",
+            "key": "the_medallion",
             "label": "A clan medallion, familiar and nameless",
-            "text":  (
+            "text": (
                 "The weight of it is the weight of belonging somewhere. "
                 "Of being someone's man. "
                 "You wore this mark when you swore the oath. "
@@ -1111,14 +1128,14 @@ SCENE_FORGE_SHARPEN = {
                 "the same pressure at the heel as at the tip. "
                 "Your hands know this. "
                 "They do not need you to remember why."
-            )
+            ),
         },
         {
             "type": "italic",
             "text": (
                 "Stone on iron. The smell of metal going warm. "
                 "The specific satisfaction of something made right."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1129,14 +1146,14 @@ SCENE_FORGE_SHARPEN = {
                 "You wipe the iron filings from the flat and feel "
                 "something settle in your chest. "
                 "The rust is gone. The edge is yours."
-            )
+            ),
         },
-        {"type": "item",  "item": "rusted axe",   "action": "take"},
-        {"type": "item",  "item": "sharpened axe", "action": "give"},
-        {"type": "flag",  "key": "axe_sharpened"},
+        {"type": "item", "item": "rusted axe", "action": "take"},
+        {"type": "item", "item": "sharpened axe", "action": "give"},
+        {"type": "flag", "key": "axe_sharpened"},
         {
-            "type":  "memory",
-            "key":   "axe_sharpened",
+            "type": "memory",
+            "key": "axe_sharpened",
             "label": "The Whetstone",
             "text": (
                 "Stone on iron. Slow strokes, constant angle. "
@@ -1155,7 +1172,7 @@ SCENE_FORGE_SHARPEN = {
 SCENE_SCAVENGE_EAST = {
     "art": "scavenge",
     "header": {
-        "title":    "THE DENSE DEAD",
+        "title": "THE DENSE DEAD",
         "subtitle": "The fighting was hardest here",
     },
     "beats": [
@@ -1169,7 +1186,7 @@ SCENE_SCAVENGE_EAST = {
                 "the moment when both sides simply ran out of men to send forward. "
                 "The dead here lie in pairs, "
                 "as though they agreed on some private arrangement."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1177,10 +1194,10 @@ SCENE_SCAVENGE_EAST = {
                 "You move through them carefully. Searching. "
                 "You tell yourself you are looking for supplies. "
                 "This is partly true."
-            )
+            ),
         },
         {"type": "stat", "changes": {"echo_shards": 120}},
-        {"type": "item",   "item": "iron scraps",  "action": "give"},
+        {"type": "item", "item": "iron scraps", "action": "give"},
         {
             "type": "prose",
             "text": (
@@ -1188,20 +1205,20 @@ SCENE_SCAVENGE_EAST = {
                 "Not all at once — a hand first, then a shoulder, "
                 "then the slow terrible process of something that has been dead "
                 "deciding that it has unfinished business."
-            )
+            ),
         },
         {"type": "pause", "msg": "  [ you are not alone ]"},
     ],
     "choices": [
         {
-            "label":     "Stand your ground. Face it.",
-            "next":      "combat_draugar_east",
-            "effects":   {"honour": 5, "brutality": 3},
+            "label": "Stand your ground. Face it.",
+            "next": "combat_draugar_east",
+            "effects": {"honour": 5, "brutality": 3},
         },
         {
-            "label":     "Back away slowly. You choose your battles.",
-            "next":      "battlefield_open",
-            "effects":   {"honour": -3, "resolve": 3},
+            "label": "Back away slowly. You choose your battles.",
+            "next": "battlefield_open",
+            "effects": {"honour": -3, "resolve": 3},
             "narration": (
                 "You back into the fog. "
                 "The thing follows you with its eyes — "
@@ -1210,9 +1227,9 @@ SCENE_SCAVENGE_EAST = {
             ),
         },
         {
-            "label":     "Strike first. Before it is fully awake.",
-            "next":      "combat_draugar_east",
-            "effects":   {"brutality": 8, "honour": -5},
+            "label": "Strike first. Before it is fully awake.",
+            "next": "combat_draugar_east",
+            "effects": {"brutality": 8, "honour": -5},
             "narration": "You do not give it the chance to stand.",
         },
     ],
@@ -1226,20 +1243,20 @@ SCENE_COMBAT_DRAUGAR_EAST = {
     "next": "scavenge_east_after",
     "beats": [
         {
-            "type":  "combat",
+            "type": "combat",
             "enemy": "draugar_weak",
-            "flag":  "defeated_draugar_east",
+            "flag": "defeated_draugar_east",
         },
         {"type": "stat", "changes": {"brutality": 3}},
     ],
     "choices": [
         {
-            "label":     "Search the bodies more carefully.",
-            "next":      "scavenge_east_after",
+            "label": "Search the bodies more carefully.",
+            "next": "scavenge_east_after",
         },
         {
-            "label":     "Return to the wider battlefield.",
-            "next":      "battlefield_open",
+            "label": "Return to the wider battlefield.",
+            "next": "battlefield_open",
         },
     ],
 }
@@ -1254,7 +1271,7 @@ SCENE_SCAVENGE_EAST_AFTER = {
                 "You stand in it, breathing. "
                 "The quiet after violence is a specific kind of quiet. "
                 "You recognise it."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1262,15 +1279,15 @@ SCENE_SCAVENGE_EAST_AFTER = {
                 "Now that the immediate threat is settled, you search properly. "
                 "The dead here carry more than the others — "
                 "this was where the officers fell."
-            )
+            ),
         },
         {"type": "stat", "changes": {"echo_shards": 180}},
-        {"type": "item",   "item": "reinforced vambrace", "action": "give"},
+        {"type": "item", "item": "reinforced vambrace", "action": "give"},
         {
             "type": "memory",
-            "key":   "the_officers",
+            "key": "the_officers",
             "label": "The rank of those who fell last",
-            "text":  (
+            "text": (
                 "Officers. Senior men. "
                 "You recognise the clan marks on two of them. "
                 "One of them — the largest, face-down in the mud — "
@@ -1289,7 +1306,7 @@ SCENE_SCAVENGE_EAST_AFTER = {
 SCENE_THE_MOUND = {
     "art": "mound",
     "header": {
-        "title":    "THE MOUND OF OATHBREAKERS",
+        "title": "THE MOUND OF OATHBREAKERS",
         "subtitle": "Those buried without honour sleep lightly here",
     },
     "beats": [
@@ -1302,7 +1319,7 @@ SCENE_THE_MOUND = {
                 "Warriors buried face-down so they could not find their way to Valhalla. "
                 "The ground over them is darker than the surrounding earth. "
                 "It has been disturbed."
-            )
+            ),
         },
         {
             "type": "conditional_prose",
@@ -1326,14 +1343,14 @@ SCENE_THE_MOUND = {
                         "the way you are aware of something very cold nearby."
                     ),
                 },
-            ]
+            ],
         },
         {
             "type": "prose",
             "text": (
                 "He is waiting for you. "
                 "He has been waiting for you since before you woke."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -1342,9 +1359,9 @@ SCENE_THE_MOUND = {
         {"type": "pause"},
         {
             "type": "memory",
-            "key":   "the_death",
+            "key": "the_death",
             "label": "The memory of dying",
-            "text":  (
+            "text": (
                 "The mud. The screaming, already fading. "
                 "The axe — not this one, a different one — coming from above. "
                 "And then: nothing. "
@@ -1362,23 +1379,23 @@ SCENE_THE_MOUND = {
                 "His eyes have the blue-grey light of the deep dead. "
                 "But he is speaking. "
                 "The deep dead do not speak."
-            )
+            ),
         },
     ],
     "choices": [
         {
-            "label":     '"I am not here to fight you."',
-            "next":      "gunnar_dialogue_peace",
-            "effects":   {"honour": 5},
+            "label": '"I am not here to fight you."',
+            "next": "gunnar_dialogue_peace",
+            "effects": {"honour": 5},
         },
         {
-            "label":     '"Then this is where I end it."',
-            "next":      "gunnar_dialogue_challenge",
-            "effects":   {"brutality": 5, "resolve": 5},
+            "label": '"Then this is where I end it."',
+            "next": "gunnar_dialogue_challenge",
+            "effects": {"brutality": 5, "resolve": 5},
         },
         {
-            "label":     '"Tell me what I did."',
-            "next":      "gunnar_dialogue_truth",
+            "label": '"Tell me what I did."',
+            "next": "gunnar_dialogue_truth",
             "condition": {"memory": "the_broken_oath"},
         },
     ],
@@ -1416,7 +1433,7 @@ SCENE_GUNNAR_DIALOGUE_CHALLENGE = {
                 "He looks at you for a long moment. Not with hatred — you expected "
                 "hatred and would have understood it. "
                 "What you see is something closer to relief."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -1433,7 +1450,7 @@ SCENE_GUNNAR_DIALOGUE_CHALLENGE = {
                 "The movement is not angry — it is practiced. "
                 "He has done this ten thousand times. "
                 "He taught you to do this."
-            )
+            ),
         },
         {"type": "stat", "changes": {"resolve": 5}},
     ],
@@ -1454,9 +1471,9 @@ SCENE_GUNNAR_DIALOGUE_TRUTH = {
         {"type": "pause"},
         {
             "type": "memory",
-            "key":   "the_truth",
+            "key": "the_truth",
             "label": "What Gunnar remembers",
-            "text":  (
+            "text": (
                 "He is telling the truth. "
                 "You can feel it — not the words, but the truth underneath them. "
                 "You left. You had a reason. "
@@ -1477,15 +1494,15 @@ SCENE_COMBAT_GUNNAR = {
     "next": "act1_end",
     "beats": [
         {
-            "type":  "combat",
+            "type": "combat",
             "enemy": "gunnar",
-            "flag":  "gunnar_defeated",
+            "flag": "gunnar_defeated",
         },
     ],
     "choices": [
         {
             "label": "Go to him. Hear what he has to say.",
-            "next":  "act1_end",
+            "next": "act1_end",
         },
     ],
 }
@@ -1496,7 +1513,7 @@ SCENE_COMBAT_GUNNAR = {
 SCENE_ACT1_END = {
     "art": "mound",
     "header": {
-        "title":    "SILENCE FALLS",
+        "title": "SILENCE FALLS",
         "subtitle": "The Battlefield of Silence — cleared",
     },
     "beats": [
@@ -1506,7 +1523,7 @@ SCENE_ACT1_END = {
                 "He is on one knee. Not defeated — you do not think he can be defeated, "
                 "not truly — but spent. The axe is in the mud. "
                 "His hands are open."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1514,7 +1531,7 @@ SCENE_ACT1_END = {
                 "You look at the axe. It is not a trophy. "
                 "You do not pick it up as a trophy. "
                 "But you pick it up."
-            )
+            ),
         },
         {
             "type": "item",
@@ -1526,7 +1543,7 @@ SCENE_ACT1_END = {
             "text": (
                 '"I did not wake by choice either," he says. '
                 '"I have been here since the last arrow. '
-                'I watched every one of them stop moving. '
+                "I watched every one of them stop moving. "
                 'I did not stop."'
             ),
         },
@@ -1534,7 +1551,7 @@ SCENE_ACT1_END = {
             "type": "italic",
             "text": (
                 '"I think I am here because of you. '
-                'I think I was waiting. '
+                "I think I was waiting. "
                 'I do not know what I am now that the waiting is done."'
             ),
         },
@@ -1543,13 +1560,13 @@ SCENE_ACT1_END = {
             "text": (
                 "He reaches into his coat and holds something out. "
                 "An iron key, old and heavy, marked with a rune you almost recognise."
-            )
+            ),
         },
         {
             "type": "italic",
             "text": (
                 '"Take it. It opens something to the south — '
-                'I found it on the third day, when I was still looking for a reason. '
+                "I found it on the third day, when I was still looking for a reason. "
                 'I think the reason is you."'
             ),
         },
@@ -1560,9 +1577,9 @@ SCENE_ACT1_END = {
         },
         {
             "type": "memory",
-            "key":   "the_first_victory",
+            "key": "the_first_victory",
             "label": "What it felt like to defeat your commander",
-            "text":  (
+            "text": (
                 "It did not feel like victory. "
                 "It felt like a door opening into a room "
                 "you are not certain you wanted to enter. "
@@ -1578,7 +1595,7 @@ SCENE_ACT1_END = {
                 "but still, in the way that a long argument is still "
                 "when both sides have said everything true. "
                 "For now, that is enough."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1589,19 +1606,19 @@ SCENE_ACT1_END = {
                 "though they have no peaks and do not end. "
                 "The key is cold in your hand. "
                 "Whatever it opens is through there."
-            )
+            ),
         },
     ],
     "choices": [
         {
-            "label":     "Walk south. Into whatever comes next.",
-            "next":      "act_2_intro",
-            "effects":   {"resolve": 10},
+            "label": "Walk south. Into whatever comes next.",
+            "next": "act_2_intro",
+            "effects": {"resolve": 10},
         },
         {
-            "label":     "Rest first. The cairn. One more night.",
-            "next":      "final_rest",
-            "effects":   {"resolve": 5, "honour": 5},
+            "label": "Rest first. The cairn. One more night.",
+            "next": "final_rest",
+            "effects": {"resolve": 5, "honour": 5},
         },
     ],
 }
@@ -1609,7 +1626,7 @@ SCENE_ACT1_END = {
 SCENE_FINAL_REST = {
     "art": "cairn",
     "header": {
-        "title":    "THE BONE CAIRN",
+        "title": "THE BONE CAIRN",
         "subtitle": "one more night",
     },
     "beats": [
@@ -1622,7 +1639,7 @@ SCENE_FINAL_REST = {
                 "You put your back against it and look at the battlefield. "
                 "From here it is just shapes in fog. "
                 "You can almost believe it is something else."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1635,7 +1652,7 @@ SCENE_FINAL_REST = {
                 "which is different from understanding it. "
                 "You are not yet ready to say it out loud. "
                 "But you are closer than you were."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -1643,7 +1660,7 @@ SCENE_FINAL_REST = {
                 "The cairn hums very quietly. "
                 "Or perhaps that is you. "
                 "The distinction has become less important."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1652,7 +1669,7 @@ SCENE_FINAL_REST = {
                 "Not gone — never gone — but thinner. "
                 "The key is warm in your hand. "
                 "It is time."
-            )
+            ),
         },
         {"type": "stat", "changes": {"resolve": 8, "honour": 5}},
         {"type": "heal", "amount": 100},
@@ -1663,7 +1680,7 @@ SCENE_FINAL_REST = {
 SCENE_ACT_2_INTRO = {
     "art": "act_break",
     "header": {
-        "title":    "ACT II",
+        "title": "ACT II",
         "subtitle": "The Truth in the Fog",
     },
     "beats": [
@@ -1676,7 +1693,7 @@ SCENE_ACT_2_INTRO = {
                 "it comes from somewhere specific, "
                 "the way cold always comes from somewhere specific "
                 "even when you cannot name it."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1686,7 +1703,7 @@ SCENE_ACT_2_INTRO = {
                 "Your body remembers exhaustion as a concept "
                 "but has stopped practising it. "
                 "This should be more disturbing than it is."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -1695,7 +1712,7 @@ SCENE_ACT_2_INTRO = {
                 "Ten thousand dead who stayed dead. "
                 "One who didn't. "
                 "You."
-            )
+            ),
         },
         {
             "type": "prose",
@@ -1707,7 +1724,7 @@ SCENE_ACT_2_INTRO = {
                 "It is pointing you somewhere. "
                 "You are beginning to understand that you do not have a choice "
                 "about whether to follow."
-            )
+            ),
         },
         {
             "type": "italic",
@@ -1716,12 +1733,12 @@ SCENE_ACT_2_INTRO = {
     ],
     "choices": [
         {
-            "label":     "Continue south. The key grows warmer.",
-            "next":      "fog_road",
+            "label": "Continue south. The key grows warmer.",
+            "next": "fog_road",
         },
         {
-            "label":     "Return to the battlefield (restart Act 1).",
-            "next":      "__restart__",
+            "label": "Return to the battlefield (restart Act 1).",
+            "next": "__restart__",
         },
     ],
 }
@@ -1732,38 +1749,38 @@ SCENE_ACT_2_INTRO = {
 
 
 SCENES = {
-    "name_entry":                SCENE_NAME_ENTRY,
-    "awakening":                 SCENE_AWAKENING,
-    "find_weapon":               SCENE_FIND_WEAPON,
-    "battlefield_open":          SCENE_BATTLEFIELD_OPEN,
-    "battlefield_look_around":   SCENE_BATTLEFIELD_LOOK_AROUND,
-    "soul_leif":                 SCENE_SOUL_LEIF,
-    "leif_gives_name":        SCENE_LEIF_GIVES_NAME,
-    "leif_the_oath":          SCENE_LEIF_THE_OATH,
-    "leif_gunnar_intro":      SCENE_LEIF_GUNNAR_INTRO,
-    "leif_farewell":          SCENE_LEIF_FAREWELL,
-    "leif_ambush":            SCENE_LEIF_AMBUSH,
+    "name_entry": SCENE_NAME_ENTRY,
+    "awakening": SCENE_AWAKENING,
+    "find_weapon": SCENE_FIND_WEAPON,
+    "battlefield_open": SCENE_BATTLEFIELD_OPEN,
+    "battlefield_look_around": SCENE_BATTLEFIELD_LOOK_AROUND,
+    "soul_leif": SCENE_SOUL_LEIF,
+    "leif_gives_name": SCENE_LEIF_GIVES_NAME,
+    "leif_the_oath": SCENE_LEIF_THE_OATH,
+    "leif_gunnar_intro": SCENE_LEIF_GUNNAR_INTRO,
+    "leif_farewell": SCENE_LEIF_FAREWELL,
+    "leif_ambush": SCENE_LEIF_AMBUSH,
     "combat_shieldwall_leif": SCENE_COMBAT_SHIELDWALL_LEIF,
-    "leif_knife_offer":       SCENE_LEIF_KNIFE_OFFER,
-    "leif_knife_taken":       SCENE_LEIF_KNIFE_TAKEN,
-    "leif_mercy_kill":        SCENE_LEIF_MERCY_KILL,
-    "leif_defense":           SCENE_LEIF_DEFENSE,
-    "leif_battle_account":    SCENE_LEIF_BATTLE_ACCOUNT,
-    "leif_survivors":         SCENE_LEIF_SURVIVORS,
-    "longhouse_ruins":        SCENE_LONGHOUSE_RUINS,
-    "longhouse_embers":       SCENE_LONGHOUSE_EMBERS,
-    "cairn_rest":             SCENE_CAIRN_REST,
-    "forge_search":           SCENE_FORGE_SEARCH,
-    "forge_sharpen":          SCENE_FORGE_SHARPEN,
-    "scavenge_east":          SCENE_SCAVENGE_EAST,
-    "combat_draugar_east":    SCENE_COMBAT_DRAUGAR_EAST,
-    "scavenge_east_after":    SCENE_SCAVENGE_EAST_AFTER,
-    "the_mound":              SCENE_THE_MOUND,
-    "gunnar_dialogue_peace":  SCENE_GUNNAR_DIALOGUE_PEACE,
+    "leif_knife_offer": SCENE_LEIF_KNIFE_OFFER,
+    "leif_knife_taken": SCENE_LEIF_KNIFE_TAKEN,
+    "leif_mercy_kill": SCENE_LEIF_MERCY_KILL,
+    "leif_defense": SCENE_LEIF_DEFENSE,
+    "leif_battle_account": SCENE_LEIF_BATTLE_ACCOUNT,
+    "leif_survivors": SCENE_LEIF_SURVIVORS,
+    "longhouse_ruins": SCENE_LONGHOUSE_RUINS,
+    "longhouse_embers": SCENE_LONGHOUSE_EMBERS,
+    "cairn_rest": SCENE_CAIRN_REST,
+    "forge_search": SCENE_FORGE_SEARCH,
+    "forge_sharpen": SCENE_FORGE_SHARPEN,
+    "scavenge_east": SCENE_SCAVENGE_EAST,
+    "combat_draugar_east": SCENE_COMBAT_DRAUGAR_EAST,
+    "scavenge_east_after": SCENE_SCAVENGE_EAST_AFTER,
+    "the_mound": SCENE_THE_MOUND,
+    "gunnar_dialogue_peace": SCENE_GUNNAR_DIALOGUE_PEACE,
     "gunnar_dialogue_challenge": SCENE_GUNNAR_DIALOGUE_CHALLENGE,
-    "gunnar_dialogue_truth":  SCENE_GUNNAR_DIALOGUE_TRUTH,
-    "combat_gunnar":          SCENE_COMBAT_GUNNAR,
-    "act1_end":               SCENE_ACT1_END,
-    "final_rest":             SCENE_FINAL_REST,
-    "act_2_intro":            SCENE_ACT_2_INTRO,
+    "gunnar_dialogue_truth": SCENE_GUNNAR_DIALOGUE_TRUTH,
+    "combat_gunnar": SCENE_COMBAT_GUNNAR,
+    "act1_end": SCENE_ACT1_END,
+    "final_rest": SCENE_FINAL_REST,
+    "act_2_intro": SCENE_ACT_2_INTRO,
 }

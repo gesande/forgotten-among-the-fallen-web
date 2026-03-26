@@ -18,6 +18,7 @@ from engine.conditions import eval_condition
 from content.scenes import SCENES
 from content.game_config import HUD_STATS
 
+
 def render_scene(scene_key: str, state: PlayerState) -> dict:
     """
     Process a scene and return a structured dict for the frontend.
@@ -33,20 +34,20 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
     if first_visit:
         state.set_flag(visited_key, True)
 
-    scene   = SCENES[scene_key]
-    output  = {
+    scene = SCENES[scene_key]
+    output = {
         "scene_key": scene_key,
-        "art_key":   scene.get("art", "battlefield"),
-        "header":    scene.get("header"),
-        "paragraphs":[],      # rendered narrative text blocks
-        "memories":  [],      # any memories recovered this scene
-        "items":     [],      # items gained
-        "shards":    0,       # shards gained
-        "choices":   [],
-        "next":      None,
-        "combat":    None,    # set if a combat beat triggers
-        "hud":       _build_hud(state),
-        "name_prompt": False, # set True if scene wants player name
+        "art_key": scene.get("art", "battlefield"),
+        "header": scene.get("header"),
+        "paragraphs": [],  # rendered narrative text blocks
+        "memories": [],  # any memories recovered this scene
+        "items": [],  # items gained
+        "shards": 0,  # shards gained
+        "choices": [],
+        "next": None,
+        "combat": None,  # set if a combat beat triggers
+        "hud": _build_hud(state),
+        "name_prompt": False,  # set True if scene wants player name
     }
 
     # ── Process beats ─────────────────────────────────────────
@@ -64,10 +65,12 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
             cond = c.get("condition")
             if cond and not eval_condition(cond, state):
                 continue
-            output["choices"].append({
-                "id":    str(filtered_idx),
-                "label": c["label"],
-            })
+            output["choices"].append(
+                {
+                    "id": str(filtered_idx),
+                    "label": c["label"],
+                }
+            )
             filtered_idx += 1
 
         # If no choices and no next — check if this was a pure combat scene
@@ -83,11 +86,11 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
 
         if not raw_choices and scene.get("next"):
             # Only auto-advance (no Continue button) if scene has no prose to show
-            has_prose  = any(
+            has_prose = any(
                 b.get("type") in ("prose", "italic", "memory", "conditional_prose")
                 for b in scene.get("beats", [])
             )
-            has_input  = any(b.get("type") == "input" for b in scene.get("beats", []))
+            has_input = any(b.get("type") == "input" for b in scene.get("beats", []))
             if has_prose and not has_input:
                 # Has prose but no input — show Continue button
                 output["choices"] = [{"id": "__next__", "label": "Continue"}]
@@ -99,11 +102,12 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
     output["hud"] = _build_hud(state)
     return output
 
+
 def apply_choice(scene_key: str, choice_id: str, state: PlayerState) -> str:
     """
     Apply the effects of a chosen option and return the next scene key.
     """
-    scene   = SCENES[scene_key]
+    scene = SCENES[scene_key]
     choices = scene.get("choices", [])
     # Filter to available choices, same as render_scene
     available = []
@@ -134,9 +138,13 @@ def apply_choice(scene_key: str, choice_id: str, state: PlayerState) -> str:
 
     return choice.get("next", "end"), choice.get("narration")
 
+
 # ── Beat processor ────────────────────────────────────────────
 
-def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: bool = True) -> None:
+
+def _process_beat(
+    beat: dict, state: PlayerState, output: dict, first_visit: bool = True
+) -> None:
     kind = beat.get("type", "prose")
 
     # Condition gate
@@ -151,15 +159,17 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
         output["paragraphs"].append({"type": "italic", "text": beat["text"]})
 
     elif kind == "memory":
-        key   = beat.get("key", "memory")
+        key = beat.get("key", "memory")
         label = beat.get("label", "")
         if state.add_memory(key, label):  # add_memory is already idempotent
             output["memories"].append(beat["text"])
-            output["paragraphs"].append({
-                "type": "memory",
-                "text": beat["text"],
-                "label": label,
-            })
+            output["paragraphs"].append(
+                {
+                    "type": "memory",
+                    "text": beat["text"],
+                    "label": label,
+                }
+            )
 
     elif kind == "conditional_prose":
         for variant in beat.get("variants", []):
@@ -170,7 +180,7 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
 
     elif kind == "combat":
         enemy_key = beat["enemy"]
-        flag      = beat.get("flag", f"defeated_{enemy_key}")
+        flag = beat.get("flag", f"defeated_{enemy_key}")
         if not state.has_flag(flag):
             output["combat"] = {"enemy_key": enemy_key}
 
@@ -188,7 +198,7 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
 
     elif kind == "item":
         if first_visit:
-            item   = beat["item"]
+            item = beat["item"]
             action = beat.get("action", "give")
             if action == "give":
                 state.add_item(item)
@@ -205,24 +215,30 @@ def _process_beat(beat: dict, state: PlayerState, output: dict, first_visit: boo
         if beat.get("store_as") == "name":
             output["name_prompt"] = True
 
+
 # ── HUD builder ───────────────────────────────────────────────
+
 
 def _build_hud(state: PlayerState) -> dict:
     hp_ratio = state.health / state.max_health
-    if hp_ratio > 0.75:   hp_desc = "Unbroken"
-    elif hp_ratio > 0.50: hp_desc = "Wounded"
-    elif hp_ratio > 0.25: hp_desc = "Bleeding"
-    else:                 hp_desc = "Near Death"
+    if hp_ratio > 0.75:
+        hp_desc = "Unbroken"
+    elif hp_ratio > 0.50:
+        hp_desc = "Wounded"
+    elif hp_ratio > 0.25:
+        hp_desc = "Bleeding"
+    else:
+        hp_desc = "Near Death"
 
     hud = {
-        "hp":        state.health,
-        "max_hp":    state.max_health,
-        "hp_ratio":  hp_ratio,
-        "hp_desc":   hp_desc,
-        "memories":  len(state.memories),
+        "hp": state.health,
+        "max_hp": state.max_health,
+        "hp_ratio": hp_ratio,
+        "hp_desc": hp_desc,
+        "memories": len(state.memories),
         "inventory": state.inventory,
-        "equipped":  state.equipped,
-        "is_dead":   state.is_dead(),
+        "equipped": state.equipped,
+        "is_dead": state.is_dead(),
         "is_cursed": state.is_cursed(),
     }
     for entry in HUD_STATS:

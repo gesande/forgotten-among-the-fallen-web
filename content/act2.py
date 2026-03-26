@@ -7,7 +7,7 @@
 SCENE_FOG_ROAD = {
     "art": "fog_road",
     "header": {
-        "title":    "THE ROAD SOUTH",
+        "title": "THE ROAD SOUTH",
         "subtitle": "the fog does not thin",
     },
     "beats": [
@@ -18,40 +18,40 @@ SCENE_FOG_ROAD = {
         {
             "type": "prose",
             "text": "Not wind. There is no wind here. It moves the way breath moves — "
-                    "in and out, slow and without intention. You have been walking for "
-                    "what feels like an hour. The key is warm against your palm. Not hot. "
-                    "Warm. Like something recently held by someone else.",
+            "in and out, slow and without intention. You have been walking for "
+            "what feels like an hour. The key is warm against your palm. Not hot. "
+            "Warm. Like something recently held by someone else.",
         },
         {
             "type": "prose",
             "text": "The ground beneath you is not a road. It was a road once — you can "
-                    "feel the stones beneath the mud, placed by someone with purpose. "
-                    "Now it leads south into nothing you can see.",
+            "feel the stones beneath the mud, placed by someone with purpose. "
+            "Now it leads south into nothing you can see.",
         },
         {
             "type": "italic",
             "text": "You hear something ahead. Not a voice. The shape a voice leaves "
-                    "after it stops.",
+            "after it stops.",
         },
     ],
     "choices": [
         {
             "label": "Stop and listen.",
             "effects": {"honour": 2},
-            "next":  "fog_the_held",
+            "next": "fog_the_held",
         },
         {
             "label": "Keep moving.",
-            "next":  "fog_the_held",
+            "next": "fog_the_held",
         },
         {
             "label": "Look at the key.",
-            "next":  "fog_the_held",
+            "next": "fog_the_held",
         },
         {
-            "label":     "Turn off the road. Into the trees.",
-            "next":      "forest_path",
-            "effects":   {"brutality": 2},
+            "label": "Turn off the road. Into the trees.",
+            "next": "forest_path",
+            "effects": {"brutality": 2},
             "condition": {"not": {"flag": "forest_visited"}},
         },
     ],
@@ -60,7 +60,7 @@ SCENE_FOG_ROAD = {
 SCENE_FOG_THE_HELD = {
     "art": "fog_road",
     "header": {
-        "title":    "THE HELD",
+        "title": "THE HELD",
         "subtitle": "they have been standing like this for a long time",
     },
     "beats": [
@@ -71,9 +71,9 @@ SCENE_FOG_THE_HELD = {
         {
             "type": "prose",
             "text": "Not soldiers. A man and a woman, dressed in travelling clothes — "
-                    "the kind worn by people who move between settlements, not fight in "
-                    "them. They stand in the middle of the road facing each other as if "
-                    "mid-conversation. Their feet have sunk slightly into the mud.",
+            "the kind worn by people who move between settlements, not fight in "
+            "them. They stand in the middle of the road facing each other as if "
+            "mid-conversation. Their feet have sunk slightly into the mud.",
         },
         {
             "type": "prose",
@@ -82,13 +82,13 @@ SCENE_FOG_THE_HELD = {
         {
             "type": "prose",
             "text": "When you step closer, the woman's head turns toward you. Not fast. "
-                    "Not threatening. The way a person turns when they hear their name "
-                    "spoken in another room.",
+            "Not threatening. The way a person turns when they hear their name "
+            "spoken in another room.",
         },
         {
             "type": "italic",
-            "text": "Her mouth opens. \"Don't,\" she says. Not to you. To the man beside "
-                    "her. He doesn't move.",
+            "text": 'Her mouth opens. "Don\'t," she says. Not to you. To the man beside '
+            "her. He doesn't move.",
         },
         {
             "type": "prose",
@@ -102,15 +102,15 @@ SCENE_FOG_THE_HELD = {
     "choices": [
         {
             "label": "Pull free. Force your way past.",
-            "next":  "fog_held_after",
+            "next": "fog_held_after",
         },
         {
-            "label": "Stay still. \"I see you. You can let go.\"",
-            "next":  "fog_held_release",
+            "label": 'Stay still. "I see you. You can let go."',
+            "next": "fog_held_release",
         },
         {
             "label": "Look at the man. The other one hasn't moved.",
-            "next":  "fog_held_other",
+            "next": "fog_held_other",
         },
     ],
 }
@@ -121,9 +121,9 @@ SCENE_FOG_HELD_OTHER = {
         {
             "type": "prose",
             "text": "The man has not moved since you arrived. Not his head, not his "
-                    "hands. His eyes are fixed on a point somewhere past your left "
-                    "shoulder — something that was there before you were, something "
-                    "that will still be there after.",
+            "hands. His eyes are fixed on a point somewhere past your left "
+            "shoulder — something that was there before you were, something "
+            "that will still be there after.",
         },
         {
             "type": "italic",
@@ -137,11 +137,11 @@ SCENE_FOG_HELD_OTHER = {
     "choices": [
         {
             "label": "Pull free. You cannot help them.",
-            "next":  "fog_held_after",
+            "next": "fog_held_after",
         },
         {
-            "label": "Speak to her. \"You can let go. Both of you.\"",
-            "next":  "fog_held_release",
+            "label": 'Speak to her. "You can let go. Both of you."',
+            "next": "fog_held_release",
         },
     ],
 }
@@ -152,24 +152,24 @@ SCENE_FOG_HELD_RELEASE = {
         {
             "type": "prose",
             "text": "Her grip loosens. Not all at once — finger by finger, the way "
-                    "ice thaws.",
+            "ice thaws.",
         },
         {
             "type": "prose",
             "text": "She doesn't look at you when she releases. She looks at the man "
-                    "beside her. Something passes between them that you cannot read. "
-                    "He turns his head — slowly, the same way she did — and looks at you.",
+            "beside her. Something passes between them that you cannot read. "
+            "He turns his head — slowly, the same way she did — and looks at you.",
         },
         {
             "type": "italic",
-            "text": "\"How long,\" he says. Not a question. A statement he has said "
-                    "many times before.",
+            "text": '"How long," he says. Not a question. A statement he has said '
+            "many times before.",
         },
         {
             "type": "prose",
             "text": "You don't know the answer. But you stay until they both face "
-                    "forward again — facing south, facing the same direction as you. "
-                    "Facing whatever is ahead.",
+            "forward again — facing south, facing the same direction as you. "
+            "Facing whatever is ahead.",
         },
         {
             "type": "italic",
@@ -177,10 +177,10 @@ SCENE_FOG_HELD_RELEASE = {
         },
         {
             "type": "memory",
-            "key":   "held_released",
+            "key": "held_released",
             "label": "What it costs to be seen",
-            "text":  "The woman's grip releasing. Finger by finger. The man finally "
-                     "turning his head. How long it took. How little it required.",
+            "text": "The woman's grip releasing. Finger by finger. The man finally "
+            "turning his head. How long it took. How little it required.",
         },
         {
             "type": "stat",
@@ -206,12 +206,12 @@ SCENE_FOG_HELD_AFTER = {
         {
             "type": "prose",
             "text": "You are free. The cold of her grip stays on your arm like a "
-                    "bruise that hasn't surfaced yet.",
+            "bruise that hasn't surfaced yet.",
         },
         {
             "type": "prose",
             "text": "She didn't fall. She is still standing. Still reaching toward "
-                    "where you were.",
+            "where you were.",
         },
         {
             "type": "italic",
@@ -219,10 +219,10 @@ SCENE_FOG_HELD_AFTER = {
         },
         {
             "type": "memory",
-            "key":   "held_forced",
+            "key": "held_forced",
             "label": "The strength required to leave someone behind",
-            "text":  "The cold of her grip. How long it stayed. What it meant that "
-                     "leaving was possible at all.",
+            "text": "The cold of her grip. How long it stayed. What it meant that "
+            "leaving was possible at all.",
         },
         {
             "type": "stat",
@@ -234,7 +234,7 @@ SCENE_FOG_HELD_AFTER = {
         },
         {
             "type": "flag",
-            "key":   "held_forced",
+            "key": "held_forced",
             "value": True,
         },
     ],
@@ -244,7 +244,7 @@ SCENE_FOG_HELD_AFTER = {
 SCENE_FOG_SENTINEL = {
     "art": "fog_sentinel",
     "header": {
-        "title":    "THE FOG-SENTINEL",
+        "title": "THE FOG-SENTINEL",
         "subtitle": "the bell-tone has no source you can name",
     },
     "beats": [
@@ -255,15 +255,15 @@ SCENE_FOG_SENTINEL = {
         {
             "type": "prose",
             "text": "A sound like a bell that was struck once, a long time ago, and "
-                    "never finished ringing. Low. Persistent. Coming from everywhere "
-                    "and nowhere in the fog ahead.",
+            "never finished ringing. Low. Persistent. Coming from everywhere "
+            "and nowhere in the fog ahead.",
         },
         {
             "type": "prose",
             "text": "Then you see the shape. It is tall. Taller than a man, but the "
-                    "proportions are wrong — too narrow, too still, arms that hang too "
-                    "low. It stands in the centre of the road. It does not breathe. "
-                    "It does not move.",
+            "proportions are wrong — too narrow, too still, arms that hang too "
+            "low. It stands in the centre of the road. It does not breathe. "
+            "It does not move.",
         },
         {
             "type": "prose",
@@ -272,9 +272,9 @@ SCENE_FOG_SENTINEL = {
         {
             "type": "prose",
             "text": "When you take a step forward, it turns. No neck movement — the "
-                    "whole body rotates as one, like a post driven into the ground. "
-                    "Its face, if it has one, is hidden in fog. Its hands — too long, "
-                    "too thin — rise slowly to its sides.",
+            "whole body rotates as one, like a post driven into the ground. "
+            "Its face, if it has one, is hidden in fog. Its hands — too long, "
+            "too thin — rise slowly to its sides.",
         },
         {
             "type": "italic",
@@ -284,15 +284,15 @@ SCENE_FOG_SENTINEL = {
     "choices": [
         {
             "label": "Attack. Commit fully.",
-            "next":  "combat_fog_sentinel",
+            "next": "combat_fog_sentinel",
         },
         {
             "label": "Circle wide. Leave the road entirely.",
-            "next":  "fog_sentinel_avoided",
+            "next": "fog_sentinel_avoided",
         },
         {
             "label": "Stand still. Wait.",
-            "next":  "fog_sentinel_wait",
+            "next": "fog_sentinel_wait",
         },
     ],
 }
@@ -307,8 +307,8 @@ SCENE_FOG_SENTINEL_WAIT = {
         {
             "type": "prose",
             "text": "Then the Sentinel takes one step forward. Slow. Deliberate. "
-                    "The fog around it moves with it, as if it is carrying the fog "
-                    "rather than walking through it.",
+            "The fog around it moves with it, as if it is carrying the fog "
+            "rather than walking through it.",
         },
         {
             "type": "italic",
@@ -318,11 +318,11 @@ SCENE_FOG_SENTINEL_WAIT = {
     "choices": [
         {
             "label": "Attack now.",
-            "next":  "combat_fog_sentinel",
+            "next": "combat_fog_sentinel",
         },
         {
             "label": "Circle wide. Get off the road.",
-            "next":  "fog_sentinel_avoided",
+            "next": "fog_sentinel_avoided",
         },
     ],
 }
@@ -333,14 +333,14 @@ SCENE_FOG_SENTINEL_AVOIDED = {
         {
             "type": "prose",
             "text": "You leave the road. The ground off the path is softer — mud, "
-                    "grass, something that might have been a field once. You circle "
-                    "wide, keeping the Sentinel in your peripheral vision.",
+            "grass, something that might have been a field once. You circle "
+            "wide, keeping the Sentinel in your peripheral vision.",
         },
         {
             "type": "italic",
             "text": "It tracks you the entire time. The whole body rotating, slowly, "
-                    "following your arc through the fog. When you reach the road again "
-                    "it has not moved from its position. But the sound is gone.",
+            "following your arc through the fog. When you reach the road again "
+            "it has not moved from its position. But the sound is gone.",
         },
         {
             "type": "prose",
@@ -348,7 +348,7 @@ SCENE_FOG_SENTINEL_AVOIDED = {
         },
         {
             "type": "flag",
-            "key":   "sentinel_avoided",
+            "key": "sentinel_avoided",
             "value": True,
         },
     ],
@@ -359,7 +359,7 @@ SCENE_COMBAT_FOG_SENTINEL = {
     "art": "fog_sentinel",
     "next": "gatehouse_approach",
     "header": {
-        "title":    "THE FOG-SENTINEL",
+        "title": "THE FOG-SENTINEL",
         "subtitle": "the harder you hit, the more it drinks",
     },
     "beats": [
@@ -379,20 +379,20 @@ SCENE_FOG_SENTINEL_AFTER = {
                 {
                     "condition": {"flag": "sentinel_avoided"},
                     "text": "The road ahead is quieter. Not less thick — quieter. "
-                            "As if something that was listening has stopped.",
+                    "As if something that was listening has stopped.",
                 },
                 {
                     "condition": None,
                     "text": "It falls without a sound. The bell-tone stops mid-ring, "
-                            "cut like a thread. The fog where it stood is colder than "
-                            "the rest.",
+                    "cut like a thread. The fog where it stood is colder than "
+                    "the rest.",
                 },
             ],
         },
         {
             "type": "prose",
             "text": "The key pulls south. Ahead, just visible through the fog, is a "
-                    "shape that is not fog. Stone. A wall. A gate.",
+            "shape that is not fog. Stone. A wall. A gate.",
         },
         {
             "type": "italic",
@@ -405,7 +405,7 @@ SCENE_FOG_SENTINEL_AFTER = {
 SCENE_GATEHOUSE_APPROACH = {
     "art": "gatehouse",
     "header": {
-        "title":    "THE GATEHOUSE",
+        "title": "THE GATEHOUSE",
         "subtitle": "someone lit that torch recently",
     },
     "beats": [
@@ -416,9 +416,9 @@ SCENE_GATEHOUSE_APPROACH = {
         {
             "type": "prose",
             "text": "Stone. Old, but not ancient — built by people who expected it "
-                    "to last a generation, not forever. The fog thins slightly here, "
-                    "as if the structure itself pushes it back. You can see the top "
-                    "of the gatehouse tower. A torch burns there.",
+            "to last a generation, not forever. The fog thins slightly here, "
+            "as if the structure itself pushes it back. You can see the top "
+            "of the gatehouse tower. A torch burns there.",
         },
         {
             "type": "italic",
@@ -427,14 +427,14 @@ SCENE_GATEHOUSE_APPROACH = {
         {
             "type": "prose",
             "text": "The gate is open. Not ajar — fully open, both doors pressed back "
-                    "against the walls as if welcoming. As if they were opened for "
-                    "someone expected.",
+            "against the walls as if welcoming. As if they were opened for "
+            "someone expected.",
         },
         {
             "type": "prose",
             "text": "Two guards stand at the gate. Full armour, spears at rest. Their "
-                    "posture is correct — weight balanced, eyes forward, the stance of "
-                    "men who take their post seriously. They are not breathing.",
+            "posture is correct — weight balanced, eyes forward, the stance of "
+            "men who take their post seriously. They are not breathing.",
         },
         # Conditional — held_forced changes what happens next
         {
@@ -443,17 +443,17 @@ SCENE_GATEHOUSE_APPROACH = {
                 {
                     "condition": {"flag": "held_forced"},
                     "text": "When you step closer, both of them move. "
-                            "Not the slow head-turn of the others — "
-                            "this is faster. More deliberate. "
-                            "Their spears drop from rest to level in one motion. "
-                            "Their eyes find you.",
+                    "Not the slow head-turn of the others — "
+                    "this is faster. More deliberate. "
+                    "Their spears drop from rest to level in one motion. "
+                    "Their eyes find you.",
                 },
                 {
                     "condition": None,
                     "text": "You watch for a long time. Their chests do not rise. "
-                            "Their eyes do not move. But they are standing, "
-                            "and their spears are held with purpose, "
-                            "and something about them is waiting.",
+                    "Their eyes do not move. But they are standing, "
+                    "and their spears are held with purpose, "
+                    "and something about them is waiting.",
                 },
             ],
         },
@@ -463,14 +463,14 @@ SCENE_GATEHOUSE_APPROACH = {
                 {
                     "condition": {"flag": "held_forced"},
                     "text": "They remember. Or something in them does. "
-                            "Something passed through the fog before you did — "
-                            "something that felt like what you left behind on the road.",
+                    "Something passed through the fog before you did — "
+                    "something that felt like what you left behind on the road.",
                 },
                 {
                     "condition": None,
                     "text": "When you step through the gate one of them turns his head. "
-                            "Not toward you. Away from you. As if he heard something "
-                            "behind him that you cannot hear.",
+                    "Not toward you. Away from you. As if he heard something "
+                    "behind him that you cannot hear.",
                 },
             ],
         },
@@ -478,27 +478,27 @@ SCENE_GATEHOUSE_APPROACH = {
     "choices": [
         {
             "label": "Approach carefully. Hands visible.",
-            "next":  "gatehouse_guards_hostile",
+            "next": "gatehouse_guards_hostile",
             "condition": {"flag": "held_forced"},
         },
         {
             "label": "Step back. Give them space.",
-            "next":  "gatehouse_guards_hostile",
+            "next": "gatehouse_guards_hostile",
             "condition": {"flag": "held_forced"},
         },
         {
             "label": "Look at the guards closely.",
-            "next":  "gatehouse_guards",
+            "next": "gatehouse_guards",
             "condition": {"not": {"flag": "held_forced"}},
         },
         {
             "label": "Look at the courtyard ahead.",
-            "next":  "gatehouse_courtyard",
+            "next": "gatehouse_courtyard",
             "condition": {"not": {"flag": "held_forced"}},
         },
         {
             "label": "Touch the wall.",
-            "next":  "gatehouse_wall",
+            "next": "gatehouse_wall",
             "condition": {"not": {"flag": "held_forced"}},
         },
     ],
@@ -507,50 +507,52 @@ SCENE_GATEHOUSE_APPROACH = {
 SCENE_GATEHOUSE_GUARDS_HOSTILE = {
     "art": "gatehouse",
     "header": {
-        "title":    "THE GATEHOUSE",
+        "title": "THE GATEHOUSE",
         "subtitle": "the spears do not lower",
     },
     "beats": [
         {
             "type": "prose",
             "text": "The spears do not lower. "
-                    "Their eyes track you — not the vacant gaze of the others "
-                    "frozen around the battlefield. "
-                    "These are watching. Measuring.",
+            "Their eyes track you — not the vacant gaze of the others "
+            "frozen around the battlefield. "
+            "These are watching. Measuring.",
         },
         {
             "type": "prose",
             "text": "They do not speak. "
-                    "They have not spoken in a long time — "
-                    "you can see it in the way their mouths are set, "
-                    "the silence that has become permanent. "
-                    "But they hear. Something in them hears.",
+            "They have not spoken in a long time — "
+            "you can see it in the way their mouths are set, "
+            "the silence that has become permanent. "
+            "But they hear. Something in them hears.",
         },
         {
             "type": "italic",
             "text": "Whatever came through the fog before you, "
-                    "they felt it. "
-                    "It left a mark they recognise.",
+            "they felt it. "
+            "It left a mark they recognise.",
         },
     ],
     "choices": [
         {
             "label": "Say nothing. Stand still. Let them look.",
-            "next":  "gatehouse_guards_calmed",
+            "next": "gatehouse_guards_calmed",
             "effects": {"honour": 3},
         },
         {
-            "label": "\"I am not here to fight. I came through the fog alone.\"",
-            "next":  "gatehouse_guards_spoken",
+            "label": '"I am not here to fight. I came through the fog alone."',
+            "next": "gatehouse_guards_spoken",
         },
         {
             "label": "Show them Gunnar's Axe. Let them see whose it is.",
-            "next":  "gatehouse_guards_axe",
-            "condition": {"and": [{"flag": "held_forced"}, {"equipped": "Gunnar's Axe"}]},
+            "next": "gatehouse_guards_axe",
+            "condition": {
+                "and": [{"flag": "held_forced"}, {"equipped": "Gunnar's Axe"}]
+            },
         },
         {
             "label": "Force your way through.",
-            "next":  "gatehouse_guards_forced",
+            "next": "gatehouse_guards_forced",
             "effects": {"honour": -5, "brutality": 5},
         },
     ],
@@ -562,25 +564,25 @@ SCENE_GATEHOUSE_GUARDS_CALMED = {
         {
             "type": "prose",
             "text": "You stop. You do not reach for anything. "
-                    "You let the silence do what words cannot.",
+            "You let the silence do what words cannot.",
         },
         {
             "type": "prose",
             "text": "The guard on the left — the one who moved first — "
-                    "holds longest. The spear point wavers. "
-                    "Then, slowly, it drops. Not all the way. "
-                    "But enough.",
+            "holds longest. The spear point wavers. "
+            "Then, slowly, it drops. Not all the way. "
+            "But enough.",
         },
         {
             "type": "italic",
             "text": "The one on the right follows. "
-                    "A beat later, as if checking that the first one meant it.",
+            "A beat later, as if checking that the first one meant it.",
         },
         {
             "type": "prose",
             "text": "They do not step aside. "
-                    "But there is a gap between them now that was not there before. "
-                    "An offering, not a welcome.",
+            "But there is a gap between them now that was not there before. "
+            "An offering, not a welcome.",
         },
     ],
     "next": "gatehouse_inside",
@@ -592,32 +594,32 @@ SCENE_GATEHOUSE_GUARDS_SPOKEN = {
         {
             "type": "prose",
             "text": "Your voice is strange in this place. "
-                    "You have not spoken aloud since the battlefield — "
-                    "you did not realise until the words came out "
-                    "how quiet everything has been.",
+            "You have not spoken aloud since the battlefield — "
+            "you did not realise until the words came out "
+            "how quiet everything has been.",
         },
         {
             "type": "prose",
             "text": "The guards react to the sound. "
-                    "Not to the meaning — to the fact of it. "
-                    "Someone is speaking. Someone still can.",
+            "Not to the meaning — to the fact of it. "
+            "Someone is speaking. Someone still can.",
         },
         {
             "type": "italic",
             "text": "The left guard's spear wavers. "
-                    "His head tilts — the first unscripted movement "
-                    "you have seen from either of them.",
+            "His head tilts — the first unscripted movement "
+            "you have seen from either of them.",
         },
         {
             "type": "prose",
             "text": "It is not understanding. But it is something. "
-                    "A crack in whatever holds them here like this.",
+            "A crack in whatever holds them here like this.",
         },
         {
             "type": "prose",
             "text": "You keep talking. It does not matter what you say. "
-                    "The sound is enough. "
-                    "Eventually, the spears come down.",
+            "The sound is enough. "
+            "Eventually, the spears come down.",
         },
     ],
     "next": "gatehouse_inside",
@@ -629,9 +631,9 @@ SCENE_GATEHOUSE_GUARDS_AXE = {
         {
             "type": "prose",
             "text": "You draw the axe slowly — "
-                    "not as a threat, handle first, "
-                    "the blade turned away. "
-                    "You hold it out so they can see the mark on the head.",
+            "not as a threat, handle first, "
+            "the blade turned away. "
+            "You hold it out so they can see the mark on the head.",
         },
         {
             "type": "italic",
@@ -640,31 +642,31 @@ SCENE_GATEHOUSE_GUARDS_AXE = {
         {
             "type": "prose",
             "text": "They know it. "
-                    "Of course they know it — "
-                    "they carried spears under the man who carried this. "
-                    "They watched him hold it the way you are holding it now.",
+            "Of course they know it — "
+            "they carried spears under the man who carried this. "
+            "They watched him hold it the way you are holding it now.",
         },
         {
             "type": "prose",
             "text": "The spears lower together this time. No hesitation. "
-                    "Whatever they are, whatever holds them here, "
-                    "there is still something in them that remembers "
-                    "what it meant to be sworn to a commander.",
+            "Whatever they are, whatever holds them here, "
+            "there is still something in them that remembers "
+            "what it meant to be sworn to a commander.",
         },
         {
             "type": "italic",
             "text": "They step aside. "
-                    "Not because you forced them. "
-                    "Because Gunnar's axe asked them to.",
+            "Not because you forced them. "
+            "Because Gunnar's axe asked them to.",
         },
         {
             "type": "memory",
-            "key":   "guards_axe_recognition",
+            "key": "guards_axe_recognition",
             "label": "What the axe still means to those who served under it",
-            "text":  "The guards stepping aside for the axe. "
-                     "Not for you — for what you carried. "
-                     "What that says about Gunnar. "
-                     "What it says about you that you have it.",
+            "text": "The guards stepping aside for the axe. "
+            "Not for you — for what you carried. "
+            "What that says about Gunnar. "
+            "What it says about you that you have it.",
         },
         {
             "type": "stat",
@@ -680,21 +682,21 @@ SCENE_GATEHOUSE_GUARDS_FORCED = {
         {
             "type": "prose",
             "text": "You go through them. "
-                    "Not a fight — they are not fast enough for a fight. "
-                    "More like moving through a door that resists.",
+            "Not a fight — they are not fast enough for a fight. "
+            "More like moving through a door that resists.",
         },
         {
             "type": "prose",
             "text": "One spear catches your arm. "
-                    "The other grazes your shoulder. "
-                    "You are through before either of them can bring weight to bear.",
+            "The other grazes your shoulder. "
+            "You are through before either of them can bring weight to bear.",
         },
         {
             "type": "italic",
             "text": "Behind you, they do not pursue. "
-                    "They return to their positions. "
-                    "As if it did not happen. "
-                    "As if you are not worth remembering.",
+            "They return to their positions. "
+            "As if it did not happen. "
+            "As if you are not worth remembering.",
         },
         {
             "type": "prose",
@@ -706,7 +708,7 @@ SCENE_GATEHOUSE_GUARDS_FORCED = {
         },
         {
             "type": "flag",
-            "key":   "guards_forced",
+            "key": "guards_forced",
             "value": True,
         },
     ],
@@ -719,13 +721,13 @@ SCENE_GATEHOUSE_GUARDS = {
         {
             "type": "italic",
             "text": "Their faces are familiar. Not known — familiar. The way a word "
-                    "is familiar before you remember its meaning.",
+            "is familiar before you remember its meaning.",
         },
         {
             "type": "prose",
             "text": "You have seen men stand like this. You have stood like this. "
-                    "There is something in the angle of the shoulders, the particular "
-                    "stillness, that belongs to a specific kind of training.",
+            "There is something in the angle of the shoulders, the particular "
+            "stillness, that belongs to a specific kind of training.",
         },
         {
             "type": "italic",
@@ -733,14 +735,14 @@ SCENE_GATEHOUSE_GUARDS = {
         },
         {
             "type": "memory",
-            "key":   "guards_recognised",
+            "key": "guards_recognised",
             "label": "Where you have seen that stillness before",
-            "text":  "The guards at the gate. The angle of their shoulders. "
-                     "The particular stillness of men trained by the same hand.",
+            "text": "The guards at the gate. The angle of their shoulders. "
+            "The particular stillness of men trained by the same hand.",
         },
         {
             "type": "flag",
-            "key":   "guards_examined",
+            "key": "guards_examined",
             "value": True,
         },
     ],
@@ -753,7 +755,7 @@ SCENE_GATEHOUSE_COURTYARD = {
         {
             "type": "prose",
             "text": "Beyond the gate is a courtyard. Cobblestones. A well. Three "
-                    "buildings and a tower. Everything is exactly where it should be.",
+            "buildings and a tower. Everything is exactly where it should be.",
         },
         {
             "type": "italic",
@@ -762,14 +764,14 @@ SCENE_GATEHOUSE_COURTYARD = {
         {
             "type": "prose",
             "text": "A horse stands at a hitching post, saddled and ready. A bucket "
-                    "of water beside it, full. Three soldiers cross the courtyard "
-                    "frozen mid-step — one looking down, one looking up, one looking "
-                    "directly at you.",
+            "of water beside it, full. Three soldiers cross the courtyard "
+            "frozen mid-step — one looking down, one looking up, one looking "
+            "directly at you.",
         },
         {
             "type": "italic",
             "text": "The one looking at you has been looking at you since before "
-                    "you arrived.",
+            "you arrived.",
         },
     ],
     "next": "gatehouse_inside",
@@ -785,19 +787,19 @@ SCENE_GATEHOUSE_WALL = {
         {
             "type": "italic",
             "text": "It is warm. Warmer than the torch explains. Warmer than stone "
-                    "should be.",
+            "should be.",
         },
         {
             "type": "prose",
             "text": "Not the warmth of sun-heated rock. The warmth of something "
-                    "held. Something that has not been released.",
+            "held. Something that has not been released.",
         },
         {
             "type": "memory",
-            "key":   "wall_warmth",
+            "key": "wall_warmth",
             "label": "Something about warmth in the wrong place",
-            "text":  "The stone of the gatehouse wall. How warm it was. "
-                     "What kind of warmth that was.",
+            "text": "The stone of the gatehouse wall. How warm it was. "
+            "What kind of warmth that was.",
         },
     ],
     "next": "gatehouse_inside",
@@ -809,15 +811,15 @@ SCENE_GATEHOUSE_INSIDE = {
         {
             "type": "prose",
             "text": "The courtyard is silent in the way the battlefield was silent — "
-                    "completely, without apology. But the battlefield was empty. "
-                    "This is not empty.",
+            "completely, without apology. But the battlefield was empty. "
+            "This is not empty.",
         },
         {
             "type": "prose",
             "text": "The smell of food reaches you before anything else. "
-                    "Real food, recently cooked. "
-                    "Light under the door of the Great Hall ahead. "
-                    "Warmth where there should be cold.",
+            "Real food, recently cooked. "
+            "Light under the door of the Great Hall ahead. "
+            "Warmth where there should be cold.",
         },
         {
             "type": "prose",
@@ -825,7 +827,7 @@ SCENE_GATEHOUSE_INSIDE = {
         },
         {
             "type": "italic",
-            "text": "\"I wondered which door you would use.\"",
+            "text": '"I wondered which door you would use."',
         },
     ],
     "next": "great_hall_entrance",
@@ -838,7 +840,7 @@ SCENE_GATEHOUSE_INSIDE = {
 SCENE_GREAT_HALL_ENTRANCE = {
     "art": "great_hall",
     "header": {
-        "title":    "THE GREAT HALL",
+        "title": "THE GREAT HALL",
         "subtitle": "everything is exactly as it was left",
     },
     "beats": [
@@ -909,8 +911,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
                 {
                     "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
-                        "He does not look up when you approach. "
-                        "He speaks first."
+                        "He does not look up when you approach. " "He speaks first."
                     ),
                 },
             ],
@@ -921,8 +922,8 @@ SCENE_GREAT_HALL_ENTRANCE = {
                 {
                     "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
-                        "\"You came alone,\" he says. "
-                        "\"I did not know if you would come alone.\""
+                        '"You came alone," he says. '
+                        '"I did not know if you would come alone."'
                     ),
                 },
             ],
@@ -945,7 +946,7 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "variants": [
                 {
                     "condition": {"not": {"flag": "odrik_met"}},
-                    "text": "\"You fought the Sentinel.\"",
+                    "text": '"You fought the Sentinel."',
                 },
             ],
         },
@@ -964,9 +965,9 @@ SCENE_GREAT_HALL_ENTRANCE = {
                 {
                     "condition": {"not": {"flag": "odrik_met"}},
                     "text": (
-                        "\"I heard the bell stop. "
+                        '"I heard the bell stop. '
                         "I have been listening for that sound "
-                        "for a very long time.\""
+                        'for a very long time."'
                     ),
                 },
             ],
@@ -975,32 +976,40 @@ SCENE_GREAT_HALL_ENTRANCE = {
     "choices": [
         {
             "label": "Say nothing. Wait.",
-            "next":  "odrik_silence",
+            "next": "odrik_silence",
             "condition": {"not": {"flag": "odrik_met"}},
         },
         {
-            "label": "\"Then you knew I was coming.\"",
-            "next":  "odrik_knew",
+            "label": '"Then you knew I was coming."',
+            "next": "odrik_knew",
             "condition": {"not": {"flag": "odrik_met"}},
         },
         {
-            "label": "\"What are you?\"",
-            "next":  "odrik_what_are_you",
+            "label": '"What are you?"',
+            "next": "odrik_what_are_you",
             "condition": {"not": {"flag": "odrik_met"}},
         },
         {
             "label": "Examine the door frame.",
-            "next":  "great_hall_rune_door",
-            "condition": {"and": [{"flag": "odrik_met"}, {"flag": "odrik_place_seen"}, {"memory": "odrik_purpose"}, {"memory": "the_key_origin"}, {"not": {"flag": "rune_door_seen"}}]},
+            "next": "great_hall_rune_door",
+            "condition": {
+                "and": [
+                    {"flag": "odrik_met"},
+                    {"flag": "odrik_place_seen"},
+                    {"memory": "odrik_purpose"},
+                    {"memory": "the_key_origin"},
+                    {"not": {"flag": "rune_door_seen"}},
+                ]
+            },
         },
         {
             "label": "Return to Odrik.",
-            "next":  "odrik_first_questions",
+            "next": "odrik_first_questions",
             "condition": {"flag": "odrik_met"},
         },
         {
             "label": "Leave the hall. Continue forward.",
-            "next":  "act2_end",
+            "next": "act2_end",
             "condition": {"flag": "odrik_sent_forward"},
         },
     ],
@@ -1024,7 +1033,7 @@ SCENE_ODRIK_SILENCE = {
         {
             "type": "italic",
             "text": (
-                "\"Good,\" he says. "
+                '"Good," he says. '
                 "Not approval, exactly. "
                 "More like confirmation of something he suspected."
             ),
@@ -1032,9 +1041,9 @@ SCENE_ODRIK_SILENCE = {
         {
             "type": "italic",
             "text": (
-                "\"Gunnar said you listened before you spoke. "
+                '"Gunnar said you listened before you spoke. '
                 "Most people don't. "
-                "It is why he trusted you.\""
+                'It is why he trusted you."'
             ),
         },
         {
@@ -1060,19 +1069,19 @@ SCENE_ODRIK_KNEW = {
         {
             "type": "italic",
             "text": (
-                "\"I knew someone would come,\" he says. "
-                "\"I did not know it would be you "
-                "until the Sentinel stopped.\""
+                '"I knew someone would come," he says. '
+                '"I did not know it would be you '
+                'until the Sentinel stopped."'
             ),
         },
         {
             "type": "italic",
             "text": (
-                "\"That thing tests what belongs here "
+                '"That thing tests what belongs here '
                 "and what does not. "
                 "The dead belong here — they cannot leave. "
                 "The living do not belong — they cannot enter. "
-                "You are neither.\""
+                'You are neither."'
             ),
         },
         {
@@ -1084,10 +1093,7 @@ SCENE_ODRIK_KNEW = {
         },
         {
             "type": "italic",
-            "text": (
-                "\"That narrows it considerably,\" "
-                "he says. \"To one person.\""
-            ),
+            "text": ('"That narrows it considerably," ' 'he says. "To one person."'),
         },
     ],
     "next": "odrik_measures_you",
@@ -1103,7 +1109,7 @@ SCENE_ODRIK_WHAT_ARE_YOU = {
         {
             "type": "italic",
             "text": (
-                "\"An interesting first question,\" he says. "
+                '"An interesting first question," he says. '
                 "Not pleased, not offended. "
                 "Noting it."
             ),
@@ -1114,24 +1120,21 @@ SCENE_ODRIK_WHAT_ARE_YOU = {
                 "\"I am Odrik. I was Gunnar's adviser "
                 "for eleven years. "
                 "I followed him to this valley "
-                "because he asked me to.\""
+                'because he asked me to."'
             ),
         },
         {
             "type": "italic",
             "text": (
-                "\"What I am now — "
+                '"What I am now — '
                 "that is a more difficult question. "
                 "I have had considerable time to consider it "
-                "and I do not yet have a satisfying answer.\""
+                'and I do not yet have a satisfying answer."'
             ),
         },
         {
             "type": "prose",
-            "text": (
-                "He looks at you steadily. "
-                "He is deciding something."
-            ),
+            "text": ("He looks at you steadily. " "He is deciding something."),
         },
     ],
     "next": "odrik_measures_you",
@@ -1176,16 +1179,16 @@ SCENE_ODRIK_MEASURES_YOU = {
                 {
                     "condition": {"equipped": "Gunnar's Axe"},
                     "text": (
-                        "\"He gave it to you,\" Odrik says. "
+                        '"He gave it to you," Odrik says. '
                         "Flat. Careful. "
-                        "\"Or you took it.\""
+                        '"Or you took it."'
                     ),
                 },
                 {
                     "condition": None,
                     "text": (
-                        "\"You have been on the battlefield,\" "
-                        "he says. \"You found things.\""
+                        '"You have been on the battlefield," '
+                        'he says. "You found things."'
                     ),
                 },
             ],
@@ -1193,14 +1196,14 @@ SCENE_ODRIK_MEASURES_YOU = {
         {
             "type": "italic",
             "text": (
-                "\"Sit down,\" he says. "
-                "\"I will answer what I can. "
-                "I cannot promise it will be everything.\""
+                '"Sit down," he says. '
+                '"I will answer what I can. '
+                'I cannot promise it will be everything."'
             ),
         },
         {
             "type": "flag",
-            "key":   "odrik_met",
+            "key": "odrik_met",
             "value": True,
         },
     ],
@@ -1210,7 +1213,7 @@ SCENE_ODRIK_MEASURES_YOU = {
 SCENE_ODRIK_FIRST_QUESTIONS = {
     "art": "great_hall",
     "header": {
-        "title":    "ODRIK THE BOUND",
+        "title": "ODRIK THE BOUND",
         "subtitle": "he will answer what he can",
     },
     "beats": [
@@ -1225,31 +1228,41 @@ SCENE_ODRIK_FIRST_QUESTIONS = {
     ],
     "choices": [
         {
-            "label": "\"What is this place?\"",
-            "next":  "odrik_explains_place",
+            "label": '"What is this place?"',
+            "next": "odrik_explains_place",
         },
         {
-            "label": "Show him the key. \"The rune is incomplete.\"",
-            "next":  "odrik_the_night",
-            "condition": {"and": [{"flag": "rune_door_seen"}, {"not": {"flag": "odrik_night_confronted"}}]},
+            "label": 'Show him the key. "The rune is incomplete."',
+            "next": "odrik_the_night",
+            "condition": {
+                "and": [
+                    {"flag": "rune_door_seen"},
+                    {"not": {"flag": "odrik_night_confronted"}},
+                ]
+            },
         },
         {
-            "label": "\"What does the key open?\"",
-            "next":  "odrik_the_key",
+            "label": '"What does the key open?"',
+            "next": "odrik_the_key",
             "condition": {"has_item": "Remembrance Key"},
         },
         {
-            "label": "\"Why are you still here?\"",
-            "next":  "odrik_why_bound",
+            "label": '"Why are you still here?"',
+            "next": "odrik_why_bound",
         },
         {
-            "label": "\"Why can't you tell me?\"",
-            "next":  "odrik_go_forward",
-            "condition": {"and": [{"flag": "odrik_night_confronted"}, {"not": {"flag": "odrik_sent_forward"}}]},
+            "label": '"Why can\'t you tell me?"',
+            "next": "odrik_go_forward",
+            "condition": {
+                "and": [
+                    {"flag": "odrik_night_confronted"},
+                    {"not": {"flag": "odrik_sent_forward"}},
+                ]
+            },
         },
         {
             "label": "Leave Odrik for now. Look around the hall.",
-            "next":  "great_hall_entrance",
+            "next": "great_hall_entrance",
         },
     ],
 }
@@ -1260,37 +1273,35 @@ SCENE_ODRIK_EXPLAINS_PLACE = {
         {
             "type": "italic",
             "text": (
-                "\"It is a place between,\" he says. "
-                "\"Between dying and being dead. "
-                "Between what happened and what it meant.\""
+                '"It is a place between," he says. '
+                '"Between dying and being dead. '
+                'Between what happened and what it meant."'
             ),
         },
         {
             "type": "prose",
-            "text": (
-                "He looks at the frozen men around them."
-            ),
+            "text": ("He looks at the frozen men around them."),
         },
         {
             "type": "italic",
             "text": (
-                "\"They are held here. "
+                '"They are held here. '
                 "Not imprisoned — held. "
                 "There is a difference. "
                 "A prison keeps you against your will. "
                 "This holds you because something is unfinished. "
                 "Something they were part of "
-                "that has not resolved.\""
+                'that has not resolved."'
             ),
         },
         {
             "type": "italic",
             "text": (
-                "\"The battlefield. The longhouse. "
+                '"The battlefield. The longhouse. '
                 "This hall. "
                 "All of it is the same thing — "
                 "a moment that refuses to end "
-                "because it was not allowed to end properly.\""
+                'because it was not allowed to end properly."'
             ),
         },
         {
@@ -1304,18 +1315,15 @@ SCENE_ODRIK_EXPLAINS_PLACE = {
         },
         {
             "type": "italic",
-            "text": "\"You are here to end it.\"",
+            "text": '"You are here to end it."',
         },
         {
             "type": "prose",
-            "text": (
-                "Not a question. "
-                "But not entirely certain either."
-            ),
+            "text": ("Not a question. " "But not entirely certain either."),
         },
         {
             "type": "flag",
-            "key":   "odrik_place_seen",
+            "key": "odrik_place_seen",
             "value": True,
         },
     ],
@@ -1327,10 +1335,7 @@ SCENE_ODRIK_THE_NIGHT = {
     "beats": [
         {
             "type": "prose",
-            "text": (
-                "You hold out the key. "
-                "Not as a threat — you let him see it."
-            ),
+            "text": ("You hold out the key. " "Not as a threat — you let him see it."),
         },
         {
             "type": "prose",
@@ -1351,9 +1356,9 @@ SCENE_ODRIK_THE_NIGHT = {
         },
         {
             "type": "memory",
-            "key":   "the_key_recognized",
+            "key": "the_key_recognized",
             "label": "What the key did to Odrik",
-            "text":  (
+            "text": (
                 "When he saw the key, something in him moved that he did not choose to move. "
                 "Not recognition. Not fear. "
                 "The structure beneath him — the same structure as the rune — "
@@ -1363,18 +1368,17 @@ SCENE_ODRIK_THE_NIGHT = {
         },
         {
             "type": "italic",
-            "text": "\"The rune is incomplete.\"",
+            "text": '"The rune is incomplete."',
         },
         {
             "type": "prose",
             "text": (
-                "He looks at you for the first time "
-                "without first calculating."
+                "He looks at you for the first time " "without first calculating."
             ),
         },
         {
             "type": "italic",
-            "text": "\"Then why does it hold?\"",
+            "text": '"Then why does it hold?"',
         },
         {
             "type": "prose",
@@ -1382,7 +1386,7 @@ SCENE_ODRIK_THE_NIGHT = {
         },
         {
             "type": "italic",
-            "text": "\"Because something else is finishing it.\"",
+            "text": '"Because something else is finishing it."',
         },
         {
             "type": "prose",
@@ -1391,15 +1395,14 @@ SCENE_ODRIK_THE_NIGHT = {
         {
             "type": "prose",
             "text": (
-                "Odrik sets the cup down. "
-                "He has not set it down once until now."
+                "Odrik sets the cup down. " "He has not set it down once until now."
             ),
         },
         {
             "type": "memory",
-            "key":   "rune_not_alone",
+            "key": "rune_not_alone",
             "label": "What the rune is connected to",
-            "text":  (
+            "text": (
                 "The rune at the door is incomplete. And yet it holds. "
                 "Because something else is finishing it. "
                 "You said it before you fully understood it. "
@@ -1408,7 +1411,7 @@ SCENE_ODRIK_THE_NIGHT = {
         },
         {
             "type": "flag",
-            "key":   "odrik_night_confronted",
+            "key": "odrik_night_confronted",
             "value": True,
         },
     ],
@@ -1424,9 +1427,7 @@ SCENE_ODRIK_THE_KEY = {
         },
         {
             "type": "italic",
-            "text": (
-                "\"Show me.\""
-            ),
+            "text": ('"Show me."'),
         },
         {
             "type": "prose",
@@ -1441,44 +1442,41 @@ SCENE_ODRIK_THE_KEY = {
         {
             "type": "italic",
             "text": (
-                "\"I made that,\" he says quietly. "
-                "\"Eleven years ago. "
+                '"I made that," he says quietly. '
+                '"Eleven years ago. '
                 "Before any of this. "
-                "Before I knew what it would be needed for.\""
+                'Before I knew what it would be needed for."'
             ),
         },
         {
             "type": "italic",
             "text": (
-                "\"It is not a key to a place. "
+                '"It is not a key to a place. '
                 "It is a key to a memory — "
                 "specifically, to yours. "
                 "It was made from something of yours "
                 "that Gunnar kept. "
                 "Something you gave him "
-                "the night you swore the oath.\""
+                'the night you swore the oath."'
             ),
         },
         {
             "type": "prose",
-            "text": (
-                "He sits back. "
-                "He is watching your face."
-            ),
+            "text": ("He sits back. " "He is watching your face."),
         },
         {
             "type": "italic",
             "text": (
-                "\"You don't remember giving it to him,\" "
-                "he says. \"Not yet. "
-                "You will.\""
+                '"You don\'t remember giving it to him," '
+                'he says. "Not yet. '
+                'You will."'
             ),
         },
         {
             "type": "memory",
-            "key":   "the_key_origin",
+            "key": "the_key_origin",
             "label": "What the key is made from",
-            "text":  (
+            "text": (
                 "Odrik made it. Eleven years ago. "
                 "From something you gave Gunnar "
                 "the night you swore the oath. "
@@ -1526,9 +1524,7 @@ SCENE_GREAT_HALL_RUNE_DOOR = {
         },
         {
             "type": "italic",
-            "text": (
-                "As if the pattern continues beyond what the eye can follow."
-            ),
+            "text": ("As if the pattern continues beyond what the eye can follow."),
         },
         {
             "type": "prose",
@@ -1540,9 +1536,9 @@ SCENE_GREAT_HALL_RUNE_DOOR = {
         },
         {
             "type": "memory",
-            "key":   "rune_door",
+            "key": "rune_door",
             "label": "What is holding the hall together",
-            "text":  (
+            "text": (
                 "The runes at the door frame. Cut too deep, incomplete, and yet — "
                 "they hold. Not a seal. Not a lock. "
                 "A structure that keeps the moment from ending. "
@@ -1551,7 +1547,7 @@ SCENE_GREAT_HALL_RUNE_DOOR = {
         },
         {
             "type": "flag",
-            "key":   "rune_door_seen",
+            "key": "rune_door_seen",
             "value": True,
         },
     ],
@@ -1563,10 +1559,7 @@ SCENE_ODRIK_WHY_BOUND = {
     "beats": [
         {
             "type": "italic",
-            "text": (
-                "\"Because I have not done "
-                "what I came here to do,\" he says."
-            ),
+            "text": ('"Because I have not done ' 'what I came here to do," he says.'),
         },
         {
             "type": "prose",
@@ -1585,37 +1578,35 @@ SCENE_ODRIK_WHY_BOUND = {
                 "My purpose was to prevent what happened. "
                 "I failed. "
                 "I knew I had failed while it was still happening "
-                "and I could not stop it.\""
+                'and I could not stop it."'
             ),
         },
         {
             "type": "italic",
             "text": (
-                "\"The binding is not a punishment. "
+                '"The binding is not a punishment. '
                 "It is an unfinished sentence. "
-                "I cannot leave until the sentence is finished.\""
+                'I cannot leave until the sentence is finished."'
             ),
         },
         {
             "type": "prose",
-            "text": (
-                "He looks at you steadily."
-            ),
+            "text": ("He looks at you steadily."),
         },
         {
             "type": "italic",
             "text": (
-                "\"You finishing it "
+                '"You finishing it '
                 "and me finishing it "
                 "are the same thing. "
-                "That is why I have been waiting for you.\""
+                'That is why I have been waiting for you."'
             ),
         },
         {
             "type": "memory",
-            "key":   "odrik_purpose",
+            "key": "odrik_purpose",
             "label": "Why Odrik is bound",
-            "text":  (
+            "text": (
                 "He came to prevent what happened. "
                 "He failed. "
                 "The binding is an unfinished sentence — "
@@ -1631,7 +1622,7 @@ SCENE_ODRIK_WHY_BOUND = {
 SCENE_ACT2_END = {
     "art": "great_hall",
     "header": {
-        "title":    "ACT II COMPLETE",
+        "title": "ACT II COMPLETE",
         "subtitle": "The Stirring Beneath",
     },
     "beats": [
@@ -1655,10 +1646,7 @@ SCENE_ACT2_END = {
         },
         {
             "type": "italic",
-            "text": (
-                "The rune is not alone. "
-                "Follow what it is connected to."
-            ),
+            "text": ("The rune is not alone. " "Follow what it is connected to."),
         },
         {
             "type": "prose",
@@ -1676,8 +1664,8 @@ SCENE_ACT2_END = {
     ],
     "choices": [
         {
-            "label":   "Continue. Follow the rune.",
-            "next":    "act_3_intro",
+            "label": "Continue. Follow the rune.",
+            "next": "act_3_intro",
             "effects": {"resolve": 10},
         },
     ],
@@ -1686,7 +1674,7 @@ SCENE_ACT2_END = {
 SCENE_ACT_3_INTRO = {
     "art": "act_break",
     "header": {
-        "title":    "ACT III",
+        "title": "ACT III",
         "subtitle": "The Silence Beneath",
     },
     "beats": [
@@ -1698,7 +1686,7 @@ SCENE_ACT_3_INTRO = {
     "choices": [
         {
             "label": "Return to the hall (restart Act 2).",
-            "next":  "__restart__",
+            "next": "__restart__",
         },
     ],
 }
@@ -1709,15 +1697,12 @@ SCENE_ODRIK_GO_FORWARD = {
         {
             "type": "prose",
             "text": (
-                "He looks at where the cup was. "
-                "As if its absence means something."
+                "He looks at where the cup was. " "As if its absence means something."
             ),
         },
         {
             "type": "italic",
-            "text": (
-                "\"I was there. I saw all of it.\""
-            ),
+            "text": ('"I was there. I saw all of it."'),
         },
         {
             "type": "prose",
@@ -1726,44 +1711,39 @@ SCENE_ODRIK_GO_FORWARD = {
         {
             "type": "italic",
             "text": (
-                "\"There are things I cannot say. "
+                '"There are things I cannot say. '
                 "Not because I choose silence — "
                 "the binding holds those words. "
-                "They exist in me but they cannot come out.\""
+                'They exist in me but they cannot come out."'
             ),
         },
         {
             "type": "italic",
             "text": (
-                "\"But they exist somewhere else too. "
+                '"But they exist somewhere else too. '
                 "In this building. "
-                "In what was left behind.\""
+                'In what was left behind."'
             ),
         },
         {
             "type": "prose",
-            "text": (
-                "He meets your eyes."
-            ),
+            "text": ("He meets your eyes."),
+        },
+        {
+            "type": "italic",
+            "text": ('"The rune is not alone. ' 'Follow what it is connected to."'),
         },
         {
             "type": "italic",
             "text": (
-                "\"The rune is not alone. "
-                "Follow what it is connected to.\""
-            ),
-        },
-        {
-            "type": "italic",
-            "text": (
-                "\"You will find out what happened. "
+                '"You will find out what happened. '
                 "Not from me. "
-                "From the place itself.\""
+                'From the place itself."'
             ),
         },
         {
             "type": "flag",
-            "key":   "odrik_sent_forward",
+            "key": "odrik_sent_forward",
             "value": True,
         },
     ],
@@ -1778,7 +1758,7 @@ SCENE_ODRIK_GO_FORWARD = {
 SCENE_FOREST_PATH = {
     "art": "forest",
     "header": {
-        "title":    "THE DARK WOOD",
+        "title": "THE DARK WOOD",
         "subtitle": "the trees remember the war",
     },
     "beats": [
@@ -1796,14 +1776,13 @@ SCENE_FOREST_PATH = {
         {
             "type": "italic",
             "text": (
-                "Something moves between the trees. "
-                "Low. Pale. Not in a hurry."
+                "Something moves between the trees. " "Low. Pale. Not in a hurry."
             ),
         },
         {"type": "flag", "key": "forest_visited"},
         {
-            "type":  "memory",
-            "key":   "the_dark_wood",
+            "type": "memory",
+            "key": "the_dark_wood",
             "label": "The path into the dark wood",
             "text": (
                 "The trees were old and dense and did not want you there. "
@@ -1815,13 +1794,13 @@ SCENE_FOREST_PATH = {
     ],
     "choices": [
         {
-            "label":   "Press deeper into the wood.",
-            "next":    "forest_wolf",
+            "label": "Press deeper into the wood.",
+            "next": "forest_wolf",
             "effects": {"resolve": -3},
         },
         {
             "label": "Turn back to the road.",
-            "next":  "fog_road",
+            "next": "fog_road",
         },
     ],
 }
@@ -1840,8 +1819,8 @@ SCENE_FOREST_WOLF = {
             ),
         },
         {
-            "type":    "combat",
-            "enemy":   "wolf",
+            "type": "combat",
+            "enemy": "wolf",
             "variant": "dire",
         },
         {"type": "stat", "changes": {"resolve": 5}},
@@ -1852,7 +1831,7 @@ SCENE_FOREST_WOLF = {
 SCENE_HERMIT_OAK = {
     "art": "hermit_oak",
     "header": {
-        "title":    "THE GREAT OAK",
+        "title": "THE GREAT OAK",
         "subtitle": "older than the war",
     },
     "beats": [
@@ -1868,7 +1847,7 @@ SCENE_HERMIT_OAK = {
         },
         {
             "type": "memory",
-            "key":   "the_great_oak",
+            "key": "the_great_oak",
             "label": "The oak at the centre of things",
             "text": (
                 "A tree that was old when the war began. "
@@ -1894,11 +1873,11 @@ SCENE_HERMIT_OAK = {
     "choices": [
         {
             "label": "Speak to him.",
-            "next":  "hermit_greet",
+            "next": "hermit_greet",
         },
         {
-            "label":   "Leave the wood. Back to the road.",
-            "next":    "fog_sentinel",
+            "label": "Leave the wood. Back to the road.",
+            "next": "fog_sentinel",
             "effects": {"resolve": 2},
         },
     ],
@@ -1922,26 +1901,26 @@ SCENE_HERMIT_GREET = {
         {
             "type": "italic",
             "text": (
-                "\"It has been here longer than I have. I fed it, when I could. "
-                "It was not grateful. Animals rarely are.\" "
+                '"It has been here longer than I have. I fed it, when I could. '
+                'It was not grateful. Animals rarely are." '
                 "He pauses. "
-                "\"You are not from the road.\""
+                '"You are not from the road."'
             ),
         },
     ],
     "choices": [
         {
-            "label":   "\"I woke on the battlefield.\"",
-            "next":    "hermit_battlefield",
+            "label": '"I woke on the battlefield."',
+            "next": "hermit_battlefield",
             "effects": {"honour": 3},
         },
         {
-            "label":   "\"Who are you?\"",
-            "next":    "hermit_who",
+            "label": '"Who are you?"',
+            "next": "hermit_who",
         },
         {
-            "label":   "Say nothing. Watch him.",
-            "next":    "hermit_silence",
+            "label": "Say nothing. Watch him.",
+            "next": "hermit_silence",
             "effects": {"resolve": 2},
         },
     ],
@@ -1954,28 +1933,28 @@ SCENE_HERMIT_BATTLEFIELD = {
             "type": "italic",
             "text": (
                 "He nods slowly, as if this confirms something. "
-                "\"The battlefield sends them sometimes. Not often. "
-                "Usually the ones who had something unfinished.\" "
+                '"The battlefield sends them sometimes. Not often. '
+                'Usually the ones who had something unfinished." '
                 "He looks at your hands. "
-                "\"What did you leave undone?\""
+                '"What did you leave undone?"'
             ),
         },
     ],
     "choices": [
         {
-            "label":   "\"I don't remember.\"",
-            "next":    "hermit_depart",
+            "label": '"I don\'t remember."',
+            "next": "hermit_depart",
             "effects": {"resolve": -2},
         },
         {
-            "label":   "\"An oath. I broke an oath.\"",
-            "next":    "hermit_oath",
+            "label": '"An oath. I broke an oath."',
+            "next": "hermit_oath",
             "effects": {"honour": 5},
             "condition": {"flag": "leif_done"},
         },
         {
-            "label":   "Leave him. Back to the road.",
-            "next":    "fog_sentinel",
+            "label": "Leave him. Back to the road.",
+            "next": "fog_sentinel",
         },
     ],
 }
@@ -1986,22 +1965,22 @@ SCENE_HERMIT_WHO = {
         {
             "type": "italic",
             "text": (
-                "\"No one, now. I was a skald once. "
+                '"No one, now. I was a skald once. '
                 "Then a soldier. Then a penitent. "
-                "Now I sit under a tree and feed wolves.\" "
+                'Now I sit under a tree and feed wolves." '
                 "He almost smiles. "
-                "\"The last stage suits me best.\""
+                '"The last stage suits me best."'
             ),
         },
     ],
     "choices": [
         {
-            "label": "\"Why here?\"",
-            "next":  "hermit_why",
+            "label": '"Why here?"',
+            "next": "hermit_why",
         },
         {
             "label": "Leave him. Back to the road.",
-            "next":  "fog_sentinel",
+            "next": "fog_sentinel",
         },
     ],
 }
@@ -2013,13 +1992,13 @@ SCENE_HERMIT_WHY = {
             "type": "italic",
             "text": (
                 "He looks up at the oak. "
-                "\"Because the tree asked. Not in words. "
+                '"Because the tree asked. Not in words. '
                 "Trees do not use words. "
-                "But it asked.\" "
+                'But it asked." '
                 "He is quiet for a moment. "
-                "\"The battlefield keeps its dead. "
+                '"The battlefield keeps its dead. '
                 "The wood keeps its living. "
-                "I am somewhere between.\""
+                'I am somewhere between."'
             ),
         },
     ],
@@ -2033,10 +2012,10 @@ SCENE_HERMIT_SILENCE = {
             "type": "italic",
             "text": (
                 "He seems to approve of this. "
-                "\"Most of them talk immediately. "
-                "The ones who wait usually know something worth waiting for.\" "
+                '"Most of them talk immediately. '
+                'The ones who wait usually know something worth waiting for." '
                 "He rises, slowly, joints announcing themselves. "
-                "\"Walk with me.\""
+                '"Walk with me."'
             ),
         },
         {"type": "stat", "changes": {"resolve": 3}},
@@ -2067,22 +2046,24 @@ SCENE_HERMIT_OATH = {
         {
             "type": "italic",
             "text": (
-                "\"The battlefield keeps you because the oath is not finished. "
+                '"The battlefield keeps you because the oath is not finished. '
                 "Not broken — unfinished. "
-                "There is a difference.\" "
+                'There is a difference." '
                 "He hands you something small and cold. "
-                "\"Keep this. You will know when to use it.\""
+                '"Keep this. You will know when to use it."'
             ),
         },
-        {"type": "item",  "item": "runic token",  "action": "give"},
-        {"type": "stat",  "changes": {"honour": 5, "resolve": 5}},
-        {"type": "memory",
-         "key":   "hermit_oath",
-         "label": "The Hermit's words on oaths",
-         "text": (
-             "Not broken — unfinished. There is a difference. "
-             "He said it like it mattered."
-         )},
+        {"type": "item", "item": "runic token", "action": "give"},
+        {"type": "stat", "changes": {"honour": 5, "resolve": 5}},
+        {
+            "type": "memory",
+            "key": "hermit_oath",
+            "label": "The Hermit's words on oaths",
+            "text": (
+                "Not broken — unfinished. There is a difference. "
+                "He said it like it mattered."
+            ),
+        },
     ],
     "next": "hermit_depart",
 }
@@ -2102,8 +2083,8 @@ SCENE_HERMIT_DEPART = {
     ],
     "choices": [
         {
-            "label":   "Back to the road.",
-            "next":    "fog_sentinel",
+            "label": "Back to the road.",
+            "next": "fog_sentinel",
             "effects": {"resolve": 2},
         },
     ],
@@ -2111,48 +2092,48 @@ SCENE_HERMIT_DEPART = {
 
 
 SCENES = {
-    "fog_road":               SCENE_FOG_ROAD,
-    "forest_path":            SCENE_FOREST_PATH,
-    "forest_wolf":            SCENE_FOREST_WOLF,
-    "hermit_oak":             SCENE_HERMIT_OAK,
-    "hermit_greet":           SCENE_HERMIT_GREET,
-    "hermit_battlefield":     SCENE_HERMIT_BATTLEFIELD,
-    "hermit_who":             SCENE_HERMIT_WHO,
-    "hermit_why":             SCENE_HERMIT_WHY,
-    "hermit_silence":         SCENE_HERMIT_SILENCE,
-    "hermit_oath":            SCENE_HERMIT_OATH,
-    "hermit_depart":          SCENE_HERMIT_DEPART,
-    "fog_the_held":           SCENE_FOG_THE_HELD,
-    "fog_held_other":         SCENE_FOG_HELD_OTHER,
-    "fog_held_release":       SCENE_FOG_HELD_RELEASE,
-    "fog_held_after":         SCENE_FOG_HELD_AFTER,
-    "fog_sentinel":           SCENE_FOG_SENTINEL,
-    "fog_sentinel_wait":      SCENE_FOG_SENTINEL_WAIT,
-    "fog_sentinel_avoided":   SCENE_FOG_SENTINEL_AVOIDED,
-    "combat_fog_sentinel":    SCENE_COMBAT_FOG_SENTINEL,
-    "fog_sentinel_after":     SCENE_FOG_SENTINEL_AFTER,
-    "gatehouse_approach":     SCENE_GATEHOUSE_APPROACH,
-    "gatehouse_guards":       SCENE_GATEHOUSE_GUARDS,
+    "fog_road": SCENE_FOG_ROAD,
+    "forest_path": SCENE_FOREST_PATH,
+    "forest_wolf": SCENE_FOREST_WOLF,
+    "hermit_oak": SCENE_HERMIT_OAK,
+    "hermit_greet": SCENE_HERMIT_GREET,
+    "hermit_battlefield": SCENE_HERMIT_BATTLEFIELD,
+    "hermit_who": SCENE_HERMIT_WHO,
+    "hermit_why": SCENE_HERMIT_WHY,
+    "hermit_silence": SCENE_HERMIT_SILENCE,
+    "hermit_oath": SCENE_HERMIT_OATH,
+    "hermit_depart": SCENE_HERMIT_DEPART,
+    "fog_the_held": SCENE_FOG_THE_HELD,
+    "fog_held_other": SCENE_FOG_HELD_OTHER,
+    "fog_held_release": SCENE_FOG_HELD_RELEASE,
+    "fog_held_after": SCENE_FOG_HELD_AFTER,
+    "fog_sentinel": SCENE_FOG_SENTINEL,
+    "fog_sentinel_wait": SCENE_FOG_SENTINEL_WAIT,
+    "fog_sentinel_avoided": SCENE_FOG_SENTINEL_AVOIDED,
+    "combat_fog_sentinel": SCENE_COMBAT_FOG_SENTINEL,
+    "fog_sentinel_after": SCENE_FOG_SENTINEL_AFTER,
+    "gatehouse_approach": SCENE_GATEHOUSE_APPROACH,
+    "gatehouse_guards": SCENE_GATEHOUSE_GUARDS,
     "gatehouse_guards_hostile": SCENE_GATEHOUSE_GUARDS_HOSTILE,
-    "gatehouse_guards_calmed":  SCENE_GATEHOUSE_GUARDS_CALMED,
-    "gatehouse_guards_spoken":  SCENE_GATEHOUSE_GUARDS_SPOKEN,
-    "gatehouse_guards_axe":     SCENE_GATEHOUSE_GUARDS_AXE,
-    "gatehouse_guards_forced":  SCENE_GATEHOUSE_GUARDS_FORCED,
-    "gatehouse_courtyard":    SCENE_GATEHOUSE_COURTYARD,
-    "gatehouse_wall":         SCENE_GATEHOUSE_WALL,
-    "gatehouse_inside":       SCENE_GATEHOUSE_INSIDE,
-    "great_hall_entrance":    SCENE_GREAT_HALL_ENTRANCE,
-    "great_hall_rune_door":   SCENE_GREAT_HALL_RUNE_DOOR,
-    "odrik_silence":          SCENE_ODRIK_SILENCE,
-    "odrik_knew":             SCENE_ODRIK_KNEW,
-    "odrik_what_are_you":     SCENE_ODRIK_WHAT_ARE_YOU,
-    "odrik_measures_you":     SCENE_ODRIK_MEASURES_YOU,
-    "odrik_first_questions":  SCENE_ODRIK_FIRST_QUESTIONS,
-    "odrik_explains_place":   SCENE_ODRIK_EXPLAINS_PLACE,
-    "odrik_the_night":        SCENE_ODRIK_THE_NIGHT,
-    "odrik_the_key":          SCENE_ODRIK_THE_KEY,
-    "odrik_why_bound":        SCENE_ODRIK_WHY_BOUND,
-    "odrik_go_forward":       SCENE_ODRIK_GO_FORWARD,
-    "act2_end":               SCENE_ACT2_END,
-    "act_3_intro":            SCENE_ACT_3_INTRO,
+    "gatehouse_guards_calmed": SCENE_GATEHOUSE_GUARDS_CALMED,
+    "gatehouse_guards_spoken": SCENE_GATEHOUSE_GUARDS_SPOKEN,
+    "gatehouse_guards_axe": SCENE_GATEHOUSE_GUARDS_AXE,
+    "gatehouse_guards_forced": SCENE_GATEHOUSE_GUARDS_FORCED,
+    "gatehouse_courtyard": SCENE_GATEHOUSE_COURTYARD,
+    "gatehouse_wall": SCENE_GATEHOUSE_WALL,
+    "gatehouse_inside": SCENE_GATEHOUSE_INSIDE,
+    "great_hall_entrance": SCENE_GREAT_HALL_ENTRANCE,
+    "great_hall_rune_door": SCENE_GREAT_HALL_RUNE_DOOR,
+    "odrik_silence": SCENE_ODRIK_SILENCE,
+    "odrik_knew": SCENE_ODRIK_KNEW,
+    "odrik_what_are_you": SCENE_ODRIK_WHAT_ARE_YOU,
+    "odrik_measures_you": SCENE_ODRIK_MEASURES_YOU,
+    "odrik_first_questions": SCENE_ODRIK_FIRST_QUESTIONS,
+    "odrik_explains_place": SCENE_ODRIK_EXPLAINS_PLACE,
+    "odrik_the_night": SCENE_ODRIK_THE_NIGHT,
+    "odrik_the_key": SCENE_ODRIK_THE_KEY,
+    "odrik_why_bound": SCENE_ODRIK_WHY_BOUND,
+    "odrik_go_forward": SCENE_ODRIK_GO_FORWARD,
+    "act2_end": SCENE_ACT2_END,
+    "act_3_intro": SCENE_ACT_3_INTRO,
 }

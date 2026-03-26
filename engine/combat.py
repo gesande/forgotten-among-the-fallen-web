@@ -9,49 +9,67 @@ from engine.state import PlayerState
 from content.game_config import EQUIPMENT
 from content.enemies import ENEMIES
 
+
 # ── Dice ──────────────────────────────────────────────────────
-def roll(sides):        return random.randint(1, sides)
-def roll_range(lo, hi): return random.randint(lo, hi)
-def chance(p):          return random.random() < p
+def roll(sides):
+    return random.randint(1, sides)
+
+
+def roll_range(lo, hi):
+    return random.randint(lo, hi)
+
+
+def chance(p):
+    return random.random() < p
+
 
 def damage_word(dmg):
-    if dmg <= 5:   return "a graze"
-    if dmg <= 12:  return "a wound"
-    if dmg <= 20:  return "a serious wound"
-    if dmg <= 30:  return "a grievous blow"
+    if dmg <= 5:
+        return "a graze"
+    if dmg <= 12:
+        return "a wound"
+    if dmg <= 20:
+        return "a serious wound"
+    if dmg <= 30:
+        return "a grievous blow"
     return "something that would kill a living man"
+
 
 # ── Combat state lives in Flask session ───────────────────────
 # combat_state = { "enemy": {...}, "log": [...], "over": bool, "won": bool }
 
-def start_combat(enemy_key: str, player: PlayerState, variant: str | None = None) -> dict:
+
+def start_combat(
+    enemy_key: str, player: PlayerState, variant: str | None = None
+) -> dict:
     e = dict(ENEMIES[enemy_key])
     # Merge variant overrides (hp, damage, accuracy, weapon, etc.)
     if variant:
         e.update(ENEMIES[enemy_key].get("variants", {}).get(variant, {}))
     e["current_hp"] = e["hp"]
-    e["key"]        = enemy_key
-    e["effects"]    = {}
+    e["key"] = enemy_key
+    e["effects"] = {}
     # Apply curse scaling
     scale = 1.0 + player.curse_stacks * 0.06
     e["damage"] = (int(e["damage"][0] * scale), int(e["damage"][1] * scale))
     return {
-        "enemy":          e,
-        "log":            [f"You face {e['name']}."],
-        "over":           False,
-        "won":            False,
-        "fled":           False,
-        "shards_gained":  0,
-        "items_gained":   [],
+        "enemy": e,
+        "log": [f"You face {e['name']}."],
+        "over": False,
+        "won": False,
+        "fled": False,
+        "shards_gained": 0,
+        "items_gained": [],
         "player_effects": {},
     }
+
 
 def get_player_actions(combat_state: dict, player: PlayerState) -> list:
     e = combat_state["enemy"]
     actions = [
-        {"id": "light",  "label": "Strike — a fast, measured blow"},
-        {"id": "heavy",  "label": "Commit — a heavy, reckless strike"},
-        {"id": "parry",  "label": "Wait for the opening — attempt a parry"},
+        {"id": "light", "label": "Strike — a fast, measured blow"},
+        {"id": "heavy", "label": "Commit — a heavy, reckless strike"},
+        {"id": "parry", "label": "Wait for the opening — attempt a parry"},
     ]
     if e.get("shield") and not e.get("flanked"):
         actions.append({"id": "flank", "label": "Circle wide — find the flank"})
@@ -62,9 +80,10 @@ def get_player_actions(combat_state: dict, player: PlayerState) -> list:
     actions.append({"id": "flee", "label": "Retreat into the fog"})
     return actions
 
+
 def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> dict:
     """Process one player action + enemy counter. Returns updated combat_state."""
-    e   = combat_state["enemy"]
+    e = combat_state["enemy"]
     log = combat_state["log"]
 
     # ── Player effects tick (at turn start) ───────────────────
@@ -72,18 +91,18 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     if player.is_dead():
         log.append("You fall.")
         log.append("When you wake, it will be at the Bone Cairn.")
-        player.deaths      += 1
+        player.deaths += 1
         player.curse_stacks = min(5, player.curse_stacks + 1)
-        player.echo_shards  = player.echo_shards // 4
-        player.health       = player.max_health
-        combat_state["over"]  = True
-        combat_state["died"]  = True
+        player.echo_shards = player.echo_shards // 4
+        player.health = player.max_health
+        combat_state["over"] = True
+        combat_state["died"] = True
         return combat_state
 
     # ── Player action ─────────────────────────────────────────
     if action_id == "light":
         base = roll_range(8, 18)
-        dmg  = _apply_mods(base, player, "light")
+        dmg = _apply_mods(base, player, "light")
         _hit_enemy(dmg, e, player, log)
         player.modify_stat("wrath", 10)
         combo = player.flags.get("combo", 0) + 1
@@ -92,10 +111,12 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
 
     elif action_id == "heavy":
         if chance(0.25):
-            log.append("You overcommit. The blow goes wide and you nearly lose your footing.")
+            log.append(
+                "You overcommit. The blow goes wide and you nearly lose your footing."
+            )
         else:
             base = roll_range(18, 30)
-            dmg  = _apply_mods(base, player, "heavy")
+            dmg = _apply_mods(base, player, "heavy")
             _hit_enemy(dmg, e, player, log)
             player.modify_stat("wrath", 18)
             log.append(_heavy_prose(dmg, e))
@@ -106,10 +127,12 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
             _hit_enemy(dmg, e, player, log)
             player.modify_stat("honour", 2)
             player.modify_stat("wrath", 25)
-            log.append("You read the blow perfectly. Your parry opens a gap — you answer it.")
+            log.append(
+                "You read the blow perfectly. Your parry opens a gap — you answer it."
+            )
             log.append(f"{e['name_short']} staggers. Your strike finds bone.")
         else:
-            dmg    = roll_range(*e["damage"]) // 2
+            dmg = roll_range(*e["damage"]) // 2
             actual = player.take_damage(dmg)
             log.append("The parry fails. You mistimed it.")
             log.append(f"It costs you — {damage_word(actual)}.")
@@ -124,7 +147,9 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         _hit_enemy(dmg, e, player, log)
         player.modify_stat("brutality", 5)
         player.wrath = 0
-        log.append("The shards burn cold in your fist. The rune ᚠ blooms across your weapon.")
+        log.append(
+            "The shards burn cold in your fist. The rune ᚠ blooms across your weapon."
+        )
         log.append(f"The burst hits {e['name_short']} like a memory of fire.")
 
     elif action_id == "mercy":
@@ -148,7 +173,7 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     if e["current_hp"] <= 0:
         _resolve_enemy_death(e, player, combat_state, log)
         combat_state["over"] = True
-        combat_state["won"]  = True
+        combat_state["won"] = True
         return combat_state
 
     # ── Phase transitions (boss) ──────────────────────────────
@@ -167,7 +192,7 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         if e["current_hp"] <= 0:
             _resolve_enemy_death(e, player, combat_state, log)
             combat_state["over"] = True
-            combat_state["won"]  = True
+            combat_state["won"] = True
             return combat_state
 
     # ── Enemy turn ────────────────────────────────────────────
@@ -182,14 +207,15 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     if player.is_dead():
         log.append("You fall.")
         log.append("When you wake, it will be at the Bone Cairn.")
-        player.deaths      += 1
+        player.deaths += 1
         player.curse_stacks = min(5, player.curse_stacks + 1)
-        player.echo_shards  = player.echo_shards // 4
-        player.health       = player.max_health
-        combat_state["over"]  = True
-        combat_state["died"]  = True
+        player.echo_shards = player.echo_shards // 4
+        player.health = player.max_health
+        combat_state["over"] = True
+        combat_state["died"] = True
 
     return combat_state
+
 
 def _tick_player_effects(combat_state, player, log):
     effects = combat_state.get("player_effects", {})
@@ -202,6 +228,7 @@ def _tick_player_effects(combat_state, player, log):
             del effects["bleeding"]
             log.append("The bleeding slows.")
 
+
 def _resolve_enemy_turn(e, player, log, combat_state=None):
     windup = random.choice(e["phrases"]["windup"])
     log.append(windup)
@@ -210,7 +237,9 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
         dmg_range = (dmg_range[0] + 5, dmg_range[1] + 8)
     if chance(e["accuracy"]):
         dmg = roll_range(*dmg_range)
-        shield_def = EQUIPMENT.get(player.equipped.get("shield", ""), {}).get("defense", 0)
+        shield_def = EQUIPMENT.get(player.equipped.get("shield", ""), {}).get(
+            "defense", 0
+        )
         dmg = max(1, dmg - shield_def)
         actual = player.take_damage(dmg)
         player.modify_stat("wrath", 8)
@@ -226,10 +255,11 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
     else:
         log.append(random.choice(e["phrases"]["miss"]))
 
+
 def _resolve_enemy_death(e, player, combat_state, log):
     log.append(random.choice(e["phrases"]["death"]))
     lo, hi = e["shards"]
-    shards  = roll_range(lo, hi)
+    shards = roll_range(lo, hi)
     player.echo_shards += shards
     combat_state["shards_gained"] = shards
     for item, prob in e.get("loot", []):
@@ -244,6 +274,7 @@ def _resolve_enemy_death(e, player, combat_state, log):
         player.add_memory(key, label)
     player.set_flag(f"defeated_{e['key']}", True)
 
+
 def _tick_effects(e, log):
     effects = e.get("effects", {})
     if "bleeding" in effects:
@@ -254,6 +285,7 @@ def _tick_effects(e, log):
         if effects["bleeding"] <= 0:
             del effects["bleeding"]
             log.append("The bleeding slows.")
+
 
 def _hit_enemy(dmg, e, player=None, log=None):
     e["current_hp"] = max(0, e["current_hp"] - dmg)
@@ -275,22 +307,38 @@ def _hit_enemy(dmg, e, player=None, log=None):
             if log is not None:
                 log.append(random.choice(e["phrases"]["drain_trigger"]))
 
+
 def _apply_mods(base, player, kind):
     mod = base
-    mod += EQUIPMENT.get(player.equipped.get("weapon", "bare hands"), {}).get("damage_bonus", 0)
-    if player.brutality > 50: mod += roll(6)
-    if player.honour > 70 and kind == "light": mod += roll(4)
-    if player.is_cursed(): mod -= roll(4)
+    mod += EQUIPMENT.get(player.equipped.get("weapon", "bare hands"), {}).get(
+        "damage_bonus", 0
+    )
+    if player.brutality > 50:
+        mod += roll(6)
+    if player.honour > 70 and kind == "light":
+        mod += roll(4)
+    if player.is_cursed():
+        mod -= roll(4)
     return max(1, mod)
+
 
 def _light_prose(dmg, e):
     name = e["name_short"]
-    if dmg < 10: return f"Your blow glances off {name}. It slows, but does not stop."
-    if dmg < 20: return f"The strike lands clean. {name} staggers."
+    if dmg < 10:
+        return f"Your blow glances off {name}. It slows, but does not stop."
+    if dmg < 20:
+        return f"The strike lands clean. {name} staggers."
     return f"You drive the blow deep. {name} reels."
+
 
 def _heavy_prose(dmg, e):
     name = e["name_short"]
-    if dmg < 15: return "A solid hit — the weight tells, even if the precision does not."
-    if dmg < 25: return f"{name} is staggered by the force. You feel the impact in your shoulders."
-    return f"The heavy strike connects. {name} is driven back — something in it is broken."
+    if dmg < 15:
+        return "A solid hit — the weight tells, even if the precision does not."
+    if dmg < 25:
+        return (
+            f"{name} is staggered by the force. You feel the impact in your shoulders."
+        )
+    return (
+        f"The heavy strike connects. {name} is driven back — something in it is broken."
+    )

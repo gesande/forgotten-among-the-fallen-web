@@ -8,34 +8,37 @@ from typing import Optional
 import json, os
 from content.game_config import STATS, EQUIPMENT, START_SCENE
 
+
 @dataclass
 class PlayerState:
     # ── Identity (recovered through play) ────────────────────
     name: str = "the drengr"
     clan: str = "unknown"
-    oath: str = "unknown"          # What oath was broken
+    oath: str = "unknown"  # What oath was broken
 
     # ── Visible resources ─────────────────────────────────────
-    echo_shards: int   = 0
-    curse_stacks: int  = 0         # 0–5; world darkens as it rises
+    echo_shards: int = 0
+    curse_stacks: int = 0  # 0–5; world darkens as it rises
 
     # ── Hidden moral stats (0–100) ────────────────────────────
     # These shape which choices appear and how prose reads
-    honour:   int = 50   # affects how others treat you
-    resolve:  int = 50   # mental fortitude; low = hallucinations
-    brutality: int = 0   # rises with violent choices
-    mercy:    int = 0    # rises with sparing / aiding others
+    honour: int = 50  # affects how others treat you
+    resolve: int = 50  # mental fortitude; low = hallucinations
+    brutality: int = 0  # rises with violent choices
+    mercy: int = 0  # rises with sparing / aiding others
 
     # ── Combat stats ──────────────────────────────────────────
-    health:     int = 100
+    health: int = 100
     max_health: int = 100
-    stamina:    int = 100
-    wrath:      int = 0
-    max_wrath:  int = 100
+    stamina: int = 100
+    wrath: int = 0
+    max_wrath: int = 100
 
     # ── Inventory ─────────────────────────────────────────────
     inventory: list = field(default_factory=list)
-    equipped: dict = field(default_factory=lambda: {"weapon": "bare hands", "shield": ""})
+    equipped: dict = field(
+        default_factory=lambda: {"weapon": "bare hands", "shield": ""}
+    )
 
     # ── Story flags ───────────────────────────────────────────
     flags: dict = field(default_factory=dict)
@@ -45,8 +48,8 @@ class PlayerState:
 
     # ── World state ───────────────────────────────────────────
     current_scene: str = START_SCENE
-    visited: list      = field(default_factory=list)
-    deaths: int        = 0
+    visited: list = field(default_factory=list)
+    deaths: int = 0
 
     # ── Derived properties ────────────────────────────────────
     def is_cursed(self) -> bool:
@@ -133,7 +136,9 @@ class PlayerState:
         return obj
 
     def save(self, slot: int = 0):
-        saves_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "saves")
+        saves_dir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "..", "saves"
+        )
         saves_dir = os.path.normpath(saves_dir)
         os.makedirs(saves_dir, exist_ok=True)
         path = os.path.join(saves_dir, f"save_{slot}.json")
@@ -142,7 +147,9 @@ class PlayerState:
 
     @classmethod
     def load(cls, slot: int = 0) -> Optional["PlayerState"]:
-        saves_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "saves")
+        saves_dir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "..", "saves"
+        )
         saves_dir = os.path.normpath(saves_dir)
         path = os.path.join(saves_dir, f"save_{slot}.json")
         if not os.path.exists(path):
