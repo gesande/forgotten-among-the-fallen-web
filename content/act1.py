@@ -245,6 +245,11 @@ SCENE_BATTLEFIELD_OPEN = {
             "condition": {"and": [{"flag": "found_forge"}, {"not": {"flag": "forge_searched"}}]},
         },
         {
+            "label":     "Return to the longhouse ruins.",
+            "next":      "longhouse_ruins",
+            "condition": {"and": [{"flag": "found_forge"}, {"flag": "forge_searched"}]},
+        },
+        {
             "label":     "Move east into the dense dead. Scavenge.",
             "next":      "scavenge_east",
             "effects":   {"brutality": 3},
@@ -1044,7 +1049,7 @@ SCENE_FORGE_SEARCH = {
         {"type": "item", "item": "clan medallion", "action": "give"},
         {"type": "flag", "key": "forge_searched"},
     ],
-    "next": "battlefield_open",
+    "next": "longhouse_ruins",
 }
 
 SCENE_FORGE_SHARPEN = {
