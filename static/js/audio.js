@@ -12,12 +12,13 @@ const SoundEngine = (() => {
     longhouse: "ambient_forge",
     cairn: "ambient_cairn",
     mound: "ambient_mound",
-    gunnar: "ambient_mound", // dialogue — ominous, not combat yet
-    gunnar_combat: "combat_boss", // only the actual fight
+    gunnar: "combat_boss", // dialogue and combat use same key now
     scavenge: "ambient_battlefield",
     combat_draugar: "combat_draugar",
     act_break: "ambient_void",
     // Act II — The Stirring Beneath
+    forest: "forest",
+    hermit_oak: "hermit_oak",
     fog_road: "ambient_fog",
     fog_sentinel: "combat_sentinel",
     gatehouse: "ambient_gatehouse",

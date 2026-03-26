@@ -1490,7 +1490,7 @@ SCENE_GUNNAR_DIALOGUE_TRUTH = {
 }
 
 SCENE_COMBAT_GUNNAR = {
-    "art": "gunnar_combat",
+    "art": "gunnar",
     "next": "act1_end",
     "beats": [
         {
