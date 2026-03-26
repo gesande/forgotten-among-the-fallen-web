@@ -24,21 +24,26 @@ def damage_word(dmg):
 # ── Combat state lives in Flask session ───────────────────────
 # combat_state = { "enemy": {...}, "log": [...], "over": bool, "won": bool }
 
-def start_combat(enemy_key: str, player: PlayerState) -> dict:
+def start_combat(enemy_key: str, player: PlayerState, variant: str | None = None) -> dict:
     e = dict(ENEMIES[enemy_key])
+    # Merge variant overrides (hp, damage, accuracy, weapon, etc.)
+    if variant:
+        e.update(ENEMIES[enemy_key].get("variants", {}).get(variant, {}))
     e["current_hp"] = e["hp"]
     e["key"]        = enemy_key
+    e["effects"]    = {}
     # Apply curse scaling
     scale = 1.0 + player.curse_stacks * 0.06
     e["damage"] = (int(e["damage"][0] * scale), int(e["damage"][1] * scale))
     return {
-        "enemy":    e,
-        "log":      [f"You face {e['name']}."],
-        "over":     False,
-        "won":      False,
-        "fled":     False,
-        "shards_gained": 0,
-        "items_gained":  [],
+        "enemy":          e,
+        "log":            [f"You face {e['name']}."],
+        "over":           False,
+        "won":            False,
+        "fled":           False,
+        "shards_gained":  0,
+        "items_gained":   [],
+        "player_effects": {},
     }
 
 def get_player_actions(combat_state: dict, player: PlayerState) -> list:
@@ -61,6 +66,19 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     """Process one player action + enemy counter. Returns updated combat_state."""
     e   = combat_state["enemy"]
     log = combat_state["log"]
+
+    # ── Player effects tick (at turn start) ───────────────────
+    _tick_player_effects(combat_state, player, log)
+    if player.is_dead():
+        log.append("You fall.")
+        log.append("When you wake, it will be at the Bone Cairn.")
+        player.deaths      += 1
+        player.curse_stacks = min(5, player.curse_stacks + 1)
+        player.echo_shards  = player.echo_shards // 4
+        player.health       = player.max_health
+        combat_state["over"]  = True
+        combat_state["died"]  = True
+        return combat_state
 
     # ── Player action ─────────────────────────────────────────
     if action_id == "light":
@@ -143,9 +161,18 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
             e["current_phase"] = 3
             log.append(e["phrases"].get("phase3", ""))
 
+    # ── Effects tick ──────────────────────────────────────────
+    if not combat_state["over"]:
+        _tick_effects(e, log)
+        if e["current_hp"] <= 0:
+            _resolve_enemy_death(e, player, combat_state, log)
+            combat_state["over"] = True
+            combat_state["won"]  = True
+            return combat_state
+
     # ── Enemy turn ────────────────────────────────────────────
     if not combat_state["over"]:
-        _resolve_enemy_turn(e, player, log)
+        _resolve_enemy_turn(e, player, log, combat_state)
 
     # Taunt
     if "taunt" in e.get("phrases", {}) and chance(0.35):
@@ -164,7 +191,18 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
 
     return combat_state
 
-def _resolve_enemy_turn(e, player, log):
+def _tick_player_effects(combat_state, player, log):
+    effects = combat_state.get("player_effects", {})
+    if "bleeding" in effects:
+        dmg = roll_range(4, 8)
+        player.take_damage(dmg)
+        log.append(f"Your wound bleeds — {dmg} damage.")
+        effects["bleeding"] -= 1
+        if effects["bleeding"] <= 0:
+            del effects["bleeding"]
+            log.append("The bleeding slows.")
+
+def _resolve_enemy_turn(e, player, log, combat_state=None):
     windup = random.choice(e["phrases"]["windup"])
     log.append(windup)
     dmg_range = e["damage"]
@@ -178,6 +216,13 @@ def _resolve_enemy_turn(e, player, log):
         player.modify_stat("wrath", 8)
         log.append(random.choice(e["phrases"]["hit"]))
         log.append(f"— {damage_word(actual)} taken.")
+        # Enemy weapon effect
+        effect = e.get("weapon", {}).get("effect")
+        if effect == "bleeding" and combat_state is not None:
+            peff = combat_state.setdefault("player_effects", {})
+            if not peff.get("bleeding"):
+                peff["bleeding"] = 3
+                log.append("The wound opens. You are bleeding.")
     else:
         log.append(random.choice(e["phrases"]["miss"]))
 
@@ -199,8 +244,27 @@ def _resolve_enemy_death(e, player, combat_state, log):
         player.add_memory(key, label)
     player.set_flag(f"defeated_{e['key']}", True)
 
+def _tick_effects(e, log):
+    effects = e.get("effects", {})
+    if "bleeding" in effects:
+        dmg = roll_range(4, 8)
+        e["current_hp"] = max(0, e["current_hp"] - dmg)
+        log.append(f"The wound bleeds. {e['name_short']} loses {dmg}.")
+        effects["bleeding"] -= 1
+        if effects["bleeding"] <= 0:
+            del effects["bleeding"]
+            log.append("The bleeding slows.")
+
 def _hit_enemy(dmg, e, player=None, log=None):
     e["current_hp"] = max(0, e["current_hp"] - dmg)
+    # Weapon effect — apply on hit if weapon carries one
+    if player is not None and e["current_hp"] > 0:
+        weapon = player.equipped.get("weapon", "bare hands")
+        effect = EQUIPMENT.get(weapon, {}).get("effect")
+        if effect == "bleeding" and not e.get("effects", {}).get("bleeding"):
+            e.setdefault("effects", {})["bleeding"] = 3
+            if log is not None:
+                log.append("The wound opens. Dark blood begins to run.")
     # Drain mechanic — sentinel heals from player wrath
     if e.get("drain") and player is not None:
         drain = min(e["drain_amount"], getattr(player, "wrath", 0))

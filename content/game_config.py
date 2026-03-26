@@ -27,9 +27,9 @@ STATS = {
 EQUIPMENT = {
     "bare hands":         {"slot": "weapon", "tier": 0, "damage_bonus": 0},
     "rusted axe":         {"slot": "weapon", "tier": 1, "damage_bonus": 0},
-    "sharpened axe":      {"slot": "weapon", "tier": 2, "damage_bonus": 4},
+    "sharpened axe":      {"slot": "weapon", "tier": 2, "damage_bonus": 4, "effect": "bleeding"},
     "Leif's knife":       {"slot": "weapon", "tier": 2, "damage_bonus": 3},
-    "Gunnar's Axe":       {"slot": "weapon", "tier": 3, "damage_bonus": 8},
+    "Gunnar's Axe":       {"slot": "weapon", "tier": 3, "damage_bonus": 8, "effect": "bleeding"},
     "traveller's shield": {"slot": "shield", "tier": 1, "defense": 4},
 }
 

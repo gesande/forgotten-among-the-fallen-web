@@ -17,10 +17,15 @@
 #                         plus special keys used by engine features)
 #
 #  Optional combat feature flags:
-#    shield      — enemy has a shield; damage +5/+8 until flanked
-#    drain       — hits drain player wrath and partially heal enemy
+#    shield       — enemy has a shield; damage +5/+8 until flanked
+#    drain        — hits drain player wrath and partially heal enemy
 #    drain_amount — wrath drained per hit (default 0)
-#    phases      — boss phase count (int); enables phase transitions
+#    phases       — boss phase count (int); enables phase transitions
+#    weapon       — dict {"name": "...", "effect": "bleeding"}; causes
+#                   effect on player when enemy hits
+#    variants     — dict of named stat overrides; activated via
+#                   {"type": "combat", "enemy": "key", "variant": "name"}
+#                   Any field can be overridden (hp, damage, weapon, etc.)
 # ============================================================
 
 ENEMIES = {
@@ -32,6 +37,14 @@ ENEMIES = {
         "accuracy":   0.60,
         "shards":     (60, 120),
         "loot":       [("iron scraps", 0.7), ("echo dust", 0.9)],
+        "variants": {
+            "frenzied": {
+                "hp":       65,
+                "damage":   (12, 22),
+                "accuracy": 0.70,
+                "weapon":   {"name": "jagged axe", "effect": "bleeding"},
+            },
+        },
         "phrases": {
             "windup": [
                 "It raises both rotting arms, a slow overhead swing telegraphed by its dead eyes.",
@@ -66,6 +79,19 @@ ENEMIES = {
         "flanked":    False,
         "shards":     (100, 180),
         "loot":       [("iron scraps", 1.0), ("cracked shield", 0.5)],
+        "variants": {
+            "veteran": {
+                "hp":       90,
+                "damage":   (15, 26),
+                "accuracy": 0.65,
+            },
+            "cornered": {
+                "hp":       45,
+                "damage":   (18, 30),
+                "accuracy": 0.72,
+                "weapon":   {"name": "desperation", "effect": "bleeding"},
+            },
+        },
         "phrases": {
             "windup": [
                 "It bashes its shield forward and swings behind the momentum.",
@@ -100,6 +126,20 @@ ENEMIES = {
         "drain_amount": 8,
         "shards":       (80, 140),
         "loot":         [("fog shard", 1.0)],
+        "variants": {
+            "awakened": {
+                "hp":           80,
+                "damage":       (14, 28),
+                "accuracy":     0.72,
+                "drain_amount": 14,
+            },
+            "fractured": {
+                "hp":           30,
+                "damage":       (7, 16),
+                "accuracy":     0.50,
+                "drain_amount": 3,
+            },
+        },
         "phrases": {
             "windup": [
                 "The bell-tone rises. Its arms extend toward you — not reaching, containing.",

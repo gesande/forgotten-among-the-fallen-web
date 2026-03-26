@@ -115,11 +115,11 @@ def get_scene():
 
     # If scene triggers combat, initialise it
     if output.get("combat"):
-        enemy_key    = output["combat"]["enemy_key"]
-        combat_state = start_combat(enemy_key, state)
+        enemy_key = output["combat"]["enemy_key"]
+        _scene    = SCENES.get(key, {})
+        _cb_beat  = next((b for b in _scene.get("beats", []) if b.get("type") == "combat"), {})
+        combat_state = start_combat(enemy_key, state, variant=_cb_beat.get("variant"))
         # Store the scene-defined flag name so we can set it on victory
-        _scene   = SCENES.get(key, {})
-        _cb_beat = next((b for b in _scene.get("beats", []) if b.get("type") == "combat"), {})
         combat_state["victory_flag"] = _cb_beat.get("flag", f"defeated_{enemy_key}")
         _save_combat(combat_state)
         _save_state(state)
