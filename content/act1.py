@@ -936,10 +936,55 @@ SCENE_LONGHOUSE_RUINS = {
             "condition": {"and": [{"has_item": "rusted axe"}, {"has_item": "whetstone"}, {"not": {"flag": "axe_sharpened"}}]},
         },
         {
+            "label":     "Sit with the dying embers a moment.",
+            "next":      "longhouse_embers",
+            "condition": {"not": {"flag": "embers_remembered"}},
+        },
+        {
             "label":     "Return to the battlefield.",
             "next":      "battlefield_open",
         },
     ],
+}
+
+SCENE_LONGHOUSE_EMBERS = {
+    "art": "longhouse",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You crouch by what remains of the fire — "
+                "not much, a few coals still holding orange beneath grey ash. "
+                "You hold your hands out. "
+                "The warmth is faint, but it is real."
+            )
+        },
+        {
+            "type": "italic",
+            "text": (
+                "And then it finds you: a hearth. "
+                "A specific hearth, in a specific hall, "
+                "on a night when the wind was loud outside "
+                "and the fire was louder inside. "
+                "Someone sitting close enough that your shoulders touched. "
+                "You do not remember who. "
+                "You remember that you did not want to move."
+            )
+        },
+        {
+            "type": "memory",
+            "key":   "the_hearth",
+            "label": "A hearth in winter",
+            "text": (
+                "A hall. A fire. Wind loud outside and warmth louder inside. "
+                "Someone sitting close enough that your shoulders touched. "
+                "You do not remember who. "
+                "You remember that you did not want to move."
+            ),
+        },
+        {"type": "flag", "key": "embers_remembered"},
+    ],
+    "next": "longhouse_ruins",
 }
 
 SCENE_CAIRN_REST = {
@@ -1705,6 +1750,7 @@ SCENES = {
     "leif_battle_account":    SCENE_LEIF_BATTLE_ACCOUNT,
     "leif_survivors":         SCENE_LEIF_SURVIVORS,
     "longhouse_ruins":        SCENE_LONGHOUSE_RUINS,
+    "longhouse_embers":       SCENE_LONGHOUSE_EMBERS,
     "cairn_rest":             SCENE_CAIRN_REST,
     "forge_search":           SCENE_FORGE_SEARCH,
     "forge_sharpen":          SCENE_FORGE_SHARPEN,
