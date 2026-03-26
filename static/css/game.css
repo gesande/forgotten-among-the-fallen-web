@@ -421,7 +421,7 @@ html, body {
 /* Scene header */
 #scene-title {
   font-family: 'Cinzel', serif;
-  font-size: clamp(15px, 2vw, 20px);
+  font-size: clamp(18px, 2.5vw, 26px);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--gold-bright);
@@ -430,7 +430,7 @@ html, body {
 }
 #scene-subtitle {
   font-family: 'Cinzel', serif;
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--bone);
