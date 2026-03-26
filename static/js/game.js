@@ -12,6 +12,43 @@ const ART_ALIASES = {
   gunnar_combat: "gunnar",
 };
 
+// ── Typewriter effect ──────────────────────────────────────────
+const CHAR_SPEED = 22; // ms per character
+const PARA_START_DELAY = 600; // ms before first paragraph
+const PARA_GAP = 350; // ms between paragraphs
+
+function _typewriter(el, text, onDone) {
+  let i = 0;
+  el.textContent = "";
+  const tick = setInterval(() => {
+    el.textContent += text[i++];
+    if (i >= text.length) {
+      clearInterval(tick);
+      if (onDone) onDone();
+    }
+  }, CHAR_SPEED);
+}
+
+function _renderProseChain(items, container, idx, onDone) {
+  if (idx >= items.length) {
+    if (onDone) setTimeout(onDone, PARA_GAP);
+    return;
+  }
+  const p = items[idx];
+  const div = document.createElement("div");
+  let cls = "prose-block";
+  if (p.type === "italic") cls += " italic";
+  div.className = cls;
+  container.appendChild(div);
+  const text = p.type === "italic" ? `"${p.text}"` : p.text;
+  const startNext = () => _renderProseChain(items, container, idx + 1, onDone);
+  if (idx === 0) {
+    setTimeout(() => _typewriter(div, text, startNext), PARA_START_DELAY);
+  } else {
+    _typewriter(div, text, startNext);
+  }
+}
+
 // ── DOM refs ──────────────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
 
@@ -317,30 +354,14 @@ function renderScene(data) {
     memFlash.classList.add("hidden");
   }
 
-  // ── Prose body — staggered slide-in ──────────────────────
+  // ── Prose body — typewriter chain ─────────────────────────
   const proseEl = $("prose-body");
   proseEl.innerHTML = "";
-  // Base delay: small pause then paragraphs stagger in one by one
-  const BASE_DELAY = 0.8; // seconds before first paragraph
-  const PARA_GAP = 1.1; // seconds between paragraphs
-  let paraIdx = 0;
-  (data.paragraphs || []).forEach((p) => {
-    if (p.type === "memory") return;
-    const div = document.createElement("div");
-    let cls = "prose-block";
-    if (p.type === "italic") cls += " italic";
-    if (p.type === "memory") cls += " memory-block";
-    div.className = cls;
-    div.textContent = p.type === "italic" ? `"${p.text}"` : p.text;
-    div.style.animationDelay = `${BASE_DELAY + paraIdx * PARA_GAP}s`;
-    proseEl.appendChild(div);
-    paraIdx++;
-  });
+  const proseItems = (data.paragraphs || []).filter((p) => p.type !== "memory");
 
   // ── Name input ────────────────────────────────────────────
   const nameWrap = $("name-input-wrap");
   if (data.name_prompt && (data.choices || []).length === 0) {
-    // name_entry scene: show immediately, no choices to pick first
     nameWrap.classList.remove("hidden");
     setTimeout(() => $("name-input").focus(), 200);
   } else {
@@ -348,19 +369,19 @@ function renderScene(data) {
   }
   $("name-input").value = "";
 
-  // ── Choices ───────────────────────────────────────────────
-  renderChoices(data.choices || [], data.next, data.name_prompt, paraIdx);
+  // ── Choices appear after all prose has typed out ──────────
+  _renderProseChain(proseItems, proseEl, 0, () => {
+    renderChoices(data.choices || [], data.next, data.name_prompt);
+  });
 }
 
-function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
+function renderChoices(choices, autoNext, hasNamePrompt) {
   const wrap = $("choices-wrap");
   wrap.innerHTML = "";
 
-  // Choices appear after prose — delay based on how many paragraphs came before
-  const BASE_DELAY = 0.8;
-  const PARA_GAP = 1.1;
+  // Choices appear immediately after prose chain completes
+  const afterProse = 0.1;
   const CHOICE_GAP = 0.15;
-  const afterProse = BASE_DELAY + (paraCount || 0) * PARA_GAP + 0.5;
 
   if (autoNext) {
     const btn = document.createElement("button");
