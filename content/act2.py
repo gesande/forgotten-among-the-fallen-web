@@ -48,6 +48,12 @@ SCENE_FOG_ROAD = {
             "label": "Look at the key.",
             "next":  "fog_the_held",
         },
+        {
+            "label":     "Turn off the road. Into the trees.",
+            "next":      "forest_path",
+            "effects":   {"brutality": 2},
+            "condition": {"not": {"flag": "forest_visited"}},
+        },
     ],
 }
 
@@ -1765,8 +1771,357 @@ SCENE_ODRIK_GO_FORWARD = {
 }
 
 
+# ─────────────────────────────────────────────────────────────
+#  HERMIT'S TRIAL — forest path off the fog road
+# ─────────────────────────────────────────────────────────────
+
+SCENE_FOREST_PATH = {
+    "art": "forest",
+    "header": {
+        "title":    "THE DARK WOOD",
+        "subtitle": "the trees remember the war",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "A gap between the fog and the treeline — barely a path, "
+                "more a suggestion. The trees here are old. "
+                "Not tall, but dense, the kind of density that comes from "
+                "centuries of competing for the same light. "
+                "Their roots have pulled up the ground around them. "
+                "The mud between them is darker than the mud on the road."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "Something moves between the trees. "
+                "Low. Pale. Not in a hurry."
+            ),
+        },
+        {"type": "flag", "key": "forest_visited"},
+        {
+            "type":  "memory",
+            "key":   "the_dark_wood",
+            "label": "The path into the dark wood",
+            "text": (
+                "The trees were old and dense and did not want you there. "
+                "You went in anyway. "
+                "Something pale moved between them, ahead of you, "
+                "neither fleeing nor following."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label":   "Press deeper into the wood.",
+            "next":    "forest_wolf",
+            "effects": {"resolve": -3},
+        },
+        {
+            "label": "Turn back to the road.",
+            "next":  "fog_road",
+        },
+    ],
+}
+
+SCENE_FOREST_WOLF = {
+    "art": "combat_wolf",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "It steps out from behind a root mass the size of a cart. "
+                "Larger than it should be — the fog has done something to it, "
+                "or the years have, or both. "
+                "Its coat is the colour of old ash. "
+                "It does not growl. It simply looks at you, and waits."
+            ),
+        },
+        {
+            "type":    "combat",
+            "enemy":   "wolf",
+            "variant": "dire",
+        },
+        {"type": "stat", "changes": {"resolve": 5}},
+    ],
+    "next": "hermit_oak",
+}
+
+SCENE_HERMIT_OAK = {
+    "art": "hermit_oak",
+    "header": {
+        "title":    "THE GREAT OAK",
+        "subtitle": "older than the war",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The tree at the centre of the wood is enormous — "
+                "not tall but wide, its trunk wider than three men standing arms out. "
+                "Runes have been carved into the bark, but not recently. "
+                "The wood has grown around them, half-swallowing the marks. "
+                "Whoever made them is long past caring whether they are read."
+            ),
+        },
+        {
+            "type": "memory",
+            "key":   "the_great_oak",
+            "label": "The oak at the centre of things",
+            "text": (
+                "A tree that was old when the war began. "
+                "Runes in the bark, half-swallowed. "
+                "The roots run deeper than the dead."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "At the base of the oak, cross-legged and apparently asleep, "
+                "sits a man. Old — genuinely old, the kind of old that seems "
+                "deliberate. A staff across his knees. "
+                "He does not look dead. He does not look like he belongs here either. "
+                "He looks like he chose this."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "He opens one eye.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Speak to him.",
+            "next":  "hermit_greet",
+        },
+        {
+            "label":   "Leave the wood. Back to the road.",
+            "next":    "fog_sentinel",
+            "effects": {"resolve": 2},
+        },
+    ],
+}
+
+SCENE_HERMIT_GREET = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "italic",
+            "text": '"You killed the wolf," he says. Not a question.',
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He opens the other eye. Studies you with the particular attention "
+                "of someone who has been waiting for something, and is not yet sure "
+                "if this is it."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"It has been here longer than I have. I fed it, when I could. "
+                "It was not grateful. Animals rarely are." '
+                "He pauses. "
+                '"You are not from the road."'
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label":   "\"I woke on the battlefield.\"",
+            "next":    "hermit_battlefield",
+            "effects": {"honour": 3},
+        },
+        {
+            "label":   "\"Who are you?\"",
+            "next":    "hermit_who",
+        },
+        {
+            "label":   "Say nothing. Watch him.",
+            "next":    "hermit_silence",
+            "effects": {"resolve": 2},
+        },
+    ],
+}
+
+SCENE_HERMIT_BATTLEFIELD = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                "He nods slowly, as if this confirms something. "
+                '"The battlefield sends them sometimes. Not often. "
+                "Usually the ones who had something unfinished." '
+                "He looks at your hands. "
+                '"What did you leave undone?"'
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label":   "\"I don't remember.\"",
+            "next":    "hermit_depart",
+            "effects": {"resolve": -2},
+        },
+        {
+            "label":   "\"An oath. I broke an oath.\"",
+            "next":    "hermit_oath",
+            "effects": {"honour": 5},
+            "condition": {"flag": "leif_done"},
+        },
+        {
+            "label":   "Leave him. Back to the road.",
+            "next":    "fog_sentinel",
+        },
+    ],
+}
+
+SCENE_HERMIT_WHO = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                '"No one, now. I was a skald once. "
+                "Then a soldier. Then a penitent. "
+                "Now I sit under a tree and feed wolves." '
+                "He almost smiles. "
+                '"The last stage suits me best."'
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "\"Why here?\"",
+            "next":  "hermit_why",
+        },
+        {
+            "label": "Leave him. Back to the road.",
+            "next":  "fog_sentinel",
+        },
+    ],
+}
+
+SCENE_HERMIT_WHY = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                "He looks up at the oak. "
+                '"Because the tree asked. Not in words. "
+                "Trees do not use words. "
+                "But it asked." '
+                "He is quiet for a moment. "
+                '"The battlefield keeps its dead. "
+                "The wood keeps its living. "
+                "I am somewhere between."'
+            ),
+        },
+    ],
+    "next": "hermit_depart",
+}
+
+SCENE_HERMIT_SILENCE = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                "He seems to approve of this. "
+                '"Most of them talk immediately. "
+                "The ones who wait usually know something worth waiting for." '
+                "He rises, slowly, joints announcing themselves. "
+                '"Walk with me."'
+            ),
+        },
+        {"type": "stat", "changes": {"resolve": 3}},
+    ],
+    "next": "hermit_depart",
+}
+
+SCENE_HERMIT_OATH = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                "Something shifts in his expression. Not pity. "
+                "Recognition. "
+                '"An oath to whom?"',
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You tell him what you remember. "
+                "He listens the way old people listen — "
+                "completely, without interrupting, without reassuring. "
+                "When you finish he is quiet for a long time."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"The battlefield keeps you because the oath is not finished. "
+                "Not broken — unfinished. "
+                "There is a difference." '
+                "He hands you something small and cold. "
+                '"Keep this. You will know when to use it."'
+            ),
+        },
+        {"type": "item",  "item": "runic token",  "action": "give"},
+        {"type": "stat",  "changes": {"honour": 5, "resolve": 5}},
+        {"type": "memory",
+         "key":   "hermit_oath",
+         "label": "The Hermit's words on oaths",
+         "text": (
+             "Not broken — unfinished. There is a difference. "
+             "He said it like it mattered."
+         )},
+    ],
+    "next": "hermit_depart",
+}
+
+SCENE_HERMIT_DEPART = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He settles back against the oak, closes his eyes again. "
+                "The conversation is over — not because he ended it, "
+                "but because he has returned to whatever he was doing before you arrived. "
+                "The tree seems larger now that you are leaving it."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label":   "Back to the road.",
+            "next":    "fog_sentinel",
+            "effects": {"resolve": 2},
+        },
+    ],
+}
+
+
 SCENES = {
     "fog_road":               SCENE_FOG_ROAD,
+    "forest_path":            SCENE_FOREST_PATH,
+    "forest_wolf":            SCENE_FOREST_WOLF,
+    "hermit_oak":             SCENE_HERMIT_OAK,
+    "hermit_greet":           SCENE_HERMIT_GREET,
+    "hermit_battlefield":     SCENE_HERMIT_BATTLEFIELD,
+    "hermit_who":             SCENE_HERMIT_WHO,
+    "hermit_why":             SCENE_HERMIT_WHY,
+    "hermit_silence":         SCENE_HERMIT_SILENCE,
+    "hermit_oath":            SCENE_HERMIT_OATH,
+    "hermit_depart":          SCENE_HERMIT_DEPART,
     "fog_the_held":           SCENE_FOG_THE_HELD,
     "fog_held_other":         SCENE_FOG_HELD_OTHER,
     "fog_held_release":       SCENE_FOG_HELD_RELEASE,

@@ -396,6 +396,93 @@ shadows, dark fantasy, painterly, desaturated, uncanny stillness, cinematic
 
 ---
 
+## Scene 14a — forest.jpg
+
+**File:** `static/svg/forest.png`
+**Used in:** forest_path, forest_wolf
+
+**Midjourney:**
+
+```
+an ancient dark nordic forest at night, enormous gnarled oak trees so dense
+their canopies block all sky, roots erupting from black earth like fingers,
+a narrow barely-visible path disappearing between the trunks, thick grey fog
+pooling at ground level, pale diffuse light with no visible source, the
+suggestion of something large and pale moving between the trees in the middle
+distance, oppressive suffocating darkness, dark fantasy, painterly,
+desaturated, deeply atmospheric, the forest is old and does not want you here
+--ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+ancient nordic forest night, enormous gnarled oak trees dense canopy, roots
+like fingers black earth, narrow path disappearing in fog, pale diffuse light,
+pale shape moving between trees in distance, oppressive darkness, old forest
+hostile atmosphere, dark fantasy, painterly, desaturated, cinematic
+```
+
+---
+
+## Scene 14a.2 — combat_wolf.jpg
+
+**File:** `static/svg/combat_wolf.png`
+**Used in:** forest_wolf (combat encounter)
+
+**Midjourney:**
+
+```
+a massive pale dire wolf in a dark ancient forest, unnaturally large, ash-grey
+fur matted with old blood and fog, standing in a gap between enormous oak
+roots, facing the viewer with flat pale eyes that show neither fear nor hunger,
+just assessment, thick fog at ground level, cold diffuse light from above
+catching its breath in the freezing air, the wolf is the biggest living thing
+in this forest, dark fantasy, painterly, desaturated, predator stillness,
+deeply unsettling --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+massive dire wolf ancient dark forest, unnaturally large ash-grey fur, flat
+pale eyes assessing not afraid, standing between enormous oak roots, thick fog
+ground level, cold light catching breath in air, biggest creature in forest,
+dark fantasy, painterly, desaturated, predator stillness, unsettling
+```
+
+---
+
+## Scene 14b — hermit_oak.jpg
+
+**File:** `static/svg/hermit_oak.png`
+**Used in:** hermit_oak, hermit_greet, hermit_battlefield, hermit_who, hermit_why, hermit_silence, hermit_oath, hermit_depart
+
+**Midjourney:**
+
+```
+a single enormous ancient oak tree at the center of a dark nordic forest,
+trunk wider than three men with arms outstretched, runes carved deep into the
+bark half-swallowed by decades of growth, exposed roots creating a natural
+alcove at the base, an old man seated cross-legged in the alcove with a
+wooden staff across his knees, eyes closed, long white hair, worn traveller's
+cloak, utterly still, cold fog around the roots, faint amber glow from the
+runes, the tree is the oldest thing in the world, dark fantasy, painterly,
+desaturated, sacred and unsettling --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+enormous ancient oak tree dark forest, trunk wider than three men, runes
+carved half-swallowed by bark, old man seated cross-legged at base staff
+across knees eyes closed white hair traveller cloak, cold fog at roots,
+faint amber rune glow, oldest tree in the world, sacred and unsettling,
+dark fantasy, painterly, desaturated, cinematic
+```
+
+---
+
 ## Scene 14 — odrik_go_forward.jpg
 
 **File:** `static/svg/odrik_go_forward.svg` → replace with `odrik_go_forward.jpg`
