@@ -145,6 +145,8 @@ Trigger a variant from a scene beat:
 {"type": "combat", "enemy": "draugar_weak", "variant": "frenzied"}
 ```
 
+Current enemies: `rat`, `wolf`, `hermit`, `draugar_weak`, `shieldwall_draugar`, `fog_sentinel`, `gunnar`. See `content/enemies.py` for full variant list per enemy.
+
 ### Adding equipment
 Add an entry to `EQUIPMENT` in `content/game_config.py`. Auto-equip and stat lookups are handled generically.
 
