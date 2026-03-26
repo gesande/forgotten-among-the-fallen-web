@@ -138,5 +138,5 @@ Add an entry to `EQUIPMENT` in `content/game_config.py`. Auto-equip and stat loo
 
 ### Art and audio
 - Images: `static/svg/<art_key>.png`
-- Music: add `"art_key": "track_name"` to `ART_MUSIC` in `static/js/audio.js`, place `track_name.mp3` in `static/audio/music/`
+- Music: add `"art_key": "track_name"` to `SCENE_MUSIC` in `static/js/audio.js`, place `track_name.mp3` in `static/audio/music/`
 - The `"art"` field in a scene drives both the image and the music track
