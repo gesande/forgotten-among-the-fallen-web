@@ -22,13 +22,15 @@ docker compose up --build
 
 **Environment variables:** `PORT` (default 5000), `FLASK_ENV`, `SECRET_KEY`
 
-There are no tests or build tools configured. Linting:
+There are no tests or build tools configured. Run after every code change:
 
 ```bash
+python -m black engine/ content/ app.py
+prettier --write static/js/
 python -m ruff check engine/ content/ app.py
 ```
 
-Run periodically, especially after bulk content edits. F8xx errors are real bugs; E4xx/E7xx are style only.
+F8xx ruff errors are real bugs and must be fixed. E4xx/E7xx are style only.
 
 ## Architecture
 
