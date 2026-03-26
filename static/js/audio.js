@@ -12,7 +12,7 @@ const SoundEngine = (() => {
     longhouse: "ambient_forge",
     cairn: "ambient_cairn",
     mound: "ambient_mound",
-    gunnar: "combat_boss", // dialogue and combat use same key now
+    gunnar: "combat_gunnar",
     scavenge: "ambient_battlefield",
     combat_draugar: "combat_draugar",
     act_break: "ambient_void",
