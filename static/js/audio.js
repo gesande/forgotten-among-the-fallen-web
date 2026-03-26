@@ -69,31 +69,26 @@ const SoundEngine = (() => {
     }, interval);
   }
 
-  // ── Core switch — SYNCHRONOUS, no await ───────────────────
+  // ── Core switch — crossfades between tracks ───────────────
   function _switchTo(trackName) {
     if (trackName === currentTrackId) return;
 
-    // Immediately stop any previous track to prevent overlap
-    if (currentTrack) {
-      if (_fadeTimer) { clearInterval(_fadeTimer); _fadeTimer = null; }
-      currentTrack.pause();
-      currentTrack.currentTime = 0;
-    }
+    const outgoing = currentTrack;
 
     const track    = new window.Audio();
     track.loop     = true;
-    track.volume   = muted ? 0 : musicVolume;
+    track.volume   = 0;   // crossfade brings it up
     track.src      = MUSIC_BASE + trackName + ".mp3";
     track.onerror  = () => { track.src = MUSIC_BASE + trackName + ".ogg"; };
 
     currentTrack   = track;
     currentTrackId = trackName;
 
+    if (muted) return;
+
     track.play()
-      .then(() => {})
-      .catch(err => {
-        console.warn("Audio blocked:", err.message);
-      });
+      .then(() => _crossfade(track, outgoing))
+      .catch(err => console.warn("Audio blocked:", err.message));
   }
 
   // ── Public API ────────────────────────────────────────────
