@@ -208,7 +208,7 @@ html, body {
 
 .hud-label {
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: rgba(210,190,145,0.75);
@@ -242,7 +242,7 @@ html, body {
 
 .hud-shards {
   font-family: 'Cinzel', serif;
-  font-size: 22px;
+  font-size: 26px;
   color: var(--gold-bright);
   line-height: 1;
   text-shadow:
@@ -250,7 +250,7 @@ html, body {
     0 0 16px rgba(180,140,50,0.4);
 }
 .hud-shards span {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.15em;
   color: rgba(180,150,70,0.75);
   text-transform: uppercase;
@@ -259,7 +259,7 @@ html, body {
 
 #hud-curse {
   font-family: 'Cinzel', serif;
-  font-size: 10px;
+  font-size: 12px;
   color: rgba(220,110,60,0.85);
   letter-spacing: 0.12em;
   margin-top: 4px;
@@ -268,7 +268,7 @@ html, body {
 
 .hud-memories {
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: rgba(100,165,185,0.8);
   text-transform: uppercase;
@@ -278,7 +278,7 @@ html, body {
 
 .hud-weapon {
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: rgba(184,144,58,0.6);
   text-transform: uppercase;
@@ -296,7 +296,7 @@ html, body {
 
 .hud-item {
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: rgba(196,186,164,0.7);
   text-transform: uppercase;
