@@ -228,6 +228,7 @@ async function loadScene() {
     }
 
     currentScene = data;
+    if (!data.combat) hide("combat-panel");
     renderScene(data);
 
     if (data.combat) {
