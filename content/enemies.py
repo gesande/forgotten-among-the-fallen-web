@@ -101,6 +101,21 @@ ENEMIES = {
                 "damage": (18, 30),
                 "accuracy": 0.78,
                 "weapon": {"name": "maw", "effect": "bleeding"},
+                "evasion": 0.25,
+                "on_hit_drain": {"stat": "echo_shards", "amount": 30},
+                "phrases": {
+                    "evade": [
+                        "It reads your movement. The blow passes through empty air.",
+                        "It drops low and shifts — faster than its size should allow.",
+                        "You commit. It isn't there.",
+                    ],
+                    "drain_trigger": [
+                        "The maw closes and something cold passes through you — "
+                        "the runes in your bones dim.",
+                        "Where the teeth find you, the runic warmth drains away.",
+                        "It does not just bite. It takes.",
+                    ],
+                },
             },
             "silver": {
                 "name": "a Silver Wolf",

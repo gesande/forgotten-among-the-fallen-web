@@ -113,11 +113,11 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     if action_id == "light":
         base = roll_range(8, 18)
         dmg = _apply_mods(base, player, "light")
-        _hit_enemy(dmg, e, player, log)
-        player.modify_stat("wrath", 10)
-        combo = player.flags.get("combo", 0) + 1
-        player.set_flag("combo", min(combo, 3))
-        log.append(_light_prose(dmg, e))
+        if _player_strikes(dmg, e, player, log):
+            player.modify_stat("wrath", 10)
+            combo = player.flags.get("combo", 0) + 1
+            player.set_flag("combo", min(combo, 3))
+            log.append(_light_prose(dmg, e))
 
     elif action_id == "heavy":
         if chance(0.25):
@@ -127,9 +127,9 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         else:
             base = roll_range(18, 30)
             dmg = _apply_mods(base, player, "heavy")
-            _hit_enemy(dmg, e, player, log)
-            player.modify_stat("wrath", 18)
-            log.append(_heavy_prose(dmg, e))
+            if _player_strikes(dmg, e, player, log):
+                player.modify_stat("wrath", 18)
+                log.append(_heavy_prose(dmg, e))
 
     elif action_id == "parry":
         if chance(0.45 + player.honour * 0.003):
@@ -154,13 +154,15 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     elif action_id == "runic":
         player.echo_shards -= 100
         dmg = roll_range(35, 50)
-        _hit_enemy(dmg, e, player, log)
-        player.modify_stat("brutality", 5)
-        player.wrath = 0
         log.append(
             "The shards burn cold in your fist. The rune ᚠ blooms across your weapon."
         )
-        log.append(f"The burst hits {e['name_short']} like a memory of fire.")
+        if _player_strikes(dmg, e, player, log):
+            player.modify_stat("brutality", 5)
+            player.wrath = 0
+            log.append(f"The burst hits {e['name_short']} like a memory of fire.")
+        else:
+            log.append("The runic force tears open air. The shards are gone.")
 
     elif action_id == "mercy":
         e["current_hp"] = 0
@@ -255,6 +257,23 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
         player.modify_stat("wrath", 8)
         log.append(random.choice(e["phrases"]["hit"]))
         log.append(f"— {damage_word(actual)} taken.")
+        # on_hit_drain — enemy drains a player stat on successful hit
+        drain_cfg = e.get("on_hit_drain")
+        if drain_cfg:
+            stat = drain_cfg["stat"]
+            amount = drain_cfg["amount"]
+            current = getattr(player, stat, 0)
+            drained = min(amount, current)
+            if drained > 0:
+                setattr(player, stat, current - drained)
+                log.append(
+                    random.choice(
+                        e["phrases"].get(
+                            "drain_trigger",
+                            [f"Something is drawn out of you — {drained} lost."],
+                        )
+                    )
+                )
         # Enemy weapon effect
         effect = e.get("weapon", {}).get("effect")
         if effect == "bleeding" and combat_state is not None:
@@ -295,6 +314,21 @@ def _tick_effects(e, log):
         if effects["bleeding"] <= 0:
             del effects["bleeding"]
             log.append("The bleeding slows.")
+
+
+def _player_strikes(dmg, e, player, log) -> bool:
+    """Apply player strike with evasion check. Returns True if hit landed."""
+    if e.get("evasion", 0) > 0 and chance(e["evasion"]):
+        log.append(
+            random.choice(
+                e["phrases"].get(
+                    "evade", ["It moves before you do. The blow finds nothing."]
+                )
+            )
+        )
+        return False
+    _hit_enemy(dmg, e, player, log)
+    return True
 
 
 def _hit_enemy(dmg, e, player=None, log=None):
