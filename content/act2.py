@@ -945,8 +945,26 @@ SCENE_GREAT_HALL_ENTRANCE = {
             "type": "conditional_prose",
             "variants": [
                 {
-                    "condition": {"not": {"flag": "odrik_met"}},
+                    "condition": {
+                        "and": [
+                            {"not": {"flag": "odrik_met"}},
+                            {"flag": "defeated_fog_sentinel"},
+                        ]
+                    },
                     "text": '"You fought the Sentinel."',
+                },
+                {
+                    "condition": {
+                        "and": [
+                            {"not": {"flag": "odrik_met"}},
+                            {"flag": "sentinel_avoided"},
+                        ]
+                    },
+                    "text": '"You walked past the Sentinel."',
+                },
+                {
+                    "condition": {"not": {"flag": "odrik_met"}},
+                    "text": '"You ran from the Sentinel."',
                 },
             ],
         },
