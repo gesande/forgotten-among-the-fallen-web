@@ -12,6 +12,10 @@
 - [ ] **Runic Burst** — echo shards -systeemi toimii, lisää käyttötilanteita?
 - [ ] **Curse stacks** — maksimi 5, mutta vaikutus loppupelissä voisi kasvaa
 
+## Combat
+
+- [ ] **Corpse art** — taistelun lopuksi näytetään vihollisen corpse-kuva ennen siirtymää
+
 ## Polish
 
 - [ ] **Mobiili** — responsiivinen layout olemassa, testaamatta kunnolla
