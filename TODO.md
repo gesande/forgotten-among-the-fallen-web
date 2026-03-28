@@ -20,6 +20,11 @@
 - [x] **Odin-muistot** — kaksi muistoa per eläin: ensimmäinen näky + tapon jälkeen
 - [x] **Battlefield wolf** — pack_leader-variantti, `combat_wolf_battlefield`-kohtaus ja art
 
+## Engine
+
+- [ ] **`state.py` geneerinen** — `PlayerState` tuntee stat-nimet suoraan (`wrath`, `honour` jne.); `is_cursed()` / `is_broken()` pelikohtaisia. Täysi data-driven vaatisi geneerisen stat-dictin.
+- [ ] **Combat-kynnykset configiin** — `honour >= 40` (mercy), `echo_shards >= 100` (runic), wrath-gain arvot (10/18/25/8) kovakoodattu `combat.py`:ssä
+
 ## Polish
 
 - [ ] **Mobiili** — responsiivinen layout olemassa, testaamatta kunnolla
