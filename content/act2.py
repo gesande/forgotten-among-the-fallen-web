@@ -1842,6 +1842,18 @@ SCENE_FOREST_WOLF = {
             "variant": "dire",
         },
         {"type": "stat", "changes": {"resolve": 5}},
+        {
+            "type": "memory",
+            "key": "wolf_of_odin",
+            "label": "The Wolf of Odin",
+            "text": (
+                "It was not a wolf. Not entirely. "
+                "The ulfhednar — Odin's wolf-warriors — were said to wear the hide "
+                "and become the thing beneath. "
+                "This one had no warrior inside it. "
+                "Only the god's hunger, left here without a leash."
+            ),
+        },
     ],
     "next": "hermit_oak",
 }
