@@ -650,8 +650,14 @@ body {
 #name-input-wrap {
   display: flex;
   gap: 10px;
-  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-top: 0.5px solid var(--iron);
   align-items: center;
+  position: sticky;
+  bottom: 0;
+  background: var(--ink);
 }
 #name-input {
   font-family: "IM Fell English", serif;
