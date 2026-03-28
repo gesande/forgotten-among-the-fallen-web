@@ -320,6 +320,7 @@ function renderScene(data) {
   // ── Prose body — staggered slide-in ──────────────────────
   const proseEl = $("prose-body");
   proseEl.innerHTML = "";
+  proseEl.scrollTop = 0;
   // Base delay: small pause then paragraphs stagger in one by one
   const BASE_DELAY = 0.8; // seconds before first paragraph
   const PARA_GAP = 1.1; // seconds between paragraphs
