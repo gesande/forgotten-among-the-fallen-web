@@ -359,11 +359,9 @@ body {
 }
 
 #save-indicator {
-  font-family: "Cinzel", serif;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: rgba(180, 140, 50, 0.7);
-  text-transform: uppercase;
+  display: block;
+  width: 18px;
+  height: 18px;
   margin-top: 10px;
   opacity: 0;
   pointer-events: none;

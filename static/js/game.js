@@ -683,7 +683,6 @@ function showLoading(on) {
 function showSaved() {
   const el = $("save-indicator");
   if (!el) return;
-  el.textContent = "✦ saved";
   el.classList.remove("visible");
   void el.offsetWidth; // force reflow to restart animation
   el.classList.add("visible");
