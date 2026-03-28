@@ -1361,7 +1361,7 @@ SCENE_SCAVENGE_EAST_RETURN = {
 }
 
 SCENE_COMBAT_WOLF_BATTLEFIELD = {
-    "art": "combat_wolf",
+    "art": "combat_wolf_battlefield",
     "next": "battlefield_open",
     "beats": [
         {
