@@ -409,6 +409,7 @@ async function advanceScene(nextKey) {
       unhide("credits-screen");
       return;
     }
+    showSaved();
     loadScene();
   } catch (e) {
     console.error("Advance error:", e);
@@ -447,6 +448,7 @@ async function makeChoice(choiceId) {
       showLoading(false);
       await sleep(1800);
     }
+    showSaved();
     loadScene();
   } catch (e) {
     console.error("Choice error:", e);
@@ -627,6 +629,7 @@ async function handleCombatEnd(data) {
   await sleep(1800);
   hide("combat-panel");
   inCombat = false;
+  showSaved();
   loadScene();
 }
 
@@ -675,6 +678,16 @@ function showLoading(on) {
   const el = $("loading");
   if (on) el.classList.remove("hidden");
   else el.classList.add("hidden");
+}
+
+let _saveTimer = null;
+function showSaved() {
+  const el = $("save-indicator");
+  if (!el) return;
+  el.textContent = "✦ saved";
+  el.classList.add("visible");
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => el.classList.remove("visible"), 2000);
 }
 
 function disableChoices(on) {

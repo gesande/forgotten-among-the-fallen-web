@@ -347,6 +347,21 @@ body {
   border-left: 1px solid rgba(180, 140, 50, 0.3);
   line-height: 1.6;
 }
+
+#save-indicator {
+  font-family: "Cinzel", serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: rgba(180, 140, 50, 0.0);
+  text-transform: uppercase;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+  pointer-events: none;
+}
+
+#save-indicator.visible {
+  color: rgba(180, 140, 50, 0.6);
+}
 .hud-item::before {
   content: "· ";
   color: rgba(180, 140, 50, 0.4);
