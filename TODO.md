@@ -15,6 +15,10 @@
 ## Combat
 
 - [ ] **Corpse art** — taistelun lopuksi näytetään vihollisen corpse-kuva ennen siirtymää
+- [x] **Karhu-vihollinen** — `bear` + `berserker`-variantti lisätty; `forest_bear`-kohtaus Act II metsässä
+- [x] **Suden/karhun nahat** — `wolf pelt` / `bear pelt` body-slot; bear pelt aktivoi berserk-moodin
+- [x] **Odin-muistot** — kaksi muistoa per eläin: ensimmäinen näky + tapon jälkeen
+- [x] **Battlefield wolf** — pack_leader-variantti, `combat_wolf_battlefield`-kohtaus ja art
 
 ## Polish
 
