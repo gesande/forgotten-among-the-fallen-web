@@ -360,8 +360,8 @@ body {
 
 #save-indicator {
   display: block;
-  width: 18px;
-  height: 18px;
+  width: 32px;
+  height: 32px;
   margin-top: 10px;
   opacity: 0;
   pointer-events: none;
