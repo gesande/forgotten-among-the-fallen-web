@@ -51,6 +51,9 @@ EQUIPMENT = {
         "effect": "bleeding",
     },
     "traveller's shield": {"slot": "shield", "tier": 1, "defense": 4},
+    # Body slot — pelts
+    "wolf pelt": {"slot": "body", "tier": 1, "damage_bonus": 3},
+    "bear pelt": {"slot": "body", "tier": 2, "damage_bonus": 5, "berserk": True},
 }
 
 # ── HUD layout ────────────────────────────────────────────────

@@ -66,18 +66,28 @@ def start_combat(
 
 def get_player_actions(combat_state: dict, player: PlayerState) -> list:
     e = combat_state["enemy"]
+    body_eq = EQUIPMENT.get(player.equipped.get("body", ""), {})
+    berserk = body_eq.get("berserk", False)
     actions = [
         {"id": "light", "label": "Strike — a fast, measured blow"},
         {"id": "heavy", "label": "Commit — a heavy, reckless strike"},
-        {"id": "parry", "label": "Wait for the opening — attempt a parry"},
     ]
+    if not berserk:
+        actions.append(
+            {"id": "parry", "label": "Wait for the opening — attempt a parry"}
+        )
     if e.get("shield") and not e.get("flanked"):
         actions.append({"id": "flank", "label": "Circle wide — find the flank"})
     if player.echo_shards >= 100:
         actions.append({"id": "runic", "label": "Spend 100 shards — Runic Burst"})
-    if not e.get("phases") and e["current_hp"] < e["hp"] * 0.30 and player.honour >= 40:
-        actions.append({"id": "mercy", "label": "Lower your weapon"})
-    actions.append({"id": "flee", "label": "Retreat into the fog"})
+    if not berserk:
+        if (
+            not e.get("phases")
+            and e["current_hp"] < e["hp"] * 0.30
+            and player.honour >= 40
+        ):
+            actions.append({"id": "mercy", "label": "Lower your weapon"})
+        actions.append({"id": "flee", "label": "Retreat into the fog"})
     return actions
 
 
@@ -313,6 +323,7 @@ def _apply_mods(base, player, kind):
     mod += EQUIPMENT.get(player.equipped.get("weapon", "bare hands"), {}).get(
         "damage_bonus", 0
     )
+    mod += EQUIPMENT.get(player.equipped.get("body", ""), {}).get("damage_bonus", 0)
     if player.brutality > 50:
         mod += roll(6)
     if player.honour > 70 and kind == "light":
