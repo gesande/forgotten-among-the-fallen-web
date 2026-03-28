@@ -28,7 +28,7 @@
 ## Polish
 
 - [ ] **Mobiili** — responsiivinen layout olemassa, testaamatta kunnolla
-- [ ] **Save/load UI** — toimii teknisesti, ei visuaalista vahvistusta tallennuksesta
+- [x] **Save/load UI** — "✦ saved" -indikaattori HUD:ssa 2s jokaisen autosaven jälkeen
 - [ ] **Credits** — Act I complete -teksti, lisää sisältöä?
 
 ## Tunnetut bugit
