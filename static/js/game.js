@@ -345,6 +345,7 @@ function renderScene(data) {
     const afterProse = (0.8 + (paraIdx || 0) * 1.1 + 0.5) * 1000;
     setTimeout(() => {
       nameWrap.classList.remove("hidden");
+      nameWrap.scrollIntoView({ behavior: "smooth", block: "end" });
       setTimeout(() => $("name-input").focus(), 200);
     }, afterProse);
   }

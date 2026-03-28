@@ -655,9 +655,6 @@ body {
   padding-bottom: 1rem;
   border-top: 0.5px solid var(--iron);
   align-items: center;
-  position: sticky;
-  bottom: 0;
-  background: var(--ink);
 }
 #name-input {
   font-family: "IM Fell English", serif;
