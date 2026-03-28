@@ -274,8 +274,8 @@ body {
   box-shadow: 0 0 6px rgba(180, 140, 40, 0.4);
 }
 .bar.enemy {
-  background: linear-gradient(90deg, #1a3040, #2a6080);
-  box-shadow: 0 0 6px rgba(40, 90, 130, 0.4);
+  background: linear-gradient(90deg, #2a6060, #40a090);
+  box-shadow: 0 0 6px rgba(60, 160, 140, 0.5);
 }
 
 .hud-shards {
