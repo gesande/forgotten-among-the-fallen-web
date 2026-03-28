@@ -1,26 +1,23 @@
 # ============================================================
 #  engine/combat.py
-#  Combat engine.
-#  Returns structured dicts instead of printing to terminal.
-#  All prose, choices, and outcomes go through JSON to the UI.
+#  Combat engine — no game-specific prose or stat assumptions.
+#  All narrative text lives in content/combat_prose.py.
+#  All stat modifiers live in content/game_config.py COMBAT_MODS.
 # ============================================================
 import random
 from engine.state import PlayerState
 from engine.dice import roll, roll_range, chance
-from content.game_config import EQUIPMENT
+from content.game_config import EQUIPMENT, COMBAT_MODS
 from content.enemies import ENEMIES
+from content.combat_prose import (
+    ACTION_LABELS,
+    STRINGS,
+    damage_word,
+    light_prose,
+    heavy_prose,
+)
 
-
-def damage_word(dmg):
-    if dmg <= 5:
-        return "a graze"
-    if dmg <= 12:
-        return "a wound"
-    if dmg <= 20:
-        return "a serious wound"
-    if dmg <= 30:
-        return "a grievous blow"
-    return "something that would kill a living man"
+S = STRINGS  # shorthand
 
 
 # ── Combat state lives in Flask session ───────────────────────
@@ -31,18 +28,16 @@ def start_combat(
     enemy_key: str, player: PlayerState, variant: str | None = None
 ) -> dict:
     e = dict(ENEMIES[enemy_key])
-    # Merge variant overrides (hp, damage, accuracy, weapon, etc.)
     if variant:
         e.update(ENEMIES[enemy_key].get("variants", {}).get(variant, {}))
     e["current_hp"] = e["hp"]
     e["key"] = enemy_key
     e["effects"] = {}
-    # Apply curse scaling
     scale = 1.0 + player.curse_stacks * 0.06
     e["damage"] = (int(e["damage"][0] * scale), int(e["damage"][1] * scale))
     return {
         "enemy": e,
-        "log": [f"You face {e['name']}."],
+        "log": [S["start_combat"].format(name=e["name"])],
         "over": False,
         "won": False,
         "fled": False,
@@ -57,25 +52,23 @@ def get_player_actions(combat_state: dict, player: PlayerState) -> list:
     body_eq = EQUIPMENT.get(player.equipped.get("body", ""), {})
     berserk = body_eq.get("berserk", False)
     actions = [
-        {"id": "light", "label": "Strike — a fast, measured blow"},
-        {"id": "heavy", "label": "Commit — a heavy, reckless strike"},
+        {"id": "light", "label": ACTION_LABELS["light"]},
+        {"id": "heavy", "label": ACTION_LABELS["heavy"]},
     ]
     if not berserk:
-        actions.append(
-            {"id": "parry", "label": "Wait for the opening — attempt a parry"}
-        )
+        actions.append({"id": "parry", "label": ACTION_LABELS["parry"]})
     if e.get("shield") and not e.get("flanked"):
-        actions.append({"id": "flank", "label": "Circle wide — find the flank"})
+        actions.append({"id": "flank", "label": ACTION_LABELS["flank"]})
     if player.echo_shards >= 100:
-        actions.append({"id": "runic", "label": "Spend 100 shards — Runic Burst"})
+        actions.append({"id": "runic", "label": ACTION_LABELS["runic"]})
     if not berserk:
         if (
             not e.get("phases")
             and e["current_hp"] < e["hp"] * 0.30
             and player.honour >= 40
         ):
-            actions.append({"id": "mercy", "label": "Lower your weapon"})
-        actions.append({"id": "flee", "label": "Retreat into the fog"})
+            actions.append({"id": "mercy", "label": ACTION_LABELS["mercy"]})
+        actions.append({"id": "flee", "label": ACTION_LABELS["flee"]})
     return actions
 
 
@@ -87,8 +80,8 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     # ── Player effects tick (at turn start) ───────────────────
     _tick_player_effects(combat_state, player, log)
     if player.is_dead():
-        log.append("You fall.")
-        log.append("When you wake, it will be at the Bone Cairn.")
+        log.append(S["player_death_1"])
+        log.append(S["player_death_2"])
         player.deaths += 1
         player.curse_stacks = min(5, player.curse_stacks + 1)
         player.echo_shards = player.echo_shards // 4
@@ -105,19 +98,17 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
             player.modify_stat("wrath", 10)
             combo = player.flags.get("combo", 0) + 1
             player.set_flag("combo", min(combo, 3))
-            log.append(_light_prose(dmg, e))
+            log.append(light_prose(dmg, e["name_short"]))
 
     elif action_id == "heavy":
         if chance(0.25):
-            log.append(
-                "You overcommit. The blow goes wide and you nearly lose your footing."
-            )
+            log.append(S["overcommit"])
         else:
             base = roll_range(18, 30)
             dmg = _apply_mods(base, player, "heavy")
             if _player_strikes(dmg, e, player, log):
                 player.modify_stat("wrath", 18)
-                log.append(_heavy_prose(dmg, e))
+                log.append(heavy_prose(dmg, e["name_short"]))
 
     elif action_id == "parry":
         if chance(0.45 + player.honour * 0.003):
@@ -125,46 +116,42 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
             _hit_enemy(dmg, e, player, log)
             player.modify_stat("honour", 2)
             player.modify_stat("wrath", 25)
-            log.append(
-                "You read the blow perfectly. Your parry opens a gap — you answer it."
-            )
-            log.append(f"{e['name_short']} staggers. Your strike finds bone.")
+            log.append(S["parry_success_1"])
+            log.append(S["parry_success_2"].format(name=e["name_short"]))
         else:
             dmg = roll_range(*e["damage"]) // 2
             actual = player.take_damage(dmg)
-            log.append("The parry fails. You mistimed it.")
-            log.append(f"It costs you — {damage_word(actual)}.")
+            log.append(S["parry_fail_1"])
+            log.append(S["parry_fail_2"].format(damage=damage_word(actual)))
 
     elif action_id == "flank":
         e["flanked"] = True
-        log.append("You circle wide. The shield is useless now. Its side is open.")
+        log.append(S["flank"])
 
     elif action_id == "runic":
         player.echo_shards -= 100
         dmg = roll_range(35, 50)
-        log.append(
-            "The shards burn cold in your fist. The rune ᚠ blooms across your weapon."
-        )
+        log.append(S["runic_windup"])
         if _player_strikes(dmg, e, player, log):
             player.modify_stat("brutality", 5)
             player.wrath = 0
-            log.append(f"The burst hits {e['name_short']} like a memory of fire.")
+            log.append(S["runic_hit"].format(name=e["name_short"]))
         else:
-            log.append("The runic force tears open air. The shards are gone.")
+            log.append(S["runic_miss"])
 
     elif action_id == "mercy":
         e["current_hp"] = 0
         player.modify_stat("mercy", 10)
         player.modify_stat("honour", 5)
-        log.append("You lower your weapon. It sinks to the ground. It does not rise.")
+        log.append(S["mercy"])
 
     elif action_id == "flee":
         dmg = roll_range(10, 20)
         player.take_damage(dmg)
         player.modify_stat("honour", -5)
-        log.append("You run. The thing behind you is slower — but not by much.")
-        log.append("You reach the fog. It doesn't follow into the fog.")
-        log.append(f"You are {damage_word(dmg)} from the retreat.")
+        log.append(S["flee_1"])
+        log.append(S["flee_2"])
+        log.append(S["flee_cost"].format(damage=damage_word(dmg)))
         combat_state["fled"] = True
         combat_state["over"] = True
         return combat_state
@@ -205,8 +192,8 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
 
     # Check player death
     if player.is_dead():
-        log.append("You fall.")
-        log.append("When you wake, it will be at the Bone Cairn.")
+        log.append(S["player_death_1"])
+        log.append(S["player_death_2"])
         player.deaths += 1
         player.curse_stacks = min(5, player.curse_stacks + 1)
         player.echo_shards = player.echo_shards // 4
@@ -222,11 +209,11 @@ def _tick_player_effects(combat_state, player, log):
     if "bleeding" in effects:
         dmg = roll_range(4, 8)
         player.take_damage(dmg)
-        log.append(f"Your wound bleeds — {dmg} damage.")
+        log.append(S["bleeding_tick_player"].format(dmg=dmg))
         effects["bleeding"] -= 1
         if effects["bleeding"] <= 0:
             del effects["bleeding"]
-            log.append("The bleeding slows.")
+            log.append(S["bleeding_slow"])
 
 
 def _resolve_enemy_turn(e, player, log, combat_state=None):
@@ -268,7 +255,7 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
             peff = combat_state.setdefault("player_effects", {})
             if not peff.get("bleeding"):
                 peff["bleeding"] = 3
-                log.append("The wound opens. You are bleeding.")
+                log.append(S["bleeding_open_player"])
     else:
         log.append(random.choice(e["phrases"]["miss"]))
 
@@ -297,11 +284,11 @@ def _tick_effects(e, log):
     if "bleeding" in effects:
         dmg = roll_range(4, 8)
         e["current_hp"] = max(0, e["current_hp"] - dmg)
-        log.append(f"The wound bleeds. {e['name_short']} loses {dmg}.")
+        log.append(S["bleeding_tick_enemy"].format(name=e["name_short"], dmg=dmg))
         effects["bleeding"] -= 1
         if effects["bleeding"] <= 0:
             del effects["bleeding"]
-            log.append("The bleeding slows.")
+            log.append(S["bleeding_slow"])
 
 
 def _player_strikes(dmg, e, player, log) -> bool:
@@ -328,8 +315,8 @@ def _hit_enemy(dmg, e, player=None, log=None):
         if effect == "bleeding" and not e.get("effects", {}).get("bleeding"):
             e.setdefault("effects", {})["bleeding"] = 3
             if log is not None:
-                log.append("The wound opens. Dark blood begins to run.")
-    # Drain mechanic — sentinel heals from player wrath
+                log.append(S["bleeding_open_enemy"])
+    # Drain mechanic — enemy heals from player stat when hit
     if e.get("drain") and player is not None:
         drain = min(e["drain_amount"], getattr(player, "wrath", 0))
         if drain > 0:
@@ -342,36 +329,21 @@ def _hit_enemy(dmg, e, player=None, log=None):
 
 def _apply_mods(base, player, kind):
     mod = base
-    mod += EQUIPMENT.get(player.equipped.get("weapon", "bare hands"), {}).get(
-        "damage_bonus", 0
-    )
-    mod += EQUIPMENT.get(player.equipped.get("body", ""), {}).get("damage_bonus", 0)
-    if player.brutality > 50:
-        mod += roll(6)
-    if player.honour > 70 and kind == "light":
-        mod += roll(4)
-    if player.is_cursed():
-        mod -= roll(4)
-    return max(1, mod)
-
-
-def _light_prose(dmg, e):
-    name = e["name_short"]
-    if dmg < 10:
-        return f"Your blow glances off {name}. It slows, but does not stop."
-    if dmg < 20:
-        return f"The strike lands clean. {name} staggers."
-    return f"You drive the blow deep. {name} reels."
-
-
-def _heavy_prose(dmg, e):
-    name = e["name_short"]
-    if dmg < 15:
-        return "A solid hit — the weight tells, even if the precision does not."
-    if dmg < 25:
-        return (
-            f"{name} is staggered by the force. You feel the impact in your shoulders."
+    for slot in ("weapon", "body"):
+        item = player.equipped.get(slot, "") or (
+            "bare hands" if slot == "weapon" else ""
         )
-    return (
-        f"The heavy strike connects. {name} is driven back — something in it is broken."
-    )
+        mod += EQUIPMENT.get(item, {}).get("damage_bonus", 0)
+    for m in COMBAT_MODS:
+        if "fn" in m:
+            applies = getattr(player, m["fn"])()
+        else:
+            applies = getattr(player, m["stat"], 0) > m["gt"]
+        if "action" in m and m["action"] != kind:
+            applies = False
+        if applies:
+            if "bonus_die" in m:
+                mod += roll(m["bonus_die"])
+            if "penalty_die" in m:
+                mod -= roll(m["penalty_die"])
+    return max(1, mod)

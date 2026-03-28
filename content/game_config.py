@@ -56,6 +56,18 @@ EQUIPMENT = {
     "bear pelt": {"slot": "body", "tier": 2, "damage_bonus": 5, "berserk": True},
 }
 
+# ── Combat damage modifiers ───────────────────────────────────
+# Applied in _apply_mods after equipment bonuses.
+# Each entry: stat/fn check → bonus_die or penalty_die added to roll.
+#   stat + gt:       getattr(player, stat) > gt
+#   fn:              getattr(player, fn)() is truthy
+#   action (opt):    only applies when action kind matches
+COMBAT_MODS = [
+    {"stat": "brutality", "gt": 50, "bonus_die": 6},
+    {"stat": "honour", "gt": 70, "action": "light", "bonus_die": 4},
+    {"fn": "is_cursed", "penalty_die": 4},
+]
+
 # ── HUD layout ────────────────────────────────────────────────
 # Maps frontend HUD keys to stat names on PlayerState.
 # "max_stat" is optional; when present, also outputs max_{key}.
