@@ -604,7 +604,11 @@ body {
   gap: 8px;
   margin-top: 1.5rem;
   padding-top: 1rem;
+  padding-bottom: 1rem;
   border-top: 0.5px solid var(--iron);
+  position: sticky;
+  bottom: 0;
+  background: var(--ink);
 }
 .choice-btn {
   font-family: "Cinzel", serif;
