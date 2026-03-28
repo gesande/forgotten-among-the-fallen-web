@@ -680,14 +680,13 @@ function showLoading(on) {
   else el.classList.add("hidden");
 }
 
-let _saveTimer = null;
 function showSaved() {
   const el = $("save-indicator");
   if (!el) return;
   el.textContent = "✦ saved";
+  el.classList.remove("visible");
+  void el.offsetWidth; // force reflow to restart animation
   el.classList.add("visible");
-  clearTimeout(_saveTimer);
-  _saveTimer = setTimeout(() => el.classList.remove("visible"), 2000);
 }
 
 function disableChoices(on) {
