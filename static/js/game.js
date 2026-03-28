@@ -369,6 +369,8 @@ function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
     btn.dataset.num = "·";
     btn.textContent = "Continue";
     btn.style.animationDelay = `${afterProse}s`;
+    btn.style.pointerEvents = "none";
+    btn.addEventListener("animationend", () => (btn.style.pointerEvents = ""));
     btn.addEventListener("click", () => advanceScene(autoNext));
     wrap.appendChild(btn);
     return;
@@ -380,6 +382,8 @@ function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
     btn.dataset.num = i + 1;
     btn.textContent = choice.label;
     btn.style.animationDelay = `${afterProse + i * CHOICE_GAP}s`;
+    btn.style.pointerEvents = "none";
+    btn.addEventListener("animationend", () => (btn.style.pointerEvents = ""));
     btn.addEventListener("mouseenter", () => SoundEngine.playSfx("choice"));
     btn.addEventListener("click", () => {
       SoundEngine.playSfx("confirm");
