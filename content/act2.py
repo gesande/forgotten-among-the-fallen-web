@@ -1824,7 +1824,7 @@ SCENE_FOREST_PATH = {
 }
 
 SCENE_FOREST_WOLF = {
-    "art": "combat_wolf",
+    "art": "combat_dire_wolf",
     "beats": [
         {
             "type": "prose",

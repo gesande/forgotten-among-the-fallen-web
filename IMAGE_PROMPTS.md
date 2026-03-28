@@ -425,9 +425,9 @@ hostile atmosphere, dark fantasy, painterly, desaturated, cinematic
 
 ---
 
-## Scene 14a.2 — combat_wolf.jpg
+## Scene 14a.2 — combat_dire_wolf.jpg
 
-**File:** `static/svg/combat_wolf.png`
+**File:** `static/svg/combat_dire_wolf.png`
 **Used in:** forest_wolf (combat encounter)
 
 **Midjourney:**
