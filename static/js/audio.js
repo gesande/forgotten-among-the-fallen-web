@@ -111,7 +111,7 @@ const SoundEngine = (() => {
 
   // ── Public API ────────────────────────────────────────────
   function playTitle() {
-    if (!muted) _switchTo("ambient_title");
+    if (!muted) _switchTo("title");
   }
 
   function playScene(artKey) {
