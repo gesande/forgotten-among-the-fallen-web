@@ -350,10 +350,11 @@ body {
 
 @keyframes save-flash {
   0%   { opacity: 0; }
-  15%  { opacity: 0.8; }
-  40%  { opacity: 0.2; }
-  60%  { opacity: 0.7; }
-  80%  { opacity: 0.1; }
+  10%  { opacity: 0.9; }
+  25%  { opacity: 0.1; }
+  40%  { opacity: 0.8; }
+  55%  { opacity: 0.1; }
+  70%  { opacity: 0.6; }
   100% { opacity: 0; }
 }
 
@@ -369,7 +370,7 @@ body {
 }
 
 #save-indicator.visible {
-  animation: save-flash 2s ease-out forwards;
+  animation: save-flash 1s ease-out forwards;
 }
 .hud-item::before {
   content: "· ";
