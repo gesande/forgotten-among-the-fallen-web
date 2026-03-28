@@ -260,7 +260,12 @@ SCENE_BATTLEFIELD_OPEN = {
         {
             "label": "Return to the dense dead.",
             "next": "scavenge_east_return",
-            "condition": {"flag": "east_searched"},
+            "condition": {
+                "and": [
+                    {"flag": "east_searched"},
+                    {"not": {"flag": "defeated_wolf_battlefield"}},
+                ]
+            },
         },
         {
             "label": "Go south — towards the mound.",
@@ -607,7 +612,12 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
         {
             "label": "Return to the dense dead.",
             "next": "scavenge_east_return",
-            "condition": {"flag": "east_searched"},
+            "condition": {
+                "and": [
+                    {"flag": "east_searched"},
+                    {"not": {"flag": "defeated_wolf_battlefield"}},
+                ]
+            },
         },
         {
             "label": "Go to the soldier against the shield-wall.",
