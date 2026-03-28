@@ -463,22 +463,11 @@ body {
 #narrative-panel {
   width: 50%;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 2rem 2rem 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0;
-  scrollbar-width: thin;
-  scrollbar-color: var(--iron) transparent;
-}
-#narrative-panel::-webkit-scrollbar {
-  width: 4px;
-}
-#narrative-panel::-webkit-scrollbar-track {
-  background: transparent;
-}
-#narrative-panel::-webkit-scrollbar-thumb {
-  background: var(--iron);
 }
 
 /* Scene header */
@@ -542,7 +531,21 @@ body {
 
 /* Prose body */
 #prose-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   margin-bottom: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--iron) transparent;
+}
+#prose-body::-webkit-scrollbar {
+  width: 4px;
+}
+#prose-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+#prose-body::-webkit-scrollbar-thumb {
+  background: var(--iron);
 }
 
 .prose-block {
