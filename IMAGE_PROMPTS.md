@@ -453,6 +453,23 @@ dark fantasy, painterly, desaturated, predator stillness, unsettling
 
 ---
 
+## Scene Act1 — combat_wolf_battlefield.jpg
+
+**File:** `static/svg/combat_wolf_battlefield.png`
+**Used in:** combat_wolf_battlefield (battlefield wolf pack encounter)
+
+**Midjourney:**
+
+```
+a massive pale dire wolf in dense battlefield, ash-grey fur matted with old blood,
+facing the viewer with flat pale eyes that show neither fear nor hunger, just
+assessment, cold diffuse light from above catching its breath in the freezing air,
+dark fantasy, painterly, desaturated, predator stillness, deeply unsettling
+--ar 16:9 --style raw --v 6 --stylize 800
+```
+
+---
+
 ## Scene 14b — hermit_oak.jpg
 
 **File:** `static/svg/hermit_oak.png`
