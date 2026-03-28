@@ -29,6 +29,49 @@
 # ============================================================
 
 ENEMIES = {
+    "bear": {
+        "name": "a Shadow Bear",
+        "name_short": "the Bear",
+        "hp": 80,
+        "damage": (15, 26),
+        "accuracy": 0.65,
+        "weapon": {"name": "claws", "effect": "bleeding"},
+        "shards": (60, 120),
+        "loot": [("bear pelt", 0.7)],
+        "variants": {
+            "berserker": {
+                "name": "the Berserker Bear",
+                "hp": 100,
+                "damage": (20, 34),
+                "accuracy": 0.72,
+                "weapon": {"name": "claws", "effect": "bleeding"},
+            },
+        },
+        "phrases": {
+            "windup": [
+                "It rises on its hind legs — taller than it should be, "
+                "taller than anything in this wood has a right to be.",
+                "It exhales once, a sound like bellows, and drops its head.",
+                "The shadow around it moves before it does.",
+            ],
+            "hit": [
+                "The claws open your shoulder like cloth.",
+                "It hits you with its full weight. Your feet leave the ground.",
+                "A raking blow. Warm wetness down your arm.",
+            ],
+            "miss": [
+                "You roll aside. The paw cracks bark off the nearest trunk.",
+                "You step inside the swing — too close to hit, too close to breathe.",
+                "It swipes wide. The displacement of air is enough to stagger you.",
+            ],
+            "death": [
+                "It folds slowly, as if considering whether to stay upright. "
+                "Then it does not.",
+                "The dark leaves its eyes before it leaves its body.",
+                "It makes no sound when it falls. Only the ground does.",
+            ],
+        },
+    },
     "wolf": {
         "name": "a Pale Wolf",
         "name_short": "the Wolf",

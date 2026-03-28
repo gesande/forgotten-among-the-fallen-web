@@ -1837,6 +1837,18 @@ SCENE_FOREST_WOLF = {
             ),
         },
         {
+            "type": "memory",
+            "key": "wolf_of_odin_sight",
+            "label": "Odin's Wolf",
+            "text": (
+                "The ulfhednar wore wolf pelts and became the thing beneath the skin. "
+                "You have heard that some wolves go the other way — "
+                "that Odin's hunger walks inside them instead of a man. "
+                "The wolf in front of you does not behave like an animal. "
+                "It behaves like something waiting to be recognised."
+            ),
+        },
+        {
             "type": "combat",
             "enemy": "wolf",
             "variant": "dire",
@@ -1844,14 +1856,81 @@ SCENE_FOREST_WOLF = {
         {"type": "stat", "changes": {"resolve": 5}},
         {
             "type": "memory",
-            "key": "wolf_of_odin",
-            "label": "The Wolf of Odin",
+            "key": "wolf_of_odin_killed",
+            "label": "What the Wolf Left Behind",
             "text": (
-                "It was not a wolf. Not entirely. "
-                "The ulfhednar — Odin's wolf-warriors — were said to wear the hide "
-                "and become the thing beneath. "
-                "This one had no warrior inside it. "
-                "Only the god's hunger, left here without a leash."
+                "It did not die like an animal. "
+                "There was a moment — between the last breath and the stillness — "
+                "when something passed out of it that had not been wolf. "
+                "You do not know if killing it was right. "
+                "You know only that it is done."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Press deeper into the dark wood.",
+            "next": "forest_bear",
+        },
+        {
+            "label": "Make for the great oak.",
+            "next": "hermit_oak",
+        },
+    ],
+}
+
+SCENE_FOREST_BEAR = {
+    "art": "combat_bear",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The trees open into a hollow — a natural ring where nothing grows. "
+                "At the centre, a shape. "
+                "It is sitting. Not crouching, not sleeping: sitting, "
+                "the way a man sits when he has stopped caring about comfort. "
+                "When it turns toward you, its eyes are wrong. "
+                "Not animal-wrong. Something older."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "You remember something your father said: "
+                "the berserkir did not go mad. They were emptied. "
+                "The god filled what was left."
+            ),
+        },
+        {
+            "type": "memory",
+            "key": "bear_of_odin_sight",
+            "label": "The Berserker's Skin",
+            "text": (
+                "The berserkir wore bear pelts into battle and became something else — "
+                "not animal, not man, but whatever stood between them. "
+                "Odin's rage made flesh. "
+                "The bear in the hollow sits like a warrior between charges. "
+                "You do not know if the man is still inside it, "
+                "or if the hide was all that was left."
+            ),
+        },
+        {
+            "type": "combat",
+            "enemy": "bear",
+            "variant": "berserker",
+        },
+        {"type": "stat", "changes": {"resolve": 7, "brutality": 3}},
+        {
+            "type": "memory",
+            "key": "bear_of_odin_killed",
+            "label": "What the Bear Carried",
+            "text": (
+                "When it fell, the rage left the air around it. "
+                "Whatever had been riding it — god or memory or something with no name — "
+                "was gone. "
+                "The hollow felt ordinary after that. "
+                "Just trees and mud and a dead animal. "
+                "That felt worse, somehow."
             ),
         },
     ],
@@ -2125,6 +2204,7 @@ SCENES = {
     "fog_road": SCENE_FOG_ROAD,
     "forest_path": SCENE_FOREST_PATH,
     "forest_wolf": SCENE_FOREST_WOLF,
+    "forest_bear": SCENE_FOREST_BEAR,
     "hermit_oak": SCENE_HERMIT_OAK,
     "hermit_greet": SCENE_HERMIT_GREET,
     "hermit_battlefield": SCENE_HERMIT_BATTLEFIELD,
