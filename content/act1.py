@@ -258,6 +258,11 @@ SCENE_BATTLEFIELD_OPEN = {
             "condition": {"not": {"flag": "east_searched"}},
         },
         {
+            "label": "Return to the dense dead.",
+            "next": "scavenge_east_return",
+            "condition": {"flag": "east_searched"},
+        },
+        {
             "label": "Go south — towards the mound.",
             "next": "the_mound",
             "condition": {"or": [{"flag": "found_forge"}, {"flag": "east_searched"}]},
@@ -598,6 +603,11 @@ SCENE_BATTLEFIELD_LOOK_AROUND = {
             "next": "scavenge_east",
             "effects": {"brutality": 3},
             "condition": {"not": {"flag": "east_searched"}},
+        },
+        {
+            "label": "Return to the dense dead.",
+            "next": "scavenge_east_return",
+            "condition": {"flag": "east_searched"},
         },
         {
             "label": "Go to the soldier against the shield-wall.",
@@ -1301,6 +1311,75 @@ SCENE_SCAVENGE_EAST_AFTER = {
 }
 
 # ─────────────────────────────────────────────────────────────
+#  DENSE DEAD — Return visits
+# ─────────────────────────────────────────────────────────────
+SCENE_SCAVENGE_EAST_RETURN = {
+    "art": "scavenge",
+    "header": {
+        "title": "THE DENSE DEAD",
+        "subtitle": "Something has found the bodies before you",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The eastern dead are quieter now. "
+                "Whatever unfinished business drove them upright has been settled — "
+                "by you or by time. "
+                "But the dead attract the living."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You hear them before you see them. "
+                "Low movement between bodies. "
+                "A wet sound that you do not want to name."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "Wolves. Two, at least. And below them — in the dark between the fallen — rats.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Drive off the wolves. They have no claim here.",
+            "next": "combat_wolf_battlefield",
+            "effects": {"brutality": 3},
+        },
+        {
+            "label": "Leave them. The dead are theirs now.",
+            "next": "battlefield_open",
+            "effects": {"resolve": 2},
+            "narration": (
+                "You back away. The wolves do not pursue. "
+                "They have what they came for."
+            ),
+        },
+    ],
+}
+
+SCENE_COMBAT_WOLF_BATTLEFIELD = {
+    "art": "combat_wolf",
+    "next": "battlefield_open",
+    "beats": [
+        {
+            "type": "combat",
+            "enemy": "wolf",
+            "variant": "pack_leader",
+            "flag": "defeated_wolf_battlefield",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Leave the battlefield.",
+            "next": "battlefield_open",
+        },
+    ],
+}
+
+# ─────────────────────────────────────────────────────────────
 #  THE MOUND — Boss Approach
 # ─────────────────────────────────────────────────────────────
 SCENE_THE_MOUND = {
@@ -1773,6 +1852,8 @@ SCENES = {
     "forge_search": SCENE_FORGE_SEARCH,
     "forge_sharpen": SCENE_FORGE_SHARPEN,
     "scavenge_east": SCENE_SCAVENGE_EAST,
+    "scavenge_east_return": SCENE_SCAVENGE_EAST_RETURN,
+    "combat_wolf_battlefield": SCENE_COMBAT_WOLF_BATTLEFIELD,
     "combat_draugar_east": SCENE_COMBAT_DRAUGAR_EAST,
     "scavenge_east_after": SCENE_SCAVENGE_EAST_AFTER,
     "the_mound": SCENE_THE_MOUND,
