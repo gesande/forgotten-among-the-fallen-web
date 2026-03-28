@@ -22,3 +22,4 @@
 
 - [ ] **Vihollisen healthbar** jää näkyviin taistelun jälkeen
 - [ ] Shieldwall draugar -taistelun häviön jälkeen ei pääse yrittämään uudelleen (tarkoituksellinen?)
+- [ ] **Sentinel flee** — Odrik sanoo "You fought the Sentinel" vaikka pelaaja väisti/pakeni
