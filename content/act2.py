@@ -1845,7 +1845,9 @@ SCENE_FOREST_WOLF = {
                 "You have heard that some wolves go the other way — "
                 "that Odin's hunger walks inside them instead of a man. "
                 "The wolf in front of you does not behave like an animal. "
-                "It behaves like something waiting to be recognised."
+                "It behaves like something waiting to be recognised. "
+                "The old stories say Odin's creatures do not just wound — "
+                "they take. The runes in your bones feel colder already."
             ),
         },
         {
