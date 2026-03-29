@@ -1813,7 +1813,7 @@ SCENE_FOREST_PATH = {
     "choices": [
         {
             "label": "Press deeper into the wood.",
-            "next": "forest_wolf",
+            "next": "forest_rune_stone",
             "effects": {"resolve": -3},
         },
         {
@@ -1876,12 +1876,80 @@ SCENE_FOREST_WOLF = {
             "condition": {"not": {"has_item": "wolf pelt"}},
         },
         {
-            "label": "Press deeper into the dark wood.",
+            "label": "Press further — something larger moves out there.",
+            "next": "forest_bear",
+        },
+        {
+            "label": "Return to the standing stone.",
+            "next": "forest_rune_stone",
+        },
+        {
+            "label": "Make for the great oak.",
+            "next": "hermit_oak",
+        },
+    ],
+}
+
+SCENE_FOREST_RUNE_STONE = {
+    "art": "forest_path",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The trees close behind you. "
+                "The path you followed in has already disappeared into the undergrowth. "
+                "Ahead the wood opens into a small clearing — not natural, too even — "
+                "and at its centre a standing stone rises to chest height, "
+                "half-swallowed by moss and the roots of a fallen birch. "
+                "The runes carved into it are older than the ones on your skin. "
+                "A different hand. A different age. "
+                "Some you recognise. Most you do not. "
+                "Together they say something about rest, or about weight being set down."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "The stone radiates a faint warmth — "
+                "the kind that comes from being remembered rather than from fire. "
+                "You sit with your back against it. "
+                "The wood holds still. For a moment the fog does not press. "
+                "When you stand again, the worst of it has closed."
+            ),
+        },
+        {"type": "heal"},
+        {"type": "flag", "key": "rune_stone_rested"},
+        {
+            "type": "memory",
+            "key": "rune_stone_forest",
+            "label": "The Standing Stone",
+            "text": (
+                "Whoever carved this stone is long gone. "
+                "The runes are worn smooth at the edges — "
+                "not from neglect but from hands. "
+                "Many hands, over many years, touching the same lines. "
+                "You are not the first dead thing to sit here and be held. "
+                "The wood knows what you are. "
+                "It does not turn away."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Follow the pale shape deeper into the wood.",
+            "next": "forest_wolf",
+        },
+        {
+            "label": "Press further — something larger moves out there.",
             "next": "forest_bear",
         },
         {
             "label": "Make for the great oak.",
             "next": "hermit_oak",
+        },
+        {
+            "label": "Turn back to the road.",
+            "next": "fog_road",
         },
     ],
 }
@@ -1958,6 +2026,10 @@ SCENE_FOREST_BEAR = {
             "label": "Back away slowly.",
             "next": "forest_bear_avoided",
             "effects": {"resolve": 2},
+        },
+        {
+            "label": "Return to the standing stone.",
+            "next": "forest_rune_stone",
         },
     ],
 }
@@ -2390,6 +2462,7 @@ SCENES = {
     "forest_bear_pelt": SCENE_FOREST_BEAR_PELT,
     "forest_bear_avoided": SCENE_FOREST_BEAR_AVOIDED,
     "forest_wolf_pelt": SCENE_FOREST_WOLF_PELT,
+    "forest_rune_stone": SCENE_FOREST_RUNE_STONE,
     "hermit_oak": SCENE_HERMIT_OAK,
     "hermit_greet": SCENE_HERMIT_GREET,
     "hermit_bear_pelt": SCENE_HERMIT_BEAR_PELT,

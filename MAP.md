@@ -62,19 +62,35 @@ act_2_intro
        │           └─ fog_sentinel
        │
        └─ [forest detour] forest_path
-             ├─ forest_wolf
-             │     ├─ forest_bear ──────────────┐
-             │     └─ hermit_oak ◄──────────────┘
-             │           ├─ hermit_greet
-             │           │     ├─ hermit_battlefield
-             │           │     ├─ hermit_silence
-             │           │     ├─ hermit_who
-             │           │     │     └─ hermit_why
-             │           │     └─ hermit_oath
-             │           │           └─ hermit_depart
-             │           └─ fog_sentinel (skip hermit)
-             │
-             └─ fog_road (turn back)
+             └─ forest_rune_stone (hub, heal once)
+                   ├─ forest_wolf ◄──────────────────┐
+                   │     ├─ forest_wolf_pelt           │
+                   │     │     ├─ forest_bear          │
+                   │     │     └─ hermit_oak           │
+                   │     ├─ forest_bear                │
+                   │     └─ forest_rune_stone ─────────┘
+                   │
+                   ├─ forest_bear ◄──────────────────┐
+                   │     ├─ forest_bear_fight          │
+                   │     │     ├─ forest_bear_pelt     │
+                   │     │     │     └─ hermit_oak     │
+                   │     │     └─ hermit_oak           │
+                   │     ├─ forest_bear_avoided        │
+                   │     │     └─ hermit_oak           │
+                   │     └─ forest_rune_stone ─────────┘
+                   │
+                   ├─ hermit_oak
+                   │     ├─ hermit_greet
+                   │     │     ├─ hermit_battlefield
+                   │     │     ├─ hermit_bear_pelt (cond: has bear pelt)
+                   │     │     ├─ hermit_silence
+                   │     │     ├─ hermit_who
+                   │     │     │     └─ hermit_why
+                   │     │     └─ hermit_oath
+                   │     │           └─ hermit_depart
+                   │     └─ fog_sentinel (skip hermit)
+                   │
+                   └─ fog_road (turn back)
 
 fog_sentinel
   ├─ fog_sentinel_wait
@@ -125,7 +141,7 @@ fog_sentinel
 | combat_gunnar | gunnar | — | Act I — The Mound |
 | combat_fog_sentinel | fog_sentinel | — | Act II — Fog road |
 | forest_wolf | wolf | dire | Act II — Dark wood |
-| forest_bear | bear | berserker | Act II — Dark wood (deeper) |
+| forest_bear_fight | bear | berserker | Act II — Dark wood (deeper) |
 
 ## Key flags
 
@@ -139,3 +155,5 @@ fog_sentinel
 | `defeated_fog_sentinel` | combat_fog_sentinel | Odrik dialogue variant |
 | `held_released` | fog_held_release | gatehouse approach prose variant |
 | `held_forced` | fog_held_after | gatehouse approach prose variant |
+| `rune_stone_rested` | forest_rune_stone | hides stone rest choice (heal fires once) |
+| `forest_visited` | forest_path | — |
