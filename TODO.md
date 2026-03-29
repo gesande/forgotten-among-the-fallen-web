@@ -11,6 +11,7 @@
 - [ ] **Mercy-mekaniikka** — honour/mercy-statit ovat olemassa mutta harvoin ratkaisevat
 - [ ] **Runic Burst** — echo shards -systeemi toimii, lisää käyttötilanteita?
 - [ ] **Curse stacks** — maksimi 5, mutta vaikutus loppupelissä voisi kasvaa
+- [x] **Rune stone** — `forest_rune_stone` hub Act II metsässä; susi/karhu/hermit rinnakkaisina reitteinä; heal kerran
 
 ## Combat
 
