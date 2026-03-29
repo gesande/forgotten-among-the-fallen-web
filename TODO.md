@@ -4,7 +4,7 @@
 
 - [ ] **Act III** — placeholder exists (`act_3_intro`), sisältö kirjoittamatta
 - [ ] **Act IV** — suunniteltu, ei aloitettu
-- [ ] **name_entry** — art puuttuu (`static/svg/name_entry.png`)
+- [x] **name_entry** — art lisätty
 
 ## Gameplay
 
