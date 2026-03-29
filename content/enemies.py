@@ -37,7 +37,7 @@ ENEMIES = {
         "accuracy": 0.65,
         "weapon": {"name": "claws", "effect": "bleeding"},
         "shards": (60, 120),
-        "loot": [("bear pelt", 0.7)],
+        "loot": [],
         "variants": {
             "berserker": {
                 "name": "the Berserker Bear",
@@ -80,7 +80,7 @@ ENEMIES = {
         "accuracy": 0.75,
         "weapon": {"name": "bite", "effect": "bleeding"},
         "shards": (40, 80),
-        "loot": [("wolf pelt", 0.6)],
+        "loot": [],
         "variants": {
             "pack_leader": {
                 "name": "the Pack Leader",

@@ -1871,6 +1871,37 @@ SCENE_FOREST_WOLF = {
     ],
     "choices": [
         {
+            "label": "Take the wolf pelt.",
+            "next": "forest_wolf_pelt",
+            "condition": {"not": {"has_item": "wolf pelt"}},
+        },
+        {
+            "label": "Press deeper into the dark wood.",
+            "next": "forest_bear",
+        },
+        {
+            "label": "Make for the great oak.",
+            "next": "hermit_oak",
+        },
+    ],
+}
+
+SCENE_FOREST_WOLF_PELT = {
+    "art": "combat_dire_wolf",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The pelt is heavy and cold. "
+                "You pull it across your shoulders. "
+                "It settles like a second skin — "
+                "like something that was waiting for someone to put it on again."
+            ),
+        },
+        {"type": "item", "action": "give", "name": "wolf pelt"},
+    ],
+    "choices": [
+        {
             "label": "Press deeper into the dark wood.",
             "next": "forest_bear",
         },
@@ -1916,6 +1947,24 @@ SCENE_FOREST_BEAR = {
                 "or if the hide was all that was left."
             ),
         },
+    ],
+    "choices": [
+        {
+            "label": "Step into the hollow.",
+            "next": "forest_bear_fight",
+            "effects": {"brutality": 2},
+        },
+        {
+            "label": "Back away slowly.",
+            "next": "forest_bear_avoided",
+            "effects": {"resolve": 2},
+        },
+    ],
+}
+
+SCENE_FOREST_BEAR_FIGHT = {
+    "art": "combat_bear",
+    "beats": [
         {
             "type": "combat",
             "enemy": "bear",
@@ -1933,6 +1982,63 @@ SCENE_FOREST_BEAR = {
                 "The hollow felt ordinary after that. "
                 "Just trees and mud and a dead animal. "
                 "That felt worse, somehow."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Take the bear pelt.",
+            "next": "forest_bear_pelt",
+            "condition": {"not": {"has_item": "bear pelt"}},
+        },
+        {
+            "label": "Make for the great oak.",
+            "next": "hermit_oak",
+        },
+    ],
+}
+
+SCENE_FOREST_BEAR_PELT = {
+    "art": "combat_bear",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "The pelt is enormous. You have never touched anything like it — "
+                "the weight of it, the warmth still in it. "
+                "When you pull it over your shoulders "
+                "something shifts behind your eyes. "
+                "Not wrong. Not right. Different."
+            ),
+        },
+        {"type": "item", "action": "give", "name": "bear pelt"},
+    ],
+    "next": "hermit_oak",
+}
+
+SCENE_FOREST_BEAR_AVOIDED = {
+    "art": "combat_bear",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You take one step back. Then another. "
+                "The bear does not move. It watches you — "
+                "not with hunger, not with fear. "
+                "With something that has no animal name. "
+                "You reach the treeline and it is still sitting, "
+                "still watching, as the hollow closes behind you."
+            ),
+        },
+        {
+            "type": "memory",
+            "key": "bear_of_odin_left",
+            "label": "The Bear You Left",
+            "text": (
+                "It did not follow. "
+                "You do not know if that was mercy or indifference — "
+                "whether you chose to leave, or whether it let you go. "
+                "The distinction feels important and you cannot resolve it."
             ),
         },
     ],
@@ -2280,6 +2386,10 @@ SCENES = {
     "forest_path": SCENE_FOREST_PATH,
     "forest_wolf": SCENE_FOREST_WOLF,
     "forest_bear": SCENE_FOREST_BEAR,
+    "forest_bear_fight": SCENE_FOREST_BEAR_FIGHT,
+    "forest_bear_pelt": SCENE_FOREST_BEAR_PELT,
+    "forest_bear_avoided": SCENE_FOREST_BEAR_AVOIDED,
+    "forest_wolf_pelt": SCENE_FOREST_WOLF_PELT,
     "hermit_oak": SCENE_HERMIT_OAK,
     "hermit_greet": SCENE_HERMIT_GREET,
     "hermit_bear_pelt": SCENE_HERMIT_BEAR_PELT,
