@@ -359,12 +359,26 @@ body {
 }
 
 #save-indicator {
-  display: block;
-  width: 32px;
-  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin-top: 10px;
   opacity: 0;
   pointer-events: none;
+}
+
+#save-indicator img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+#save-indicator span {
+  font-family: "Cinzel", serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(180, 140, 50, 0.9);
 }
 
 #save-indicator.visible {
