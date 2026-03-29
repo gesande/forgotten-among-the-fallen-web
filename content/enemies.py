@@ -154,7 +154,7 @@ ENEMIES = {
         "damage": (4, 9),
         "accuracy": 0.80,
         "shards": (10, 30),
-        "loot": [],
+        "loot": [("rat bone", 0.6), ("vermin claw", 0.4)],
         "variants": {
             "giant": {
                 "name": "a Giant Rat",
