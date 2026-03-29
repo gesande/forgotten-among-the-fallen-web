@@ -8,7 +8,6 @@ const ART_FALLBACK = "battlefield";
 
 // Art key aliases — use a different image file but trigger different music
 const ART_ALIASES = {
-  name_entry: "battlefield",
   gunnar_combat: "gunnar",
 };
 
