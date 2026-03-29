@@ -2034,6 +2034,79 @@ SCENE_HERMIT_GREET = {
             "next": "hermit_silence",
             "effects": {"resolve": 2},
         },
+        {
+            "label": '"This pelt. I cannot take it off."',
+            "next": "hermit_bear_pelt",
+            "condition": {"has_item": "bear pelt"},
+        },
+    ],
+}
+
+SCENE_HERMIT_BEAR_PELT = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He does not look at the pelt. He looks at you — at your hands, "
+                "at the set of your jaw, at the way you are standing. "
+                "Then he looks at the pelt."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"The berserkir did not wear the hide," he says. '
+                '"The hide wore them. There is a difference." '
+                "He stands. For an old man leaning against a tree, "
+                "he moves without difficulty. "
+                '"Hold still."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He speaks no words you recognise. "
+                "His hands do not touch the pelt but move around it — "
+                "tracing something in the air that you cannot see. "
+                "The weight across your shoulders shifts, "
+                "like a breath held for too long finally released. "
+                "The pelt falls. "
+                "It hits the ground and lies there, ordinary."
+            ),
+        },
+        {"type": "item", "action": "take", "name": "bear pelt"},
+        {"type": "stat", "changes": {"resolve": 5, "brutality": -5}},
+        {
+            "type": "memory",
+            "key": "hermit_bear_pelt",
+            "label": "What the Hermit said about the hide",
+            "text": (
+                "The hide wore them. Not the other way. "
+                "He said it like the distinction mattered — "
+                "like it was the difference between a wound and a scar."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "He returns to his place against the oak. "
+                '"The god\u2019s hunger goes looking for another vessel now. '
+                'Do not be in the wood at night." '
+                "He closes his eyes."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": '"Thank you."',
+            "next": "hermit_greet",
+            "effects": {"honour": 3},
+        },
+        {
+            "label": "Say nothing. Return to the road.",
+            "next": "hermit_depart",
+        },
     ],
 }
 
@@ -2209,6 +2282,7 @@ SCENES = {
     "forest_bear": SCENE_FOREST_BEAR,
     "hermit_oak": SCENE_HERMIT_OAK,
     "hermit_greet": SCENE_HERMIT_GREET,
+    "hermit_bear_pelt": SCENE_HERMIT_BEAR_PELT,
     "hermit_battlefield": SCENE_HERMIT_BATTLEFIELD,
     "hermit_who": SCENE_HERMIT_WHO,
     "hermit_why": SCENE_HERMIT_WHY,

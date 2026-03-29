@@ -121,6 +121,9 @@ class PlayerState:
     def remove_item(self, item: str) -> bool:
         if item in self.inventory:
             self.inventory.remove(item)
+            for slot, equipped in list(self.equipped.items()):
+                if equipped == item:
+                    self.equipped[slot] = ""
             return True
         return False
 
