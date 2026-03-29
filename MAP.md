@@ -63,8 +63,8 @@ act_2_intro
        │
        └─ [forest detour] forest_path
              └─ forest_rune_stone (hub, heal once)
-                   ├─ forest_wolf ◄──────────────────┐
-                   │     ├─ forest_wolf_pelt           │
+                   ├─ forest_dire_wolf ◄──────────────────┐
+                   │     ├─ forest_dire_wolf_pelt           │
                    │     │     ├─ forest_bear          │
                    │     │     └─ hermit_oak           │
                    │     ├─ forest_bear                │
@@ -140,7 +140,7 @@ fog_sentinel
 | combat_wolf_battlefield | wolf | pack_leader | Act I — Dense dead return |
 | combat_gunnar | gunnar | — | Act I — The Mound |
 | combat_fog_sentinel | fog_sentinel | — | Act II — Fog road |
-| forest_wolf | wolf | dire | Act II — Dark wood |
+| forest_dire_wolf | wolf | dire | Act II — Dark wood |
 | forest_bear_fight | bear | berserker | Act II — Dark wood (deeper) |
 
 ## Key flags

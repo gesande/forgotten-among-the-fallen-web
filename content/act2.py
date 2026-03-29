@@ -1823,7 +1823,7 @@ SCENE_FOREST_PATH = {
     ],
 }
 
-SCENE_FOREST_WOLF = {
+SCENE_FOREST_DIRE_WOLF = {
     "art": "combat_dire_wolf",
     "beats": [
         {
@@ -1839,23 +1839,41 @@ SCENE_FOREST_WOLF = {
         {
             "type": "memory",
             "key": "wolf_of_odin_sight",
-            "label": "Odin's Wolf",
+            "label": "Odin\u2019s Wolf",
             "text": (
                 "The ulfhednar wore wolf pelts and became the thing beneath the skin. "
                 "You have heard that some wolves go the other way — "
-                "that Odin's hunger walks inside them instead of a man. "
+                "that Odin\u2019s hunger walks inside them instead of a man. "
                 "The wolf in front of you does not behave like an animal. "
                 "It behaves like something waiting to be recognised. "
-                "The old stories say Odin's creatures do not just wound — "
+                "The old stories say Odin\u2019s creatures do not just wound — "
                 "they take. The runes in your bones feel colder already."
             ),
         },
+    ],
+    "choices": [
+        {
+            "label": "Draw your weapon.",
+            "next": "forest_dire_wolf_fight",
+        },
+        {
+            "label": "Hold still. Do not reach for the axe.",
+            "next": "forest_dire_wolf_mercy",
+            "condition": {"stat_gte": "mercy", "value": 10},
+        },
+    ],
+}
+
+SCENE_FOREST_DIRE_WOLF_FIGHT = {
+    "art": "combat_dire_wolf",
+    "beats": [
         {
             "type": "combat",
             "enemy": "wolf",
             "variant": "dire",
         },
         {"type": "stat", "changes": {"resolve": 5}},
+        {"type": "flag", "key": "wolf_killed"},
         {
             "type": "memory",
             "key": "wolf_of_odin_killed",
@@ -1872,9 +1890,66 @@ SCENE_FOREST_WOLF = {
     "choices": [
         {
             "label": "Take the wolf pelt.",
-            "next": "forest_wolf_pelt",
+            "next": "forest_dire_wolf_pelt",
             "condition": {"not": {"has_item": "wolf pelt"}},
         },
+        {
+            "label": "Press further — something larger moves out there.",
+            "next": "forest_bear",
+        },
+        {
+            "label": "Return to the standing stone.",
+            "next": "forest_rune_stone",
+        },
+        {
+            "label": "Make for the great oak.",
+            "next": "hermit_oak",
+        },
+    ],
+}
+
+SCENE_FOREST_DIRE_WOLF_MERCY = {
+    "art": "combat_dire_wolf",
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                "You go still. Not the stillness of fear — "
+                "the stillness of something that does not need to move. "
+                "Your hand stays at your side."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "The wolf circles. Once. Twice. "
+                "You track it with your eyes but do not turn your body. "
+                "It stops in front of you and the pale eyes hold yours — "
+                "not measuring, not threatening. "
+                "Looking for something. "
+                "After a long moment it steps past you. "
+                "Brushes your hand with its flank as it goes. "
+                "Cold as river water. "
+                "It does not look back."
+            ),
+        },
+        {"type": "stat", "changes": {"resolve": 5, "mercy": 5}},
+        {"type": "flag", "key": "wolf_spared"},
+        {
+            "type": "memory",
+            "key": "wolf_of_odin_passed",
+            "label": "The Wolf That Passed",
+            "text": (
+                "It did not attack. "
+                "You do not know if it could not, or chose not to, "
+                "or if the difference matters. "
+                "Something cold brushed your hand and then it was gone. "
+                "You stood in the dark wood and something ancient "
+                "looked at you and kept walking."
+            ),
+        },
+    ],
+    "choices": [
         {
             "label": "Press further — something larger moves out there.",
             "next": "forest_bear",
@@ -1937,7 +2012,7 @@ SCENE_FOREST_RUNE_STONE = {
     "choices": [
         {
             "label": "Follow the pale shape deeper into the wood.",
-            "next": "forest_wolf",
+            "next": "forest_dire_wolf",
         },
         {
             "label": "Press further — something larger moves out there.",
@@ -1954,7 +2029,7 @@ SCENE_FOREST_RUNE_STONE = {
     ],
 }
 
-SCENE_FOREST_WOLF_PELT = {
+SCENE_FOREST_DIRE_WOLF_PELT = {
     "art": "combat_dire_wolf",
     "beats": [
         {
@@ -2176,24 +2251,130 @@ SCENE_HERMIT_GREET = {
     "art": "hermit_oak",
     "beats": [
         {
-            "type": "italic",
-            "text": '"You killed the wolf," he says. Not a question.',
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"flag": "wolf_spared"},
+                    "type": "italic",
+                    "text": '"You let it pass," he says. Not a question.',
+                },
+                {
+                    "condition": {"flag": "wolf_killed"},
+                    "type": "italic",
+                    "text": '"You killed the wolf," he says. Not a question.',
+                },
+                {
+                    "type": "italic",
+                    "text": "He opens both eyes at your approach. Says nothing. Waits.",
+                },
+            ],
         },
         {
-            "type": "prose",
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"stat_gte": "honour", "value": 65},
+                    "text": (
+                        "He opens the other eye. Whatever he was expecting, "
+                        "he has found some part of it. "
+                        "The assessment is brief — hands, stance, the set of your jaw — "
+                        "and then he simply nods, as if confirming something to himself."
+                    ),
+                },
+                {
+                    "text": (
+                        "He opens the other eye. Studies you with the particular attention "
+                        "of someone who has been waiting for something, and is not yet sure "
+                        "if this is it."
+                    ),
+                },
+            ],
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"flag": "wolf_spared"},
+                    "type": "italic",
+                    "text": (
+                        '"It has been here longer than I have. I fed it, when I could. '
+                        "It was not kind. But it was honest.\" "
+                        "He pauses. "
+                        '"Not many choose to stand still."'
+                    ),
+                },
+                {
+                    "type": "italic",
+                    "text": (
+                        '"It has been here longer than I have. I fed it, when I could. '
+                        'It was not grateful. Animals rarely are." '
+                        "He pauses. "
+                        '"You are not from the road."'
+                    ),
+                },
+            ],
+        },
+    ],
+    "choices": [
+        {
+            "label": '"I woke on the battlefield."',
+            "next": "hermit_battlefield",
+            "effects": {"honour": 3},
+        },
+        {
+            "label": '"Who are you?"',
+            "next": "hermit_who",
+        },
+        {
+            "label": "Say nothing. Watch him.",
+            "next": "hermit_silence",
+            "effects": {"resolve": 2},
+        },
+        {
+            "label": '"You have been here alone a long time."',
+            "next": "hermit_mercy",
+            "condition": {"stat_gte": "mercy", "value": 10},
+        },
+        {
+            "label": '"This pelt. I cannot take it off."',
+            "next": "hermit_bear_pelt",
+            "condition": {"has_item": "bear pelt"},
+        },
+    ],
+}
+
+SCENE_HERMIT_MERCY = {
+    "art": "hermit_oak",
+    "beats": [
+        {
+            "type": "italic",
             "text": (
-                "He opens the other eye. Studies you with the particular attention "
-                "of someone who has been waiting for something, and is not yet sure "
-                "if this is it."
+                "He does not answer immediately. "
+                "He looks at you — not the way he was looking before, "
+                "measuring and cautious. Different."
             ),
         },
         {
             "type": "italic",
             "text": (
-                '"It has been here longer than I have. I fed it, when I could. '
-                'It was not grateful. Animals rarely are." '
-                "He pauses. "
-                '"You are not from the road."'
+                '"A long time," he says finally. '
+                '"Long enough that I have stopped counting it." '
+                "A pause. "
+                '"Most who find this place want something from me. "  '
+                "He tilts his head slightly. "
+                '"You are the first in some years to notice I am here at all."'
+            ),
+        },
+        {"type": "stat", "changes": {"honour": 3, "mercy": 3}},
+        {
+            "type": "memory",
+            "key": "hermit_solitude",
+            "label": "The Hermit Alone",
+            "text": (
+                "He has been in this wood longer than he counts. "
+                "Long enough to stop measuring. "
+                "You asked nothing of him — only acknowledged what was there. "
+                "He noticed."
             ),
         },
     ],
@@ -2456,15 +2637,18 @@ SCENE_HERMIT_DEPART = {
 SCENES = {
     "fog_road": SCENE_FOG_ROAD,
     "forest_path": SCENE_FOREST_PATH,
-    "forest_wolf": SCENE_FOREST_WOLF,
+    "forest_dire_wolf": SCENE_FOREST_DIRE_WOLF,
+    "forest_dire_wolf_fight": SCENE_FOREST_DIRE_WOLF_FIGHT,
+    "forest_dire_wolf_mercy": SCENE_FOREST_DIRE_WOLF_MERCY,
     "forest_bear": SCENE_FOREST_BEAR,
     "forest_bear_fight": SCENE_FOREST_BEAR_FIGHT,
     "forest_bear_pelt": SCENE_FOREST_BEAR_PELT,
     "forest_bear_avoided": SCENE_FOREST_BEAR_AVOIDED,
-    "forest_wolf_pelt": SCENE_FOREST_WOLF_PELT,
+    "forest_dire_wolf_pelt": SCENE_FOREST_DIRE_WOLF_PELT,
     "forest_rune_stone": SCENE_FOREST_RUNE_STONE,
     "hermit_oak": SCENE_HERMIT_OAK,
     "hermit_greet": SCENE_HERMIT_GREET,
+    "hermit_mercy": SCENE_HERMIT_MERCY,
     "hermit_bear_pelt": SCENE_HERMIT_BEAR_PELT,
     "hermit_battlefield": SCENE_HERMIT_BATTLEFIELD,
     "hermit_who": SCENE_HERMIT_WHO,
