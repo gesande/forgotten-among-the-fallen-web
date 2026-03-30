@@ -82,15 +82,7 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     # ── Player effects tick (at turn start) ───────────────────
     _tick_player_effects(combat_state, player, log)
     if player.is_dead():
-        log.append(S["player_death_1"])
-        log.append(S["player_death_2"])
-        player.deaths += 1
-        player.modify_stat("curse_stacks", 1)
-        player.echo_shards = player.echo_shards // CC["death_shard_divisor"]
-        player.health = player.max_health
-        combat_state["over"] = True
-        combat_state["died"] = True
-        return combat_state
+        return _handle_player_death(player, combat_state, log)
 
     # ── Player action ─────────────────────────────────────────
     if action_id == "light":
@@ -192,27 +184,32 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         _resolve_enemy_turn(e, player, log, combat_state)
 
     # Taunt
-    if "taunt" in e.get("phrases", {}) and chance(0.35):
+    if "taunt" in e.get("phrases", {}) and chance(CC["taunt_chance"]):
         log.append(random.choice(e["phrases"]["taunt"]))
 
     # Check player death
     if player.is_dead():
-        log.append(S["player_death_1"])
-        log.append(S["player_death_2"])
-        player.deaths += 1
-        player.modify_stat("curse_stacks", 1)
-        player.echo_shards = player.echo_shards // CC["death_shard_divisor"]
-        player.health = player.max_health
-        combat_state["over"] = True
-        combat_state["died"] = True
+        _handle_player_death(player, combat_state, log)
 
+    return combat_state
+
+
+def _handle_player_death(player, combat_state, log) -> dict:
+    log.append(S["player_death_1"])
+    log.append(S["player_death_2"])
+    player.deaths += 1
+    player.modify_stat("curse_stacks", 1)
+    player.echo_shards = player.echo_shards // CC["death_shard_divisor"]
+    player.health = player.max_health
+    combat_state["over"] = True
+    combat_state["died"] = True
     return combat_state
 
 
 def _tick_player_effects(combat_state, player, log):
     effects = combat_state.get("player_effects", {})
     if "bleeding" in effects:
-        dmg = roll_range(4, 8)
+        dmg = roll_range(*CC["bleeding"]["dmg"])
         player.take_damage(dmg)
         log.append(S["bleeding_tick_player"].format(dmg=dmg))
         effects["bleeding"] -= 1
@@ -260,7 +257,7 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
         if effect == "bleeding" and combat_state is not None:
             peff = combat_state.setdefault("player_effects", {})
             if not peff.get("bleeding"):
-                peff["bleeding"] = 3
+                peff["bleeding"] = CC["bleeding"]["duration"]
                 log.append(S["bleeding_open_player"])
     else:
         log.append(random.choice(e["phrases"]["miss"]))
@@ -288,7 +285,7 @@ def _resolve_enemy_death(e, player, combat_state, log):
 def _tick_effects(e, log):
     effects = e.get("effects", {})
     if "bleeding" in effects:
-        dmg = roll_range(4, 8)
+        dmg = roll_range(*CC["bleeding"]["dmg"])
         e["current_hp"] = max(0, e["current_hp"] - dmg)
         log.append(S["bleeding_tick_enemy"].format(name=e["name_short"], dmg=dmg))
         effects["bleeding"] -= 1
@@ -312,25 +309,23 @@ def _player_strikes(dmg, e, player, log) -> bool:
     return True
 
 
-def _hit_enemy(dmg, e, player=None, log=None):
+def _hit_enemy(dmg, e, player, log):
     e["current_hp"] = max(0, e["current_hp"] - dmg)
     # Weapon effect — apply on hit if weapon carries one
-    if player is not None and e["current_hp"] > 0:
+    if e["current_hp"] > 0:
         weapon = player.equipped.get("weapon", "bare hands")
         effect = EQUIPMENT.get(weapon, {}).get("effect")
         if effect == "bleeding" and not e.get("effects", {}).get("bleeding"):
-            e.setdefault("effects", {})["bleeding"] = 3
-            if log is not None:
-                log.append(S["bleeding_open_enemy"])
+            e.setdefault("effects", {})["bleeding"] = CC["bleeding"]["duration"]
+            log.append(S["bleeding_open_enemy"])
     # Drain mechanic — enemy heals from player stat when hit
-    if e.get("drain") and player is not None:
+    if e.get("drain"):
         drain = min(e["drain_amount"], getattr(player, "wrath", 0))
         if drain > 0:
             player.wrath = max(0, player.wrath - drain)
             heal = min(drain, e["hp"] - e["current_hp"])
             e["current_hp"] = min(e["hp"], e["current_hp"] + heal)
-            if log is not None:
-                log.append(random.choice(e["phrases"]["drain_trigger"]))
+            log.append(random.choice(e["phrases"]["drain_trigger"]))
 
 
 def _apply_mods(base, player, kind):

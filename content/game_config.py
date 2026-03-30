@@ -95,6 +95,8 @@ COMBAT_CONFIG = {
     "phase2_hp_ratio": 0.65,
     "phase3_hp_ratio": 0.30,
     "shield_enemy_dmg_bonus": (5, 8),
+    "taunt_chance": 0.35,
+    "bleeding": {"dmg": (4, 8), "duration": 3},
 }
 
 # ── HUD layout ────────────────────────────────────────────────
