@@ -90,8 +90,6 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         dmg = _apply_mods(base, player, "light")
         if _player_strikes(dmg, e, player, log):
             player.modify_stat("wrath", A["light"]["wrath"])
-            combo = player.flags.get("combo", 0) + 1
-            player.set_flag("combo", min(combo, 3))
             log.append(light_prose(dmg, e["name_short"]))
 
     elif action_id == "heavy":
@@ -227,7 +225,7 @@ def _tick_player_effects(combat_state, player, log):
             log.append(S[f"{name}_slow"])
 
 
-def _resolve_enemy_turn(e, player, log, combat_state=None):
+def _resolve_enemy_turn(e, player, log, combat_state):
     windup = random.choice(e["phrases"]["windup"])
     log.append(windup)
     dmg_range = e["damage"]
@@ -263,7 +261,7 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
                 )
         # Enemy weapon effect
         effect = e.get("weapon", {}).get("effect")
-        if effect and combat_state is not None:
+        if effect:
             peff = combat_state.setdefault("player_effects", {})
             if _apply_effect(effect, peff):
                 log.append(S[f"{effect}_open_player"])
