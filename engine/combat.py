@@ -7,7 +7,7 @@
 import random
 from engine.state import PlayerState
 from engine.dice import roll, roll_range, chance
-from content.game_config import EQUIPMENT, COMBAT_MODS, COMBAT_CONFIG
+from content.game_config import EQUIPMENT, COMBAT_MODS, COMBAT_CONFIG, EFFECTS
 from content.enemies import ENEMIES
 from content.combat_prose import (
     STRINGS,
@@ -194,6 +194,15 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     return combat_state
 
 
+def _apply_effect(name: str, target_effects: dict) -> bool:
+    """Apply a status effect. Returns True if newly applied, False if already active."""
+    if target_effects.get(name):
+        return False
+    dur = EFFECTS[name]["duration"]
+    target_effects[name] = roll_range(*dur) if isinstance(dur, tuple) else dur
+    return True
+
+
 def _handle_player_death(player, combat_state, log) -> dict:
     log.append(S["player_death_1"])
     log.append(S["player_death_2"])
@@ -208,14 +217,14 @@ def _handle_player_death(player, combat_state, log) -> dict:
 
 def _tick_player_effects(combat_state, player, log):
     effects = combat_state.get("player_effects", {})
-    if "bleeding" in effects:
-        dmg = roll_range(*CC["bleeding"]["dmg"])
+    for name in list(effects):
+        dmg = roll_range(*EFFECTS[name]["dmg"])
         player.take_damage(dmg)
-        log.append(S["bleeding_tick_player"].format(dmg=dmg))
-        effects["bleeding"] -= 1
-        if effects["bleeding"] <= 0:
-            del effects["bleeding"]
-            log.append(S["bleeding_slow"])
+        log.append(S[f"{name}_tick_player"].format(dmg=dmg))
+        effects[name] -= 1
+        if effects[name] <= 0:
+            del effects[name]
+            log.append(S[f"{name}_slow"])
 
 
 def _resolve_enemy_turn(e, player, log, combat_state=None):
@@ -254,11 +263,10 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
                 )
         # Enemy weapon effect
         effect = e.get("weapon", {}).get("effect")
-        if effect == "bleeding" and combat_state is not None:
+        if effect and combat_state is not None:
             peff = combat_state.setdefault("player_effects", {})
-            if not peff.get("bleeding"):
-                peff["bleeding"] = roll_range(*CC["bleeding"]["duration"])
-                log.append(S["bleeding_open_player"])
+            if _apply_effect(effect, peff):
+                log.append(S[f"{effect}_open_player"])
     else:
         log.append(random.choice(e["phrases"]["miss"]))
 
@@ -284,14 +292,14 @@ def _resolve_enemy_death(e, player, combat_state, log):
 
 def _tick_effects(e, log):
     effects = e.get("effects", {})
-    if "bleeding" in effects:
-        dmg = roll_range(*CC["bleeding"]["dmg"])
+    for name in list(effects):
+        dmg = roll_range(*EFFECTS[name]["dmg"])
         e["current_hp"] = max(0, e["current_hp"] - dmg)
-        log.append(S["bleeding_tick_enemy"].format(name=e["name_short"], dmg=dmg))
-        effects["bleeding"] -= 1
-        if effects["bleeding"] <= 0:
-            del effects["bleeding"]
-            log.append(S["bleeding_slow"])
+        log.append(S[f"{name}_tick_enemy"].format(name=e["name_short"], dmg=dmg))
+        effects[name] -= 1
+        if effects[name] <= 0:
+            del effects[name]
+            log.append(S[f"{name}_slow"])
 
 
 def _player_strikes(dmg, e, player, log) -> bool:
@@ -315,9 +323,8 @@ def _hit_enemy(dmg, e, player, log):
     if e["current_hp"] > 0:
         weapon = player.equipped.get("weapon", "bare hands")
         effect = EQUIPMENT.get(weapon, {}).get("effect")
-        if effect == "bleeding" and not e.get("effects", {}).get("bleeding"):
-            e.setdefault("effects", {})["bleeding"] = roll_range(*CC["bleeding"]["duration"])
-            log.append(S["bleeding_open_enemy"])
+        if effect and _apply_effect(effect, e.setdefault("effects", {})):
+            log.append(S[f"{effect}_open_enemy"])
     # Drain mechanic — enemy heals from player stat when hit
     if e.get("drain"):
         drain = min(e["drain_amount"], getattr(player, "wrath", 0))

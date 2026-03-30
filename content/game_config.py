@@ -96,6 +96,13 @@ COMBAT_CONFIG = {
     "phase3_hp_ratio": 0.30,
     "shield_enemy_dmg_bonus": (5, 8),
     "taunt_chance": 0.35,
+}
+
+# ── Status effects ─────────────────────────────────────────────
+# Each effect: dmg per tick (lo, hi), duration in turns (int=static, tuple=roll).
+# String keys in combat_prose.py must follow: {name}_tick_player,
+# {name}_tick_enemy, {name}_open_player, {name}_open_enemy, {name}_slow.
+EFFECTS = {
     "bleeding": {"dmg": (4, 8), "duration": (1, 3)},
 }
 
