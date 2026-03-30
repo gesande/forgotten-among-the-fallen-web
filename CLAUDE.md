@@ -41,18 +41,23 @@ F8xx ruff errors are real bugs and must be fixed. E4xx/E7xx are style only.
 
 **Game Engine — `engine/`**
 - `state.py`: `PlayerState` dataclass. Stats, inventory, flags, memory fragments, save/load. Derived threshold methods (`is_cursed` etc.) read thresholds from `STATS` config.
-- `scene_web.py`: Processes scene beats and returns JSON. Side effects apply only on first visit. Auto-advances scenes with no prose/choices/combat.
-- `combat.py`: Turn-based combat engine. Player actions: light/heavy strike, parry, flank, runic burst, mercy, flee. Reads enemies from `content/enemies.py`, damage modifiers from `content/game_config.py`.
+- `scene.py`: Processes scene beats and returns JSON. Side effects apply only on first visit. Auto-advances scenes with no prose/choices/combat.
+- `combat.py`: Turn-based combat engine. Player actions: light/heavy strike, parry, flank, runic burst, mercy, flee. All numeric thresholds live in `COMBAT_CONFIG`; narrative strings in `combat_prose.py`. Status effects applied via `_apply_effect()` registry helper.
+- `dice.py`: `roll(sides)`, `roll_range(lo, hi)`, `chance(p)` — shared across engine.
 - `conditions.py`: Data-driven condition evaluator used by scene and choice visibility logic.
 
 **Game Config — `content/game_config.py`**
 - `STATS`: per-stat bounds (`min`/`max`/`default`) and derived thresholds (`threshold`)
-- `EQUIPMENT`: all equippable items with `slot`, `tier`, and slot-specific properties (`damage_bonus` for weapons, `defense` for shields). Auto-equip is tier-based.
+- `EQUIPMENT`: all equippable items with `slot`, `tier`, and slot-specific properties (`damage_bonus` for weapons, `defense` for shields, `berserk` for body). Auto-equip is tier-based.
+- `COMBAT_CONFIG`: all numeric combat constants. `actions` sub-dict groups per-action values (`dmg`, `wrath`, `cost`, etc.). Top-level keys: `curse_damage_scale`, `phase2/3_hp_ratio`, `bleeding`, `taunt_chance`, etc.
+- `COMBAT_MODS`: stat-based damage modifiers applied after equipment bonuses.
+- `EFFECTS`: status effect registry — `{"bleeding": {"dmg": (4,8), "duration": (1,3)}}`. Adding a new effect here + strings in `combat_prose.py` is sufficient; no engine changes needed.
 - `HUD_STATS`: which stats appear in the HUD
 - `START_SCENE`: entry point scene key
 
 **Content — `content/`**
 - `enemies.py`: Enemy definitions. Each enemy is a dict with stats, phrases, loot, and optional `on_death` side effects (`flag`, `memory`). No engine changes needed to add enemies.
+- `combat_prose.py`: All combat narrative strings (`STRINGS` dict) and prose helper functions (`light_prose`, `heavy_prose`, `damage_word`).
 - `act1.py`, `act2.py`: Scene dicts per act. Pure data, no logic.
 - `scenes.py`: Thin aggregator — `SCENES = {**ACT1, **ACT2}`
 
@@ -67,7 +72,7 @@ F8xx ruff errors are real bugs and must be fixed. E4xx/E7xx are style only.
 - **Hidden Moral Stats**: honour, resolve, brutality, mercy affect choice availability and conditional prose variants
 - **Memory Fragments**: Narrative collectibles visible in HUD
 - **Echo Shards**: Combat currency for Runic Burst ability
-- **Equipment slots**: `equipped` dict on PlayerState; `"weapon"` and `"shield"` slots currently
+- **Equipment slots**: `equipped` dict on PlayerState; `"weapon"`, `"shield"`, and `"body"` slots. Bear pelt (`body`) enables berserk mode (removes parry/mercy/flee).
 - **Act progression**: Act I complete; Act II structurally complete; Act III placeholder; Act IV planned
 
 ## Content Authoring
@@ -91,7 +96,7 @@ SCENE_MY_SCENE = {
 | `prose` | Paragraph of narrative text |
 | `italic` | Italicised prose (speech, sensation) |
 | `memory` | Adds memory fragment; `key`, `label`, `text` |
-| `conditional_prose` | Shows first matching `variants[].condition` |
+| `conditional_prose` | Shows first matching `variants[].condition`. Optional `"type": "italic"` on a variant renders it italic. |
 | `combat` | Triggers combat with `enemy` key; skipped if already defeated |
 | `stat` | `{"changes": {"stat": delta}}` — first visit only. Use `{"echo_shards": N}` for shard rewards. |
 | `flag` | Sets a story flag — first visit only |
@@ -158,7 +163,27 @@ Add an entry to `EQUIPMENT` in `content/game_config.py`. Auto-equip and stat loo
 "my shield": {"slot": "shield", "tier": 1, "defense": 4},
 ```
 
-Optional `"effect"` on weapons: `"bleeding"` deals 4–8 damage/turn for 3 turns after a hit (does not stack). Enemy bleeds; player bleeds when hit by an enemy with a `"weapon"` carrying the same effect.
+Optional `"effect"` on weapons: `"bleeding"` deals 4–8 damage/turn for 1–3 turns after a hit (does not stack). Enemy bleeds; player bleeds when hit by an enemy with a `"weapon"` carrying the same effect. Effect properties are defined in `EFFECTS` in `game_config.py`.
+
+### Adding a status effect
+Add an entry to `EFFECTS` in `content/game_config.py`:
+
+```python
+"poison": {"dmg": (2, 5), "duration": 4},      # static duration
+"frostbite": {"dmg": (3, 6), "duration": (1, 4)},  # random duration
+```
+
+Add the corresponding string keys to `STRINGS` in `content/combat_prose.py`:
+
+```python
+"poison_open_enemy":  "Venom seeps into the wound.",
+"poison_tick_enemy":  "{name} convulses — {dmg} damage.",
+"poison_slow":        "The venom fades.",
+"poison_open_player": "You feel the burn of venom.",
+"poison_tick_player": "The poison burns — {dmg} damage.",
+```
+
+Apply the effect in content (enemy weapon) or engine code via `_apply_effect("poison", target_effects)`. No other engine changes needed.
 
 ### Art and audio
 - Images: `static/svg/<art_key>.png`
