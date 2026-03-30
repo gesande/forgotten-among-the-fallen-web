@@ -7,7 +7,7 @@
 import random
 from engine.state import PlayerState
 from engine.dice import roll, roll_range, chance
-from content.game_config import EQUIPMENT, COMBAT_MODS
+from content.game_config import EQUIPMENT, COMBAT_MODS, COMBAT_CONFIG
 from content.enemies import ENEMIES
 from content.combat_prose import (
     ACTION_LABELS,
@@ -17,6 +17,7 @@ from content.combat_prose import (
     heavy_prose,
 )
 
+CC = COMBAT_CONFIG  # shorthand
 S = STRINGS  # shorthand
 
 
@@ -33,7 +34,7 @@ def start_combat(
     e["current_hp"] = e["hp"]
     e["key"] = enemy_key
     e["effects"] = {}
-    scale = 1.0 + player.curse_stacks * 0.06
+    scale = 1.0 + player.curse_stacks * CC["curse_damage_scale"]
     e["damage"] = (int(e["damage"][0] * scale), int(e["damage"][1] * scale))
     return {
         "enemy": e,
@@ -59,13 +60,13 @@ def get_player_actions(combat_state: dict, player: PlayerState) -> list:
         actions.append({"id": "parry", "label": ACTION_LABELS["parry"]})
     if e.get("shield") and not e.get("flanked"):
         actions.append({"id": "flank", "label": ACTION_LABELS["flank"]})
-    if player.echo_shards >= 100:
+    if player.echo_shards >= CC["runic_cost"]:
         actions.append({"id": "runic", "label": ACTION_LABELS["runic"]})
     if not berserk:
         if (
             not e.get("phases")
-            and e["current_hp"] < e["hp"] * 0.30
-            and player.honour >= 40
+            and e["current_hp"] < e["hp"] * CC["mercy_enemy_hp_ratio"]
+            and player.honour >= CC["mercy_honour_min"]
         ):
             actions.append({"id": "mercy", "label": ACTION_LABELS["mercy"]})
         actions.append({"id": "flee", "label": ACTION_LABELS["flee"]})
@@ -83,8 +84,8 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         log.append(S["player_death_1"])
         log.append(S["player_death_2"])
         player.deaths += 1
-        player.curse_stacks = min(5, player.curse_stacks + 1)
-        player.echo_shards = player.echo_shards // 4
+        player.modify_stat("curse_stacks", 1)
+        player.echo_shards = player.echo_shards // CC["death_shard_divisor"]
         player.health = player.max_health
         combat_state["over"] = True
         combat_state["died"] = True
@@ -92,30 +93,30 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
 
     # ── Player action ─────────────────────────────────────────
     if action_id == "light":
-        base = roll_range(8, 18)
+        base = roll_range(*CC["light_dmg"])
         dmg = _apply_mods(base, player, "light")
         if _player_strikes(dmg, e, player, log):
-            player.modify_stat("wrath", 10)
+            player.modify_stat("wrath", CC["wrath_light"])
             combo = player.flags.get("combo", 0) + 1
             player.set_flag("combo", min(combo, 3))
             log.append(light_prose(dmg, e["name_short"]))
 
     elif action_id == "heavy":
-        if chance(0.25):
+        if chance(CC["heavy_overcommit_chance"]):
             log.append(S["overcommit"])
         else:
-            base = roll_range(18, 30)
+            base = roll_range(*CC["heavy_dmg"])
             dmg = _apply_mods(base, player, "heavy")
             if _player_strikes(dmg, e, player, log):
-                player.modify_stat("wrath", 18)
+                player.modify_stat("wrath", CC["wrath_heavy"])
                 log.append(heavy_prose(dmg, e["name_short"]))
 
     elif action_id == "parry":
-        if chance(0.45 + player.honour * 0.003):
-            dmg = roll_range(12, 22)
+        if chance(CC["parry_base_chance"] + player.honour * CC["parry_honour_scale"]):
+            dmg = roll_range(*CC["parry_counter_dmg"])
             _hit_enemy(dmg, e, player, log)
-            player.modify_stat("honour", 2)
-            player.modify_stat("wrath", 25)
+            player.modify_stat("honour", CC["parry_honour_gain"])
+            player.modify_stat("wrath", CC["wrath_parry"])
             log.append(S["parry_success_1"])
             log.append(S["parry_success_2"].format(name=e["name_short"]))
         else:
@@ -129,11 +130,11 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         log.append(S["flank"])
 
     elif action_id == "runic":
-        player.echo_shards -= 100
-        dmg = roll_range(35, 50)
+        player.echo_shards -= CC["runic_cost"]
+        dmg = roll_range(*CC["runic_dmg"])
         log.append(S["runic_windup"])
         if _player_strikes(dmg, e, player, log):
-            player.modify_stat("brutality", 5)
+            player.modify_stat("brutality", CC["runic_brutality_gain"])
             player.wrath = 0
             log.append(S["runic_hit"].format(name=e["name_short"]))
         else:
@@ -141,14 +142,14 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
 
     elif action_id == "mercy":
         e["current_hp"] = 0
-        player.modify_stat("mercy", 10)
-        player.modify_stat("honour", 5)
+        player.modify_stat("mercy", CC["mercy_mercy_gain"])
+        player.modify_stat("honour", CC["mercy_honour_gain"])
         log.append(S["mercy"])
 
     elif action_id == "flee":
-        dmg = roll_range(10, 20)
+        dmg = roll_range(*CC["flee_dmg"])
         player.take_damage(dmg)
-        player.modify_stat("honour", -5)
+        player.modify_stat("honour", CC["flee_honour_loss"])
         log.append(S["flee_1"])
         log.append(S["flee_2"])
         log.append(S["flee_cost"].format(damage=damage_word(dmg)))
@@ -166,10 +167,10 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     # ── Phase transitions (boss) ──────────────────────────────
     if e.get("phases"):
         ratio = e["current_hp"] / e["hp"]
-        if e["current_phase"] == 1 and ratio <= 0.65:
+        if e["current_phase"] == 1 and ratio <= CC["phase2_hp_ratio"]:
             e["current_phase"] = 2
             log.append(e["phrases"].get("phase2", ""))
-        elif e["current_phase"] == 2 and ratio <= 0.30:
+        elif e["current_phase"] == 2 and ratio <= CC["phase3_hp_ratio"]:
             e["current_phase"] = 3
             log.append(e["phrases"].get("phase3", ""))
 
@@ -195,8 +196,8 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         log.append(S["player_death_1"])
         log.append(S["player_death_2"])
         player.deaths += 1
-        player.curse_stacks = min(5, player.curse_stacks + 1)
-        player.echo_shards = player.echo_shards // 4
+        player.modify_stat("curse_stacks", 1)
+        player.echo_shards = player.echo_shards // CC["death_shard_divisor"]
         player.health = player.max_health
         combat_state["over"] = True
         combat_state["died"] = True
@@ -221,7 +222,8 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
     log.append(windup)
     dmg_range = e["damage"]
     if e.get("shield") and not e.get("flanked"):
-        dmg_range = (dmg_range[0] + 5, dmg_range[1] + 8)
+        bonus = CC["shield_enemy_dmg_bonus"]
+        dmg_range = (dmg_range[0] + bonus[0], dmg_range[1] + bonus[1])
     if chance(e["accuracy"]):
         dmg = roll_range(*dmg_range)
         shield_def = EQUIPMENT.get(player.equipped.get("shield", ""), {}).get(
@@ -229,7 +231,7 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
         )
         dmg = max(1, dmg - shield_def)
         actual = player.take_damage(dmg)
-        player.modify_stat("wrath", 8)
+        player.modify_stat("wrath", CC["wrath_hit_by_enemy"])
         log.append(random.choice(e["phrases"]["hit"]))
         log.append(f"— {damage_word(actual)} taken.")
         # on_hit_drain — enemy drains a player stat on successful hit
