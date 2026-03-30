@@ -257,7 +257,7 @@ def _resolve_enemy_turn(e, player, log, combat_state=None):
         if effect == "bleeding" and combat_state is not None:
             peff = combat_state.setdefault("player_effects", {})
             if not peff.get("bleeding"):
-                peff["bleeding"] = CC["bleeding"]["duration"]
+                peff["bleeding"] = roll_range(*CC["bleeding"]["duration"])
                 log.append(S["bleeding_open_player"])
     else:
         log.append(random.choice(e["phrases"]["miss"]))
@@ -316,7 +316,7 @@ def _hit_enemy(dmg, e, player, log):
         weapon = player.equipped.get("weapon", "bare hands")
         effect = EQUIPMENT.get(weapon, {}).get("effect")
         if effect == "bleeding" and not e.get("effects", {}).get("bleeding"):
-            e.setdefault("effects", {})["bleeding"] = CC["bleeding"]["duration"]
+            e.setdefault("effects", {})["bleeding"] = roll_range(*CC["bleeding"]["duration"])
             log.append(S["bleeding_open_enemy"])
     # Drain mechanic — enemy heals from player stat when hit
     if e.get("drain"):
