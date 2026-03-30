@@ -60,13 +60,14 @@ def get_player_actions(combat_state: dict, player: PlayerState) -> list:
         actions.append({"id": "parry", "label": ACTION_LABELS["parry"]})
     if e.get("shield") and not e.get("flanked"):
         actions.append({"id": "flank", "label": ACTION_LABELS["flank"]})
-    if player.echo_shards >= CC["runic_cost"]:
+    if player.echo_shards >= CC["actions"]["runic"]["cost"]:
         actions.append({"id": "runic", "label": ACTION_LABELS["runic"]})
     if not berserk:
+        mercy = CC["actions"]["mercy"]
         if (
             not e.get("phases")
-            and e["current_hp"] < e["hp"] * CC["mercy_enemy_hp_ratio"]
-            and player.honour >= CC["mercy_honour_min"]
+            and e["current_hp"] < e["hp"] * mercy["enemy_hp_ratio"]
+            and player.honour >= mercy["honour_min"]
         ):
             actions.append({"id": "mercy", "label": ACTION_LABELS["mercy"]})
         actions.append({"id": "flee", "label": ACTION_LABELS["flee"]})
@@ -92,31 +93,34 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         return combat_state
 
     # ── Player action ─────────────────────────────────────────
+    A = CC["actions"]  # per-action config shorthand
+
     if action_id == "light":
-        base = roll_range(*CC["light_dmg"])
+        base = roll_range(*A["light"]["dmg"])
         dmg = _apply_mods(base, player, "light")
         if _player_strikes(dmg, e, player, log):
-            player.modify_stat("wrath", CC["wrath_light"])
+            player.modify_stat("wrath", A["light"]["wrath"])
             combo = player.flags.get("combo", 0) + 1
             player.set_flag("combo", min(combo, 3))
             log.append(light_prose(dmg, e["name_short"]))
 
     elif action_id == "heavy":
-        if chance(CC["heavy_overcommit_chance"]):
+        if chance(A["heavy"]["overcommit_chance"]):
             log.append(S["overcommit"])
         else:
-            base = roll_range(*CC["heavy_dmg"])
+            base = roll_range(*A["heavy"]["dmg"])
             dmg = _apply_mods(base, player, "heavy")
             if _player_strikes(dmg, e, player, log):
-                player.modify_stat("wrath", CC["wrath_heavy"])
+                player.modify_stat("wrath", A["heavy"]["wrath"])
                 log.append(heavy_prose(dmg, e["name_short"]))
 
     elif action_id == "parry":
-        if chance(CC["parry_base_chance"] + player.honour * CC["parry_honour_scale"]):
-            dmg = roll_range(*CC["parry_counter_dmg"])
+        p = A["parry"]
+        if chance(p["base_chance"] + player.honour * p["honour_scale"]):
+            dmg = roll_range(*p["dmg"])
             _hit_enemy(dmg, e, player, log)
-            player.modify_stat("honour", CC["parry_honour_gain"])
-            player.modify_stat("wrath", CC["wrath_parry"])
+            player.modify_stat("honour", p["honour_gain"])
+            player.modify_stat("wrath", p["wrath"])
             log.append(S["parry_success_1"])
             log.append(S["parry_success_2"].format(name=e["name_short"]))
         else:
@@ -130,26 +134,28 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         log.append(S["flank"])
 
     elif action_id == "runic":
-        player.echo_shards -= CC["runic_cost"]
-        dmg = roll_range(*CC["runic_dmg"])
+        r = A["runic"]
+        player.echo_shards -= r["cost"]
+        dmg = roll_range(*r["dmg"])
         log.append(S["runic_windup"])
         if _player_strikes(dmg, e, player, log):
-            player.modify_stat("brutality", CC["runic_brutality_gain"])
+            player.modify_stat("brutality", r["brutality_gain"])
             player.wrath = 0
             log.append(S["runic_hit"].format(name=e["name_short"]))
         else:
             log.append(S["runic_miss"])
 
     elif action_id == "mercy":
+        m = A["mercy"]
         e["current_hp"] = 0
-        player.modify_stat("mercy", CC["mercy_mercy_gain"])
-        player.modify_stat("honour", CC["mercy_honour_gain"])
+        player.modify_stat("mercy", m["mercy_gain"])
+        player.modify_stat("honour", m["honour_gain"])
         log.append(S["mercy"])
 
     elif action_id == "flee":
-        dmg = roll_range(*CC["flee_dmg"])
+        dmg = roll_range(*A["flee"]["dmg"])
         player.take_damage(dmg)
-        player.modify_stat("honour", CC["flee_honour_loss"])
+        player.modify_stat("honour", A["flee"]["honour_loss"])
         log.append(S["flee_1"])
         log.append(S["flee_2"])
         log.append(S["flee_cost"].format(damage=damage_word(dmg)))

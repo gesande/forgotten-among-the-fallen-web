@@ -70,41 +70,23 @@ COMBAT_MODS = [
 
 # ── Combat configuration ──────────────────────────────────────
 # All numeric constants consumed by engine/combat.py.
+# "actions" groups per-action values; top-level keys are global.
 COMBAT_CONFIG = {
-    # Action damage ranges (lo, hi)
-    "light_dmg": (8, 18),
-    "heavy_dmg": (18, 30),
-    "runic_dmg": (35, 50),
-    "parry_counter_dmg": (12, 22),
-    "flee_dmg": (10, 20),
-    # Action chances
-    "heavy_overcommit_chance": 0.25,
-    "parry_base_chance": 0.45,
-    "parry_honour_scale": 0.003,
-    # Runic burst
-    "runic_cost": 100,
-    # Wrath gains
-    "wrath_light": 10,
-    "wrath_heavy": 18,
-    "wrath_parry": 25,
+    "actions": {
+        "light": {"dmg": (8, 18),   "wrath": 10},
+        "heavy": {"dmg": (18, 30),  "wrath": 18, "overcommit_chance": 0.25},
+        "parry": {"dmg": (12, 22),  "wrath": 25, "honour_gain": 2,
+                  "base_chance": 0.45, "honour_scale": 0.003},
+        "runic": {"dmg": (35, 50),  "cost": 100, "brutality_gain": 5},
+        "flee":  {"dmg": (10, 20),  "honour_loss": -5},
+        "mercy": {"honour_min": 40, "enemy_hp_ratio": 0.30,
+                  "mercy_gain": 10, "honour_gain": 5},
+    },
     "wrath_hit_by_enemy": 8,
-    # Mercy availability
-    "mercy_honour_min": 40,
-    "mercy_enemy_hp_ratio": 0.30,
-    # Stat changes from actions
-    "parry_honour_gain": 2,
-    "mercy_mercy_gain": 10,
-    "mercy_honour_gain": 5,
-    "flee_honour_loss": -5,
-    "runic_brutality_gain": 5,
-    # Death
     "death_shard_divisor": 4,
-    # Curse scaling (damage multiplier per stack)
     "curse_damage_scale": 0.06,
-    # Boss phase HP thresholds
     "phase2_hp_ratio": 0.65,
     "phase3_hp_ratio": 0.30,
-    # Shielded enemy bonus incoming damage
     "shield_enemy_dmg_bonus": (5, 8),
 }
 
