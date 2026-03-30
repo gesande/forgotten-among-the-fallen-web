@@ -17,8 +17,9 @@ from content.combat_prose import (
     heavy_prose,
 )
 
-CC = COMBAT_CONFIG  # shorthand
-S = STRINGS  # shorthand
+CC = COMBAT_CONFIG          # shorthand
+A = CC["actions"]           # per-action config
+S = STRINGS                 # shorthand
 
 
 # ── Combat state lives in Flask session ───────────────────────
@@ -93,8 +94,6 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         return combat_state
 
     # ── Player action ─────────────────────────────────────────
-    A = CC["actions"]  # per-action config shorthand
-
     if action_id == "light":
         base = roll_range(*A["light"]["dmg"])
         dmg = _apply_mods(base, player, "light")
