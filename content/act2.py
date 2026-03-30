@@ -197,7 +197,17 @@ SCENE_FOG_HELD_RELEASE = {
         },
         {"type": "item", "item": "traveller's shield", "action": "give"},
     ],
-    "next": "fog_sentinel",
+    "choices": [
+        {
+            "label": "Continue south.",
+            "next": "fog_sentinel",
+        },
+        {
+            "label": "Head into the trees first.",
+            "next": "forest_path",
+            "condition": {"not": {"flag": "forest_visited"}},
+        },
+    ],
 }
 
 SCENE_FOG_HELD_AFTER = {
@@ -238,7 +248,17 @@ SCENE_FOG_HELD_AFTER = {
             "value": True,
         },
     ],
-    "next": "fog_sentinel",
+    "choices": [
+        {
+            "label": "Continue south.",
+            "next": "fog_sentinel",
+        },
+        {
+            "label": "Head into the trees first.",
+            "next": "forest_path",
+            "condition": {"not": {"flag": "forest_visited"}},
+        },
+    ],
 }
 
 SCENE_FOG_SENTINEL = {
