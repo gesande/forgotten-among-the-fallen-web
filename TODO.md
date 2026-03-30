@@ -8,7 +8,7 @@
 
 ## Gameplay
 
-- [ ] **Mercy-mekaniikka** — honour/mercy-statit ovat olemassa mutta harvoin ratkaisevat
+- [x] **Mercy-mekaniikka** — wolf mercy path (mercy>=10): dire wolf passes without fight; hermit_mercy scene (mercy>=10); hermit_greet honour variant (honour>=65); hermit opening adapts to wolf_killed/wolf_spared/neither
 - [ ] **Runic Burst** — echo shards -systeemi toimii, lisää käyttötilanteita?
 - [ ] **Curse stacks** — maksimi 5, mutta vaikutus loppupelissä voisi kasvaa
 - [x] **Rune stone** — `forest_rune_stone` hub Act II metsässä; susi/karhu/hermit rinnakkaisina reitteinä; heal kerran

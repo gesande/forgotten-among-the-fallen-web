@@ -63,12 +63,20 @@ act_2_intro
        │
        └─ [forest detour] forest_path
              └─ forest_rune_stone (hub, heal once)
-                   ├─ forest_dire_wolf ◄──────────────────┐
-                   │     ├─ forest_dire_wolf_pelt           │
-                   │     │     ├─ forest_bear          │
-                   │     │     └─ hermit_oak           │
-                   │     ├─ forest_bear                │
-                   │     └─ forest_rune_stone ─────────┘
+                   ├─ forest_dire_wolf (approach)◄────────────────┐
+                   │     ├─ forest_dire_wolf_fight             │
+                   │     │     ├─ forest_dire_wolf_pelt        │
+                   │     │     │     ├─ forest_bear            │
+                   │     │     │     └─ hermit_oak             │
+                   │     │     ├─ forest_bear                  │
+                   │     │     ├─ forest_rune_stone ───────────┤
+                   │     │     └─ hermit_oak                   │
+                   │     ├─ [mercy>=10] forest_dire_wolf_mercy │
+                   │     │     ├─ forest_bear                  │
+                   │     │     ├─ forest_rune_stone ───────────┤
+                   │     │     └─ hermit_oak                   │
+                   │     └─ (no return — choice scene only)    │
+                   │           forest_rune_stone ──────────────┘
                    │
                    ├─ forest_bear ◄──────────────────┐
                    │     ├─ forest_bear_fight          │
@@ -86,6 +94,7 @@ act_2_intro
                    │     │     ├─ hermit_silence
                    │     │     ├─ hermit_who
                    │     │     │     └─ hermit_why
+                   │     │     ├─ [mercy>=10] hermit_mercy ──► hermit_greet
                    │     │     └─ hermit_oath
                    │     │           └─ hermit_depart
                    │     └─ fog_sentinel (skip hermit)
@@ -140,7 +149,7 @@ fog_sentinel
 | combat_wolf_battlefield | wolf | pack_leader | Act I — Dense dead return |
 | combat_gunnar | gunnar | — | Act I — The Mound |
 | combat_fog_sentinel | fog_sentinel | — | Act II — Fog road |
-| forest_dire_wolf | wolf | dire | Act II — Dark wood |
+| forest_dire_wolf_fight | wolf | dire | Act II — Dark wood |
 | forest_bear_fight | bear | berserker | Act II — Dark wood (deeper) |
 
 ## Key flags
@@ -155,5 +164,7 @@ fog_sentinel
 | `defeated_fog_sentinel` | combat_fog_sentinel | Odrik dialogue variant |
 | `held_released` | fog_held_release | gatehouse approach prose variant |
 | `held_forced` | fog_held_after | gatehouse approach prose variant |
-| `rune_stone_rested` | forest_rune_stone | hides stone rest choice (heal fires once) |
+| `rune_stone_rested` | forest_rune_stone | heal fires once |
 | `forest_visited` | forest_path | — |
+| `wolf_killed` | forest_dire_wolf_fight | hermit_greet opening line |
+| `wolf_spared` | forest_dire_wolf_mercy | hermit_greet opening line; mercy path taken |
