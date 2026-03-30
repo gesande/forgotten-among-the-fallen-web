@@ -46,7 +46,8 @@ SCENE_FOG_ROAD = {
         },
         {
             "label": "Look at the key.",
-            "next": "fog_the_held",
+            "next": "fog_road_key",
+            "condition": {"has_item": "Remembrance Key"},
         },
         {
             "label": "Turn off the road. Into the trees.",
@@ -55,6 +56,47 @@ SCENE_FOG_ROAD = {
             "condition": {"not": {"flag": "forest_visited"}},
         },
     ],
+}
+
+SCENE_FOG_ROAD_KEY = {
+    "art": "fog_road",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You open your hand. The key Gunnar pressed into yours — iron, heavy for its size, "
+                "the surface worn smooth except for the mark near the bow. "
+                "A rune. You have seen it before. "
+                "Not on a stone or a blade. Somewhere older than that."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "A hall. Firelight. Someone's hand over yours, pressing something cold into "
+                "your grip. You don't see the face. You remember the weight."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "The rune is ᛗ. Mannaz. The rune of the self — of what a man is "
+                "when everything else has been taken from him. "
+                "You almost remember why that matters."
+            ),
+        },
+        {
+            "type": "memory",
+            "key": "the_key_rune",
+            "label": "The rune on the key",
+            "text": (
+                "ᛗ. Mannaz. A hall, firelight, a hand pressing cold iron into yours. "
+                "You don't remember whose hand. "
+                "You remember that it mattered."
+            ),
+        },
+    ],
+    "next": "fog_the_held",
 }
 
 SCENE_FOG_THE_HELD = {
@@ -2656,6 +2698,7 @@ SCENE_HERMIT_DEPART = {
 
 SCENES = {
     "fog_road": SCENE_FOG_ROAD,
+    "fog_road_key": SCENE_FOG_ROAD_KEY,
     "forest_path": SCENE_FOREST_PATH,
     "forest_dire_wolf": SCENE_FOREST_DIRE_WOLF,
     "forest_dire_wolf_fight": SCENE_FOREST_DIRE_WOLF_FIGHT,
