@@ -10,7 +10,6 @@ from engine.dice import roll, roll_range, chance
 from content.game_config import EQUIPMENT, COMBAT_MODS, COMBAT_CONFIG
 from content.enemies import ENEMIES
 from content.combat_prose import (
-    ACTION_LABELS,
     STRINGS,
     damage_word,
     light_prose,
@@ -54,24 +53,24 @@ def get_player_actions(combat_state: dict, player: PlayerState) -> list:
     body_eq = EQUIPMENT.get(player.equipped.get("body", ""), {})
     berserk = body_eq.get("berserk", False)
     actions = [
-        {"id": "light", "label": ACTION_LABELS["light"]},
-        {"id": "heavy", "label": ACTION_LABELS["heavy"]},
+        {"id": "light", "label": A["light"]["label"]},
+        {"id": "heavy", "label": A["heavy"]["label"]},
     ]
     if not berserk:
-        actions.append({"id": "parry", "label": ACTION_LABELS["parry"]})
+        actions.append({"id": "parry", "label": A["parry"]["label"]})
     if e.get("shield") and not e.get("flanked"):
-        actions.append({"id": "flank", "label": ACTION_LABELS["flank"]})
-    if player.echo_shards >= CC["actions"]["runic"]["cost"]:
-        actions.append({"id": "runic", "label": ACTION_LABELS["runic"]})
+        actions.append({"id": "flank", "label": A["flank"]["label"]})
+    if player.echo_shards >= A["runic"]["cost"]:
+        actions.append({"id": "runic", "label": A["runic"]["label"]})
     if not berserk:
-        mercy = CC["actions"]["mercy"]
+        mercy = A["mercy"]
         if (
             not e.get("phases")
             and e["current_hp"] < e["hp"] * mercy["enemy_hp_ratio"]
             and player.honour >= mercy["honour_min"]
         ):
-            actions.append({"id": "mercy", "label": ACTION_LABELS["mercy"]})
-        actions.append({"id": "flee", "label": ACTION_LABELS["flee"]})
+            actions.append({"id": "mercy", "label": mercy["label"]})
+        actions.append({"id": "flee", "label": A["flee"]["label"]})
     return actions
 
 

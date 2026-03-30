@@ -4,17 +4,6 @@
 #  Replace this file to change the narrative voice of combat.
 # ============================================================
 
-# ── Action labels shown to the player ─────────────────────────
-ACTION_LABELS = {
-    "light": "Strike — a fast, measured blow",
-    "heavy": "Commit — a heavy, reckless strike",
-    "parry": "Wait for the opening — attempt a parry",
-    "flank": "Circle wide — find the flank",
-    "runic": "Spend 100 shards — Runic Burst",
-    "mercy": "Lower your weapon",
-    "flee": "Retreat into the fog",
-}
-
 # ── Static strings ─────────────────────────────────────────────
 STRINGS = {
     "start_combat": "You face {name}.",
