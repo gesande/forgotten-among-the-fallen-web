@@ -804,6 +804,27 @@ SCENE_LEIF_MERCY_KILL = {
         {"type": "stat", "changes": {"echo_shards": 45}},
         {
             "type": "memory",
+            "key": "my_name",
+            "label": "Your name, written by a dying man",
+            "text": (
+                "He carried it with him. Into the battle, past the end of it. "
+                "A name scratched on birchbark, worn at the edges. "
+                "He never said it aloud. "
+                "You do not need him to."
+            ),
+        },
+        {
+            "type": "memory",
+            "key": "the_broken_oath",
+            "label": "The night of the eastern ridge",
+            "text": (
+                "You were not there. Sitting with Leif as the silence settles, "
+                "you feel the shape of it — the night you weren't where you swore you would be. "
+                "You do not remember why. Only that it mattered."
+            ),
+        },
+        {
+            "type": "memory",
             "key": "leif_last_word",
             "label": "What Leif said at the end",
             "text": (
