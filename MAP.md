@@ -55,14 +55,17 @@ name_entry
 ```
 act_2_intro
   └─ fog_road
+       ├─ [has Remembrance Key] fog_road_key ──► fog_the_held
        ├─ fog_the_held
-       │     ├─ fog_held_other ──────────┐
-       │     ├─ fog_held_release ─────────┤
-       │     └─ fog_held_after ◄──────────┘
-       │           └─ fog_sentinel
-       │
-       └─ [forest detour] forest_path
-             └─ forest_rune_stone (hub, heal once)
+       │     ├─ fog_held_other ──────────────────────────┐
+       │     ├─ fog_held_release ──┬─ fog_sentinel        │
+       │     │                    └─ [!forest_visited] forest_path
+       │     └─ fog_held_after ◄───┤                      │
+       │           ├─ fog_sentinel  │                      │
+       │           └─ [!forest_visited] forest_path        │
+       │                                                   │
+       └─ [!forest_visited] forest_path ◄──────────────────┘
+             └─ forest_rune_stone (hub, repeatable heal)
                    ├─ forest_dire_wolf (approach)◄────────────────┐
                    │     ├─ forest_dire_wolf_fight             │
                    │     │     ├─ forest_dire_wolf_pelt        │
@@ -149,7 +152,7 @@ fog_sentinel
 | combat_wolf_battlefield | wolf | pack_leader | Act I — Dense dead return |
 | combat_gunnar | gunnar | — | Act I — The Mound |
 | combat_fog_sentinel | fog_sentinel | — | Act II — Fog road |
-| forest_dire_wolf_fight | wolf | dire | Act II — Dark wood |
+| forest_dire_wolf_fight | dire_wolf | — | Act II — Dark wood |
 | forest_bear_fight | bear | berserker | Act II — Dark wood (deeper) |
 
 ## Key flags
@@ -164,7 +167,7 @@ fog_sentinel
 | `defeated_fog_sentinel` | combat_fog_sentinel | Odrik dialogue variant |
 | `held_released` | fog_held_release | gatehouse approach prose variant |
 | `held_forced` | fog_held_after | gatehouse approach prose variant |
-| `rune_stone_rested` | forest_rune_stone | heal fires once |
+| `rune_stone_rested` | forest_rune_stone | first-visit prose variant only; heal is repeatable |
 | `forest_visited` | forest_path | — |
 | `wolf_killed` | forest_dire_wolf_fight | hermit_greet opening line |
 | `wolf_spared` | forest_dire_wolf_mercy | hermit_greet opening line; mercy path taken |
