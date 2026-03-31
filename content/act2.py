@@ -2054,7 +2054,7 @@ SCENE_FOREST_RUNE_STONE = {
                 "When you stand again, the worst of it has closed."
             ),
         },
-        {"type": "heal"},
+        {"type": "heal", "repeatable": True},
         {"type": "flag", "key": "rune_stone_rested"},
         {
             "type": "memory",

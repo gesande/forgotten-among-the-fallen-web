@@ -208,7 +208,7 @@ def _process_beat(
                 state.remove_item(item)
 
     elif kind == "heal":
-        if first_visit:
+        if first_visit or beat.get("repeatable"):
             amount = beat.get("amount", state.max_health)
             state.heal(amount)
 

@@ -1071,7 +1071,7 @@ SCENE_CAIRN_REST = {
                 "It is smaller than it was."
             ),
         },
-        {"type": "heal", "amount": 30},
+        {"type": "heal", "amount": 30, "repeatable": True},
     ],
     "next": "battlefield_open",
 }
