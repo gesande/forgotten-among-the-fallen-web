@@ -1767,7 +1767,7 @@ SCENE_FINAL_REST = {
 }
 
 SCENE_ACT_2_INTRO = {
-    "art": "act_break",
+    "art": "foggy_road",
     "header": {
         "title": "ACT II",
         "subtitle": "The Truth in the Fog",
