@@ -2073,6 +2073,10 @@ SCENE_FOREST_RUNE_STONE = {
         {
             "label": "Follow the pale shape deeper into the wood.",
             "next": "forest_dire_wolf",
+            "condition": {"and": [
+                {"not": {"flag": "wolf_killed"}},
+                {"not": {"flag": "wolf_spared"}},
+            ]},
         },
         {
             "label": "Press further — something larger moves out there.",
