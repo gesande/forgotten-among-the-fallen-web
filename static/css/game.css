@@ -646,9 +646,7 @@ body {
   padding-top: 1rem;
   padding-bottom: 1rem;
   border-top: 0.5px solid var(--iron);
-  position: sticky;
-  bottom: 0;
-  background: var(--ink);
+  flex-shrink: 0;
 }
 .choice-btn {
   font-family: "Cinzel", serif;
