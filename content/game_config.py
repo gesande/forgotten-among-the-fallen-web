@@ -96,6 +96,13 @@ COMBAT_CONFIG = {
     "phase3_hp_ratio": 0.30,
     "shield_enemy_dmg_bonus": (5, 8),
     "taunt_chance": 0.35,
+    # HP description thresholds — checked high-to-low, last entry is fallback
+    "hp_desc": [
+        (0.75, "Unbroken"),
+        (0.50, "Wounded"),
+        (0.25, "Bleeding"),
+        (0.00, "Near Death"),
+    ],
 }
 
 # ── Status effects ─────────────────────────────────────────────

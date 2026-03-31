@@ -123,12 +123,12 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
 
     elif action_id == "runic":
         r = A["runic"]
-        player.echo_shards -= r["cost"]
+        player.modify_stat("echo_shards", -r["cost"])
         dmg = roll_range(*r["dmg"])
         log.append(S["runic_windup"])
         if _player_strikes(dmg, e, player, log):
             player.modify_stat("brutality", r["brutality_gain"])
-            player.wrath = 0
+            player.modify_stat("wrath", -player.max_wrath)
             log.append(S["runic_hit"].format(name=e["name_short"]))
         else:
             log.append(S["runic_miss"])
@@ -250,7 +250,7 @@ def _resolve_enemy_turn(e, player, log, combat_state):
             current = getattr(player, stat, 0)
             drained = min(amount, current)
             if drained > 0:
-                setattr(player, stat, current - drained)
+                player.modify_stat(stat, -drained)
                 log.append(
                     random.choice(
                         e["phrases"].get(
@@ -273,7 +273,7 @@ def _resolve_enemy_death(e, player, combat_state, log):
     log.append(random.choice(e["phrases"]["death"]))
     lo, hi = e["shards"]
     shards = roll_range(lo, hi)
-    player.echo_shards += shards
+    player.modify_stat("echo_shards", shards)
     combat_state["shards_gained"] = shards
     for item, prob in e.get("loot", []):
         if chance(prob):
@@ -327,7 +327,7 @@ def _hit_enemy(dmg, e, player, log):
     if e.get("drain"):
         drain = min(e["drain_amount"], getattr(player, "wrath", 0))
         if drain > 0:
-            player.wrath = max(0, player.wrath - drain)
+            player.modify_stat("wrath", -drain)
             heal = min(drain, e["hp"] - e["current_hp"])
             e["current_hp"] = min(e["hp"], e["current_hp"] + heal)
             log.append(random.choice(e["phrases"]["drain_trigger"]))

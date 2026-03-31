@@ -16,7 +16,7 @@
 from engine.state import PlayerState
 from engine.conditions import eval_condition
 from content.scenes import SCENES
-from content.game_config import HUD_STATS
+from content.game_config import HUD_STATS, COMBAT_CONFIG
 
 
 def render_scene(scene_key: str, state: PlayerState) -> dict:
@@ -222,14 +222,11 @@ def _process_beat(
 
 def _build_hud(state: PlayerState) -> dict:
     hp_ratio = state.health / state.max_health
-    if hp_ratio > 0.75:
-        hp_desc = "Unbroken"
-    elif hp_ratio > 0.50:
-        hp_desc = "Wounded"
-    elif hp_ratio > 0.25:
-        hp_desc = "Bleeding"
-    else:
-        hp_desc = "Near Death"
+    hp_desc = COMBAT_CONFIG["hp_desc"][-1][1]
+    for threshold, label in COMBAT_CONFIG["hp_desc"]:
+        if hp_ratio > threshold:
+            hp_desc = label
+            break
 
     hud = {
         "hp": state.health,
