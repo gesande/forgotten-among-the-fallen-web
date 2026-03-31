@@ -1931,11 +1931,9 @@ SCENE_FOREST_DIRE_WOLF_FIGHT = {
     "beats": [
         {
             "type": "combat",
-            "enemy": "wolf",
-            "variant": "dire",
+            "enemy": "dire_wolf",
         },
         {"type": "stat", "changes": {"resolve": 5}},
-        {"type": "flag", "key": "wolf_killed"},
         {
             "type": "memory",
             "key": "wolf_of_odin_killed",

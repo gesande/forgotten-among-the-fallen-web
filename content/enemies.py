@@ -147,6 +147,51 @@ ENEMIES = {
             ],
         },
     },
+    "dire_wolf": {
+        "name": "a Dire Wolf",
+        "name_short": "the Dire Wolf",
+        "hp": 70,
+        "damage": (18, 30),
+        "accuracy": 0.78,
+        "shards": (80, 140),
+        "loot": [("wolf pelt", 0.9)],
+        "weapon": {"name": "maw", "effect": "bleeding"},
+        "evasion": 0.25,
+        "on_hit_drain": {"stat": "echo_shards", "amount": 30},
+        "on_death": {"flag": "wolf_killed"},
+        "phrases": {
+            "windup": [
+                "It reads your movement before you make it.",
+                "It drops low and shifts — faster than its size should allow.",
+                "It does not growl. It simply looks at you, and waits.",
+            ],
+            "hit": [
+                "The maw closes. It does not just bite. It takes.",
+                "It hits low and you go down on one knee.",
+                "Teeth in your side. You feel the warmth before the pain.",
+            ],
+            "miss": [
+                "You commit. It isn't there.",
+                "It lunges — you move — its teeth click shut on nothing.",
+                "You sidestep. It overshoots and scrambles to turn.",
+            ],
+            "death": [
+                "It folds without a sound. Something passes out of it that had not been wolf.",
+                "The pale eyes go dark. Whatever it was carrying, it carries no longer.",
+                "It lies still. The fog does not move to reclaim it.",
+            ],
+            "evade": [
+                "It reads your movement. The blow passes through empty air.",
+                "It drops low and shifts — faster than its size should allow.",
+                "You commit. It isn't there.",
+            ],
+            "drain_trigger": [
+                "The maw closes and something cold passes through you — the runes in your bones dim.",
+                "Where the teeth find you, the runic warmth drains away.",
+                "It does not just bite. It takes.",
+            ],
+        },
+    },
     "rat": {
         "name": "a Battlefield Rat",
         "name_short": "the Rat",
