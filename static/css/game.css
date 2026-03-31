@@ -786,6 +786,7 @@ body {
 
 #combat-log-wrap {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   border: 0.5px solid var(--iron);
   border-radius: 3px;
