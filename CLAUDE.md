@@ -49,7 +49,7 @@ F8xx ruff errors are real bugs and must be fixed. E4xx/E7xx are style only.
 **Game Config — `content/game_config.py`**
 - `STATS`: per-stat bounds (`min`/`max`/`default`) and derived thresholds (`threshold`)
 - `EQUIPMENT`: all equippable items with `slot`, `tier`, and slot-specific properties (`damage_bonus` for weapons, `defense` for shields, `berserk` for body). Auto-equip is tier-based.
-- `COMBAT_CONFIG`: all numeric combat constants. `actions` sub-dict groups per-action values (`dmg`, `wrath`, `cost`, etc.). Top-level keys: `curse_damage_scale`, `phase2/3_hp_ratio`, `bleeding`, `taunt_chance`, etc.
+- `COMBAT_CONFIG`: all numeric combat constants. `actions` sub-dict groups per-action values (`dmg`, `wrath`, `cost`, etc.). Top-level keys: `curse_damage_scale`, `phase2/3_hp_ratio`, `bleeding`, `taunt_chance`, `hp_desc` (list of `(ratio, label)` thresholds used by HUD, checked high-to-low).
 - `COMBAT_MODS`: stat-based damage modifiers applied after equipment bonuses.
 - `EFFECTS`: status effect registry — `{"bleeding": {"dmg": (4,8), "duration": (1,3)}}`. Adding a new effect here + strings in `combat_prose.py` is sufficient; no engine changes needed.
 - `HUD_STATS`: which stats appear in the HUD
