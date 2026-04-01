@@ -419,7 +419,7 @@ SCENE_FOG_SENTINEL_AVOIDED = {
 
 SCENE_COMBAT_FOG_SENTINEL = {
     "art": "fog_sentinel",
-    "next": "gatehouse_approach",
+    "next": "fog_sentinel_after",
     "header": {
         "title": "THE FOG-SENTINEL",
         "subtitle": "the harder you hit, the more it drinks",
@@ -2353,8 +2353,25 @@ SCENE_HERMIT_OAK = {
             "next": "hermit_greet",
         },
         {
+            "label": "Leave the wood.",
+            "next": "gatehouse_approach",
+            "condition": {
+                "or": [
+                    {"flag": "defeated_fog_sentinel"},
+                    {"flag": "sentinel_avoided"},
+                ]
+            },
+            "effects": {"resolve": 2},
+        },
+        {
             "label": "Leave the wood. Back to the road.",
             "next": "fog_sentinel",
+            "condition": {
+                "and": [
+                    {"not": {"flag": "defeated_fog_sentinel"}},
+                    {"not": {"flag": "sentinel_avoided"}},
+                ]
+            },
             "effects": {"resolve": 2},
         },
     ],
