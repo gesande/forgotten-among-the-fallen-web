@@ -298,13 +298,19 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
     pre_combat = {
         "combat_gunnar": "the_mound",
         "combat_draugar_east": "scavenge_east",
+        "combat_wolf_battlefield": "scavenge_east_return",
         "combat_fog_sentinel": "fog_sentinel",
+        "forest_dire_wolf_fight": "forest_rune_stone",
+        "forest_bear_fight": "forest_rune_stone",
     }
     # On flee: return to the scene before combat, not always battlefield
     pre_combat_fled = {
         "combat_gunnar": "the_mound",
         "combat_draugar_east": "scavenge_east",
+        "combat_wolf_battlefield": "scavenge_east_return",
         "combat_fog_sentinel": "fog_sentinel",
+        "forest_dire_wolf_fight": "forest_rune_stone",
+        "forest_bear_fight": "forest_rune_stone",
     }
     if combat.get("died"):
         return pre_combat.get(scene_key, "battlefield_open")
