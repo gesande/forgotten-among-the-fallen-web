@@ -433,7 +433,7 @@ SCENE_COMBAT_FOG_SENTINEL = {
 }
 
 SCENE_FOG_SENTINEL_AFTER = {
-    "art": "fog_road",
+    "art": "fog_sentinel",
     "beats": [
         {
             "type": "conditional_prose",
@@ -511,6 +511,13 @@ SCENE_GATEHOUSE_APPROACH = {
                     "Their eyes find you.",
                 },
                 {
+                    "condition": {"has_item": "bear pelt"},
+                    "text": "The one on the left reacts before you are close. "
+                    "Not a look — a recognition. Something in whatever remains of him "
+                    "knows what you are wearing. Both spears come level in one motion. "
+                    "Their eyes find the pelt first. Then you.",
+                },
+                {
                     "condition": None,
                     "text": "You watch for a long time. Their chests do not rise. "
                     "Their eyes do not move. But they are standing, "
@@ -527,6 +534,12 @@ SCENE_GATEHOUSE_APPROACH = {
                     "text": "They remember. Or something in them does. "
                     "Something passed through the fog before you did — "
                     "something that felt like what you left behind on the road.",
+                },
+                {
+                    "condition": {"has_item": "bear pelt"},
+                    "text": "The berserkir were not soldiers. "
+                    "Whatever these guards were in life, they know the difference. "
+                    "There will be no negotiation.",
                 },
                 {
                     "condition": None,
@@ -549,19 +562,55 @@ SCENE_GATEHOUSE_APPROACH = {
             "condition": {"flag": "held_forced"},
         },
         {
+            "label": "Fight your way through.",
+            "next": "gatehouse_fight",
+            "condition": {
+                "and": [
+                    {"has_item": "bear pelt"},
+                    {"not": {"flag": "held_forced"}},
+                ]
+            },
+            "effects": {"brutality": 3},
+        },
+        {
+            "label": "Pull back. The old man in the forest knows what to do.",
+            "next": "hermit_oak",
+            "condition": {
+                "and": [
+                    {"has_item": "bear pelt"},
+                    {"not": {"flag": "held_forced"}},
+                ]
+            },
+        },
+        {
             "label": "Look at the guards closely.",
             "next": "gatehouse_guards",
-            "condition": {"not": {"flag": "held_forced"}},
+            "condition": {
+                "and": [
+                    {"not": {"flag": "held_forced"}},
+                    {"not": {"has_item": "bear pelt"}},
+                ]
+            },
         },
         {
             "label": "Look at the courtyard ahead.",
             "next": "gatehouse_courtyard",
-            "condition": {"not": {"flag": "held_forced"}},
+            "condition": {
+                "and": [
+                    {"not": {"flag": "held_forced"}},
+                    {"not": {"has_item": "bear pelt"}},
+                ]
+            },
         },
         {
             "label": "Touch the wall.",
             "next": "gatehouse_wall",
-            "condition": {"not": {"flag": "held_forced"}},
+            "condition": {
+                "and": [
+                    {"not": {"flag": "held_forced"}},
+                    {"not": {"has_item": "bear pelt"}},
+                ]
+            },
         },
     ],
 }
@@ -2105,7 +2154,7 @@ SCENE_FOREST_DIRE_WOLF_PELT = {
                 "like something that was waiting for someone to put it on again."
             ),
         },
-        {"type": "item", "action": "give", "name": "wolf pelt"},
+        {"type": "item", "action": "give", "item": "wolf pelt"},
     ],
     "choices": [
         {
@@ -2222,7 +2271,7 @@ SCENE_FOREST_BEAR_PELT = {
                 "Not wrong. Not right. Different."
             ),
         },
-        {"type": "item", "action": "give", "name": "bear pelt"},
+        {"type": "item", "action": "give", "item": "bear pelt"},
     ],
     "next": "hermit_oak",
 }
@@ -2378,6 +2427,37 @@ SCENE_HERMIT_GREET = {
                 },
             ],
         },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"has_item": "bear pelt"},
+                    "text": (
+                        "His eyes move to your shoulders before you finish speaking. "
+                        "To the pelt. He is quiet for a moment — not surprised. "
+                        "The kind of quiet that means he has been expecting something like this."
+                    ),
+                },
+            ],
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"has_item": "bear pelt"},
+                    "type": "italic",
+                    "text": (
+                        '"The dead at the gate will know what that is," he says. '
+                        "Not a warning — a fact, stated the way you might note "
+                        "the weather. "
+                        '"The berserkir were not soldiers. The guards were. '
+                        'They remember the difference." '
+                        "He looks at you steadily. "
+                        '"It can be removed. If you want it removed."'
+                    ),
+                },
+            ],
+        },
     ],
     "choices": [
         {
@@ -2498,7 +2578,7 @@ SCENE_HERMIT_BEAR_PELT = {
                 "It hits the ground and lies there, ordinary."
             ),
         },
-        {"type": "item", "action": "take", "name": "bear pelt"},
+        {"type": "item", "action": "take", "item": "bear pelt"},
         {"type": "stat", "changes": {"resolve": 5, "brutality": -5}},
         {
             "type": "memory",
@@ -2690,6 +2770,16 @@ SCENE_HERMIT_DEPART = {
     ],
     "choices": [
         {
+            "label": "Head to the gatehouse.",
+            "next": "gatehouse_approach",
+            "condition": {
+                "or": [
+                    {"flag": "defeated_fog_sentinel"},
+                    {"flag": "sentinel_avoided"},
+                ]
+            },
+        },
+        {
             "label": "Back to the road.",
             "next": "fog_sentinel",
             "effects": {"resolve": 2},
@@ -2697,6 +2787,30 @@ SCENE_HERMIT_DEPART = {
     ],
 }
 
+
+SCENE_GATEHOUSE_FIGHT = {
+    "art": "gatehouse",
+    "header": {
+        "title": "THE GATEHOUSE",
+        "subtitle": "the pelt marks you",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You do not wait for them to close the distance. "
+                "If they know what you are wearing, they know what comes next. "
+                "So do you."
+            ),
+        },
+        {
+            "type": "combat",
+            "enemy": "shieldwall_draugar",
+            "flag": "defeated_gatehouse_guards",
+        },
+    ],
+    "next": "gatehouse_inside",
+}
 
 SCENES = {
     "fog_road": SCENE_FOG_ROAD,
@@ -2731,6 +2845,7 @@ SCENES = {
     "combat_fog_sentinel": SCENE_COMBAT_FOG_SENTINEL,
     "fog_sentinel_after": SCENE_FOG_SENTINEL_AFTER,
     "gatehouse_approach": SCENE_GATEHOUSE_APPROACH,
+    "gatehouse_fight": SCENE_GATEHOUSE_FIGHT,
     "gatehouse_guards": SCENE_GATEHOUSE_GUARDS,
     "gatehouse_guards_hostile": SCENE_GATEHOUSE_GUARDS_HOSTILE,
     "gatehouse_guards_calmed": SCENE_GATEHOUSE_GUARDS_CALMED,

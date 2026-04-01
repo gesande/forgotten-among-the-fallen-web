@@ -321,20 +321,24 @@ function renderScene(data) {
   const proseEl = $("prose-body");
   proseEl.innerHTML = "";
   proseEl.scrollTop = 0;
-  // Base delay: small pause then paragraphs stagger in one by one
+  // Add paragraphs via setTimeout so the container grows as content appears
+  // (avoids invisible-but-present DOM nodes making scroll show blank space)
   const BASE_DELAY = 0.8; // seconds before first paragraph
   const PARA_GAP = 1.1; // seconds between paragraphs
   let paraIdx = 0;
   (data.paragraphs || []).forEach((p) => {
     if (p.type === "memory") return;
-    const div = document.createElement("div");
-    let cls = "prose-block";
-    if (p.type === "italic") cls += " italic";
-    if (p.type === "memory") cls += " memory-block";
-    div.className = cls;
-    div.textContent = p.type === "italic" ? `"${p.text}"` : p.text;
-    div.style.animationDelay = `${BASE_DELAY + paraIdx * PARA_GAP}s`;
-    proseEl.appendChild(div);
+    const delay = (BASE_DELAY + paraIdx * PARA_GAP) * 1000;
+    setTimeout(() => {
+      const div = document.createElement("div");
+      let cls = "prose-block";
+      if (p.type === "italic") cls += " italic";
+      if (p.type === "memory") cls += " memory-block";
+      div.className = cls;
+      div.textContent = p.type === "italic" ? `"${p.text}"` : p.text;
+      proseEl.appendChild(div);
+      proseEl.scrollTop = proseEl.scrollHeight;
+    }, delay);
     paraIdx++;
   });
 

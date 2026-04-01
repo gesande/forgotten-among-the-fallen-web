@@ -199,7 +199,7 @@ def _process_beat(
 
     elif kind == "item":
         if first_visit:
-            item = beat["item"]
+            item = beat.get("item") or beat.get("name")
             action = beat.get("action", "give")
             if action == "give":
                 state.add_item(item)
