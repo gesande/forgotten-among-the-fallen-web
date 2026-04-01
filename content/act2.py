@@ -2026,7 +2026,7 @@ SCENE_FOREST_DIRE_WOLF_MERCY = {
 }
 
 SCENE_FOREST_RUNE_STONE = {
-    "art": "forest",
+    "art": "forest_rune_stone",
     "beats": [
         {
             "type": "prose",
