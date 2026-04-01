@@ -16,9 +16,9 @@ from content.combat_prose import (
     heavy_prose,
 )
 
-CC = COMBAT_CONFIG          # shorthand
-A = CC["actions"]           # per-action config
-S = STRINGS                 # shorthand
+CC = COMBAT_CONFIG  # shorthand
+A = CC["actions"]  # per-action config
+S = STRINGS  # shorthand
 
 
 # ── Combat state lives in Flask session ───────────────────────

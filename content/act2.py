@@ -2122,10 +2122,12 @@ SCENE_FOREST_RUNE_STONE = {
         {
             "label": "Follow the pale shape deeper into the wood.",
             "next": "forest_dire_wolf",
-            "condition": {"and": [
-                {"not": {"flag": "wolf_killed"}},
-                {"not": {"flag": "wolf_spared"}},
-            ]},
+            "condition": {
+                "and": [
+                    {"not": {"flag": "wolf_killed"}},
+                    {"not": {"flag": "wolf_spared"}},
+                ]
+            },
         },
         {
             "label": "Press further — something larger moves out there.",
@@ -2428,7 +2430,7 @@ SCENE_HERMIT_GREET = {
                     "type": "italic",
                     "text": (
                         '"It has been here longer than I have. I fed it, when I could. '
-                        "It was not kind. But it was honest.\" "
+                        'It was not kind. But it was honest." '
                         "He pauses. "
                         '"Not many choose to stand still."'
                     ),
