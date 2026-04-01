@@ -325,7 +325,7 @@ def _hit_enemy(dmg, e, player, log):
             log.append(S[f"{effect}_open_enemy"])
     # Drain mechanic — enemy heals from player stat when hit
     if e.get("drain"):
-        drain = min(e["drain_amount"], getattr(player, "wrath", 0))
+        drain = min(e.get("drain_amount", 0), getattr(player, "wrath", 0))
         if drain > 0:
             player.modify_stat("wrath", -drain)
             heal = min(drain, e["hp"] - e["current_hp"])

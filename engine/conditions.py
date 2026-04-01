@@ -40,7 +40,7 @@ def eval_condition(cond, state) -> bool:
         return state.equipped.get("weapon") == cond["equipped"]
 
     if "stat_gte" in cond:
-        return getattr(state, cond["stat_gte"]) >= cond["value"]
+        return getattr(state, cond["stat_gte"], 0) >= cond["value"]
 
     if "not" in cond:
         return not eval_condition(cond["not"], state)

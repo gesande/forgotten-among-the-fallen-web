@@ -123,7 +123,13 @@ class PlayerState:
             self.inventory.remove(item)
             for slot, equipped in list(self.equipped.items()):
                 if equipped == item:
-                    self.equipped[slot] = ""
+                    # Find best remaining item for this slot
+                    best, best_tier = "", 0
+                    for inv_item in self.inventory:
+                        eq = EQUIPMENT.get(inv_item)
+                        if eq and eq["slot"] == slot and eq["tier"] > best_tier:
+                            best, best_tier = inv_item, eq["tier"]
+                    self.equipped[slot] = best
             return True
         return False
 
