@@ -502,6 +502,10 @@ function renderHUD(hud) {
   if (shieldEl) {
     shieldEl.textContent = hud.equipped?.shield || "";
   }
+  const bodyEl = $("hud-body");
+  if (bodyEl) {
+    bodyEl.textContent = hud.equipped?.body || "";
+  }
 
   // Inventory
   const invEl = $("hud-inventory");
