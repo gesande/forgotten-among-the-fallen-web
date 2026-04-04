@@ -1,0 +1,365 @@
+"""Tests for engine/scene.py — render_scene, apply_choice, beat processing."""
+import pytest
+from unittest.mock import patch
+from engine.state import PlayerState
+from engine.scene import render_scene, apply_choice
+
+
+# ── Minimal fake SCENES used across tests ─────────────────────
+
+FAKE_SCENES = {
+    "prose_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "prose", "text": "The mist is cold."},
+            {"type": "italic", "text": "You remember nothing."},
+        ],
+        "choices": [
+            {"label": "Press on", "next": "next_scene"},
+        ],
+    },
+    "stat_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "stat", "changes": {"honour": 10, "echo_shards": 50}},
+        ],
+        "next": "next_scene",
+    },
+    "flag_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "flag", "key": "test_flag"},
+        ],
+        "next": "next_scene",
+    },
+    "item_give_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "item", "action": "give", "item": "iron scraps"},
+        ],
+        "next": "next_scene",
+    },
+    "item_take_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "item", "action": "take", "item": "iron scraps"},
+        ],
+        "next": "next_scene",
+    },
+    "heal_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "heal", "amount": 30},
+        ],
+        "next": "next_scene",
+    },
+    "memory_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "memory", "key": "the_oath", "label": "The Oath", "text": "You swore once."},
+        ],
+        "next": "next_scene",
+    },
+    "conditional_prose_scene": {
+        "art": "test_art",
+        "beats": [
+            {
+                "type": "conditional_prose",
+                "variants": [
+                    {"condition": {"flag": "wolf_killed"}, "text": "You remember the wolf."},
+                    {"text": "You remember nothing."},
+                ],
+            }
+        ],
+        "next": "next_scene",
+    },
+    "combat_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "combat", "enemy": "rat"},
+        ],
+        "next": "next_scene",
+    },
+    "beat_condition_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "prose", "text": "Hidden.", "condition": {"flag": "secret"}},
+            {"type": "prose", "text": "Always shown."},
+        ],
+        "next": "next_scene",
+    },
+    "choice_condition_scene": {
+        "art": "test_art",
+        "beats": [],
+        "choices": [
+            {"label": "For the honoured", "next": "a", "condition": {"stat_gte": "honour", "value": 80}},
+            {"label": "Always available", "next": "b"},
+        ],
+    },
+    "auto_advance_scene": {
+        "art": "test_art",
+        "beats": [],
+        "next": "next_scene",
+    },
+    "continue_button_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "prose", "text": "Read this."},
+        ],
+        "next": "next_scene",
+    },
+    "apply_choice_scene": {
+        "art": "test_art",
+        "beats": [],
+        "choices": [
+            {
+                "label": "The merciful path",
+                "next": "mercy_scene",
+                "effects": {"mercy": 5},
+                "flags": {"chose_mercy": True},
+            },
+            {
+                "label": "Take the scraps",
+                "next": "loot_scene",
+                "item": "iron scraps",
+            },
+        ],
+    },
+    "choice_heal_scene": {
+        "art": "test_art",
+        "beats": [],
+        "choices": [
+            {"label": "Rest", "next": "next_scene", "heal": 20},
+        ],
+    },
+}
+
+
+@pytest.fixture(autouse=True)
+def patch_scenes():
+    with patch("engine.scene.SCENES", FAKE_SCENES):
+        yield
+
+
+@pytest.fixture
+def player():
+    return PlayerState()
+
+
+# ── render_scene: error handling ──────────────────────────────
+
+def test_unknown_scene_returns_error(player):
+    result = render_scene("nonexistent_scene", player)
+    assert "error" in result
+
+
+# ── render_scene: first-visit flag ────────────────────────────
+
+def test_first_visit_sets_visited_flag(player):
+    render_scene("prose_scene", player)
+    assert player.has_flag("scene_visited_prose_scene")
+
+
+def test_second_visit_does_not_reapply_stat(player):
+    render_scene("stat_scene", player)
+    honour_after_first = player.honour
+    render_scene("stat_scene", player)
+    assert player.honour == honour_after_first
+
+
+# ── render_scene: beat types ──────────────────────────────────
+
+def test_prose_beat_renders_paragraph(player):
+    out = render_scene("prose_scene", player)
+    types = [p["type"] for p in out["paragraphs"]]
+    assert "prose" in types
+
+
+def test_italic_beat_renders_italic(player):
+    out = render_scene("prose_scene", player)
+    types = [p["type"] for p in out["paragraphs"]]
+    assert "italic" in types
+
+
+def test_stat_beat_modifies_player_on_first_visit(player):
+    render_scene("stat_scene", player)
+    assert player.honour == 60  # default 50 + 10
+
+
+def test_stat_beat_tracks_shards_in_output(player):
+    out = render_scene("stat_scene", player)
+    assert out["shards"] == 50
+
+
+def test_flag_beat_sets_flag_on_first_visit(player):
+    render_scene("flag_scene", player)
+    assert player.has_flag("test_flag")
+
+
+def test_flag_beat_not_reapplied_on_revisit(player):
+    render_scene("flag_scene", player)
+    player.set_flag("test_flag", False)  # manually clear
+    render_scene("flag_scene", player)  # second visit — should not re-set
+    assert not player.has_flag("test_flag")
+
+
+def test_item_give_beat_adds_item(player):
+    render_scene("item_give_scene", player)
+    assert "iron scraps" in player.inventory
+
+
+def test_item_give_only_on_first_visit(player):
+    render_scene("item_give_scene", player)
+    render_scene("item_give_scene", player)
+    assert player.inventory.count("iron scraps") == 1
+
+
+def test_item_take_beat_removes_item(player):
+    player.add_item("iron scraps")
+    render_scene("item_take_scene", player)
+    assert "iron scraps" not in player.inventory
+
+
+def test_heal_beat_restores_hp(player):
+    player.health = 50
+    render_scene("heal_scene", player)
+    assert player.health == 80
+
+
+def test_heal_beat_only_on_first_visit(player):
+    player.health = 50
+    render_scene("heal_scene", player)
+    player.health = 50  # manually reduce again
+    render_scene("heal_scene", player)  # second visit — no heal
+    assert player.health == 50
+
+
+# ── render_scene: memory beat ─────────────────────────────────
+
+def test_memory_beat_adds_memory(player):
+    render_scene("memory_scene", player)
+    assert player.has_memory("the_oath")
+
+
+def test_memory_beat_adds_paragraph(player):
+    out = render_scene("memory_scene", player)
+    types = [p["type"] for p in out["paragraphs"]]
+    assert "memory" in types
+
+
+def test_memory_beat_idempotent(player):
+    render_scene("memory_scene", player)
+    out2 = render_scene("memory_scene", player)
+    memory_paragraphs = [p for p in out2["paragraphs"] if p["type"] == "memory"]
+    assert len(memory_paragraphs) == 0  # already had memory — not added again
+
+
+# ── render_scene: conditional_prose ──────────────────────────
+
+def test_conditional_prose_first_matching_variant(player):
+    player.set_flag("wolf_killed")
+    out = render_scene("conditional_prose_scene", player)
+    assert out["paragraphs"][0]["text"] == "You remember the wolf."
+
+
+def test_conditional_prose_fallback_variant(player):
+    out = render_scene("conditional_prose_scene", player)
+    assert out["paragraphs"][0]["text"] == "You remember nothing."
+
+
+# ── render_scene: beat condition gate ────────────────────────
+
+def test_beat_condition_hides_prose_when_false(player):
+    out = render_scene("beat_condition_scene", player)
+    texts = [p["text"] for p in out["paragraphs"]]
+    assert "Hidden." not in texts
+    assert "Always shown." in texts
+
+
+def test_beat_condition_shows_prose_when_true(player):
+    player.set_flag("secret")
+    out = render_scene("beat_condition_scene", player)
+    texts = [p["text"] for p in out["paragraphs"]]
+    assert "Hidden." in texts
+
+
+# ── render_scene: combat beat ─────────────────────────────────
+
+def test_combat_beat_triggers_combat(player):
+    out = render_scene("combat_scene", player)
+    assert out["combat"] is not None
+    assert out["combat"]["enemy_key"] == "rat"
+
+
+def test_combat_beat_skipped_when_already_defeated(player):
+    player.set_flag("defeated_rat")
+    out = render_scene("combat_scene", player)
+    assert out["combat"] is None
+
+
+# ── render_scene: choices ─────────────────────────────────────
+
+def test_choices_filtered_by_condition_false(player):
+    player.honour = 50  # below 80
+    out = render_scene("choice_condition_scene", player)
+    labels = [c["label"] for c in out["choices"]]
+    assert "For the honoured" not in labels
+    assert "Always available" in labels
+
+
+def test_choices_pass_condition_when_met(player):
+    player.honour = 80
+    out = render_scene("choice_condition_scene", player)
+    labels = [c["label"] for c in out["choices"]]
+    assert "For the honoured" in labels
+
+
+# ── render_scene: auto-advance / continue button ──────────────
+
+def test_auto_advance_when_no_prose(player):
+    out = render_scene("auto_advance_scene", player)
+    assert out["next"] == "next_scene"
+    assert out["choices"] == []
+
+
+def test_continue_button_when_has_prose(player):
+    out = render_scene("continue_button_scene", player)
+    assert out["next"] is None
+    assert any(c["id"] == "__next__" for c in out["choices"])
+
+
+# ── apply_choice ──────────────────────────────────────────────
+
+def test_apply_choice_returns_next_scene(player):
+    next_key, _ = apply_choice("apply_choice_scene", "0", player)
+    assert next_key == "mercy_scene"
+
+
+def test_apply_choice_applies_stat_effect(player):
+    apply_choice("apply_choice_scene", "0", player)
+    assert player.mercy == 5
+
+
+def test_apply_choice_sets_flag(player):
+    apply_choice("apply_choice_scene", "0", player)
+    assert player.has_flag("chose_mercy")
+
+
+def test_apply_choice_gives_item(player):
+    apply_choice("apply_choice_scene", "1", player)
+    assert "iron scraps" in player.inventory
+
+
+def test_apply_choice_heal(player):
+    player.health = 60
+    apply_choice("choice_heal_scene", "0", player)
+    assert player.health == 80
+
+
+def test_apply_choice_filters_by_condition(player):
+    # Scene has conditional choice — only available choice when condition fails
+    # is "Always available" (id 0 after filtering)
+    player.honour = 50
+    out = render_scene("choice_condition_scene", player)
+    assert len(out["choices"]) == 1
+    assert out["choices"][0]["label"] == "Always available"
