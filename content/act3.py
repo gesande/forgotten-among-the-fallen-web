@@ -47,9 +47,117 @@ SCENE_TYR_TEMPLE_APPROACH = {
             "next": "tyr_temple_interior",
         },
         {
+            "label": "Leave something at the threshold first.",
+            "next": "tyr_temple_offering",
+        },
+        {
             "label": "Wait outside. Not yet.",
             "next": "tyr_temple_wait",
             "effects": {"resolve": -3},
+        },
+    ],
+}
+
+SCENE_TYR_TEMPLE_OFFERING = {
+    "art": "tyr_temple",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "There is a flat stone at the base of the door. "
+                "Worn smooth at the centre — many hands, or one pair of hands "
+                "over a very long time. "
+                "It has been used for this before."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Leave Gunnar's Axe.",
+            "next": "tyr_temple_offered_axe",
+            "condition": {"has_item": "Gunnar's Axe"},
+            "item": "Gunnar's Axe",
+            "flags": {"offered_gunnars_axe": True},
+            "effects": {"honour": 10},
+        },
+        {
+            "label": "Leave the bear pelt.",
+            "next": "tyr_temple_offered_pelt",
+            "condition": {"has_item": "bear pelt"},
+            "item": "bear pelt",
+            "flags": {"offered_pelt": True},
+            "effects": {"honour": 5, "brutality": -5},
+        },
+        {
+            "label": "Leave the wolf pelt.",
+            "next": "tyr_temple_offered_pelt",
+            "condition": {
+                "and": [
+                    {"has_item": "wolf pelt"},
+                    {"not": {"has_item": "bear pelt"}},
+                ]
+            },
+            "item": "wolf pelt",
+            "flags": {"offered_pelt": True},
+            "effects": {"honour": 3},
+        },
+        {
+            "label": "You have nothing worth leaving. Enter anyway.",
+            "next": "tyr_temple_interior",
+        },
+    ],
+}
+
+SCENE_TYR_TEMPLE_OFFERED_AXE = {
+    "art": "tyr_temple",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You set the axe on the stone. "
+                "It is heavier than it should be, leaving your hand. "
+                "Or perhaps you have been holding it tightly for a long time "
+                "without noticing."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": ("It was never yours. " "You knew that. " "You carried it anyway."),
+        },
+        {
+            "type": "prose",
+            "text": "You straighten. The door is in front of you.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Enter.",
+            "next": "tyr_temple_interior",
+        },
+    ],
+}
+
+SCENE_TYR_TEMPLE_OFFERED_PELT = {
+    "art": "tyr_temple",
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "You fold the pelt and set it on the stone. "
+                "It is warm — it has always been warm. "
+                "You do not know if what you are leaving behind "
+                "is the animal or what wearing it made you."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "You straighten. The door is in front of you.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Enter.",
+            "next": "tyr_temple_interior",
         },
     ],
 }
@@ -105,6 +213,27 @@ SCENE_TYR_TEMPLE_INTERIOR = {
         {
             "type": "italic",
             "text": '"Odin\'s work again," he says. "I can always tell."',
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"flag": "offered_gunnars_axe"},
+                    "text": (
+                        "His eyes move to your empty hand. "
+                        "He knows what was there. "
+                        "He does not say anything about it. "
+                        "He does not need to."
+                    ),
+                },
+                {
+                    "condition": {"flag": "offered_pelt"},
+                    "text": (
+                        "He glances toward the door — toward what you left outside. "
+                        "A small acknowledgement. Nothing more."
+                    ),
+                },
+            ],
         },
         {"type": "pause"},
         {
@@ -376,6 +505,9 @@ SCENE_ACT3_THE_MEMORY = {
 SCENES = {
     "tyr_temple_approach": SCENE_TYR_TEMPLE_APPROACH,
     "tyr_temple_wait": SCENE_TYR_TEMPLE_WAIT,
+    "tyr_temple_offering": SCENE_TYR_TEMPLE_OFFERING,
+    "tyr_temple_offered_axe": SCENE_TYR_TEMPLE_OFFERED_AXE,
+    "tyr_temple_offered_pelt": SCENE_TYR_TEMPLE_OFFERED_PELT,
     "tyr_temple_interior": SCENE_TYR_TEMPLE_INTERIOR,
     "tyr_dialogue_no_words": SCENE_TYR_DIALOGUE_NO_WORDS,
     "tyr_dialogue_grief": SCENE_TYR_DIALOGUE_GRIEF,
