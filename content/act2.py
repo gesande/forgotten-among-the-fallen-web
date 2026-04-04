@@ -1810,24 +1810,63 @@ SCENE_ACT_3_INTRO = {
         {
             "type": "prose",
             "text": (
-                "The rune leads south. "
-                "Not a path — there is no path here — "
-                "but a pull, like a hook set gently behind the sternum, "
-                "drawing you forward through ground that does not remember feet."
+                "You stop. "
+                "Not because something blocks you — "
+                "because something in you stops first."
             ),
         },
         {
             "type": "prose",
             "text": (
-                "The fog is different on this side of the gatehouse. "
-                "Thicker in some places, absent in others, "
-                "as if it is arranged rather than drifting. "
-                "As if something is using it."
+                "The key is in your hand. "
+                "You have been holding it since the hall. "
+                "You have been holding it, in some sense, "
+                "longer than that."
             ),
         },
         {
             "type": "italic",
-            "text": "Ahead: a light that does not move. Something old. Something waiting.",
+            "text": (
+                "Iron. Old. A rune you almost recognise. "
+                "You have almost recognised it since Gunnar placed it in your hand "
+                "and said: I think the reason is you."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "And then — not a vision, not a sound — "
+                "just a certainty, arriving the way cold arrives: "
+                "gradually and then completely."
+            ),
+        },
+        {
+            "type": "memory",
+            "key": "the_key_remembered",
+            "label": "What the key was made from",
+            "text": (
+                "You gave something to Gunnar the night you swore the oath. "
+                "Something small. Something that was yours. "
+                "You do not remember what it was — "
+                "only the weight of it leaving your hand, "
+                "and Gunnar's face when he took it, "
+                "and the feeling that you had given away "
+                "something you could not name "
+                "and would not get back. "
+                "Odrik was there. Odrik made it into this. "
+                "Eleven years. "
+                "It has been waiting to be what it always was."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You close your fingers around it. "
+                "The fog is different on this side of the gatehouse — "
+                "thicker in some places, absent in others, "
+                "as if it is arranged rather than drifting. "
+                "Ahead: a light that does not move."
+            ),
         },
     ],
     "choices": [
