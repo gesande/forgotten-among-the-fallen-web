@@ -541,15 +541,18 @@ sacred and wrong, dark fantasy, painterly, desaturated, cinematic
 **Midjourney:**
 
 ```
-an ancient Norse god sitting on a stone floor with his back against a
-rough timber wall, tall and built with the weight of old things, his
-right arm ending cleanly at the wrist — he does not hide it, calm
-world-weary expression that is not angry and not kind, just honest,
-dim steady light from a small flameless bowl on the ground between his
-knees, rough timber ceiling low above him, no throne no altar just
-stone and wood and age, dark fantasy portrait, muted greys and amber,
-painterly, intimate and heavy --ar 16:9 --style raw --v 6 --stylize 800
+ancient Norse god sitting on a stone floor with his back against a
+rough timber wall, tall one-handed right wrist stump not hidden,
+calm world-weary expression not angry not kind just honest,
+dim flameless light from a shallow bowl on the ground, low timber
+ceiling, no throne no altar just stone and wood and age,
+wide cinematic composition, figure occupies left third of frame,
+dark fantasy, muted grey amber palette, painterly
+--ar 16:9 --style raw --v 6 --stylize 800
 ```
+
+**Note:** Previous generation came out 1024×1536 (portrait). Must generate
+as landscape 16:9. The `--ar 16:9` flag is required.
 
 **Stable Diffusion:**
 
@@ -559,6 +562,27 @@ one-handed right wrist stump not hidden, calm world-weary not angry,
 dim flameless light from bowl on ground, low timber ceiling, no throne
 just stone and wood, dark fantasy portrait, muted grey amber palette,
 painterly, intimate, cinematic
+```
+
+---
+
+## Scene A3 — firepit.png
+
+**File:** `static/svg/firepit.png`
+**Used in:** act_3_intro
+
+**Midjourney:**
+
+```
+a small fire burning alone in open darkness, no structure around it,
+just packed earth and the circle of amber light it throws, a single
+figure sitting motionless beside it seen from behind — hunched slightly,
+one hand resting open on a knee, something small held loosely in the
+fingers, the fire the only light source, fog pressing at the edges of
+the light but not entering, the feeling of a long journey paused not
+ended, wide cinematic composition, dark fantasy, painterly, desaturated
+except for the amber of the fire, intimate and still
+--ar 16:9 --style raw --v 6 --stylize 800
 ```
 
 ---
