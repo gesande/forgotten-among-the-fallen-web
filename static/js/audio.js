@@ -24,6 +24,9 @@ const SoundEngine = (() => {
     gatehouse: "ambient_gatehouse",
     great_hall: "ambient_greathall",
     odrik_go_forward: "ambient_greathall",
+    // Act III — The Silence Beneath
+    tyr_temple: "tyr_temple",
+    tyr: "tyr",
   };
 
   const SFX_MAP = {
