@@ -1808,14 +1808,33 @@ SCENE_ACT_3_INTRO = {
     },
     "beats": [
         {
+            "type": "prose",
+            "text": (
+                "The rune leads south. "
+                "Not a path — there is no path here — "
+                "but a pull, like a hook set gently behind the sternum, "
+                "drawing you forward through ground that does not remember feet."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "The fog is different on this side of the gatehouse. "
+                "Thicker in some places, absent in others, "
+                "as if it is arranged rather than drifting. "
+                "As if something is using it."
+            ),
+        },
+        {
             "type": "italic",
-            "text": "Coming soon.",
+            "text": "Ahead: a light that does not move. Something old. Something waiting.",
         },
     ],
     "choices": [
         {
-            "label": "Return to the hall (restart Act 2).",
-            "next": "__restart__",
+            "label": "Move toward the light.",
+            "next": "tyr_temple_approach",
+            "effects": {"resolve": 5},
         },
     ],
 }

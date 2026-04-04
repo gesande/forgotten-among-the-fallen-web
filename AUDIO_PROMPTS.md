@@ -168,6 +168,67 @@ Seamlessly loopable. Instrumental, no lyrics.
 
 ---
 
+## Act III — tracks to generate
+
+---
+
+### Track 5 — `ambient_tyr_temple.mp3`
+**Art key:** `tyr_temple`
+**Used in:** act_3_intro, tyr_temple_approach, tyr_temple_wait, tyr_farewell
+
+**Mood:** The fog has stopped. Something older than the fog is here.
+Not hostile — indifferent in the way that law is indifferent.
+The silence of a place that has been waiting without impatience.
+Sacred but not warm.
+
+**Prompt:**
+```
+Dark Norse sacred ambient. Single tagelharpa note, bowed very slowly,
+held and released. Silence longer than the note. Low stone resonance,
+like a temple bell heard from underground. No melody. No rhythm.
+Frame drum strikes once every thirty seconds — too slow to be a beat.
+Cold still air. The silence of something that does not need to hurry.
+Seamlessly loopable. Instrumental, no lyrics.
+```
+
+**Alternative (shorter Suno/Udio prompt):**
+```
+sacred dark Norse ambient, single bowed string note sustained then
+released into silence, low stone resonance, no rhythm no melody,
+ancient temple atmosphere, cold and patient, 3 minutes loop
+```
+
+---
+
+### Track 6 — `ambient_tyr.mp3`
+**Art key:** `tyr`
+**Used in:** tyr_temple_interior, tyr_dialogue_no_words, tyr_dialogue_grief, tyr_judgement
+
+**Mood:** Sitting across from someone who will not lie to you.
+Not judgement as punishment — judgement as naming.
+He has done this many times. He is tired of it.
+The weight of law without mercy, delivered without cruelty.
+
+**Prompt:**
+```
+Dark Norse chamber ambient. Solo low cello, sparse fingered pizzicato —
+notes that do not resolve into melody, just weight. Silence between
+phrases longer than the phrases themselves. Occasional low drone,
+like a breath held and released. No percussion. No harmony.
+The music of a one-sided conversation where both sides already know
+the answer. Intimate, grave, unhurried.
+Seamlessly loopable. Instrumental, no lyrics.
+```
+
+**Alternative (shorter Suno/Udio prompt):**
+```
+sparse low cello pizzicato dark ambient, notes without melody, long
+silence between strikes, intimate grave atmosphere, the weight of
+judgement without cruelty, one-handed Norse god energy, 3 minutes loop
+```
+
+---
+
 ## SFX — all acts
 
 | File | Trigger |

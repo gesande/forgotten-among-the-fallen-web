@@ -500,6 +500,69 @@ dark fantasy, painterly, desaturated, cinematic
 
 ---
 
+## Act III — The Silence Beneath
+
+---
+
+## Scene A1 — tyr_temple.png
+
+**File:** `static/svg/tyr_temple.png`
+**Used in:** act_3_intro, tyr_temple_approach, tyr_temple_wait, tyr_farewell
+
+**Midjourney:**
+
+```
+a small ancient Norse stave temple deep in dark forest, weathered black
+timber with no carvings no runes, listing slightly as if leaning into a
+wind that has blown for centuries, warm steady light visible through gaps
+in the wood — not fire, something steadier than fire, surrounding fog
+stops abruptly at the tree line as if something older than the fog drew
+a line and the fog respected it, cold diffuse light outside, overcast
+sky pressing low, dark fantasy, painterly, desaturated, deeply sacred
+and deeply wrong --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+small ancient Norse stave temple dark forest, weathered black timber no
+carvings, listing slightly, steady warm light through gaps not fire,
+fog stops at tree line, cold diffuse light outside, overcast sky,
+sacred and wrong, dark fantasy, painterly, desaturated, cinematic
+```
+
+---
+
+## Scene A2 — tyr.png
+
+**File:** `static/svg/tyr.png`
+**Used in:** tyr_temple_interior, tyr_dialogue_no_words, tyr_dialogue_grief, tyr_judgement
+
+**Midjourney:**
+
+```
+an ancient Norse god sitting on a stone floor with his back against a
+rough timber wall, tall and built with the weight of old things, his
+right arm ending cleanly at the wrist — he does not hide it, calm
+world-weary expression that is not angry and not kind, just honest,
+dim steady light from a small flameless bowl on the ground between his
+knees, rough timber ceiling low above him, no throne no altar just
+stone and wood and age, dark fantasy portrait, muted greys and amber,
+painterly, intimate and heavy --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+ancient Norse god sitting on stone floor rough timber wall, tall
+one-handed right wrist stump not hidden, calm world-weary not angry,
+dim flameless light from bowl on ground, low timber ceiling, no throne
+just stone and wood, dark fantasy portrait, muted grey amber palette,
+painterly, intimate, cinematic
+```
+
+---
+
 ## Scene 14 — odrik_go_forward.jpg
 
 **File:** `static/svg/odrik_go_forward.svg` → replace with `odrik_go_forward.jpg`
