@@ -58,8 +58,8 @@ F8xx ruff errors are real bugs and must be fixed. E4xx/E7xx are style only.
 **Content — `content/`**
 - `enemies.py`: Enemy definitions. Each enemy is a dict with stats, phrases, loot, and optional `on_death` side effects (`flag`, `memory`). No engine changes needed to add enemies.
 - `combat_prose.py`: All combat narrative strings (`STRINGS` dict) and prose helper functions (`light_prose`, `heavy_prose`, `damage_word`).
-- `act1.py`, `act2.py`: Scene dicts per act. Pure data, no logic.
-- `scenes.py`: Thin aggregator — `SCENES = {**ACT1, **ACT2}`
+- `act1.py`, `act2.py`, `act3.py`: Scene dicts per act. Pure data, no logic.
+- `scenes.py`: Thin aggregator — `SCENES = {**ACT1, **ACT2, **ACT3}`
 
 **Frontend — `static/js/game.js` + `audio.js`**
 - Vanilla JS, no frameworks
@@ -73,12 +73,12 @@ F8xx ruff errors are real bugs and must be fixed. E4xx/E7xx are style only.
 - **Memory Fragments**: Narrative collectibles visible in HUD
 - **Echo Shards**: Combat currency for Runic Burst ability
 - **Equipment slots**: `equipped` dict on PlayerState; `"weapon"`, `"shield"`, and `"body"` slots. Bear pelt (`body`) enables berserk mode (removes parry/mercy/flee).
-- **Act progression**: Act I complete; Act II structurally complete; Act III placeholder; Act IV planned
+- **Act progression**: Act I complete; Act II complete; Act III in progress (Tyr temple done, ends at `act3_the_memory` placeholder); Act IV planned
 
 ## Content Authoring
 
 ### Adding a scene
-Add an entry to `content/act1.py` or `content/act2.py` and register it in the local `SCENES` dict at the bottom of the file. Scene keys must be unique. Preceding scenes reference this key via `choices[n]["next"]` or `"next"`.
+Add an entry to `content/act1.py`, `act2.py`, or `act3.py` and register it in the local `SCENES` dict at the bottom of the file. Scene keys must be unique. Preceding scenes reference this key via `choices[n]["next"]` or `"next"`.
 
 ```python
 SCENE_MY_SCENE = {

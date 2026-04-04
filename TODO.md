@@ -2,7 +2,8 @@
 
 ## Content
 
-- [ ] **Act III** — placeholder exists (`act_3_intro`), sisältö kirjoittamatta
+- [x] **Act III** — avauskohtaus (firepit + avainmuisto), Tyr-temppeli täysin kirjoitettu (lähestyminen, tarjoaminen, dialogi, tuomio, lähtö); loppuu `act3_the_memory` placeholderiin
+- [ ] **Act III jatko** — `act3_the_memory` ja sen jälkeiset kohtaukset (Odinin kohtaaminen, avainmuisto tienristeyksestä, kolme loppua)
 - [ ] **Act IV** — suunniteltu, ei aloitettu
 - [x] **name_entry** — art lisätty
 
