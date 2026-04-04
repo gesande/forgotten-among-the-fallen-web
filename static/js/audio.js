@@ -25,6 +25,7 @@ const SoundEngine = (() => {
     great_hall: "ambient_greathall",
     odrik_go_forward: "ambient_greathall",
     // Act III — The Silence Beneath
+    act3: "silence_beneath",
     tyr_temple: "tyr_temple",
     tyr: "tyr",
   };

@@ -1801,7 +1801,7 @@ SCENE_ACT2_END = {
 }
 
 SCENE_ACT_3_INTRO = {
-    "art": "act_break",
+    "art": "act3",
     "header": {
         "title": "ACT III",
         "subtitle": "The Silence Beneath",

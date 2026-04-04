@@ -172,7 +172,38 @@ Seamlessly loopable. Instrumental, no lyrics.
 
 ---
 
-### Track 5 — `ambient_tyr_temple.mp3`
+### Track 5 — `silence_beneath.mp3`
+**Art key:** `act3` (default for all Act III scenes without a specific track)
+**Used in:** act_3_intro, act3_the_memory, and any future Act III scenes
+
+**Mood:** The silence beneath is not empty — it is full.
+Päähenkilö tietää enemmän nyt. Tietoisuus ilman vapautusta.
+Liminaalitila joka on muuttunut: ei enää avoin, vaan painava.
+Ahdistava ilman dramatiikkaa. Hiljaisuus joka odottaa.
+
+**Prompt:**
+```
+Dark Norse ambient. Sustained low drone, two notes a semitone apart —
+never resolving, never moving. Bowed tagelharpa enters very slowly,
+a phrase that climbs three notes then stops before it lands anywhere.
+Silence. The phrase again, slightly different. Frame drum, one strike
+every twenty seconds — not a rhythm, a reminder. Breath texture
+underneath everything, just audible. The feeling of knowing something
+you cannot act on. No resolution. No melody. Seamlessly loopable.
+Instrumental, no lyrics.
+```
+
+**Alternative (shorter Suno/Udio prompt):**
+```
+two-note dark drone never resolving, bowed string phrase that climbs
+and stops before landing, long silence between repetitions, one slow
+drum strike every twenty seconds, dread without urgency, knowing
+without freedom, dark Norse ambient, 3 minutes loop
+```
+
+---
+
+### Track 6 — `tyr_temple.mp3`
 **Art key:** `tyr_temple`
 **Used in:** act_3_intro, tyr_temple_approach, tyr_temple_wait, tyr_farewell
 
@@ -200,7 +231,7 @@ ancient temple atmosphere, cold and patient, 3 minutes loop
 
 ---
 
-### Track 6 — `ambient_tyr.mp3`
+### Track 6 — `tyr.mp3`
 **Art key:** `tyr`
 **Used in:** tyr_temple_interior, tyr_dialogue_no_words, tyr_dialogue_grief, tyr_judgement
 
