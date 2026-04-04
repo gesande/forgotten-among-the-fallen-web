@@ -3,7 +3,7 @@
 import pytest
 from unittest.mock import patch
 from engine.state import PlayerState
-from engine.scene import render_scene, apply_choice
+from engine.scene import render_scene, apply_choice, has_prose_beats, _build_hud
 
 # ── Minimal fake SCENES used across tests ─────────────────────
 
@@ -527,3 +527,101 @@ def test_interior_no_reaction_without_offering(player):
     texts = [p["text"] for p in out["paragraphs"]]
     assert "He sees your empty hand." not in texts
     assert "He glances toward the door." not in texts
+
+
+# ── has_prose_beats ───────────────────────────────────────────
+
+
+def test_has_prose_beats_true_for_prose():
+    assert has_prose_beats([{"type": "prose", "text": "x"}]) is True
+
+
+def test_has_prose_beats_true_for_italic():
+    assert has_prose_beats([{"type": "italic", "text": "x"}]) is True
+
+
+def test_has_prose_beats_true_for_memory():
+    assert (
+        has_prose_beats([{"type": "memory", "key": "k", "label": "l", "text": "x"}])
+        is True
+    )
+
+
+def test_has_prose_beats_true_for_conditional_prose():
+    assert has_prose_beats([{"type": "conditional_prose", "variants": []}]) is True
+
+
+def test_has_prose_beats_false_for_stat_only():
+    assert has_prose_beats([{"type": "stat", "changes": {"honour": 5}}]) is False
+
+
+def test_has_prose_beats_false_for_empty():
+    assert has_prose_beats([]) is False
+
+
+def test_has_prose_beats_mixed_returns_true():
+    beats = [
+        {"type": "flag", "key": "x"},
+        {"type": "prose", "text": "y"},
+    ]
+    assert has_prose_beats(beats) is True
+
+
+# ── _build_hud ────────────────────────────────────────────────
+
+
+def test_build_hud_hp_values(player):
+    player.health = 60
+    hud = _build_hud(player)
+    assert hud["hp"] == 60
+    assert hud["max_hp"] == 100
+    assert hud["hp_ratio"] == 0.6
+
+
+def test_build_hud_hp_desc_unbroken(player):
+    player.health = 100
+    hud = _build_hud(player)
+    assert hud["hp_desc"] == "Unbroken"
+
+
+def test_build_hud_hp_desc_wounded(player):
+    player.health = 60
+    hud = _build_hud(player)
+    assert hud["hp_desc"] == "Wounded"
+
+
+def test_build_hud_hp_desc_near_death(player):
+    player.health = 10
+    hud = _build_hud(player)
+    assert hud["hp_desc"] == "Near Death"
+
+
+def test_build_hud_is_dead_false(player):
+    hud = _build_hud(player)
+    assert hud["is_dead"] is False
+
+
+def test_build_hud_is_dead_true(player):
+    player.health = 0
+    hud = _build_hud(player)
+    assert hud["is_dead"] is True
+
+
+def test_build_hud_shards(player):
+    player.echo_shards = 150
+    hud = _build_hud(player)
+    assert hud["shards"] == 150
+
+
+# ── apply_choice narration ────────────────────────────────────
+
+
+def test_apply_choice_narration_none_by_default(player):
+    _, narration = apply_choice("apply_choice_scene", "0", player)
+    assert narration is None
+
+
+def test_apply_choice_remove_item_via_field(player):
+    player.add_item("iron scraps")
+    apply_choice("choice_remove_item_scene", "0", player)
+    assert "iron scraps" not in player.inventory
