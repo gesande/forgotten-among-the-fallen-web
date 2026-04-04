@@ -1,4 +1,5 @@
 """Tests for engine/combat.py — action resolution."""
+
 import pytest
 from unittest.mock import patch
 from engine.state import PlayerState
@@ -26,6 +27,7 @@ def wolf_combat(player):
 
 # ── start_combat ──────────────────────────────────────────────
 
+
 def test_start_combat_initialises_enemy(player):
     cs = start_combat("rat", player)
     e = cs["enemy"]
@@ -49,6 +51,7 @@ def test_start_combat_variant_overrides(player):
 
 
 # ── get_player_actions ────────────────────────────────────────
+
 
 def test_actions_always_include_light_heavy(player, rat_combat):
     actions = get_player_actions(rat_combat, player)
@@ -92,6 +95,7 @@ def test_actions_mercy_requires_low_enemy_hp(player, rat_combat):
 
 # ── resolve_action: flee ──────────────────────────────────────
 
+
 def test_flee_ends_combat(player, rat_combat):
     with patch("engine.combat.roll_range", return_value=5):
         cs = resolve_action("flee", rat_combat, player)
@@ -107,6 +111,7 @@ def test_flee_costs_health(player, rat_combat):
 
 
 # ── resolve_action: mercy ─────────────────────────────────────
+
 
 def test_mercy_ends_combat_as_won(player, rat_combat):
     rat_combat["enemy"]["current_hp"] = 1
@@ -126,17 +131,20 @@ def test_mercy_raises_mercy_stat(player, rat_combat):
 
 # ── resolve_action: light strike ─────────────────────────────
 
+
 def test_light_strike_hits_enemy(player, rat_combat):
-    with patch("engine.combat.roll_range", return_value=15), \
-         patch("engine.combat.chance", return_value=False):
+    with patch("engine.combat.roll_range", return_value=15), patch(
+        "engine.combat.chance", return_value=False
+    ):
         cs = resolve_action("light", rat_combat, player)
     assert cs["enemy"]["current_hp"] < cs["enemy"]["hp"]
 
 
 def test_light_strike_killing_blow_ends_combat(player, rat_combat):
     rat_combat["enemy"]["current_hp"] = 1
-    with patch("engine.combat.roll_range", return_value=50), \
-         patch("engine.combat.chance", return_value=False):
+    with patch("engine.combat.roll_range", return_value=50), patch(
+        "engine.combat.chance", return_value=False
+    ):
         cs = resolve_action("light", rat_combat, player)
     assert cs["won"] is True
     assert cs["over"] is True
@@ -144,11 +152,13 @@ def test_light_strike_killing_blow_ends_combat(player, rat_combat):
 
 # ── resolve_action: runic burst ───────────────────────────────
 
+
 def test_runic_costs_shards(player, rat_combat):
     player.echo_shards = 100
     rat_combat["enemy"]["current_hp"] = 9999  # ensure rat survives — no shard reward
-    with patch("engine.combat.roll_range", return_value=5), \
-         patch("engine.combat.chance", return_value=False):
+    with patch("engine.combat.roll_range", return_value=5), patch(
+        "engine.combat.chance", return_value=False
+    ):
         resolve_action("runic", rat_combat, player)
     assert player.echo_shards == 0
 
@@ -156,22 +166,26 @@ def test_runic_costs_shards(player, rat_combat):
 def test_runic_resets_wrath(player, rat_combat):
     player.wrath = 60
     player.echo_shards = 100
-    with patch("engine.combat.roll_range", return_value=30), \
-         patch("engine.combat.chance", return_value=False):
+    with patch("engine.combat.roll_range", return_value=30), patch(
+        "engine.combat.chance", return_value=False
+    ):
         resolve_action("runic", rat_combat, player)
     assert player.wrath == 0
 
 
 # ── player death ──────────────────────────────────────────────
 
+
 def test_player_death_ends_combat(player, rat_combat):
     player.health = 1
     # Force a hit via enemy turn — patch accuracy to always hit
-    with patch("engine.combat.roll_range", return_value=5), \
-         patch("engine.combat.chance", return_value=False), \
-         patch("engine.combat.roll", return_value=1):
+    with patch("engine.combat.roll_range", return_value=5), patch(
+        "engine.combat.chance", return_value=False
+    ), patch("engine.combat.roll", return_value=1):
         # Tick player effects (none), then light strike, then enemy hits
-        rat_combat["player_effects"]["bleeding"] = 1  # duration counter (int), not a dict
+        rat_combat["player_effects"][
+            "bleeding"
+        ] = 1  # duration counter (int), not a dict
         cs = resolve_action("light", rat_combat, player)
     assert cs["over"] is True
     assert cs.get("died") is True

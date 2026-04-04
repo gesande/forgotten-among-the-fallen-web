@@ -1,4 +1,5 @@
 """Tests for engine/conditions.py — eval_condition DSL."""
+
 import pytest
 from engine.conditions import eval_condition
 from engine.state import PlayerState
@@ -10,7 +11,7 @@ def state():
     s.set_flag("wolf_killed")
     s.add_memory("the_death", "The Death")
     s.add_item("iron scraps")
-    s.add_item("sharpened axe")   # auto-equips as weapon
+    s.add_item("sharpened axe")  # auto-equips as weapon
     s.honour = 70
     s.brutality = 20
     return s
@@ -18,11 +19,13 @@ def state():
 
 # ── None ──────────────────────────────────────────────────────
 
+
 def test_none_condition_is_always_true(state):
     assert eval_condition(None, state) is True
 
 
 # ── flag ──────────────────────────────────────────────────────
+
 
 def test_flag_true_when_set(state):
     assert eval_condition({"flag": "wolf_killed"}, state) is True
@@ -34,6 +37,7 @@ def test_flag_false_when_not_set(state):
 
 # ── memory ────────────────────────────────────────────────────
 
+
 def test_memory_true_when_present(state):
     assert eval_condition({"memory": "the_death"}, state) is True
 
@@ -43,6 +47,7 @@ def test_memory_false_when_absent(state):
 
 
 # ── has_item ──────────────────────────────────────────────────
+
 
 def test_has_item_true(state):
     assert eval_condition({"has_item": "iron scraps"}, state) is True
@@ -54,6 +59,7 @@ def test_has_item_false(state):
 
 # ── equipped ──────────────────────────────────────────────────
 
+
 def test_equipped_true(state):
     assert eval_condition({"equipped": "sharpened axe"}, state) is True
 
@@ -63,6 +69,7 @@ def test_equipped_false(state):
 
 
 # ── stat_gte ──────────────────────────────────────────────────
+
 
 def test_stat_gte_true(state):
     assert eval_condition({"stat_gte": "honour", "value": 70}, state) is True
@@ -83,6 +90,7 @@ def test_stat_gte_unknown_stat_zero_threshold(state):
 
 # ── not ───────────────────────────────────────────────────────
 
+
 def test_not_inverts_true(state):
     assert eval_condition({"not": {"flag": "wolf_killed"}}, state) is False
 
@@ -92,6 +100,7 @@ def test_not_inverts_false(state):
 
 
 # ── and ───────────────────────────────────────────────────────
+
 
 def test_and_all_true(state):
     cond = {"and": [{"flag": "wolf_killed"}, {"has_item": "iron scraps"}]}
@@ -109,6 +118,7 @@ def test_and_empty_is_true(state):
 
 # ── or ────────────────────────────────────────────────────────
 
+
 def test_or_one_true(state):
     cond = {"or": [{"flag": "wolf_spared"}, {"flag": "wolf_killed"}]}
     assert eval_condition(cond, state) is True
@@ -124,6 +134,7 @@ def test_or_empty_is_false(state):
 
 
 # ── nested ────────────────────────────────────────────────────
+
 
 def test_nested_and_or(state):
     # (wolf_killed AND honour>=70) OR has_item bear_pelt
@@ -142,6 +153,7 @@ def test_nested_not_and(state):
 
 
 # ── unknown key raises ────────────────────────────────────────
+
 
 def test_unknown_condition_key_raises(state):
     with pytest.raises(ValueError):

@@ -1,9 +1,9 @@
 """Tests for engine/state.py — PlayerState logic."""
-import pytest
+
 from engine.state import PlayerState
 
-
 # ── modify_stat ───────────────────────────────────────────────
+
 
 def test_modify_stat_basic():
     s = PlayerState()
@@ -41,6 +41,7 @@ def test_modify_stat_unknown_stat_is_noop():
 
 
 # ── heal / take_damage ────────────────────────────────────────
+
 
 def test_take_damage_reduces_health():
     s = PlayerState()
@@ -81,6 +82,7 @@ def test_is_dead_false_above_zero():
 
 # ── add_item ──────────────────────────────────────────────────
 
+
 def test_add_item_adds_to_inventory():
     s = PlayerState()
     s.add_item("iron scraps")
@@ -102,15 +104,15 @@ def test_add_item_auto_equips_weapon():
 
 def test_add_item_higher_tier_replaces_lower():
     s = PlayerState()
-    s.add_item("sharpened axe")   # tier 2
-    s.add_item("Gunnar's Axe")    # tier 3
+    s.add_item("sharpened axe")  # tier 2
+    s.add_item("Gunnar's Axe")  # tier 3
     assert s.equipped["weapon"] == "Gunnar's Axe"
 
 
 def test_add_item_lower_tier_does_not_replace():
     s = PlayerState()
-    s.add_item("Gunnar's Axe")    # tier 3
-    s.add_item("sharpened axe")   # tier 2
+    s.add_item("Gunnar's Axe")  # tier 3
+    s.add_item("sharpened axe")  # tier 2
     assert s.equipped["weapon"] == "Gunnar's Axe"
 
 
@@ -122,12 +124,13 @@ def test_add_item_body_slot():
 
 def test_add_item_bear_pelt_replaces_wolf_pelt():
     s = PlayerState()
-    s.add_item("wolf pelt")   # tier 1
-    s.add_item("bear pelt")   # tier 2
+    s.add_item("wolf pelt")  # tier 1
+    s.add_item("bear pelt")  # tier 2
     assert s.equipped["body"] == "bear pelt"
 
 
 # ── remove_item ───────────────────────────────────────────────
+
 
 def test_remove_item_removes_from_inventory():
     s = PlayerState()
@@ -157,8 +160,8 @@ def test_remove_item_unequips_weapon():
 def test_remove_item_falls_back_to_best_remaining():
     """Removing bear pelt should auto-equip wolf pelt."""
     s = PlayerState()
-    s.add_item("wolf pelt")   # tier 1
-    s.add_item("bear pelt")   # tier 2 — now equipped
+    s.add_item("wolf pelt")  # tier 1
+    s.add_item("bear pelt")  # tier 2 — now equipped
     assert s.equipped["body"] == "bear pelt"
     s.remove_item("bear pelt")
     assert s.equipped["body"] == "wolf pelt"
@@ -172,6 +175,7 @@ def test_remove_item_no_fallback_when_slot_empty():
 
 
 # ── flags / memories ─────────────────────────────────────────
+
 
 def test_set_and_check_flag():
     s = PlayerState()
@@ -198,6 +202,7 @@ def test_add_memory_duplicate_returns_false():
 
 
 # ── serialisation ─────────────────────────────────────────────
+
 
 def test_round_trip_serialisation():
     s = PlayerState()

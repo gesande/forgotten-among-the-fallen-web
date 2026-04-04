@@ -1,9 +1,9 @@
 """Tests for engine/scene.py — render_scene, apply_choice, beat processing."""
+
 import pytest
 from unittest.mock import patch
 from engine.state import PlayerState
 from engine.scene import render_scene, apply_choice
-
 
 # ── Minimal fake SCENES used across tests ─────────────────────
 
@@ -56,7 +56,12 @@ FAKE_SCENES = {
     "memory_scene": {
         "art": "test_art",
         "beats": [
-            {"type": "memory", "key": "the_oath", "label": "The Oath", "text": "You swore once."},
+            {
+                "type": "memory",
+                "key": "the_oath",
+                "label": "The Oath",
+                "text": "You swore once.",
+            },
         ],
         "next": "next_scene",
     },
@@ -66,7 +71,10 @@ FAKE_SCENES = {
             {
                 "type": "conditional_prose",
                 "variants": [
-                    {"condition": {"flag": "wolf_killed"}, "text": "You remember the wolf."},
+                    {
+                        "condition": {"flag": "wolf_killed"},
+                        "text": "You remember the wolf.",
+                    },
                     {"text": "You remember nothing."},
                 ],
             }
@@ -92,7 +100,11 @@ FAKE_SCENES = {
         "art": "test_art",
         "beats": [],
         "choices": [
-            {"label": "For the honoured", "next": "a", "condition": {"stat_gte": "honour", "value": 80}},
+            {
+                "label": "For the honoured",
+                "next": "a",
+                "condition": {"stat_gte": "honour", "value": 80},
+            },
             {"label": "Always available", "next": "b"},
         ],
     },
@@ -148,12 +160,14 @@ def player():
 
 # ── render_scene: error handling ──────────────────────────────
 
+
 def test_unknown_scene_returns_error(player):
     result = render_scene("nonexistent_scene", player)
     assert "error" in result
 
 
 # ── render_scene: first-visit flag ────────────────────────────
+
 
 def test_first_visit_sets_visited_flag(player):
     render_scene("prose_scene", player)
@@ -168,6 +182,7 @@ def test_second_visit_does_not_reapply_stat(player):
 
 
 # ── render_scene: beat types ──────────────────────────────────
+
 
 def test_prose_beat_renders_paragraph(player):
     out = render_scene("prose_scene", player)
@@ -236,6 +251,7 @@ def test_heal_beat_only_on_first_visit(player):
 
 # ── render_scene: memory beat ─────────────────────────────────
 
+
 def test_memory_beat_adds_memory(player):
     render_scene("memory_scene", player)
     assert player.has_memory("the_oath")
@@ -256,6 +272,7 @@ def test_memory_beat_idempotent(player):
 
 # ── render_scene: conditional_prose ──────────────────────────
 
+
 def test_conditional_prose_first_matching_variant(player):
     player.set_flag("wolf_killed")
     out = render_scene("conditional_prose_scene", player)
@@ -268,6 +285,7 @@ def test_conditional_prose_fallback_variant(player):
 
 
 # ── render_scene: beat condition gate ────────────────────────
+
 
 def test_beat_condition_hides_prose_when_false(player):
     out = render_scene("beat_condition_scene", player)
@@ -285,6 +303,7 @@ def test_beat_condition_shows_prose_when_true(player):
 
 # ── render_scene: combat beat ─────────────────────────────────
 
+
 def test_combat_beat_triggers_combat(player):
     out = render_scene("combat_scene", player)
     assert out["combat"] is not None
@@ -298,6 +317,7 @@ def test_combat_beat_skipped_when_already_defeated(player):
 
 
 # ── render_scene: choices ─────────────────────────────────────
+
 
 def test_choices_filtered_by_condition_false(player):
     player.honour = 50  # below 80
@@ -316,6 +336,7 @@ def test_choices_pass_condition_when_met(player):
 
 # ── render_scene: auto-advance / continue button ──────────────
 
+
 def test_auto_advance_when_no_prose(player):
     out = render_scene("auto_advance_scene", player)
     assert out["next"] == "next_scene"
@@ -329,6 +350,7 @@ def test_continue_button_when_has_prose(player):
 
 
 # ── apply_choice ──────────────────────────────────────────────
+
 
 def test_apply_choice_returns_next_scene(player):
     next_key, _ = apply_choice("apply_choice_scene", "0", player)
