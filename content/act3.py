@@ -76,28 +76,25 @@ SCENE_TYR_TEMPLE_OFFERING = {
             "label": "Leave Gunnar's Axe.",
             "next": "tyr_temple_offered_axe",
             "condition": {"has_item": "Gunnar's Axe"},
-            "item": "Gunnar's Axe",
             "flags": {"offered_gunnars_axe": True},
             "effects": {"honour": 10},
         },
         {
             "label": "Leave the bear pelt.",
-            "next": "tyr_temple_offered_pelt",
+            "next": "tyr_temple_offered_bear_pelt",
             "condition": {"has_item": "bear pelt"},
-            "item": "bear pelt",
             "flags": {"offered_pelt": True},
             "effects": {"honour": 5, "brutality": -5},
         },
         {
             "label": "Leave the wolf pelt.",
-            "next": "tyr_temple_offered_pelt",
+            "next": "tyr_temple_offered_wolf_pelt",
             "condition": {
                 "and": [
                     {"has_item": "wolf pelt"},
                     {"not": {"has_item": "bear pelt"}},
                 ]
             },
-            "item": "wolf pelt",
             "flags": {"offered_pelt": True},
             "effects": {"honour": 3},
         },
@@ -111,6 +108,7 @@ SCENE_TYR_TEMPLE_OFFERING = {
 SCENE_TYR_TEMPLE_OFFERED_AXE = {
     "art": "tyr_temple",
     "beats": [
+        {"type": "item", "action": "take", "item": "Gunnar's Axe"},
         {
             "type": "prose",
             "text": (
@@ -122,7 +120,7 @@ SCENE_TYR_TEMPLE_OFFERED_AXE = {
         },
         {
             "type": "italic",
-            "text": ("It was never yours. " "You knew that. " "You carried it anyway."),
+            "text": "It was never yours. You knew that. You carried it anyway.",
         },
         {
             "type": "prose",
@@ -137,9 +135,36 @@ SCENE_TYR_TEMPLE_OFFERED_AXE = {
     ],
 }
 
-SCENE_TYR_TEMPLE_OFFERED_PELT = {
+SCENE_TYR_TEMPLE_OFFERED_BEAR_PELT = {
     "art": "tyr_temple",
     "beats": [
+        {"type": "item", "action": "take", "item": "bear pelt"},
+        {
+            "type": "prose",
+            "text": (
+                "You fold the pelt and set it on the stone. "
+                "It is warm — it has always been warm. "
+                "You do not know if what you are leaving behind "
+                "is the animal or what wearing it made you."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "You straighten. The door is in front of you.",
+        },
+    ],
+    "choices": [
+        {
+            "label": "Enter.",
+            "next": "tyr_temple_interior",
+        },
+    ],
+}
+
+SCENE_TYR_TEMPLE_OFFERED_WOLF_PELT = {
+    "art": "tyr_temple",
+    "beats": [
+        {"type": "item", "action": "take", "item": "wolf pelt"},
         {
             "type": "prose",
             "text": (
@@ -507,7 +532,8 @@ SCENES = {
     "tyr_temple_wait": SCENE_TYR_TEMPLE_WAIT,
     "tyr_temple_offering": SCENE_TYR_TEMPLE_OFFERING,
     "tyr_temple_offered_axe": SCENE_TYR_TEMPLE_OFFERED_AXE,
-    "tyr_temple_offered_pelt": SCENE_TYR_TEMPLE_OFFERED_PELT,
+    "tyr_temple_offered_bear_pelt": SCENE_TYR_TEMPLE_OFFERED_BEAR_PELT,
+    "tyr_temple_offered_wolf_pelt": SCENE_TYR_TEMPLE_OFFERED_WOLF_PELT,
     "tyr_temple_interior": SCENE_TYR_TEMPLE_INTERIOR,
     "tyr_dialogue_no_words": SCENE_TYR_DIALOGUE_NO_WORDS,
     "tyr_dialogue_grief": SCENE_TYR_DIALOGUE_GRIEF,

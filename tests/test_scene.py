@@ -144,6 +144,67 @@ FAKE_SCENES = {
             {"label": "Rest", "next": "next_scene", "heal": 20},
         ],
     },
+    # ── Offering scenes (item removal via beat) ───────────────
+    "offering_scene": {
+        "art": "test_art",
+        "beats": [],
+        "choices": [
+            {
+                "label": "Leave the axe.",
+                "next": "offered_axe_scene",
+                "condition": {"has_item": "Gunnar's Axe"},
+                "flags": {"offered_axe": True},
+                "effects": {"honour": 10},
+            },
+            {
+                "label": "Leave the pelt.",
+                "next": "offered_pelt_scene",
+                "condition": {"has_item": "bear pelt"},
+                "flags": {"offered_pelt": True},
+                "effects": {"honour": 5, "brutality": -5},
+            },
+            {
+                "label": "Enter anyway.",
+                "next": "interior_scene",
+            },
+        ],
+    },
+    "offered_axe_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "item", "action": "take", "item": "Gunnar's Axe"},
+            {"type": "prose", "text": "It was never yours."},
+        ],
+        "choices": [{"label": "Enter.", "next": "interior_scene"}],
+    },
+    "offered_pelt_scene": {
+        "art": "test_art",
+        "beats": [
+            {"type": "item", "action": "take", "item": "bear pelt"},
+            {"type": "prose", "text": "You do not know what you are leaving behind."},
+        ],
+        "choices": [{"label": "Enter.", "next": "interior_scene"}],
+    },
+    "interior_scene": {
+        "art": "test_art",
+        "beats": [
+            {
+                "type": "conditional_prose",
+                "variants": [
+                    {
+                        "condition": {"flag": "offered_axe"},
+                        "text": "He sees your empty hand.",
+                    },
+                    {
+                        "condition": {"flag": "offered_pelt"},
+                        "text": "He glances toward the door.",
+                    },
+                ],
+            },
+            {"type": "prose", "text": "He is sitting on the floor."},
+        ],
+        "next": "next_scene",
+    },
 }
 
 
@@ -385,3 +446,67 @@ def test_apply_choice_filters_by_condition(player):
     out = render_scene("choice_condition_scene", player)
     assert len(out["choices"]) == 1
     assert out["choices"][0]["label"] == "Always available"
+
+
+# ── offering mechanic ─────────────────────────────────────────
+
+
+def test_offering_axe_choice_hidden_without_item(player):
+    out = render_scene("offering_scene", player)
+    labels = [c["label"] for c in out["choices"]]
+    assert "Leave the axe." not in labels
+
+
+def test_offering_axe_choice_visible_with_item(player):
+    player.add_item("Gunnar's Axe")
+    out = render_scene("offering_scene", player)
+    labels = [c["label"] for c in out["choices"]]
+    assert "Leave the axe." in labels
+
+
+def test_offering_axe_removes_item_via_beat(player):
+    player.add_item("Gunnar's Axe")
+    apply_choice("offering_scene", "0", player)  # choose axe
+    render_scene("offered_axe_scene", player)
+    assert "Gunnar's Axe" not in player.inventory
+
+
+def test_offering_axe_sets_flag_and_honour(player):
+    player.add_item("Gunnar's Axe")
+    apply_choice("offering_scene", "0", player)
+    assert player.has_flag("offered_axe")
+    assert player.honour == 60  # default 50 + 10
+
+
+def test_offering_pelt_removes_item_via_beat(player):
+    player.add_item("bear pelt")
+    apply_choice("offering_scene", "0", player)  # bear pelt is choice 0 without axe
+    render_scene("offered_pelt_scene", player)
+    assert "bear pelt" not in player.inventory
+
+
+def test_offering_pelt_sets_flag(player):
+    player.add_item("bear pelt")
+    apply_choice("offering_scene", "0", player)
+    assert player.has_flag("offered_pelt")
+
+
+def test_interior_reacts_to_axe_offering(player):
+    player.set_flag("offered_axe")
+    out = render_scene("interior_scene", player)
+    texts = [p["text"] for p in out["paragraphs"]]
+    assert "He sees your empty hand." in texts
+
+
+def test_interior_reacts_to_pelt_offering(player):
+    player.set_flag("offered_pelt")
+    out = render_scene("interior_scene", player)
+    texts = [p["text"] for p in out["paragraphs"]]
+    assert "He glances toward the door." in texts
+
+
+def test_interior_no_reaction_without_offering(player):
+    out = render_scene("interior_scene", player)
+    texts = [p["text"] for p in out["paragraphs"]]
+    assert "He sees your empty hand." not in texts
+    assert "He glances toward the door." not in texts
