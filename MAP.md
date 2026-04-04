@@ -138,7 +138,29 @@ fog_sentinel
                                                                                  └─ act_3_intro
 ```
 
-## Act III — (placeholder)
+## Act III — The Silence Beneath
+
+```
+act_3_intro (firepit — key memory: the_key_remembered)
+  └─ tyr_temple_approach
+        ├─ tyr_temple_interior (enter directly)
+        ├─ tyr_temple_wait ──────────────────────► tyr_temple_interior
+        └─ tyr_temple_offering
+              ├─ [has Gunnar's Axe] tyr_temple_offered_axe ──┐
+              ├─ [has bear pelt]    tyr_temple_offered_bear_pelt ─┤
+              ├─ [has wolf pelt]    tyr_temple_offered_wolf_pelt ─┤
+              └─ (nothing)         tyr_temple_interior ◄─────────┘
+                                         │
+                                   tyr_temple_interior
+                                         ├─ tyr_dialogue_no_words ─┐
+                                         ├─ tyr_dialogue_no_words ──┤  (two choices, same dest)
+                                         └─ tyr_dialogue_grief ─────┤
+                                                                     └─ tyr_judgement
+                                                                           └─ tyr_farewell
+                                                                                 └─ act3_the_memory
+                                                                                       (placeholder)
+```
+
 ## Act IV — (planned)
 
 ---
@@ -171,3 +193,6 @@ fog_sentinel
 | `forest_visited` | forest_path | — |
 | `wolf_killed` | forest_dire_wolf_fight | hermit_greet opening line |
 | `wolf_spared` | forest_dire_wolf_mercy | hermit_greet opening line; mercy path taken |
+| `offered_gunnars_axe` | tyr_temple_offering | tyr_temple_interior conditional prose |
+| `offered_pelt` | tyr_temple_offering | tyr_temple_interior conditional prose |
+| `gatehouse_fight_won` | gatehouse_fight victory | — |
