@@ -29,6 +29,7 @@
 
 - [ ] **`state.py` geneerinen** — `PlayerState` tuntee stat-nimet suoraan (`wrath`, `honour` jne.); `is_cursed()` / `is_broken()` pelikohtaisia. Täysi data-driven vaatisi geneerisen stat-dictin.
 - [x] **Combat-kynnykset configiin** — kaikki numerot `COMBAT_CONFIG`-dictiin `game_config.py`:ssä
+- [ ] **`engine/moral.py`** — eristä loppujen logiikka omaan tiedostoon (`resolve_ending`, `moral_profile`) kun Act III loppukohtaukset on kirjoitettu; turha ennen sitä
 
 ## Polish
 
