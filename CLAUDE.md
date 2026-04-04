@@ -84,6 +84,7 @@ Add an entry to `content/act1.py`, `act2.py`, or `act3.py` and register it in th
 SCENE_MY_SCENE = {
     "art": "art_key",          # maps to static/svg/<art_key>.png and audio
     "header": {"title": "...", "subtitle": "..."},  # optional
+    "cinematic": True,         # optional — full-screen art, HUD hidden, prose centered
     "beats": [...],
     "choices": [...],          # omit for auto-advance via "next"
     "next": "next_scene_key",  # used if no choices, or after combat victory
