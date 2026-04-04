@@ -9,7 +9,6 @@ const ART_FALLBACK = "battlefield";
 // Art key aliases — use a different image file but trigger different music
 const ART_ALIASES = {
   gunnar_combat: "gunnar",
-  act3: "act_break", // placeholder until act3.png is generated
 };
 
 // ── DOM refs ──────────────────────────────────────────────────
