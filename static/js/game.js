@@ -252,6 +252,9 @@ async function loadScene() {
 // ═══════════════════════════════════════════════════════════
 
 function renderScene(data) {
+  // ── Cinematic mode ────────────────────────────────────────
+  document.body.classList.toggle("cinematic", !!data.cinematic);
+
   // ── Illustration — try .png first, fall back to .svg ────────
   const artKey = data.art_key || ART_FALLBACK;
   const imgKey = ART_ALIASES[artKey] || artKey;

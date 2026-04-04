@@ -1802,6 +1802,7 @@ SCENE_ACT2_END = {
 
 SCENE_ACT_3_INTRO = {
     "art": "firepit",
+    "cinematic": True,
     "header": {
         "title": "ACT III",
         "subtitle": "The Silence Beneath",
