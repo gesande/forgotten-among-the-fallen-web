@@ -137,6 +137,17 @@ FAKE_SCENES = {
             },
         ],
     },
+    "choice_remove_item_scene": {
+        "art": "test_art",
+        "beats": [],
+        "choices": [
+            {
+                "label": "Give it up.",
+                "next": "next_scene",
+                "remove_item": "iron scraps",
+            },
+        ],
+    },
     "choice_heal_scene": {
         "art": "test_art",
         "beats": [],
@@ -437,6 +448,12 @@ def test_apply_choice_heal(player):
     player.health = 60
     apply_choice("choice_heal_scene", "0", player)
     assert player.health == 80
+
+
+def test_apply_choice_remove_item(player):
+    player.add_item("iron scraps")
+    apply_choice("choice_remove_item_scene", "0", player)
+    assert "iron scraps" not in player.inventory
 
 
 def test_apply_choice_filters_by_condition(player):

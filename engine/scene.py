@@ -86,10 +86,7 @@ def render_scene(scene_key: str, state: PlayerState) -> dict:
 
         if not raw_choices and scene.get("next"):
             # Only auto-advance (no Continue button) if scene has no prose to show
-            has_prose = any(
-                b.get("type") in ("prose", "italic", "memory", "conditional_prose")
-                for b in scene.get("beats", [])
-            )
+            has_prose = has_prose_beats(scene.get("beats", []))
             has_input = any(b.get("type") == "input" for b in scene.get("beats", []))
             if has_prose and not has_input:
                 # Has prose but no input — show Continue button
@@ -132,6 +129,8 @@ def apply_choice(scene_key: str, choice_id: str, state: PlayerState) -> str:
     # Apply items
     if choice.get("item"):
         state.add_item(choice["item"])
+    if choice.get("remove_item"):
+        state.remove_item(choice["remove_item"])
     # Apply heal
     if choice.get("heal"):
         state.heal(choice["heal"])
@@ -217,6 +216,16 @@ def _process_beat(
     elif kind == "input":
         if beat.get("store_as") == "name":
             output["name_prompt"] = True
+
+
+# ── Helpers ───────────────────────────────────────────────────
+
+PROSE_TYPES = {"prose", "italic", "memory", "conditional_prose"}
+
+
+def has_prose_beats(beats: list) -> bool:
+    """Return True if any beat in the list renders visible text."""
+    return any(b.get("type") in PROSE_TYPES for b in beats)
 
 
 # ── HUD builder ───────────────────────────────────────────────

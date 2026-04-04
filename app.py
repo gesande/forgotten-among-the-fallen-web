@@ -10,7 +10,7 @@ from flask import Flask, jsonify, render_template, request, session
 
 from content.scenes import SCENES
 from engine.combat import ENEMIES, get_player_actions, resolve_action, start_combat
-from engine.scene import render_scene, apply_choice, _build_hud
+from engine.scene import render_scene, apply_choice, _build_hud, has_prose_beats
 from engine.state import PlayerState
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -105,10 +105,7 @@ def get_scene():
         beats = scene.get("beats", [])
         has_combat = any(b.get("type") == "combat" for b in beats)
         has_input = any(b.get("type") == "input" for b in beats)
-        has_prose = any(
-            b.get("type") in ("prose", "italic", "memory", "conditional_prose")
-            for b in beats
-        )
+        has_prose = has_prose_beats(beats)
         # Only auto-advance if: has next, no choices, no combat, no input, NO prose
         if (
             has_next
@@ -295,6 +292,7 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
     """After combat ends, move to the right next scene."""
     # On death: go to the scene BEFORE the combat so player
     # sees the approach again rather than re-entering combat immediately
+    # On death or flee: return to the scene before combat
     pre_combat = {
         "combat_gunnar": "the_mound",
         "combat_draugar_east": "scavenge_east",
@@ -304,20 +302,8 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
         "forest_bear_fight": "forest_rune_stone",
         "gatehouse_fight": "gatehouse_approach",
     }
-    # On flee: return to the scene before combat, not always battlefield
-    pre_combat_fled = {
-        "combat_gunnar": "the_mound",
-        "combat_draugar_east": "scavenge_east",
-        "combat_wolf_battlefield": "scavenge_east_return",
-        "combat_fog_sentinel": "fog_sentinel",
-        "forest_dire_wolf_fight": "forest_rune_stone",
-        "forest_bear_fight": "forest_rune_stone",
-        "gatehouse_fight": "gatehouse_approach",
-    }
-    if combat.get("died"):
+    if combat.get("died") or combat.get("fled"):
         return pre_combat.get(scene_key, "battlefield_open")
-    if combat.get("fled"):
-        return pre_combat_fled.get(scene_key, "battlefield_open")
     # Victory: advance to scene defined in scene data
     return SCENES[scene_key].get("next", scene_key)
 
