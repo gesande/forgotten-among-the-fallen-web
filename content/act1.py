@@ -10,6 +10,7 @@
 # ── Name entry: shown first, before any choices ──────────────
 SCENE_NAME_ENTRY = {
     "art": "name_entry",
+    "cinematic": True,
     "header": {
         "title": "FORGOTTEN AMONG THE FALLEN",
         "subtitle": "A Viking Dark Fantasy",
