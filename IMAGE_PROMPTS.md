@@ -656,23 +656,25 @@ vast cinematic, wide composition
 **Midjourney:**
 
 ```
-an old man standing at a foggy crossroads facing the viewer,
-one eye — the left socket empty and dark, a wide-brimmed traveller's
-hat casting shadow over gaunt features, a staff in one hand worn smooth
-by age, plain travelling clothes, no armour no throne no ravens — just
-an old man who has been everywhere and seen everything and is very tired,
-fog around him but not touching him, the feeling that he was already there
-before you arrived and will be there after you leave, wide cinematic
-composition, figure occupies centre-left third of frame, dark fantasy,
-painterly, desaturated, quiet menace --ar 16:9 --style raw --v 6 --stylize 800
+an old one-eyed man standing at a foggy crossroads facing the viewer,
+wide-brimmed traveller's hat casting shadow over gaunt weathered features,
+a staff worn smooth by age, plain travelling clothes, a large raven perched
+on his left shoulder utterly still, at the far edge of the fog behind him
+a grey wolf shape barely visible — watching, the man himself is entirely
+calm, fog curls around his feet but does not touch him, the feeling that
+he was there before the crossroads existed and will remain after it is gone,
+figure occupies centre-left third of frame, wide cinematic composition,
+dark fantasy, painterly, desaturated, ancient quiet menace
+--ar 16:9 --style raw --v 6 --stylize 800
 ```
 
 **Stable Diffusion:**
 
 ```
-old one-eyed man at foggy crossroads, empty left eye socket, wide-brimmed
-traveller hat, gaunt weathered face, staff worn smooth, plain travelling
-clothes, no armour, exhausted ancient presence, fog around him not touching,
-was already there before you arrived, dark fantasy, painterly, desaturated,
-quiet menace, cinematic wide composition, centre-left framing
+old one-eyed man foggy crossroads, wide-brimmed traveller hat, gaunt
+weathered face, staff worn smooth, plain travelling clothes, large raven
+on left shoulder motionless, grey wolf shape barely visible in fog behind,
+fog curls at feet but does not touch, ancient presence predating the
+crossroads itself, dark fantasy, painterly, desaturated, quiet menace,
+cinematic wide composition, centre-left framing
 ```

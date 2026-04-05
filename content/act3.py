@@ -639,16 +639,80 @@ SCENE_CROSSROADS_MEMORY = {
 
 SCENE_ODIN_APPEARS = {
     "art": "odin",
+    "cinematic": True,
     "beats": [
         {
+            "type": "prose",
+            "text": (
+                "A raven lands at the centre of the crossroads. "
+                "Coal-black, large, entirely still. "
+                "It does not look at you — "
+                "it looks at the place where the four paths meet, "
+                "as if it is reading something written there."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "At the edge of the fog — the left path, the one you have not "
+                "looked at closely — something stands. "
+                "Grey. Low. Patient. "
+                "You know the shape. "
+                "You have seen it before."
+            ),
+        },
+        {
             "type": "italic",
-            "text": "Coming soon.",
+            "text": (
+                "The wolf in the mist. The raven at the crossroads. "
+                "You have been here before too — "
+                "not this place, but this moment."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": ("You look back at the raven. " "The raven is not there."),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "An old man stands at the centre of the crossroads. "
+                "One eye. Wide-brimmed hat. A staff worn smooth by more years "
+                "than the wood should have survived. "
+                "Plain travelling clothes — the clothes of a man who goes "
+                "everywhere and needs no one to know it."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He was already there. "
+                "Before the raven. Before the wolf. "
+                "Before you arrived at this crossroads eleven years ago "
+                "and made the choice that brought you here."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "He does not speak first. He is waiting for you to understand that he doesn't have to.",
         },
     ],
     "choices": [
         {
-            "label": "Return to the beginning (restart).",
-            "next": "__restart__",
+            "label": '"You planned this." — all of it.',
+            "next": "odin_confrontation",
+            "effects": {"honour": 5},
+        },
+        {
+            "label": "Say nothing. Wait.",
+            "next": "odin_confrontation",
+            "effects": {"resolve": 5},
+        },
+        {
+            "label": '"I remember you." — the wolf. The crossroads.',
+            "next": "odin_confrontation",
+            "effects": {"mercy": 5},
+            "condition": {"or": [{"flag": "wolf_spared"}, {"flag": "wolf_killed"}]},
         },
     ],
 }
