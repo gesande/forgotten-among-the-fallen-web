@@ -295,3 +295,41 @@ judgement without cruelty, one-handed Norse god energy, 3 minutes loop
    "art_key": "trackname",
    ```
 4. Test: the track should crossfade (2s) when entering the first scene that uses the art key
+
+---
+
+## Track 6 — crossroads_memory (art key: crossroads)
+
+**File:** `static/audio/music/crossroads_memory.mp3`
+**Used in:** crossroads_memory scene — the naming-rune memory surfaces
+
+Tone: the moment of recognition. Something long buried rising. Not dramatic — quiet, almost private. The listener is alone with something they gave away.
+
+**Suno/Udio prompt:**
+
+```
+dark norse ambient, solo tagelharpa bowed lyre, slow irregular melody
+like a half-remembered song, the notes do not quite resolve,
+subtle bone flute underneath, no percussion, long silences between
+phrases, the feeling of a memory surfacing from cold water,
+intimate, private, sparse, muted, 3-5 minutes, seamlessly loopable
+```
+
+---
+
+## Track 7 — odin (art key: odin)
+
+**File:** `static/audio/music/odin.mp3`
+**Used in:** Odin encounter scenes
+
+Tone: ancient, tired, knowing. Not threatening — worse than threatening. The feeling of being seen completely by something that has seen everything and is no longer surprised by any of it.
+
+**Suno/Udio prompt:**
+
+```
+dark norse ambient, very low sustained drone strings, single kravik lyre
+note held and decaying slowly, distant barely-audible horn at the edge
+of hearing, occasional breath texture, no melody — just presence,
+the sound of something old and patient waiting, no resolution,
+unsettling but not violent, 4-6 minutes, seamlessly loopable
+```

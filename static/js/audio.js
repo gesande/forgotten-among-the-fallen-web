@@ -28,6 +28,8 @@ const SoundEngine = (() => {
     firepit: "silence_beneath",
     tyr_temple: "tyr_temple",
     tyr: "tyr",
+    crossroads: "crossroads_memory",
+    odin: "odin",
   };
 
   const SFX_MAP = {

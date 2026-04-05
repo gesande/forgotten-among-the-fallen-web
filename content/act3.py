@@ -510,7 +510,135 @@ SCENE_TYR_FAREWELL = {
 }
 
 SCENE_CROSSROADS_MEMORY = {
-    "art": "act_break",
+    "art": "crossroads",
+    "cinematic": True,
+    "header": {
+        "title": "THE CROSSROADS",
+        "subtitle": "you have been here before",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "Four paths. "
+                "The one behind you — the temple, the fog, the way you came. "
+                "Three others, leading into grey that could be anything. "
+                "The fog does not move here. "
+                "It stands the way old things stand: without effort, without intention, "
+                "simply present."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You have stopped walking without deciding to. "
+                "The key is in your hand — it has been in your hand since the temple, "
+                "since before the temple. "
+                "Since Gunnar pressed it into yours and fell."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "It begins to warm. "
+                "Not the warmth of iron held too long. "
+                "The warmth of something waking up."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "The rune ᛗ catches what little light there is. "
+                "Mannaz. You stare at it and the crossroads tilts — "
+                "not the one you are standing in but another one, "
+                "older, real, mud underfoot and torches and the smell of cold earth —"
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "Gunnar is there. Younger. You are younger. "
+                "He is saying something. You cannot hear the words. "
+                "You watch your own hands in the memory — "
+                "they reach up and remove something from around your neck. "
+                "Small. Iron. Carved. "
+                "Something you have worn since before you could name it."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "You press it into his hand. You close his fingers around it. "
+                "You say something. You can almost hear it. "
+                "Four words. Five."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "If I break this — take it. Take my name with it.",
+        },
+        {
+            "type": "prose",
+            "text": "And then it is gone.",
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You are standing at the crossroads. "
+                "The key is cold. "
+                "Not cold the way iron goes cold in fog — "
+                "cold the way something goes "
+                "when it has given what it was made to give."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Your naming-rune. "
+                "Iron, small, worn at your throat since your father carved it "
+                "before you could speak. "
+                "The name that was yours before everything else was. "
+                "You gave it as surety. You gave it as proof."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You do not remember what happened next. "
+                "The memory ends at the closing of his hand."
+            ),
+        },
+        {
+            "type": "memory",
+            "key": "crossroads_oath",
+            "label": "What you gave Gunnar",
+            "text": (
+                "Your naming-rune. Iron, carved by your father. "
+                "Given at a crossroads eleven years ago as surety for an oath. "
+                "'If I break this — take it. Take my name with it.' "
+                "You remember giving it. "
+                "You do not remember what happened next."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "The fog shifts. Not much. "
+                "Something has changed in it — "
+                "the way a room changes when someone enters "
+                "who was already there."
+            ),
+        },
+    ],
+    "next": "odin_appears",
+}
+
+# ─────────────────────────────────────────────────────────────
+#  ODIN — placeholder
+# ─────────────────────────────────────────────────────────────
+
+SCENE_ODIN_APPEARS = {
+    "art": "odin",
     "beats": [
         {
             "type": "italic",
@@ -540,4 +668,5 @@ SCENES = {
     "tyr_judgement": SCENE_TYR_JUDGEMENT,
     "tyr_farewell": SCENE_TYR_FAREWELL,
     "crossroads_memory": SCENE_CROSSROADS_MEMORY,
+    "odin_appears": SCENE_ODIN_APPEARS,
 }

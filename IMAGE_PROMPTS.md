@@ -613,3 +613,66 @@ held knowledge, frozen warriors blurred background, amber candlelight,
 just released long-held secret, dark fantasy, painterly, desaturated,
 intimate portrait, heavy silence, cinematic
 ```
+
+---
+
+## Scene 22 — crossroads.png
+
+**File:** `static/svg/crossroads.png`
+**Used in:** crossroads_memory
+
+**Midjourney:**
+
+```
+a fog-filled crossroads at night, four paths vanishing into grey
+nothingness, no signs no markers, the paths are ancient packed earth
+worn by centuries of feet, a thin cold light from no visible source
+illuminates the junction, a figure stands at the centre seen from behind
+— small against the fog, one hand slightly raised, something held in the
+fingers, the fog does not move, the crossroads feels older than the land
+around it, the sense of a place where choices become permanent,
+wide cinematic composition, dark fantasy, painterly, desaturated,
+vast and intimate at once --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+fog-filled crossroads night, four paths vanishing into grey fog,
+no signs or markers, ancient packed earth, cold sourceless light,
+figure seen from behind at centre, small against emptiness, one hand
+raised holding small object, fog motionless, ancient timeless place,
+choices made permanent here, dark fantasy, painterly, desaturated,
+vast cinematic, wide composition
+```
+
+---
+
+## Scene 23 — odin.png
+
+**File:** `static/svg/odin.png`
+**Used in:** odin_appears and Odin encounter scenes
+
+**Midjourney:**
+
+```
+an old man standing at a foggy crossroads facing the viewer,
+one eye — the left socket empty and dark, a wide-brimmed traveller's
+hat casting shadow over gaunt features, a staff in one hand worn smooth
+by age, plain travelling clothes, no armour no throne no ravens — just
+an old man who has been everywhere and seen everything and is very tired,
+fog around him but not touching him, the feeling that he was already there
+before you arrived and will be there after you leave, wide cinematic
+composition, figure occupies centre-left third of frame, dark fantasy,
+painterly, desaturated, quiet menace --ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+old one-eyed man at foggy crossroads, empty left eye socket, wide-brimmed
+traveller hat, gaunt weathered face, staff worn smooth, plain travelling
+clothes, no armour, exhausted ancient presence, fog around him not touching,
+was already there before you arrived, dark fantasy, painterly, desaturated,
+quiet menace, cinematic wide composition, centre-left framing
+```
