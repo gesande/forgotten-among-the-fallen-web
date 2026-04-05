@@ -17,9 +17,9 @@
 ## Combat
 
 - [ ] **Corpse art** — taistelun lopuksi näytetään vihollisen corpse-kuva ennen siirtymää
-- [ ] **Heavy strike kasvattaa brutalitya** — reckless isku sopii brutalityn kasvattamiseen, nyt ei tee mitään moraalisesti
-- [ ] **Killing blow vaikuttaa statseihin** — tappava isku voisi kasvattaa brutalitya (tai laskea honoria mercy-tilanteen vastakohtana)
-- [ ] **Resolve taistelussa** — läheltä piti -tilanteet (lähes kuolema, vihollisen phase transition) voisivat laskea resolvea
+- [x] **Heavy strike kasvattaa brutalitya** — heavy hit +3, killing blow +5 lisää
+- [x] **Killing blow vaikuttaa statseihin** — heavy killing blow +5 brutality
+- [x] **Resolve taistelussa** — near-death (HP < 20%) -8 resolve kerran per taistelu; boss phase transition -6 resolve
 - [x] **Karhu-vihollinen** — `bear` + `berserker`-variantti lisätty; `forest_bear`-kohtaus Act II metsässä
 - [x] **Suden/karhun nahat** — `wolf pelt` / `bear pelt` body-slot; bear pelt aktivoi berserk-moodin
 - [x] **Odin-muistot** — kaksi muistoa per eläin: ensimmäinen näky + tapon jälkeen
