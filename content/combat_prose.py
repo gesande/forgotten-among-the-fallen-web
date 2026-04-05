@@ -27,6 +27,8 @@ STRINGS = {
     "bleeding_slow": "The bleeding slows.",
     "bleeding_open_player": "The wound opens. You are bleeding.",
     "bleeding_tick_player": "Your wound bleeds — {dmg} damage.",
+    "near_death": "Something gives way in you. Not bone — something deeper.",
+    "phase_resolve_loss": "The sight of it shakes you. Whatever it is, it is not done.",
 }
 
 

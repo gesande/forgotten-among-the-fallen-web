@@ -83,6 +83,8 @@ COMBAT_CONFIG = {
             "dmg": (18, 30),
             "wrath": 18,
             "overcommit_chance": 0.25,
+            "brutality_gain": 3,
+            "kill_brutality_bonus": 5,
         },
         "parry": {
             "label": "Wait for the opening — attempt a parry",
@@ -115,6 +117,9 @@ COMBAT_CONFIG = {
     "phase3_hp_ratio": 0.30,
     "shield_enemy_dmg_bonus": (5, 8),
     "taunt_chance": 0.35,
+    "near_death_threshold": 0.20,  # HP ratio — first time below triggers resolve loss
+    "near_death_resolve_loss": -8,
+    "phase_resolve_loss": -6,  # resolve lost each time a boss phases
     # HP description thresholds — checked high-to-low, last entry is fallback
     "hp_desc": [
         (0.75, "Unbroken"),

@@ -4,6 +4,7 @@ import pytest
 from unittest.mock import patch
 from engine.state import PlayerState
 from engine.combat import start_combat, get_player_actions, resolve_action
+from content.game_config import COMBAT_CONFIG
 
 
 @pytest.fixture
@@ -171,6 +172,99 @@ def test_runic_resets_wrath(player, rat_combat):
     ):
         resolve_action("runic", rat_combat, player)
     assert player.wrath == 0
+
+
+# ── player death ──────────────────────────────────────────────
+
+
+# ── resolve_action: heavy strike — brutality ─────────────────
+
+
+def test_heavy_strike_gains_brutality(player, rat_combat):
+    rat_combat["enemy"]["current_hp"] = 9999
+    brutality_before = player.brutality
+    # chance calls: overcommit→False, accuracy→False (enemy misses)
+    with patch("engine.combat.roll_range", return_value=20), patch(
+        "engine.combat.chance", return_value=False
+    ):
+        resolve_action("heavy", rat_combat, player)
+    assert (
+        player.brutality
+        == brutality_before + COMBAT_CONFIG["actions"]["heavy"]["brutality_gain"]
+    )
+
+
+def test_heavy_killing_blow_extra_brutality(player, rat_combat):
+    rat_combat["enemy"]["current_hp"] = 1
+    brutality_before = player.brutality
+    # chance calls: overcommit→False, rat loot×2→False
+    with patch("engine.combat.roll_range", return_value=20), patch(
+        "engine.combat.chance", side_effect=[False, False, False]
+    ):
+        cs = resolve_action("heavy", rat_combat, player)
+    assert cs["won"] is True
+    expected = (
+        brutality_before
+        + COMBAT_CONFIG["actions"]["heavy"]["brutality_gain"]
+        + COMBAT_CONFIG["actions"]["heavy"]["kill_brutality_bonus"]
+    )
+    assert player.brutality == expected
+
+
+def test_heavy_miss_no_brutality(player, rat_combat):
+    rat_combat["enemy"]["current_hp"] = 9999
+    brutality_before = player.brutality
+    # chance: overcommit→True (overcommit fires, strike is skipped)
+    with patch("engine.combat.roll_range", return_value=1), patch(
+        "engine.combat.chance", side_effect=[True, False]
+    ):
+        resolve_action("heavy", rat_combat, player)
+    assert player.brutality == brutality_before
+
+
+# ── resolve_action: near-death resolve loss ───────────────────
+
+
+def test_near_death_loses_resolve(player, rat_combat):
+    player.health = 15  # already below 20% threshold
+    rat_combat["enemy"]["current_hp"] = 9999
+    resolve_before = player.resolve
+    # chance: accuracy→True (enemy hits, triggering near-death check)
+    with patch("engine.combat.roll_range", return_value=1), patch(
+        "engine.combat.chance", return_value=True
+    ):
+        resolve_action("light", rat_combat, player)
+    assert player.resolve < resolve_before
+    assert rat_combat["near_death_triggered"] is True
+
+
+def test_near_death_triggers_once(player, rat_combat):
+    player.health = 15
+    rat_combat["enemy"]["current_hp"] = 9999
+    rat_combat["near_death_triggered"] = True  # already fired this combat
+    resolve_before = player.resolve
+    with patch("engine.combat.roll_range", return_value=1), patch(
+        "engine.combat.chance", return_value=True
+    ):
+        resolve_action("light", rat_combat, player)
+    assert player.resolve == resolve_before
+
+
+# ── resolve_action: phase transition resolve loss ─────────────
+
+
+def test_phase_transition_loses_resolve(player):
+    cs = start_combat("gunnar", player)
+    # Phase 2 triggers at HP <= 0.65 * 120 = 78; set to 79
+    cs["enemy"]["current_hp"] = 79
+    resolve_before = player.resolve
+    # chance: accuracy→False (enemy misses), taunt→False
+    with patch("engine.combat.roll_range", return_value=2), patch(
+        "engine.combat.chance", return_value=False
+    ):
+        resolve_action("light", cs, player)
+    assert cs["enemy"]["current_phase"] == 2
+    assert player.resolve == resolve_before + COMBAT_CONFIG["phase_resolve_loss"]
 
 
 # ── player death ──────────────────────────────────────────────

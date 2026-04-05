@@ -45,6 +45,8 @@ def start_combat(
         "shards_gained": 0,
         "items_gained": [],
         "player_effects": {},
+        "last_action": None,
+        "near_death_triggered": False,
     }
 
 
@@ -84,6 +86,9 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
     if player.is_dead():
         return _handle_player_death(player, combat_state, log)
 
+    # ── Track action for killing-blow check ───────────────────
+    combat_state["last_action"] = action_id
+
     # ── Player action ─────────────────────────────────────────
     if action_id == "light":
         base = roll_range(*A["light"]["dmg"])
@@ -100,6 +105,7 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
             dmg = _apply_mods(base, player, "heavy")
             if _player_strikes(dmg, e, player, log):
                 player.modify_stat("wrath", A["heavy"]["wrath"])
+                player.modify_stat("brutality", A["heavy"]["brutality_gain"])
                 log.append(heavy_prose(dmg, e["name_short"]))
 
     elif action_id == "parry":
@@ -164,9 +170,13 @@ def resolve_action(action_id: str, combat_state: dict, player: PlayerState) -> d
         if e["current_phase"] == 1 and ratio <= CC["phase2_hp_ratio"]:
             e["current_phase"] = 2
             log.append(e["phrases"].get("phase2", ""))
+            player.modify_stat("resolve", CC["phase_resolve_loss"])
+            log.append(S["phase_resolve_loss"])
         elif e["current_phase"] == 2 and ratio <= CC["phase3_hp_ratio"]:
             e["current_phase"] = 3
             log.append(e["phrases"].get("phase3", ""))
+            player.modify_stat("resolve", CC["phase_resolve_loss"])
+            log.append(S["phase_resolve_loss"])
 
     # ── Effects tick ──────────────────────────────────────────
     if not combat_state["over"]:
@@ -241,6 +251,13 @@ def _resolve_enemy_turn(e, player, log, combat_state):
         actual = player.take_damage(dmg)
         player.modify_stat("wrath", CC["wrath_hit_by_enemy"])
         log.append(random.choice(e["phrases"]["hit"]))
+        if (
+            not combat_state.get("near_death_triggered")
+            and player.health / player.max_health < CC["near_death_threshold"]
+        ):
+            combat_state["near_death_triggered"] = True
+            player.modify_stat("resolve", CC["near_death_resolve_loss"])
+            log.append(S["near_death"])
         log.append(f"— {damage_word(actual)} taken.")
         # on_hit_drain — enemy drains a player stat on successful hit
         drain_cfg = e.get("on_hit_drain")
@@ -271,6 +288,8 @@ def _resolve_enemy_turn(e, player, log, combat_state):
 
 def _resolve_enemy_death(e, player, combat_state, log):
     log.append(random.choice(e["phrases"]["death"]))
+    if combat_state.get("last_action") == "heavy":
+        player.modify_stat("brutality", A["heavy"]["kill_brutality_bonus"])
     lo, hi = e["shards"]
     shards = roll_range(lo, hi)
     player.modify_stat("echo_shards", shards)
