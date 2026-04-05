@@ -503,13 +503,13 @@ SCENE_TYR_FAREWELL = {
     "choices": [
         {
             "label": "Follow the key. Into the dark.",
-            "next": "act3_the_memory",
+            "next": "crossroads_memory",
             "effects": {"resolve": 5},
         },
     ],
 }
 
-SCENE_ACT3_THE_MEMORY = {
+SCENE_CROSSROADS_MEMORY = {
     "art": "act_break",
     "beats": [
         {
@@ -539,5 +539,5 @@ SCENES = {
     "tyr_dialogue_grief": SCENE_TYR_DIALOGUE_GRIEF,
     "tyr_judgement": SCENE_TYR_JUDGEMENT,
     "tyr_farewell": SCENE_TYR_FAREWELL,
-    "act3_the_memory": SCENE_ACT3_THE_MEMORY,
+    "crossroads_memory": SCENE_CROSSROADS_MEMORY,
 }

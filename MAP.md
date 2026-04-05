@@ -157,7 +157,7 @@ act_3_intro (firepit — key memory: the_key_remembered)
                                          └─ tyr_dialogue_grief ─────┤
                                                                      └─ tyr_judgement
                                                                            └─ tyr_farewell
-                                                                                 └─ act3_the_memory
+                                                                                 └─ crossroads_memory
                                                                                        (placeholder)
 ```
 
