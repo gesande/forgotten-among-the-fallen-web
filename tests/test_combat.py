@@ -151,6 +151,19 @@ def test_light_strike_killing_blow_ends_combat(player, rat_combat):
     assert cs["over"] is True
 
 
+def test_drain_does_not_prevent_killing_blow(player):
+    # Fog sentinel heals on hit — but should not revive from 0 HP
+    cs = start_combat("fog_sentinel", player)
+    cs["enemy"]["current_hp"] = 1
+    player.wrath = 80  # ensure drain would trigger if bug is present
+    with patch("engine.combat.roll_range", return_value=50), patch(
+        "engine.combat.chance", return_value=False
+    ):
+        result = resolve_action("light", cs, player)
+    assert result["won"] is True
+    assert result["enemy"]["current_hp"] == 0
+
+
 # ── resolve_action: runic burst ───────────────────────────────
 
 
