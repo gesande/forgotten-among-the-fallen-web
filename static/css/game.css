@@ -1052,7 +1052,7 @@ body.cinematic #narrative-panel {
   height: 100%;
   background: transparent;
   padding: 0;
-  overflow: visible;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -1092,11 +1092,12 @@ body.cinematic #memory-flash {
 body.cinematic #prose-body {
   max-width: 660px;
   width: 90vw;
+  max-height: 55vh;
   text-align: center;
   background: rgba(10, 9, 8, 0.82);
   padding: 1.5rem 3rem 1rem;
   margin: 0;
-  overflow: visible;
+  overflow-y: auto;
   flex: unset;
   pointer-events: auto;
 }
