@@ -28,7 +28,7 @@ const SoundEngine = (() => {
     firepit: "silence_beneath",
     tyr_temple: "tyr_temple",
     tyr: "tyr",
-    crossroads: "crossroads_memory",
+    crossroads: "crossroads",
     odin: "odin",
   };
 

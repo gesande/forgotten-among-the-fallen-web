@@ -300,7 +300,7 @@ judgement without cruelty, one-handed Norse god energy, 3 minutes loop
 
 ## Track 6 — crossroads_memory (art key: crossroads)
 
-**File:** `static/audio/music/crossroads_memory.mp3`
+**File:** `static/audio/music/crossroads.mp3`
 **Used in:** crossroads_memory scene — the naming-rune memory surfaces
 
 Tone: the moment of recognition. Something long buried rising. Not dramatic — quiet, almost private. The listener is alone with something they gave away.
