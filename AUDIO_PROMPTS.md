@@ -322,14 +322,15 @@ intimate, private, sparse, muted, 3-5 minutes, seamlessly loopable
 **File:** `static/audio/music/odin.mp3`
 **Used in:** Odin encounter scenes
 
-Tone: ancient, tired, knowing. Not threatening — worse than threatening. The feeling of being seen completely by something that has seen everything and is no longer surprised by any of it.
+Tone: the weight of being seen by something that planned everything — including this moment. Ancient and inevitable. Tension without release. Not peaceful, not violent — the held breath before a verdict that was decided long ago.
 
 **Suno/Udio prompt:**
 
 ```
-dark norse ambient, very low sustained drone strings, single kravik lyre
-note held and decaying slowly, distant barely-audible horn at the edge
-of hearing, occasional breath texture, no melody — just presence,
-the sound of something old and patient waiting, no resolution,
-unsettling but not violent, 4-6 minutes, seamlessly loopable
+dark norse dramatic ambient, deep resonant frame drum pulse very slow
+and deliberate, low male throat drone underneath, tagelharpa bowed lyre
+with dissonant unresolved phrases, distant war horn held long, building
+slowly through the track without fully releasing, the feeling of fate
+closing in from all sides, ancient and inevitable, sparse but heavy,
+no heroics — weight and inevitability, 4-6 minutes, seamlessly loopable
 ```
