@@ -322,15 +322,19 @@ intimate, private, sparse, muted, 3-5 minutes, seamlessly loopable
 **File:** `static/audio/music/odin.mp3`
 **Used in:** Odin encounter scenes
 
-Tone: the weight of being seen by something that planned everything — including this moment. Ancient and inevitable. Tension without release. Not peaceful, not violent — the held breath before a verdict that was decided long ago.
+Tone: a god revealing himself. Not a battle fanfare — something older and worse. The moment the player understands the scale of what was planned for them. Dread, awe, fury compressed into stillness.
 
 **Suno/Udio prompt:**
 
 ```
-dark norse dramatic ambient, deep resonant frame drum pulse very slow
-and deliberate, low male throat drone underneath, tagelharpa bowed lyre
-with dissonant unresolved phrases, distant war horn held long, building
-slowly through the track without fully releasing, the feeling of fate
-closing in from all sides, ancient and inevitable, sparse but heavy,
-no heroics — weight and inevitability, 4-6 minutes, seamlessly loopable
+dark norse cinematic horror-adjacent, massive low string ostinato
+building relentlessly under heavy war drum hits slow as a funeral march,
+multiple male throat singers droning in dissonant unison, a tagelharpa
+motif that repeats and warps — each repetition slightly wrong, slightly
+closer, claustrophobic string swells that rise and do not release,
+the listener cannot escape the feeling that something vast has closed
+around them, dread and awe combined, no exit, no resolution,
+the sound of realising you were never free — epic scale but deeply
+unsettling, oppressive, suffocating weight, ancient and unstoppable,
+4-6 minutes, seamlessly loopable
 ```
