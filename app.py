@@ -301,11 +301,12 @@ def _advance_after_combat(scene_key: str, combat: dict) -> str:
         "forest_dire_wolf_fight": "forest_rune_stone",
         "forest_bear_fight": "forest_rune_stone",
         "gatehouse_fight": "gatehouse_approach",
+        "combat_shieldwall_leif": "leif_ambush",
     }
     if combat.get("died") or combat.get("fled"):
         return pre_combat.get(scene_key, "battlefield_open")
     # Victory: advance to scene defined in scene data
-    return SCENES[scene_key].get("next", scene_key)
+    return SCENES.get(scene_key, {}).get("next", scene_key)
 
 
 # ═══════════════════════════════════════════════════════════

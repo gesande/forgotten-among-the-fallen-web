@@ -68,6 +68,7 @@ def get_player_actions(combat_state: dict, player: PlayerState) -> list:
         mercy = A["mercy"]
         if (
             not e.get("phases")
+            and not e.get("shield")
             and e["current_hp"] < e["hp"] * mercy["enemy_hp_ratio"]
             and player.honour >= mercy["honour_min"]
         ):
