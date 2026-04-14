@@ -609,18 +609,6 @@ SCENE_CROSSROADS_MEMORY = {
             ),
         },
         {
-            "type": "memory",
-            "key": "crossroads_oath",
-            "label": "What you gave Gunnar",
-            "text": (
-                "Your naming-rune. Iron, carved by your father. "
-                "Given at a crossroads eleven years ago as surety for an oath. "
-                "'If I break this — take it. Take my name with it.' "
-                "You remember giving it. "
-                "You do not remember what happened next."
-            ),
-        },
-        {
             "type": "prose",
             "text": (
                 "The fog shifts. Not much. "
@@ -1017,8 +1005,8 @@ SCENE_ACT3_THE_MEMORY = {
             "text": (
                 "Your naming-rune. Carved by your father before you could speak. "
                 "Given to Gunnar at a crossroads eleven years ago as surety for an oath. "
-                "Kept by him through campaigns and long service and "
-                "everything you cost him. "
+                "'If I break this — take it. Take my name with it.' "
+                "Kept by him through campaigns and long service and everything you cost him. "
                 "Returned at the moment of his ending. "
                 "You hold it now and do not know yet what that means — "
                 "whether it is a restoration or a question still open. "
