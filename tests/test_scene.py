@@ -625,3 +625,16 @@ def test_apply_choice_remove_item_via_field(player):
     player.add_item("iron scraps")
     apply_choice("choice_remove_item_scene", "0", player)
     assert "iron scraps" not in player.inventory
+
+
+def test_cinematic_flag_propagates(player):
+    cinematic_scene = {**FAKE_SCENES["prose_scene"], "cinematic": True}
+    with patch("engine.scene.SCENES", {"s": cinematic_scene}):
+        out = render_scene("s", player)
+    assert out["cinematic"] is True
+
+
+def test_cinematic_defaults_to_false(player):
+    with patch("engine.scene.SCENES", {"s": FAKE_SCENES["prose_scene"]}):
+        out = render_scene("s", player)
+    assert out["cinematic"] is False
