@@ -30,6 +30,22 @@ oversaturated, HDR, lens flare, purple sky
 
 ---
 
+### Cinematic scenes — composition rule
+
+Cinematic scenes display prose text **centered over the image**. For these,
+the image must leave the **centre of the frame dark and relatively empty**
+so text remains readable. Place the main subject in the **left or right third**,
+or low in the frame. Add to cinematic prompts:
+
+```
+subject occupies left (or right) third of frame, centre and upper centre
+of frame dark and empty, wide negative space for text overlay
+```
+
+**Cinematic art keys:** `crossroads`, `odin`, `keeper`, `act_break`, `firepit`, `name_entry`
+
+---
+
 ## Scene 1 — battlefield.jpg
 
 **File:** `static/svg/battlefield.svg` → replace with `battlefield.jpg`
@@ -677,4 +693,40 @@ on left shoulder motionless, grey wolf shape barely visible in fog behind,
 fog curls at feet but does not touch, ancient presence predating the
 crossroads itself, dark fantasy, painterly, desaturated, quiet menace,
 cinematic wide composition, centre-left framing
+```
+
+---
+
+## Scene 24 — keeper.png
+
+**File:** `static/svg/keeper.png`
+**Used in:** act_4_intro
+
+**Cinematic scene** — subject left third, dark empty centre for text overlay.
+
+**Midjourney:**
+
+```
+a vast dark hall with no visible walls or ceiling, a tall ancient figure
+draped in heavy robes the colour of ash and iron stands in the left third
+of the frame — neither threatening nor welcoming — face half-shadow
+half-suggestion, around it objects suspended in mid-air or piled in slow
+drifts — broken swords, unravelled thread, half-carved runes, shattered
+oaths made visible as dim light, the centre and upper centre of the frame
+are dark and empty, a single pale light source from somewhere indefinite,
+cold stone underfoot, subject occupies left third of frame, centre of
+frame dark and empty, wide negative space for text overlay, dark fantasy,
+painterly, desaturated palette, deep shadow, Nordic aesthetic, no text
+--ar 16:9 --style raw --v 6 --stylize 800
+```
+
+**Stable Diffusion:**
+
+```
+vast dark hall no visible walls, tall ancient robed figure ash and iron
+robes in left third of frame, face half shadow, broken swords unravelled
+thread half-carved runes floating nearby, centre of frame dark and empty,
+single pale indefinite light source, cold stone floor, dark fantasy,
+painterly, desaturated, deep shadow, Nordic aesthetic, no text,
+wide cinematic composition, subject left third negative space centre
 ```

@@ -1049,7 +1049,7 @@ SCENE_ACT3_THE_MEMORY = {
 }
 
 SCENE_ACT_4_INTRO = {
-    "art": "crossroads",
+    "art": "keeper",
     "cinematic": True,
     "header": {
         "title": "ACT IV",

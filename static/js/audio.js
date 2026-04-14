@@ -30,6 +30,8 @@ const SoundEngine = (() => {
     tyr: "tyr",
     crossroads: "crossroads",
     odin: "odin",
+    // Act IV — The Keeper of the Unfinished
+    keeper: "keeper",
   };
 
   const SFX_MAP = {

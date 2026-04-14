@@ -338,3 +338,30 @@ the sound of realising you were never free — epic scale but deeply
 unsettling, oppressive, suffocating weight, ancient and unstoppable,
 4-6 minutes, seamlessly loopable
 ```
+
+---
+
+## Track 8 — keeper (art key: keeper)
+
+**File:** `static/audio/music/keeper.mp3`
+**Used in:** act_4_intro — the threshold of The Keeper of the Unfinished
+
+Tone: a vast dark hall full of things that have not been allowed to end.
+Not threatening — patient. The accumulated weight of unfinished oaths,
+unmourned dead, half-carved runes. Ancient. Neither welcoming nor hostile.
+The silence of a place that has been collecting for a very long time.
+
+**Suno prompt:**
+
+```
+[dark ambient, drone, Nordic folk, no drums, no melody, atmospheric]
+
+A vast and ancient silence. Deep resonant cello drones layered beneath
+the slow breath of a low Norse horn, barely audible, as if the instrument
+is too large for the room. Scattered faint overtones like iron objects
+shifting in a distant dark. No rhythm. No resolution. The sound of a
+place that has been waiting longer than memory. Melancholy but not
+sorrowful — the weight of things that simply have not ended yet.
+Timeless. Stone and cold air. 4-6 minutes, seamlessly loopable.
+Instrumental, no lyrics.
+```
