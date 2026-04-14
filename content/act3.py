@@ -718,6 +718,365 @@ SCENE_ODIN_APPEARS = {
 }
 
 # ─────────────────────────────────────────────────────────────
+#  ODIN — CONFRONTATION
+# ─────────────────────────────────────────────────────────────
+
+SCENE_ODIN_CONFRONTATION = {
+    "art": "odin",
+    "cinematic": True,
+    "beats": [
+        {
+            "type": "italic",
+            "text": '"Not all of it," he says. "Enough of it."',
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He does not move toward you. He does not need to. "
+                "There is a quality to his stillness that is not patience — "
+                "something older than patience, that came before the word."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"I have been moving men through that valley '
+                "for longer than your bloodline has had a name. "
+                "You are not the first who left a post. "
+                'You are not the first who did not understand why."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "His one eye finds you. It is not unkind. That is almost harder.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"I did not give you a reason. '
+                "Reasons can be refused. "
+                "What I gave you was a pull — "
+                "the pull that takes men out of warm beds onto ships "
+                "before dawn and they cannot tell you afterward what moved them. "
+                'That is my oldest work."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You are still holding the key. "
+                "Your hand has closed around it. "
+                "He is looking at it."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": '"And Gunnar? Was he oldest work too?"',
+            "next": "odin_gunnar",
+            "effects": {"mercy": 5},
+        },
+        {
+            "label": '"What did you need the oath broken for?"',
+            "next": "odin_the_reason",
+            "effects": {"resolve": 5},
+        },
+        {
+            "label": '"You have no right to move men without their knowing."',
+            "next": "odin_the_reason",
+            "effects": {"honour": 5},
+        },
+    ],
+}
+
+SCENE_ODIN_GUNNAR = {
+    "art": "odin",
+    "cinematic": True,
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He is quiet. Not considering — he does not need to consider. "
+                "Deciding how much to give you."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"Gunnar Ironside." '
+                "He says the name the way you say the name of a place "
+                "you have walked through once and will not again."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"He was not meant to die on that day. '
+                "He was meant to die three days later, "
+                "in a different valley, "
+                "with no one there who knew him well enough to mourn correctly. "
+                "I changed the manner. I cannot tell you I changed the outcome. "
+                'He was a fixed point. Not every man is."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You do not know if this is supposed to comfort you. "
+                "You do not think he is trying to comfort you. "
+                "You think he is simply telling you what is true, "
+                "the way he tells all things: without inflection, without apology."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"What changed," he says, '
+                '"is that you were there. '
+                "When a fixed point ends, someone should be there who knew. "
+                "That is not comfort. "
+                'That is just — what should happen, when the world is working correctly."'
+            ),
+        },
+    ],
+    "next": "odin_the_naming",
+}
+
+SCENE_ODIN_THE_REASON = {
+    "art": "odin",
+    "cinematic": True,
+    "beats": [
+        {
+            "type": "italic",
+            "text": (
+                '"The oath you swore was a lock," he says. '
+                '"I needed the lock opened."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "He does not say what was locked. You notice that he does not.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"You are angry because I moved you without asking. '
+                "I understand the anger. I have earned it before and I will earn it again. "
+                "But the men I ask — they carry the weight of the asking afterward. "
+                "They spend the rest of their lives wondering if they chose. "
+                "The men I move — they spend it wondering why. "
+                'One of those lives is longer."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": "You do not say anything. He does not seem to expect you to.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"You are here," he says, '
+                '"because you broke something you did not know you were breaking for me. '
+                "That is the cleanest kind of breaking. "
+                'No intention. No guilt that was ever really yours."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "That last part lands wrong. "
+                "You have carried the guilt this far "
+                "and it does not feel like something you are ready to set down "
+                "just because he says it was never yours."
+            ),
+        },
+    ],
+    "next": "odin_the_naming",
+}
+
+SCENE_ODIN_THE_NAMING = {
+    "art": "odin",
+    "cinematic": True,
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He takes a step toward you. "
+                "Not threatening — measured. "
+                "He stops when he can see the key clearly."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": '"Your naming-rune," he says. "You know that now."',
+        },
+        {
+            "type": "prose",
+            "text": "You know that now.",
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"He kept it. Eleven years. '
+                "Through campaigns and winter quarters and the particular erosion "
+                "of long service that eats away at everything a man carries "
+                "that is not strictly necessary. "
+                'He kept it."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You have not thought about that until now. "
+                "What it means to carry something for eleven years "
+                "when the person who gave it to you was not there. "
+                "When the person who gave it to you had broken the oath it was surety for."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"A man who keeps something when he has every reason to discard it — '
+                "that is its own kind of faithfulness. "
+                "He did not forgive what you did. "
+                "He did not stop keeping it either. "
+                'Both things were true. He managed both."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "He is still looking at the key. "
+                "Or rather — he is looking at what the key is, "
+                "underneath what it has become."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": '"He gave it back," Odin says quietly. "At the end. That matters."',
+        },
+    ],
+    "choices": [
+        {
+            "label": '"Why does it matter?"',
+            "next": "act3_the_memory",
+            "effects": {"mercy": 3},
+        },
+        {
+            "label": '"It does not change what you did."',
+            "next": "act3_the_memory",
+            "effects": {"honour": 3},
+        },
+        {
+            "label": "Say nothing. Just hold the key.",
+            "next": "act3_the_memory",
+            "effects": {"resolve": 3},
+        },
+    ],
+}
+
+# ─────────────────────────────────────────────────────────────
+#  ACT III END
+# ─────────────────────────────────────────────────────────────
+
+SCENE_ACT3_THE_MEMORY = {
+    "art": "crossroads",
+    "cinematic": True,
+    "header": {
+        "title": "THE NAMING",
+        "subtitle": "what the dead keep",
+    },
+    "beats": [
+        {
+            "type": "prose",
+            "text": (
+                "He steps back. Not away — he does not leave, exactly. "
+                "He cedes the crossroads. "
+                "As if the space belongs to you now, briefly, "
+                "for as long as you need it."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "The fog has pulled back down one of the paths. "
+                "Not much. Enough to see that something waits at the end of it. "
+                "Not a shape — a quality. A density. "
+                "The sense of things accumulated. Things waited-for. "
+                "Things that have not yet been allowed to end."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": "The key is warm again. Not the warmth of memory. Something older.",
+        },
+        {
+            "type": "memory",
+            "key": "the_naming_rune",
+            "label": "What the key is",
+            "text": (
+                "Your naming-rune. Carved by your father before you could speak. "
+                "Given to Gunnar at a crossroads eleven years ago as surety for an oath. "
+                "Kept by him through campaigns and long service and "
+                "everything you cost him. "
+                "Returned at the moment of his ending. "
+                "You hold it now and do not know yet what that means — "
+                "whether it is a restoration or a question still open. "
+                "You think it may be both."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Odin is watching you the way the sea watches — "
+                "not with intention, not without it. "
+                "Simply present. Simply witness."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"Go," he says. '
+                '"What is at the end of that path has been collecting '
+                "the unfinished for longer than this war has been running. "
+                "It will know what to do with you. "
+                'Whether you want it to or not."'
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "The fog closes behind you as you walk — "
+                "not like a door, but like the sea closing over a stone. "
+                "Quietly. Completely."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Into the dark. Forward.",
+            "next": "act_4_intro",
+        },
+    ],
+}
+
+SCENE_ACT_4_INTRO = {
+    "art": "crossroads",
+    "cinematic": True,
+    "header": {
+        "title": "ACT IV",
+        "subtitle": "The Keeper of the Unfinished",
+    },
+    "beats": [
+        {
+            "type": "italic",
+            "text": "Coming soon.",
+        },
+    ],
+    "next": "act3_the_memory",
+}
+
+# ─────────────────────────────────────────────────────────────
 
 SCENES = {
     "tyr_temple_approach": SCENE_TYR_TEMPLE_APPROACH,
@@ -733,4 +1092,10 @@ SCENES = {
     "tyr_farewell": SCENE_TYR_FAREWELL,
     "crossroads_memory": SCENE_CROSSROADS_MEMORY,
     "odin_appears": SCENE_ODIN_APPEARS,
+    "odin_confrontation": SCENE_ODIN_CONFRONTATION,
+    "odin_gunnar": SCENE_ODIN_GUNNAR,
+    "odin_the_reason": SCENE_ODIN_THE_REASON,
+    "odin_the_naming": SCENE_ODIN_THE_NAMING,
+    "act3_the_memory": SCENE_ACT3_THE_MEMORY,
+    "act_4_intro": SCENE_ACT_4_INTRO,
 }
