@@ -6,6 +6,10 @@
 const ART_BASE = "/static/svg/";
 const ART_FALLBACK = "battlefield";
 
+// ── Prose timing ──────────────────────────────────────────────
+const BASE_DELAY_MS = 800; // delay before first paragraph
+const PARA_GAP_MS = 1100; // delay between paragraphs
+
 // Art key aliases — use a different image file but trigger different music
 const ART_ALIASES = {
   gunnar_combat: "gunnar",
@@ -326,12 +330,10 @@ function renderScene(data) {
   proseEl.scrollTop = 0;
   // Add paragraphs via setTimeout so the container grows as content appears
   // (avoids invisible-but-present DOM nodes making scroll show blank space)
-  const BASE_DELAY = 0.8; // seconds before first paragraph
-  const PARA_GAP = 1.1; // seconds between paragraphs
   let paraIdx = 0;
   (data.paragraphs || []).forEach((p) => {
     if (p.type === "memory") return;
-    const delay = (BASE_DELAY + paraIdx * PARA_GAP) * 1000;
+    const delay = BASE_DELAY_MS + paraIdx * PARA_GAP_MS;
     setTimeout(() => {
       const div = document.createElement("div");
       let cls = "prose-block";
@@ -350,7 +352,7 @@ function renderScene(data) {
   $("name-input").value = "";
   nameWrap.classList.add("hidden");
   if (data.name_prompt && (data.choices || []).length === 0) {
-    const afterProse = (0.8 + (paraIdx || 0) * 1.1 + 0.5) * 1000;
+    const afterProse = BASE_DELAY_MS + (paraIdx || 0) * PARA_GAP_MS + 500;
     setTimeout(() => {
       nameWrap.classList.remove("hidden");
       setTimeout(() => $("name-input").focus(), 200);
@@ -366,10 +368,9 @@ function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
   wrap.innerHTML = "";
 
   // Choices appear after prose — delay based on how many paragraphs came before
-  const BASE_DELAY = 0.8;
-  const PARA_GAP = 1.1;
   const CHOICE_GAP = 0.15;
-  const afterProse = BASE_DELAY + (paraCount || 0) * PARA_GAP + 0.5;
+  const afterProse =
+    (BASE_DELAY_MS + (paraCount || 0) * PARA_GAP_MS + 500) / 1000;
 
   if (autoNext) {
     const btn = document.createElement("button");
