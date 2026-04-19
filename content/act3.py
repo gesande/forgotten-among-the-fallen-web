@@ -325,7 +325,7 @@ SCENE_TYR_TEMPLE_INTERIOR = {
                     ),
                 },
                 {
-                    "condition": {"stat_gte": "mercy", "value": 15},
+                    "condition": {"stat_gte": "mercy", "value": 3},
                     "text": (
                         "He looks at you with something that is not quite recognition. "
                         "As if he has met men who came to him with open hands before, "

@@ -2029,7 +2029,7 @@ SCENE_FOREST_DIRE_WOLF = {
         {
             "label": "Hold still. Do not reach for the axe.",
             "next": "forest_dire_wolf_mercy",
-            "condition": {"stat_gte": "mercy", "value": 10},
+            "condition": {"stat_gte": "mercy", "value": 3},
         },
     ],
 }
@@ -2555,7 +2555,7 @@ SCENE_HERMIT_GREET = {
         {
             "label": '"You have been here alone a long time."',
             "next": "hermit_mercy",
-            "condition": {"stat_gte": "mercy", "value": 10},
+            "condition": {"stat_gte": "mercy", "value": 3},
         },
         {
             "label": '"This pelt. I cannot take it off."',
