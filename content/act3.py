@@ -143,9 +143,16 @@ SCENE_TYR_TEMPLE_OFFERED_BEAR_PELT = {
             "type": "prose",
             "text": (
                 "You fold the pelt and set it on the stone. "
-                "It is warm — it has always been warm. "
-                "You do not know if what you are leaving behind "
-                "is the animal or what wearing it made you."
+                "It is heavier than it should be — or lighter. "
+                "You are not certain which, and that uncertainty tells you something "
+                "about what it has been doing to you."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                "You wore it long enough that you stopped noticing. "
+                "That is always how it happens."
             ),
         },
         {
@@ -260,7 +267,6 @@ SCENE_TYR_TEMPLE_INTERIOR = {
                 },
             ],
         },
-        {"type": "pause"},
         {
             "type": "italic",
             "text": (
@@ -296,6 +302,37 @@ SCENE_TYR_TEMPLE_INTERIOR = {
         {
             "type": "prose",
             "text": "He looks at you without accusation. That is almost worse.",
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"stat_gte": "brutality", "value": 40},
+                    "text": (
+                        "His eye settles on your hands for a moment. "
+                        "Not on the sword. On the hands. "
+                        "He does not say what he sees there. "
+                        "He does not need to."
+                    ),
+                },
+                {
+                    "condition": {"stat_gte": "honour", "value": 70},
+                    "text": (
+                        "He tilts his head — slightly. "
+                        "As if what he sees in front of him "
+                        "and the charge he is here to weigh "
+                        "do not quite fit each other."
+                    ),
+                },
+                {
+                    "condition": {"stat_gte": "mercy", "value": 20},
+                    "text": (
+                        "He looks at you with something that is not quite recognition. "
+                        "As if he has met men who came to him with open hands before, "
+                        "and it always surprises him."
+                    ),
+                },
+            ],
         },
         {
             "type": "italic",
@@ -448,6 +485,17 @@ SCENE_TYR_JUDGEMENT = {
                 "He simply named what happened and stood beside the naming of it. "
                 "That is, you think, the most honest thing anyone has done "
                 "since you woke."
+            ),
+        },
+        {
+            "type": "italic",
+            "text": (
+                '"Hel does not collect the guilty and the innocent differently," '
+                "he says. "
+                '"She collects the dead. '
+                "What is done with them after — that is not her work alone. "
+                "There are older custodians. Older debts. "
+                'You are going to one of them."'
             ),
         },
         {
@@ -650,6 +698,29 @@ SCENE_ODIN_APPEARS = {
             ),
         },
         {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"flag": "wolf_spared"},
+                    "text": (
+                        "It is facing you. Not threatening. "
+                        "Something that is not quite recognition — "
+                        "closer to the acknowledgement between two things "
+                        "that have stood at the same edge and chosen differently."
+                    ),
+                },
+                {
+                    "condition": {"flag": "wolf_killed"},
+                    "text": (
+                        "It should not be here. "
+                        "You know what you did. "
+                        "It watches you anyway, without accusation. "
+                        "That is harder than accusation would have been."
+                    ),
+                },
+            ],
+        },
+        {
             "type": "italic",
             "text": (
                 "The wolf in the mist. The raven at the crossroads. "
@@ -716,6 +787,32 @@ SCENE_ODIN_CONFRONTATION = {
         {
             "type": "italic",
             "text": '"Not all of it," he says. "Enough of it."',
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"flag": "wolf_spared"},
+                    "text": (
+                        "He glances toward the fog — where the wolf stands. "
+                        '"That one is not mine," he says. '
+                        '"It was here before me. '
+                        "Some things in this place predate my reach. "
+                        "I find them useful. I do not own them. "
+                        'What you did there — that was yours."'
+                    ),
+                },
+                {
+                    "condition": {"flag": "wolf_killed"},
+                    "text": (
+                        "He glances toward the fog. "
+                        '"You killed what you did not understand," he says. '
+                        '"I am not certain you were wrong to. '
+                        "I am not certain you were right. "
+                        'That is the honest answer. I deal in honest answers."'
+                    ),
+                },
+            ],
         },
         {
             "type": "prose",
