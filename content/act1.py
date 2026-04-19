@@ -321,7 +321,7 @@ SCENE_SOUL_LEIF = {
             "type": "italic",
             "text": '"Everyone here is dead," he says. "I watched them fall. I fell. You fell."',
         },
-        {"type": "pause"},
+        {"type": "delay", "seconds": 1.5},
         {
             "type": "italic",
             "text": '"Your name is—" He stops. His eyes go strange. "I cannot remember your name. I knew it. An hour ago I knew it."',
@@ -386,7 +386,7 @@ SCENE_LEIF_GIVES_NAME = {
             "type": "italic",
             "text": '"You were Gunnar\'s man," Leif says. "His second. His most trusted. Until the night you weren\'t."',
         },
-        {"type": "pause"},
+        {"type": "delay", "seconds": 1.5},
     ],
     "choices": [
         {
@@ -418,7 +418,7 @@ SCENE_LEIF_THE_OATH = {
                 'you were not there."'
             ),
         },
-        {"type": "pause"},
+        {"type": "delay", "seconds": 1.5},
         {
             "type": "italic",
             "text": '"He held the line. Forty of them, eight of us, without you. He held it until there was nothing left to hold."',
@@ -1249,7 +1249,7 @@ SCENE_SCAVENGE_EAST = {
                 "deciding that it has unfinished business."
             ),
         },
-        {"type": "pause", "msg": "  [ you are not alone ]"},
+        {"type": "italic", "text": "[ you are not alone ]"},
     ],
     "choices": [
         {
@@ -1467,7 +1467,7 @@ SCENE_THE_MOUND = {
             "type": "italic",
             "text": '"I knew you would come here," says Gunnar. "This is where oathbreakers end up."',
         },
-        {"type": "pause"},
+        {"type": "delay", "seconds": 1.5},
         {
             "type": "memory",
             "key": "the_death",
@@ -1579,7 +1579,7 @@ SCENE_GUNNAR_DIALOGUE_TRUTH = {
             "type": "italic",
             "text": '"You left your position. You left us. In forty years of war, I trusted three men with my life. You were the last."',
         },
-        {"type": "pause"},
+        {"type": "delay", "seconds": 1.5},
         {
             "type": "memory",
             "key": "the_truth",
