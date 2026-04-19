@@ -657,6 +657,30 @@ SCENE_CROSSROADS_MEMORY = {
             ),
         },
         {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {
+                        "and": [
+                            {"has_item": "Leif's token"},
+                            {"has_item": "runic token"},
+                        ]
+                    },
+                    "text": (
+                        "Something shifts in your hand — not the key. "
+                        "The other things you are carrying. "
+                        "Leif's token, warm. "
+                        "The hermit's token, warm. "
+                        "Two men who knew what you were before you did. "
+                        "One who died with it. One who has been waiting long enough "
+                        "to remember when oaths were still new. "
+                        "Both of them gave you something and said: you will know. "
+                        "You know."
+                    ),
+                },
+            ],
+        },
+        {
             "type": "prose",
             "text": (
                 "The fog shifts. Not much. "
