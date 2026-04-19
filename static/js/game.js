@@ -7,8 +7,10 @@ const ART_BASE = "/static/svg/";
 const ART_FALLBACK = "battlefield";
 
 // ── Prose timing ──────────────────────────────────────────────
-const BASE_DELAY_MS = 800; // delay before first paragraph
-const PARA_GAP_MS = 1100; // delay between paragraphs
+const BASE_DELAY_MS = 800;
+const PARA_GAP_MS = 1100;
+const POST_PROSE_DELAY_MS = 500;
+const CHOICE_GAP_MS = 150;
 
 // Art key aliases — use a different image file but trigger different music
 const ART_ALIASES = {
@@ -330,29 +332,30 @@ function renderScene(data) {
   proseEl.scrollTop = 0;
   // Add paragraphs via setTimeout so the container grows as content appears
   // (avoids invisible-but-present DOM nodes making scroll show blank space)
-  let paraIdx = 0;
-  (data.paragraphs || []).forEach((p) => {
-    if (p.type === "memory") return;
-    const delay = BASE_DELAY_MS + paraIdx * PARA_GAP_MS;
-    setTimeout(() => {
-      const div = document.createElement("div");
-      let cls = "prose-block";
-      if (p.type === "italic") cls += " italic";
-      if (p.type === "memory") cls += " memory-block";
-      div.className = cls;
-      div.textContent = p.type === "italic" ? `"${p.text}"` : p.text;
-      proseEl.appendChild(div);
-      proseEl.scrollTop = proseEl.scrollHeight;
-    }, delay);
-    paraIdx++;
+  const paras = (data.paragraphs || []).filter((p) => p.type !== "memory");
+  paras.forEach((p, i) => {
+    setTimeout(
+      () => {
+        const div = document.createElement("div");
+        let cls = "prose-block";
+        if (p.type === "italic") cls += " italic";
+        div.className = cls;
+        div.textContent = p.type === "italic" ? `"${p.text}"` : p.text;
+        proseEl.appendChild(div);
+        proseEl.scrollTop = proseEl.scrollHeight;
+      },
+      BASE_DELAY_MS + i * PARA_GAP_MS,
+    );
   });
+  const paraIdx = paras.length;
 
   // ── Name input ────────────────────────────────────────────
   const nameWrap = $("name-input-wrap");
   $("name-input").value = "";
   nameWrap.classList.add("hidden");
   if (data.name_prompt && (data.choices || []).length === 0) {
-    const afterProse = BASE_DELAY_MS + (paraIdx || 0) * PARA_GAP_MS + 500;
+    const afterProse =
+      BASE_DELAY_MS + paraIdx * PARA_GAP_MS + POST_PROSE_DELAY_MS;
     setTimeout(() => {
       nameWrap.classList.remove("hidden");
       setTimeout(() => $("name-input").focus(), 200);
@@ -360,7 +363,7 @@ function renderScene(data) {
   }
 
   // ── Choices ───────────────────────────────────────────────
-  renderChoices(data.choices || [], data.next, data.name_prompt, paraIdx);
+  renderChoices(data.choices || [], data.next, data.name_prompt, paras.length);
 }
 
 function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
@@ -368,9 +371,9 @@ function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
   wrap.innerHTML = "";
 
   // Choices appear after prose — delay based on how many paragraphs came before
-  const CHOICE_GAP = 0.15;
   const afterProse =
-    (BASE_DELAY_MS + (paraCount || 0) * PARA_GAP_MS + 500) / 1000;
+    (BASE_DELAY_MS + (paraCount || 0) * PARA_GAP_MS + POST_PROSE_DELAY_MS) /
+    1000;
 
   if (autoNext) {
     const btn = document.createElement("button");
@@ -390,7 +393,7 @@ function renderChoices(choices, autoNext, hasNamePrompt, paraCount) {
     btn.className = "choice-btn";
     btn.dataset.num = i + 1;
     btn.textContent = choice.label;
-    btn.style.animationDelay = `${afterProse + i * CHOICE_GAP}s`;
+    btn.style.animationDelay = `${afterProse + (i * CHOICE_GAP_MS) / 1000}s`;
     btn.style.pointerEvents = "none";
     btn.addEventListener("animationend", () => (btn.style.pointerEvents = ""));
     btn.addEventListener("mouseenter", () => SoundEngine.playSfx("choice"));
