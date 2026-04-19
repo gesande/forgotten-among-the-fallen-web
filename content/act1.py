@@ -217,15 +217,45 @@ SCENE_BATTLEFIELD_OPEN = {
             ],
         },
         {
-            "type": "prose",
-            "text": (
-                "To the north, a structure — or what is left of one. "
-                "The ribs of a longhouse, collapsed inward. "
-                "To the east, the battlefield thickens. "
-                "Bodies upon bodies. The fighting was densest there. "
-                "Closer, perhaps thirty paces west, a man sits against a shattered shield-wall. "
-                "He is not one of the dead. Not yet."
-            ),
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"flag": "leif_done"},
+                    "text": (
+                        "To the north, a structure — or what is left of one. "
+                        "The ribs of a longhouse, collapsed inward. "
+                        "To the east, the battlefield thickens. "
+                        "Bodies upon bodies. The fighting was densest there. "
+                        "The shield-wall to the west is empty now. "
+                        "He is gone."
+                    ),
+                },
+                {
+                    "text": (
+                        "To the north, a structure — or what is left of one. "
+                        "The ribs of a longhouse, collapsed inward. "
+                        "To the east, the battlefield thickens. "
+                        "Bodies upon bodies. The fighting was densest there. "
+                        "Closer, perhaps thirty paces west, a man sits against a shattered shield-wall. "
+                        "He is not one of the dead. Not yet."
+                    ),
+                },
+            ],
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"flag": "leif_done"},
+                    "text": (
+                        "To the south, the mound rises against the pale sky. "
+                        "There is a figure at its crown — a silhouette, standing still. "
+                        "Facing this direction. "
+                        "You have been aware of it since you arrived. "
+                        "It has not moved."
+                    ),
+                },
+            ],
         },
     ],
     "choices": [
@@ -233,6 +263,16 @@ SCENE_BATTLEFIELD_OPEN = {
             "label": "Go to the man against the shield-wall.",
             "next": "soul_leif",
             "condition": {"not": {"flag": "leif_done"}},
+        },
+        {
+            "label": "Search the mud for a weapon. The dead have no use for theirs.",
+            "next": "find_weapon",
+            "condition": {
+                "and": [
+                    {"not": {"has_item": "rusted axe"}},
+                    {"not": {"flag": "axe_sharpened"}},
+                ]
+            },
         },
         {
             "label": "Search the longhouse ruins to the north.",
@@ -891,6 +931,19 @@ SCENE_LEIF_BATTLE_ACCOUNT = {
                 "and no one survives to account for it."
             ),
         },
+        {
+            "type": "memory",
+            "key": "leif_account",
+            "label": "Leif's account of the battle",
+            "text": (
+                "A rout. Both sides. "
+                "The Svear came from the east ridge at dawn. "
+                "There was a scout there — someone who should have seen them. "
+                "Leif says they never found the scout. "
+                "He said it without accusation, the way people say things "
+                "when they have given up needing an explanation."
+            ),
+        },
     ],
     "next": "leif_gives_name",
 }
@@ -1339,7 +1392,119 @@ SCENE_SCAVENGE_EAST_AFTER = {
             ),
         },
     ],
-    "next": "battlefield_open",
+    "choices": [
+        {
+            "label": "Push further east — along the ridge.",
+            "next": "eastern_ridge",
+            "condition": {"not": {"flag": "eastern_ridge_seen"}},
+        },
+        {
+            "label": "Return to the battlefield.",
+            "next": "battlefield_open",
+        },
+    ],
+}
+
+# ─────────────────────────────────────────────────────────────
+#  EASTERN RIDGE — Gunnar's last stand
+# ─────────────────────────────────────────────────────────────
+SCENE_EASTERN_RIDGE = {
+    "art": "scavenge",
+    "header": {
+        "title": "THE EASTERN RIDGE",
+        "subtitle": "Where eight men held against forty",
+    },
+    "beats": [
+        {"type": "flag", "key": "eastern_ridge_seen"},
+        {
+            "type": "prose",
+            "text": (
+                "The ground rises here — a low earthen ridge, "
+                "barely more than a fold in the terrain, "
+                "but enough to form a line. "
+                "Someone used it. "
+                "You can see where they stood: the shield-rims pressed into the mud, "
+                "the spacing deliberate, the dead positioned with the patience of men "
+                "who knew they were not going anywhere."
+            ),
+        },
+        {
+            "type": "prose",
+            "text": (
+                "Eight of them. "
+                "You count the gaps in the line, count the bodies behind it, "
+                "count the enemy dead piled in front. "
+                "Forty, maybe more. "
+                "They held — that part is written in the earth. "
+                "They held until something broke in the centre of the field, "
+                "and then the line became irrelevant."
+            ),
+        },
+        {
+            "type": "conditional_prose",
+            "variants": [
+                {
+                    "condition": {"memory": "leif_account"},
+                    "text": (
+                        "Leif mentioned this. Eight men, ordered to hold the ridge. "
+                        "He said it simply, the way people say things they have had "
+                        "a long time to make peace with. "
+                        "They held. "
+                        "The centre did not."
+                    ),
+                },
+                {
+                    "text": (
+                        "Something about this formation is familiar. "
+                        "Not as a memory — as a shape. "
+                        "The way a word is familiar before you can say it."
+                    ),
+                },
+            ],
+        },
+        {
+            "type": "prose",
+            "text": (
+                "There is a gap in the line. "
+                "Second from the left, between a man with a broken spear "
+                "and a man whose face you cannot see. "
+                "The gap is clean — no body, no equipment, no blood in the mud. "
+                "Someone was supposed to stand here. "
+                "Someone left before it started."
+            ),
+        },
+        {"type": "delay", "seconds": 1.5},
+        {
+            "type": "italic",
+            "text": (
+                "Not running. "
+                "You were not running. "
+                "You remember that much — the way your feet moved, "
+                "deliberate, unhurried, "
+                "as though you had somewhere else to be. "
+                "The screaming started after you were already gone."
+            ),
+        },
+        {
+            "type": "memory",
+            "key": "the_broken_oath",
+            "label": "The shape of the thing you did",
+            "text": (
+                "You did not flee. "
+                "That is almost worse. "
+                "You walked away from your position on the eastern ridge "
+                "before the fighting reached you. "
+                "Eight men held. You were the ninth. "
+                "The gap in the line is yours."
+            ),
+        },
+    ],
+    "choices": [
+        {
+            "label": "Return to the battlefield.",
+            "next": "battlefield_open",
+        },
+    ],
 }
 
 # ─────────────────────────────────────────────────────────────
@@ -1455,6 +1620,17 @@ SCENE_THE_MOUND = {
                     ),
                 },
             ],
+        },
+        {
+            "type": "prose",
+            "text": (
+                "You approach. "
+                "His back is to you — broad shoulders, "
+                "the posture of a man who has been standing a long time "
+                "and intends to stand longer still. "
+                "He does not turn. "
+                "He already knew you were there."
+            ),
         },
         {
             "type": "prose",
@@ -1889,6 +2065,7 @@ SCENES = {
     "combat_wolf_battlefield": SCENE_COMBAT_WOLF_BATTLEFIELD,
     "combat_draugar_east": SCENE_COMBAT_DRAUGAR_EAST,
     "scavenge_east_after": SCENE_SCAVENGE_EAST_AFTER,
+    "eastern_ridge": SCENE_EASTERN_RIDGE,
     "the_mound": SCENE_THE_MOUND,
     "gunnar_dialogue_peace": SCENE_GUNNAR_DIALOGUE_PEACE,
     "gunnar_dialogue_challenge": SCENE_GUNNAR_DIALOGUE_CHALLENGE,
